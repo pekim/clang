@@ -11,9 +11,16 @@ var kindTypes = map[clang.TypeKind]jen.Code{
 }
 
 type enum struct {
-	name       string
-	typ        jen.Code
-	commentDoc string
+	name    string
+	typ     jen.Code
+	comment string
+	members []enumMember
+}
+
+type enumMember struct {
+	name    string
+	value   int
+	comment string
 }
 
 type enums struct {
@@ -27,11 +34,27 @@ func (enums *enums) add(cursor clang.Cursor) {
 		fatalf("unsupported integer type for enum : %s", kind)
 	}
 
-	enums.enums = append(enums.enums, enum{
-		name:       cursor.Spelling(),
-		typ:        typ,
-		commentDoc: commentText(cursor.ParsedComment()),
+	enum := enum{
+		name:    cursor.Spelling(),
+		typ:     typ,
+		comment: commentText(cursor.ParsedComment()),
+	}
+
+	cursor.Visit(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
+		if cursor.Kind() != clang.Cursor_EnumConstantDecl {
+			return clang.ChildVisit_Continue
+		}
+
+		enum.members = append(enum.members, enumMember{
+			name:    cursor.Spelling(),
+			value:   int(cursor.EnumConstantDeclValue()),
+			comment: commentText(cursor.ParsedComment()),
+		})
+
+		return clang.ChildVisit_Continue
 	})
+
+	enums.enums = append(enums.enums, enum)
 }
 
 func (enums *enums) generate() {
@@ -39,8 +62,16 @@ func (enums *enums) generate() {
 	defer file.save()
 
 	for _, enum := range enums.enums {
-		file.Comment(enum.commentDoc)
+		file.Comment(enum.comment)
 		file.Type().Id(enum.name).Add(enum.typ)
+		file.Line()
+
+		file.Const().DefsFunc(func(g *jen.Group) {
+			for _, member := range enum.members {
+				g.Comment(member.comment)
+				g.Id(member.name).Id(enum.name).Op("=").Lit(member.value)
+			}
+		})
 		file.Line()
 	}
 }

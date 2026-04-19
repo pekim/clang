@@ -2,6 +2,7 @@ package generate
 
 import (
 	"fmt"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/dave/jennifer/jen"
@@ -30,10 +31,17 @@ func (f file) save() {
 	filename := filepath.Join(f.packageDir, f.filename+".go")
 	err := f.Save(filename)
 	if err != nil {
-		fmt.Printf("failed to format source, writing unformatted source to %s\n", filename)
-		f.NoFormat = true
-		err := f.Save(filename)
 		fatalOnError(err)
+	}
+
+	cmd := exec.Command("gofmt", "-w", filename)
+	fmtOutput, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("failed to format %s\n", filename)
+		fatalOnError(err)
+	}
+	if len(fmtOutput) > 0 {
+		fmt.Println(string(fmtOutput))
 	}
 }
 
