@@ -2,68 +2,68 @@
 
 package clang
 
-type CXErrorCode uint32
+type ErrorCode uint32
 
 const (
-	CXError_Success          CXErrorCode = 0
-	CXError_Failure          CXErrorCode = 1
-	CXError_Crashed          CXErrorCode = 2
-	CXError_InvalidArguments CXErrorCode = 3
-	CXError_ASTReadError     CXErrorCode = 4
+	Error_Success          ErrorCode = 0
+	Error_Failure          ErrorCode = 1
+	Error_Crashed          ErrorCode = 2
+	Error_InvalidArguments ErrorCode = 3
+	Error_ASTReadError     ErrorCode = 4
 )
 
-type CXDiagnosticSeverity uint32
+type DiagnosticSeverity uint32
 
 const (
-	CXDiagnostic_Ignored CXDiagnosticSeverity = 0
-	CXDiagnostic_Note    CXDiagnosticSeverity = 1
-	CXDiagnostic_Warning CXDiagnosticSeverity = 2
-	CXDiagnostic_Error   CXDiagnosticSeverity = 3
-	CXDiagnostic_Fatal   CXDiagnosticSeverity = 4
+	Diagnostic_Ignored DiagnosticSeverity = 0
+	Diagnostic_Note    DiagnosticSeverity = 1
+	Diagnostic_Warning DiagnosticSeverity = 2
+	Diagnostic_Error   DiagnosticSeverity = 3
+	Diagnostic_Fatal   DiagnosticSeverity = 4
 )
 
-type CXLoadDiag_Error uint32
+type LoadDiag_Error uint32
 
 const (
-	CXLoadDiag_None        CXLoadDiag_Error = 0
-	CXLoadDiag_Unknown     CXLoadDiag_Error = 1
-	CXLoadDiag_CannotLoad  CXLoadDiag_Error = 2
-	CXLoadDiag_InvalidFile CXLoadDiag_Error = 3
+	LoadDiag_None        LoadDiag_Error = 0
+	LoadDiag_Unknown     LoadDiag_Error = 1
+	LoadDiag_CannotLoad  LoadDiag_Error = 2
+	LoadDiag_InvalidFile LoadDiag_Error = 3
 )
 
-type CXDiagnosticDisplayOptions uint32
+type DiagnosticDisplayOptions uint32
 
 const (
-	CXDiagnostic_DisplaySourceLocation CXDiagnosticDisplayOptions = 1
-	CXDiagnostic_DisplayColumn         CXDiagnosticDisplayOptions = 2
-	CXDiagnostic_DisplaySourceRanges   CXDiagnosticDisplayOptions = 4
-	CXDiagnostic_DisplayOption         CXDiagnosticDisplayOptions = 8
-	CXDiagnostic_DisplayCategoryId     CXDiagnosticDisplayOptions = 16
-	CXDiagnostic_DisplayCategoryName   CXDiagnosticDisplayOptions = 32
+	Diagnostic_DisplaySourceLocation DiagnosticDisplayOptions = 1
+	Diagnostic_DisplayColumn         DiagnosticDisplayOptions = 2
+	Diagnostic_DisplaySourceRanges   DiagnosticDisplayOptions = 4
+	Diagnostic_DisplayOption         DiagnosticDisplayOptions = 8
+	Diagnostic_DisplayCategoryId     DiagnosticDisplayOptions = 16
+	Diagnostic_DisplayCategoryName   DiagnosticDisplayOptions = 32
 )
 
 /*
 Describes the availability of a particular entity, which indicates whether the use of this entity will result in a warning or error due to it being deprecated or unavailable.
 */
-type CXAvailabilityKind uint32
+type AvailabilityKind uint32
 
 const (
 	/*
 	   The entity is available.
 	*/
-	CXAvailability_Available CXAvailabilityKind = 0
+	Availability_Available AvailabilityKind = 0
 	/*
 	   The entity is available, but has been deprecated (and its use is not recommended).
 	*/
-	CXAvailability_Deprecated CXAvailabilityKind = 1
+	Availability_Deprecated AvailabilityKind = 1
 	/*
 	   The entity is not available; any use of it will be an error.
 	*/
-	CXAvailability_NotAvailable CXAvailabilityKind = 2
+	Availability_NotAvailable AvailabilityKind = 2
 	/*
 	   The entity is available, but not accessible; any use of it will be an error.
 	*/
-	CXAvailability_NotAccessible CXAvailabilityKind = 3
+	Availability_NotAccessible AvailabilityKind = 3
 )
 
 /*
@@ -71,91 +71,91 @@ Describes the exception specification of a cursor.
 
 A negative value indicates that the cursor is not a function declaration.
 */
-type CXCursor_ExceptionSpecificationKind uint32
+type Cursor_ExceptionSpecificationKind uint32
 
 const (
 	/*
 	   The cursor has no exception specification.
 	*/
-	CXCursor_ExceptionSpecificationKind_None CXCursor_ExceptionSpecificationKind = 0
+	Cursor_ExceptionSpecificationKind_None Cursor_ExceptionSpecificationKind = 0
 	/*
 	   The cursor has exception specification throw()
 	*/
-	CXCursor_ExceptionSpecificationKind_DynamicNone CXCursor_ExceptionSpecificationKind = 1
+	Cursor_ExceptionSpecificationKind_DynamicNone Cursor_ExceptionSpecificationKind = 1
 	/*
 	   The cursor has exception specification throw(T1, T2)
 	*/
-	CXCursor_ExceptionSpecificationKind_Dynamic CXCursor_ExceptionSpecificationKind = 2
+	Cursor_ExceptionSpecificationKind_Dynamic Cursor_ExceptionSpecificationKind = 2
 	/*
 	   The cursor has exception specification throw(...).
 	*/
-	CXCursor_ExceptionSpecificationKind_MSAny CXCursor_ExceptionSpecificationKind = 3
+	Cursor_ExceptionSpecificationKind_MSAny Cursor_ExceptionSpecificationKind = 3
 	/*
 	   The cursor has exception specification basic noexcept.
 	*/
-	CXCursor_ExceptionSpecificationKind_BasicNoexcept CXCursor_ExceptionSpecificationKind = 4
+	Cursor_ExceptionSpecificationKind_BasicNoexcept Cursor_ExceptionSpecificationKind = 4
 	/*
 	   The cursor has exception specification computed noexcept.
 	*/
-	CXCursor_ExceptionSpecificationKind_ComputedNoexcept CXCursor_ExceptionSpecificationKind = 5
+	Cursor_ExceptionSpecificationKind_ComputedNoexcept Cursor_ExceptionSpecificationKind = 5
 	/*
 	   The exception specification has not yet been evaluated.
 	*/
-	CXCursor_ExceptionSpecificationKind_Unevaluated CXCursor_ExceptionSpecificationKind = 6
+	Cursor_ExceptionSpecificationKind_Unevaluated Cursor_ExceptionSpecificationKind = 6
 	/*
 	   The exception specification has not yet been instantiated.
 	*/
-	CXCursor_ExceptionSpecificationKind_Uninstantiated CXCursor_ExceptionSpecificationKind = 7
+	Cursor_ExceptionSpecificationKind_Uninstantiated Cursor_ExceptionSpecificationKind = 7
 	/*
 	   The exception specification has not been parsed yet.
 	*/
-	CXCursor_ExceptionSpecificationKind_Unparsed CXCursor_ExceptionSpecificationKind = 8
+	Cursor_ExceptionSpecificationKind_Unparsed Cursor_ExceptionSpecificationKind = 8
 	/*
 	   The cursor has a __declspec(nothrow) exception specification.
 	*/
-	CXCursor_ExceptionSpecificationKind_NoThrow CXCursor_ExceptionSpecificationKind = 9
+	Cursor_ExceptionSpecificationKind_NoThrow Cursor_ExceptionSpecificationKind = 9
 )
 
-type CXChoice uint32
+type Choice uint32
 
 const (
 	/*
 	   Use the default value of an option that may depend on the process environment.
 	*/
-	CXChoice_Default CXChoice = 0
+	Choice_Default Choice = 0
 	/*
 	   Enable the option.
 	*/
-	CXChoice_Enabled CXChoice = 1
+	Choice_Enabled Choice = 1
 	/*
 	   Disable the option.
 	*/
-	CXChoice_Disabled CXChoice = 2
+	Choice_Disabled Choice = 2
 )
 
-type CXGlobalOptFlags uint32
+type GlobalOptFlags uint32
 
 const (
 	/*
 	   Used to indicate that no special CXIndex options are needed.
 	*/
-	CXGlobalOpt_None CXGlobalOptFlags = 0
+	GlobalOpt_None GlobalOptFlags = 0
 	/*
 	   Used to indicate that threads that libclang creates for indexing purposes should use background priority.
 
 	   Affects #clang_indexSourceFile, #clang_indexTranslationUnit, #clang_parseTranslationUnit, #clang_saveTranslationUnit.
 	*/
-	CXGlobalOpt_ThreadBackgroundPriorityForIndexing CXGlobalOptFlags = 1
+	GlobalOpt_ThreadBackgroundPriorityForIndexing GlobalOptFlags = 1
 	/*
 	   Used to indicate that threads that libclang creates for editing purposes should use background priority.
 
 	   Affects #clang_reparseTranslationUnit, #clang_codeCompleteAt, #clang_annotateTokens
 	*/
-	CXGlobalOpt_ThreadBackgroundPriorityForEditing CXGlobalOptFlags = 2
+	GlobalOpt_ThreadBackgroundPriorityForEditing GlobalOptFlags = 2
 	/*
 	   Used to indicate that all threads that libclang creates should use background priority.
 	*/
-	CXGlobalOpt_ThreadBackgroundPriorityForAll CXGlobalOptFlags = 3
+	GlobalOpt_ThreadBackgroundPriorityForAll GlobalOptFlags = 3
 )
 
 /*
@@ -163,97 +163,97 @@ Flags that control the creation of translation units.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when constructing the translation unit.
 */
-type CXTranslationUnit_Flags uint32
+type TranslationUnit_Flags uint32
 
 const (
 	/*
 	   Used to indicate that no special translation-unit options are needed.
 	*/
-	CXTranslationUnit_None CXTranslationUnit_Flags = 0
+	TranslationUnit_None TranslationUnit_Flags = 0
 	/*
 	   Used to indicate that the parser should construct a "detailed" preprocessing record, including all macro definitions and instantiations.
 
 	   Constructing a detailed preprocessing record requires more memory and time to parse, since the information contained in the record is usually not retained. However, it can be useful for applications that require more detailed information about the behavior of the preprocessor.
 	*/
-	CXTranslationUnit_DetailedPreprocessingRecord CXTranslationUnit_Flags = 1
+	TranslationUnit_DetailedPreprocessingRecord TranslationUnit_Flags = 1
 	/*
 	   Used to indicate that the translation unit is incomplete.
 
 	   When a translation unit is considered "incomplete", semantic analysis that is typically performed at the end of the translation unit will be suppressed. For example, this suppresses the completion of tentative declarations in C and of instantiation of implicitly-instantiation function templates in C++. This option is typically used when parsing a header with the intent of producing a precompiled header.
 	*/
-	CXTranslationUnit_Incomplete CXTranslationUnit_Flags = 2
+	TranslationUnit_Incomplete TranslationUnit_Flags = 2
 	/*
 	   Used to indicate that the translation unit should be built with an implicit precompiled header for the preamble.
 
 	   An implicit precompiled header is used as an optimization when a particular translation unit is likely to be reparsed many times when the sources aren't changing that often. In this case, an implicit precompiled header will be built containing all of the initial includes at the top of the main file (what we refer to as the "preamble" of the file). In subsequent parses, if the preamble or the files in it have not changed, clang_reparseTranslationUnit() will re-use the implicit precompiled header to improve parsing performance.
 	*/
-	CXTranslationUnit_PrecompiledPreamble CXTranslationUnit_Flags = 4
+	TranslationUnit_PrecompiledPreamble TranslationUnit_Flags = 4
 	/*
 	   Used to indicate that the translation unit should cache some code-completion results with each reparse of the source file.
 
 	   Caching of code-completion results is a performance optimization that introduces some overhead to reparsing but improves the performance of code-completion operations.
 	*/
-	CXTranslationUnit_CacheCompletionResults CXTranslationUnit_Flags = 8
+	TranslationUnit_CacheCompletionResults TranslationUnit_Flags = 8
 	/*
 	   Used to indicate that the translation unit will be serialized with clang_saveTranslationUnit.
 
 	   This option is typically used when parsing a header with the intent of producing a precompiled header.
 	*/
-	CXTranslationUnit_ForSerialization CXTranslationUnit_Flags = 16
+	TranslationUnit_ForSerialization TranslationUnit_Flags = 16
 	/*
 	   DEPRECATED: Enabled chained precompiled preambles in C++.
 
 	   Note: this is a *temporary* option that is available only while we are testing C++ precompiled preamble support. It is deprecated.
 	*/
-	CXTranslationUnit_CXXChainedPCH CXTranslationUnit_Flags = 32
+	TranslationUnit_CXXChainedPCH TranslationUnit_Flags = 32
 	/*
 	   Used to indicate that function/method bodies should be skipped while parsing.
 
 	   This option can be used to search for declarations/definitions while ignoring the usages.
 	*/
-	CXTranslationUnit_SkipFunctionBodies CXTranslationUnit_Flags = 64
+	TranslationUnit_SkipFunctionBodies TranslationUnit_Flags = 64
 	/*
 	   Used to indicate that brief documentation comments should be included into the set of code completions returned from this translation unit.
 	*/
-	CXTranslationUnit_IncludeBriefCommentsInCodeCompletion CXTranslationUnit_Flags = 128
+	TranslationUnit_IncludeBriefCommentsInCodeCompletion TranslationUnit_Flags = 128
 	/*
 	   Used to indicate that the precompiled preamble should be created on the first parse. Otherwise it will be created on the first reparse. This trades runtime on the first parse (serializing the preamble takes time) for reduced runtime on the second parse (can now reuse the preamble).
 	*/
-	CXTranslationUnit_CreatePreambleOnFirstParse CXTranslationUnit_Flags = 256
+	TranslationUnit_CreatePreambleOnFirstParse TranslationUnit_Flags = 256
 	/*
 	   Do not stop processing when fatal errors are encountered.
 
 	   When fatal errors are encountered while parsing a translation unit, semantic analysis is typically stopped early when compiling code. A common source for fatal errors are unresolvable include files. For the purposes of an IDE, this is undesirable behavior and as much information as possible should be reported. Use this flag to enable this behavior.
 	*/
-	CXTranslationUnit_KeepGoing CXTranslationUnit_Flags = 512
+	TranslationUnit_KeepGoing TranslationUnit_Flags = 512
 	/*
 	   Sets the preprocessor in a mode for parsing a single file only.
 	*/
-	CXTranslationUnit_SingleFileParse CXTranslationUnit_Flags = 1024
+	TranslationUnit_SingleFileParse TranslationUnit_Flags = 1024
 	/*
 	   Used in combination with CXTranslationUnit_SkipFunctionBodies to constrain the skipping of function bodies to the preamble.
 
 	   The function bodies of the main file are not skipped.
 	*/
-	CXTranslationUnit_LimitSkipFunctionBodiesToPreamble CXTranslationUnit_Flags = 2048
+	TranslationUnit_LimitSkipFunctionBodiesToPreamble TranslationUnit_Flags = 2048
 	/*
 	   Used to indicate that attributed types should be included in CXType.
 	*/
-	CXTranslationUnit_IncludeAttributedTypes CXTranslationUnit_Flags = 4096
+	TranslationUnit_IncludeAttributedTypes TranslationUnit_Flags = 4096
 	/*
 	   Used to indicate that implicit attributes should be visited.
 	*/
-	CXTranslationUnit_VisitImplicitAttributes CXTranslationUnit_Flags = 8192
+	TranslationUnit_VisitImplicitAttributes TranslationUnit_Flags = 8192
 	/*
 	   Used to indicate that non-errors from included files should be ignored.
 
 	   If set, clang_getDiagnosticSetFromTU() will not report e.g. warnings from included files anymore. This speeds up clang_getDiagnosticSetFromTU() for the case where these warnings are not of interest, as for an IDE for example, which typically shows only the diagnostics in the main file.
 	*/
-	CXTranslationUnit_IgnoreNonErrorsFromIncludedFiles CXTranslationUnit_Flags = 16384
+	TranslationUnit_IgnoreNonErrorsFromIncludedFiles TranslationUnit_Flags = 16384
 	/*
 	   Tells the preprocessor not to skip excluded conditional blocks.
 	*/
-	CXTranslationUnit_RetainExcludedConditionalBlocks CXTranslationUnit_Flags = 32768
+	TranslationUnit_RetainExcludedConditionalBlocks TranslationUnit_Flags = 32768
 )
 
 /*
@@ -261,41 +261,41 @@ Flags that control how translation units are saved.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when saving the translation unit.
 */
-type CXSaveTranslationUnit_Flags uint32
+type SaveTranslationUnit_Flags uint32
 
 const (
 	/*
 	   Used to indicate that no special saving options are needed.
 	*/
-	CXSaveTranslationUnit_None CXSaveTranslationUnit_Flags = 0
+	SaveTranslationUnit_None SaveTranslationUnit_Flags = 0
 )
 
 /*
 Describes the kind of error that occurred (if any) in a call to clang_saveTranslationUnit().
 */
-type CXSaveError uint32
+type SaveError uint32
 
 const (
 	/*
 	   Indicates that no error occurred while saving a translation unit.
 	*/
-	CXSaveError_None CXSaveError = 0
+	SaveError_None SaveError = 0
 	/*
 	   Indicates that an unknown error occurred while attempting to save the file.
 
 	   This error typically indicates that file I/O failed when attempting to write the file.
 	*/
-	CXSaveError_Unknown CXSaveError = 1
+	SaveError_Unknown SaveError = 1
 	/*
 	   Indicates that errors during translation prevented this attempt to save the translation unit.
 
 	   Errors that prevent the translation unit from being saved can be extracted using clang_getNumDiagnostics() and clang_getDiagnostic().
 	*/
-	CXSaveError_TranslationErrors CXSaveError = 2
+	SaveError_TranslationErrors SaveError = 2
 	/*
 	   Indicates that the translation unit to be saved was somehow invalid (e.g., NULL).
 	*/
-	CXSaveError_InvalidTU CXSaveError = 3
+	SaveError_InvalidTU SaveError = 3
 )
 
 /*
@@ -303,45 +303,45 @@ Flags that control the reparsing of translation units.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when reparsing the translation unit.
 */
-type CXReparse_Flags uint32
+type Reparse_Flags uint32
 
 const (
 	/*
 	   Used to indicate that no special reparsing options are needed.
 	*/
-	CXReparse_None CXReparse_Flags = 0
+	Reparse_None Reparse_Flags = 0
 )
 
 /*
 Categorizes how memory is being used by a translation unit.
 */
-type CXTUResourceUsageKind uint32
+type TUResourceUsageKind uint32
 
 const (
-	CXTUResourceUsage_AST                                CXTUResourceUsageKind = 1
-	CXTUResourceUsage_Identifiers                        CXTUResourceUsageKind = 2
-	CXTUResourceUsage_Selectors                          CXTUResourceUsageKind = 3
-	CXTUResourceUsage_GlobalCompletionResults            CXTUResourceUsageKind = 4
-	CXTUResourceUsage_SourceManagerContentCache          CXTUResourceUsageKind = 5
-	CXTUResourceUsage_AST_SideTables                     CXTUResourceUsageKind = 6
-	CXTUResourceUsage_SourceManager_Membuffer_Malloc     CXTUResourceUsageKind = 7
-	CXTUResourceUsage_SourceManager_Membuffer_MMap       CXTUResourceUsageKind = 8
-	CXTUResourceUsage_ExternalASTSource_Membuffer_Malloc CXTUResourceUsageKind = 9
-	CXTUResourceUsage_ExternalASTSource_Membuffer_MMap   CXTUResourceUsageKind = 10
-	CXTUResourceUsage_Preprocessor                       CXTUResourceUsageKind = 11
-	CXTUResourceUsage_PreprocessingRecord                CXTUResourceUsageKind = 12
-	CXTUResourceUsage_SourceManager_DataStructures       CXTUResourceUsageKind = 13
-	CXTUResourceUsage_Preprocessor_HeaderSearch          CXTUResourceUsageKind = 14
-	CXTUResourceUsage_MEMORY_IN_BYTES_BEGIN              CXTUResourceUsageKind = 1
-	CXTUResourceUsage_MEMORY_IN_BYTES_END                CXTUResourceUsageKind = 14
-	CXTUResourceUsage_First                              CXTUResourceUsageKind = 1
-	CXTUResourceUsage_Last                               CXTUResourceUsageKind = 14
+	TUResourceUsage_AST                                TUResourceUsageKind = 1
+	TUResourceUsage_Identifiers                        TUResourceUsageKind = 2
+	TUResourceUsage_Selectors                          TUResourceUsageKind = 3
+	TUResourceUsage_GlobalCompletionResults            TUResourceUsageKind = 4
+	TUResourceUsage_SourceManagerContentCache          TUResourceUsageKind = 5
+	TUResourceUsage_AST_SideTables                     TUResourceUsageKind = 6
+	TUResourceUsage_SourceManager_Membuffer_Malloc     TUResourceUsageKind = 7
+	TUResourceUsage_SourceManager_Membuffer_MMap       TUResourceUsageKind = 8
+	TUResourceUsage_ExternalASTSource_Membuffer_Malloc TUResourceUsageKind = 9
+	TUResourceUsage_ExternalASTSource_Membuffer_MMap   TUResourceUsageKind = 10
+	TUResourceUsage_Preprocessor                       TUResourceUsageKind = 11
+	TUResourceUsage_PreprocessingRecord                TUResourceUsageKind = 12
+	TUResourceUsage_SourceManager_DataStructures       TUResourceUsageKind = 13
+	TUResourceUsage_Preprocessor_HeaderSearch          TUResourceUsageKind = 14
+	TUResourceUsage_MEMORY_IN_BYTES_BEGIN              TUResourceUsageKind = 1
+	TUResourceUsage_MEMORY_IN_BYTES_END                TUResourceUsageKind = 14
+	TUResourceUsage_First                              TUResourceUsageKind = 1
+	TUResourceUsage_Last                               TUResourceUsageKind = 14
 )
 
 /*
 Describes the kind of entity that a cursor refers to.
 */
-type CXCursorKind uint32
+type CursorKind uint32
 
 const (
 	/*
@@ -349,183 +349,183 @@ const (
 
 	   Unexposed declarations have the same operations as any other kind of declaration; one can extract their location information, spelling, find their definitions, etc. However, the specific kind of the declaration is not reported.
 	*/
-	CXCursor_UnexposedDecl CXCursorKind = 1
+	Cursor_UnexposedDecl CursorKind = 1
 	/*
 	   A C or C++ struct.
 	*/
-	CXCursor_StructDecl CXCursorKind = 2
+	Cursor_StructDecl CursorKind = 2
 	/*
 	   A C or C++ union.
 	*/
-	CXCursor_UnionDecl CXCursorKind = 3
+	Cursor_UnionDecl CursorKind = 3
 	/*
 	   A C++ class.
 	*/
-	CXCursor_ClassDecl CXCursorKind = 4
+	Cursor_ClassDecl CursorKind = 4
 	/*
 	   An enumeration.
 	*/
-	CXCursor_EnumDecl CXCursorKind = 5
+	Cursor_EnumDecl CursorKind = 5
 	/*
 	   A field (in C) or non-static data member (in C++) in a struct, union, or C++ class.
 	*/
-	CXCursor_FieldDecl CXCursorKind = 6
+	Cursor_FieldDecl CursorKind = 6
 	/*
 	   An enumerator constant.
 	*/
-	CXCursor_EnumConstantDecl CXCursorKind = 7
+	Cursor_EnumConstantDecl CursorKind = 7
 	/*
 	   A function.
 	*/
-	CXCursor_FunctionDecl CXCursorKind = 8
+	Cursor_FunctionDecl CursorKind = 8
 	/*
 	   A variable.
 	*/
-	CXCursor_VarDecl CXCursorKind = 9
+	Cursor_VarDecl CursorKind = 9
 	/*
 	   A function or method parameter.
 	*/
-	CXCursor_ParmDecl CXCursorKind = 10
+	Cursor_ParmDecl CursorKind = 10
 	/*
 	   An Objective-C @interface.
 	*/
-	CXCursor_ObjCInterfaceDecl CXCursorKind = 11
+	Cursor_ObjCInterfaceDecl CursorKind = 11
 	/*
 	   An Objective-C @interface for a category.
 	*/
-	CXCursor_ObjCCategoryDecl CXCursorKind = 12
+	Cursor_ObjCCategoryDecl CursorKind = 12
 	/*
 	   An Objective-C @protocol declaration.
 	*/
-	CXCursor_ObjCProtocolDecl CXCursorKind = 13
+	Cursor_ObjCProtocolDecl CursorKind = 13
 	/*
 	   An Objective-C @property declaration.
 	*/
-	CXCursor_ObjCPropertyDecl CXCursorKind = 14
+	Cursor_ObjCPropertyDecl CursorKind = 14
 	/*
 	   An Objective-C instance variable.
 	*/
-	CXCursor_ObjCIvarDecl CXCursorKind = 15
+	Cursor_ObjCIvarDecl CursorKind = 15
 	/*
 	   An Objective-C instance method.
 	*/
-	CXCursor_ObjCInstanceMethodDecl CXCursorKind = 16
+	Cursor_ObjCInstanceMethodDecl CursorKind = 16
 	/*
 	   An Objective-C class method.
 	*/
-	CXCursor_ObjCClassMethodDecl CXCursorKind = 17
+	Cursor_ObjCClassMethodDecl CursorKind = 17
 	/*
 	   An Objective-C @implementation.
 	*/
-	CXCursor_ObjCImplementationDecl CXCursorKind = 18
+	Cursor_ObjCImplementationDecl CursorKind = 18
 	/*
 	   An Objective-C @implementation for a category.
 	*/
-	CXCursor_ObjCCategoryImplDecl CXCursorKind = 19
+	Cursor_ObjCCategoryImplDecl CursorKind = 19
 	/*
 	   A typedef.
 	*/
-	CXCursor_TypedefDecl CXCursorKind = 20
+	Cursor_TypedefDecl CursorKind = 20
 	/*
 	   A C++ class method.
 	*/
-	CXCursor_CXXMethod CXCursorKind = 21
+	Cursor_CXXMethod CursorKind = 21
 	/*
 	   A C++ namespace.
 	*/
-	CXCursor_Namespace CXCursorKind = 22
+	Cursor_Namespace CursorKind = 22
 	/*
 	   A linkage specification, e.g. 'extern "C"'.
 	*/
-	CXCursor_LinkageSpec CXCursorKind = 23
+	Cursor_LinkageSpec CursorKind = 23
 	/*
 	   A C++ constructor.
 	*/
-	CXCursor_Constructor CXCursorKind = 24
+	Cursor_Constructor CursorKind = 24
 	/*
 	   A C++ destructor.
 	*/
-	CXCursor_Destructor CXCursorKind = 25
+	Cursor_Destructor CursorKind = 25
 	/*
 	   A C++ conversion function.
 	*/
-	CXCursor_ConversionFunction CXCursorKind = 26
+	Cursor_ConversionFunction CursorKind = 26
 	/*
 	   A C++ template type parameter.
 	*/
-	CXCursor_TemplateTypeParameter CXCursorKind = 27
+	Cursor_TemplateTypeParameter CursorKind = 27
 	/*
 	   A C++ non-type template parameter.
 	*/
-	CXCursor_NonTypeTemplateParameter CXCursorKind = 28
+	Cursor_NonTypeTemplateParameter CursorKind = 28
 	/*
 	   A C++ template template parameter.
 	*/
-	CXCursor_TemplateTemplateParameter CXCursorKind = 29
+	Cursor_TemplateTemplateParameter CursorKind = 29
 	/*
 	   A C++ function template.
 	*/
-	CXCursor_FunctionTemplate CXCursorKind = 30
+	Cursor_FunctionTemplate CursorKind = 30
 	/*
 	   A C++ class template.
 	*/
-	CXCursor_ClassTemplate CXCursorKind = 31
+	Cursor_ClassTemplate CursorKind = 31
 	/*
 	   A C++ class template partial specialization.
 	*/
-	CXCursor_ClassTemplatePartialSpecialization CXCursorKind = 32
+	Cursor_ClassTemplatePartialSpecialization CursorKind = 32
 	/*
 	   A C++ namespace alias declaration.
 	*/
-	CXCursor_NamespaceAlias CXCursorKind = 33
+	Cursor_NamespaceAlias CursorKind = 33
 	/*
 	   A C++ using directive.
 	*/
-	CXCursor_UsingDirective CXCursorKind = 34
+	Cursor_UsingDirective CursorKind = 34
 	/*
 	   A C++ using declaration.
 	*/
-	CXCursor_UsingDeclaration CXCursorKind = 35
+	Cursor_UsingDeclaration CursorKind = 35
 	/*
 	   A C++ alias declaration
 	*/
-	CXCursor_TypeAliasDecl CXCursorKind = 36
+	Cursor_TypeAliasDecl CursorKind = 36
 	/*
 	   An Objective-C @synthesize definition.
 	*/
-	CXCursor_ObjCSynthesizeDecl CXCursorKind = 37
+	Cursor_ObjCSynthesizeDecl CursorKind = 37
 	/*
 	   An Objective-C @dynamic definition.
 	*/
-	CXCursor_ObjCDynamicDecl CXCursorKind = 38
+	Cursor_ObjCDynamicDecl CursorKind = 38
 	/*
 	   An access specifier.
 	*/
-	CXCursor_CXXAccessSpecifier CXCursorKind = 39
+	Cursor_CXXAccessSpecifier CursorKind = 39
 	/*
 	   An access specifier.
 	*/
-	CXCursor_FirstDecl CXCursorKind = 1
+	Cursor_FirstDecl CursorKind = 1
 	/*
 	   An access specifier.
 	*/
-	CXCursor_LastDecl CXCursorKind = 39
+	Cursor_LastDecl CursorKind = 39
 	/*
 	   An access specifier.
 	*/
-	CXCursor_FirstRef CXCursorKind = 40
+	Cursor_FirstRef CursorKind = 40
 	/*
 	   An access specifier.
 	*/
-	CXCursor_ObjCSuperClassRef CXCursorKind = 40
+	Cursor_ObjCSuperClassRef CursorKind = 40
 	/*
 	   An access specifier.
 	*/
-	CXCursor_ObjCProtocolRef CXCursorKind = 41
+	Cursor_ObjCProtocolRef CursorKind = 41
 	/*
 	   An access specifier.
 	*/
-	CXCursor_ObjCClassRef CXCursorKind = 42
+	Cursor_ObjCClassRef CursorKind = 42
 	/*
 	   A reference to a type declaration.
 
@@ -533,7 +533,7 @@ const (
 
 	   The typedef is a declaration of size_type (CXCursor_TypedefDecl), while the type of the variable "size" is referenced. The cursor referenced by the type of size is the typedef for size_type.
 	*/
-	CXCursor_TypeRef CXCursorKind = 43
+	Cursor_TypeRef CursorKind = 43
 	/*
 	   A reference to a type declaration.
 
@@ -541,19 +541,19 @@ const (
 
 	   The typedef is a declaration of size_type (CXCursor_TypedefDecl), while the type of the variable "size" is referenced. The cursor referenced by the type of size is the typedef for size_type.
 	*/
-	CXCursor_CXXBaseSpecifier CXCursorKind = 44
+	Cursor_CXXBaseSpecifier CursorKind = 44
 	/*
 	   A reference to a class template, function template, template template parameter, or class template partial specialization.
 	*/
-	CXCursor_TemplateRef CXCursorKind = 45
+	Cursor_TemplateRef CursorKind = 45
 	/*
 	   A reference to a namespace or namespace alias.
 	*/
-	CXCursor_NamespaceRef CXCursorKind = 46
+	Cursor_NamespaceRef CursorKind = 46
 	/*
 	   A reference to a member of a struct, union, or class that occurs in some non-expression context, e.g., a designated initializer.
 	*/
-	CXCursor_MemberRef CXCursorKind = 47
+	Cursor_MemberRef CursorKind = 47
 	/*
 	   A reference to a labeled statement.
 
@@ -561,7 +561,7 @@ const (
 
 	   A label reference cursor refers to a label statement.
 	*/
-	CXCursor_LabelRef CXCursorKind = 48
+	Cursor_LabelRef CursorKind = 48
 	/*
 	   A reference to a set of overloaded functions or function templates that has not yet been resolved to a specific function or function template.
 
@@ -571,1833 +571,1833 @@ const (
 
 	   The functions clang_getNumOverloadedDecls() and clang_getOverloadedDecl() can be used to retrieve the definitions referenced by this cursor.
 	*/
-	CXCursor_OverloadedDeclRef CXCursorKind = 49
+	Cursor_OverloadedDeclRef CursorKind = 49
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_VariableRef CXCursorKind = 50
+	Cursor_VariableRef CursorKind = 50
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_LastRef CXCursorKind = 50
+	Cursor_LastRef CursorKind = 50
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_FirstInvalid CXCursorKind = 70
+	Cursor_FirstInvalid CursorKind = 70
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_InvalidFile CXCursorKind = 70
+	Cursor_InvalidFile CursorKind = 70
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_NoDeclFound CXCursorKind = 71
+	Cursor_NoDeclFound CursorKind = 71
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_NotImplemented CXCursorKind = 72
+	Cursor_NotImplemented CursorKind = 72
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_InvalidCode CXCursorKind = 73
+	Cursor_InvalidCode CursorKind = 73
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_LastInvalid CXCursorKind = 73
+	Cursor_LastInvalid CursorKind = 73
 	/*
 	   A reference to a variable that occurs in some non-expression context, e.g., a C++ lambda capture list.
 	*/
-	CXCursor_FirstExpr CXCursorKind = 100
+	Cursor_FirstExpr CursorKind = 100
 	/*
 	   An expression whose specific kind is not exposed via this interface.
 
 	   Unexposed expressions have the same operations as any other kind of expression; one can extract their location information, spelling, children, etc. However, the specific kind of the expression is not reported.
 	*/
-	CXCursor_UnexposedExpr CXCursorKind = 100
+	Cursor_UnexposedExpr CursorKind = 100
 	/*
 	   An expression that refers to some value declaration, such as a function, variable, or enumerator.
 	*/
-	CXCursor_DeclRefExpr CXCursorKind = 101
+	Cursor_DeclRefExpr CursorKind = 101
 	/*
 	   An expression that refers to a member of a struct, union, class, Objective-C class, etc.
 	*/
-	CXCursor_MemberRefExpr CXCursorKind = 102
+	Cursor_MemberRefExpr CursorKind = 102
 	/*
 	   An expression that calls a function.
 	*/
-	CXCursor_CallExpr CXCursorKind = 103
+	Cursor_CallExpr CursorKind = 103
 	/*
 	   An expression that sends a message to an Objective-C   object or class.
 	*/
-	CXCursor_ObjCMessageExpr CXCursorKind = 104
+	Cursor_ObjCMessageExpr CursorKind = 104
 	/*
 	   An expression that represents a block literal.
 	*/
-	CXCursor_BlockExpr CXCursorKind = 105
+	Cursor_BlockExpr CursorKind = 105
 	/*
 	   An integer literal.
 	*/
-	CXCursor_IntegerLiteral CXCursorKind = 106
+	Cursor_IntegerLiteral CursorKind = 106
 	/*
 	   A floating point number literal.
 	*/
-	CXCursor_FloatingLiteral CXCursorKind = 107
+	Cursor_FloatingLiteral CursorKind = 107
 	/*
 	   An imaginary number literal.
 	*/
-	CXCursor_ImaginaryLiteral CXCursorKind = 108
+	Cursor_ImaginaryLiteral CursorKind = 108
 	/*
 	   A string literal.
 	*/
-	CXCursor_StringLiteral CXCursorKind = 109
+	Cursor_StringLiteral CursorKind = 109
 	/*
 	   A character literal.
 	*/
-	CXCursor_CharacterLiteral CXCursorKind = 110
+	Cursor_CharacterLiteral CursorKind = 110
 	/*
 	   A parenthesized expression, e.g. "(1)".
 
 	   This AST node is only formed if full location information is requested.
 	*/
-	CXCursor_ParenExpr CXCursorKind = 111
+	Cursor_ParenExpr CursorKind = 111
 	/*
 	   This represents the unary-expression's (except sizeof and alignof).
 	*/
-	CXCursor_UnaryOperator CXCursorKind = 112
+	Cursor_UnaryOperator CursorKind = 112
 	/*
 	   [C99 6.5.2.1] Array Subscripting.
 	*/
-	CXCursor_ArraySubscriptExpr CXCursorKind = 113
+	Cursor_ArraySubscriptExpr CursorKind = 113
 	/*
 	   A builtin binary operation expression such as "x + y" or "x <= y".
 	*/
-	CXCursor_BinaryOperator CXCursorKind = 114
+	Cursor_BinaryOperator CursorKind = 114
 	/*
 	   Compound assignment such as "+=".
 	*/
-	CXCursor_CompoundAssignOperator CXCursorKind = 115
+	Cursor_CompoundAssignOperator CursorKind = 115
 	/*
 	   The ?: ternary operator.
 	*/
-	CXCursor_ConditionalOperator CXCursorKind = 116
+	Cursor_ConditionalOperator CursorKind = 116
 	/*
 	   An explicit cast in C (C99 6.5.4) or a C-style cast in C++ (C++ [expr.cast]), which uses the syntax (Type)expr.
 
 	   For example: (int)f.
 	*/
-	CXCursor_CStyleCastExpr CXCursorKind = 117
+	Cursor_CStyleCastExpr CursorKind = 117
 	/*
 	   [C99 6.5.2.5]
 	*/
-	CXCursor_CompoundLiteralExpr CXCursorKind = 118
+	Cursor_CompoundLiteralExpr CursorKind = 118
 	/*
 	   Describes an C or C++ initializer list.
 	*/
-	CXCursor_InitListExpr CXCursorKind = 119
+	Cursor_InitListExpr CursorKind = 119
 	/*
 	   The GNU address of label extension, representing &&label.
 	*/
-	CXCursor_AddrLabelExpr CXCursorKind = 120
+	Cursor_AddrLabelExpr CursorKind = 120
 	/*
 	   This is the GNU Statement Expression extension: ({int X=4; X;})
 	*/
-	CXCursor_StmtExpr CXCursorKind = 121
+	Cursor_StmtExpr CursorKind = 121
 	/*
 	   Represents a C11 generic selection.
 	*/
-	CXCursor_GenericSelectionExpr CXCursorKind = 122
+	Cursor_GenericSelectionExpr CursorKind = 122
 	/*
 	   Implements the GNU __null extension, which is a name for a null pointer constant that has integral type (e.g., int or long) and is the same size and alignment as a pointer.
 
 	   The __null extension is typically only used by system headers, which define NULL as __null in C++ rather than using 0 (which is an integer that may not match the size of a pointer).
 	*/
-	CXCursor_GNUNullExpr CXCursorKind = 123
+	Cursor_GNUNullExpr CursorKind = 123
 	/*
 	   C++'s static_cast<> expression.
 	*/
-	CXCursor_CXXStaticCastExpr CXCursorKind = 124
+	Cursor_CXXStaticCastExpr CursorKind = 124
 	/*
 	   C++'s dynamic_cast<> expression.
 	*/
-	CXCursor_CXXDynamicCastExpr CXCursorKind = 125
+	Cursor_CXXDynamicCastExpr CursorKind = 125
 	/*
 	   C++'s reinterpret_cast<> expression.
 	*/
-	CXCursor_CXXReinterpretCastExpr CXCursorKind = 126
+	Cursor_CXXReinterpretCastExpr CursorKind = 126
 	/*
 	   C++'s const_cast<> expression.
 	*/
-	CXCursor_CXXConstCastExpr CXCursorKind = 127
+	Cursor_CXXConstCastExpr CursorKind = 127
 	/*
 	   Represents an explicit C++ type conversion that uses "functional" notion (C++ [expr.type.conv]).
 
 	   Example:
 	*/
-	CXCursor_CXXFunctionalCastExpr CXCursorKind = 128
+	Cursor_CXXFunctionalCastExpr CursorKind = 128
 	/*
 	   A C++ typeid expression (C++ [expr.typeid]).
 	*/
-	CXCursor_CXXTypeidExpr CXCursorKind = 129
+	Cursor_CXXTypeidExpr CursorKind = 129
 	/*
 	   [C++ 2.13.5] C++ Boolean Literal.
 	*/
-	CXCursor_CXXBoolLiteralExpr CXCursorKind = 130
+	Cursor_CXXBoolLiteralExpr CursorKind = 130
 	/*
 	   [C++0x 2.14.7] C++ Pointer Literal.
 	*/
-	CXCursor_CXXNullPtrLiteralExpr CXCursorKind = 131
+	Cursor_CXXNullPtrLiteralExpr CursorKind = 131
 	/*
 	   Represents the "this" expression in C++
 	*/
-	CXCursor_CXXThisExpr CXCursorKind = 132
+	Cursor_CXXThisExpr CursorKind = 132
 	/*
 	   [C++ 15] C++ Throw Expression.
 
 	   This handles 'throw' and 'throw' assignment-expression. When assignment-expression isn't present, Op will be null.
 	*/
-	CXCursor_CXXThrowExpr CXCursorKind = 133
+	Cursor_CXXThrowExpr CursorKind = 133
 	/*
 	   A new expression for memory allocation and constructor calls, e.g: "new CXXNewExpr(foo)".
 	*/
-	CXCursor_CXXNewExpr CXCursorKind = 134
+	Cursor_CXXNewExpr CursorKind = 134
 	/*
 	   A delete expression for memory deallocation and destructor calls, e.g. "delete[] pArray".
 	*/
-	CXCursor_CXXDeleteExpr CXCursorKind = 135
+	Cursor_CXXDeleteExpr CursorKind = 135
 	/*
 	   A unary expression. (noexcept, sizeof, or other traits)
 	*/
-	CXCursor_UnaryExpr CXCursorKind = 136
+	Cursor_UnaryExpr CursorKind = 136
 	/*
 	   An Objective-C string literal i.e. "foo".
 	*/
-	CXCursor_ObjCStringLiteral CXCursorKind = 137
+	Cursor_ObjCStringLiteral CursorKind = 137
 	/*
 	   An Objective-C @encode expression.
 	*/
-	CXCursor_ObjCEncodeExpr CXCursorKind = 138
+	Cursor_ObjCEncodeExpr CursorKind = 138
 	/*
 	   An Objective-C @selector expression.
 	*/
-	CXCursor_ObjCSelectorExpr CXCursorKind = 139
+	Cursor_ObjCSelectorExpr CursorKind = 139
 	/*
 	   An Objective-C @protocol expression.
 	*/
-	CXCursor_ObjCProtocolExpr CXCursorKind = 140
+	Cursor_ObjCProtocolExpr CursorKind = 140
 	/*
 	   An Objective-C "bridged" cast expression, which casts between Objective-C pointers and C pointers, transferring ownership in the process.
 	*/
-	CXCursor_ObjCBridgedCastExpr CXCursorKind = 141
+	Cursor_ObjCBridgedCastExpr CursorKind = 141
 	/*
 	   Represents a C++0x pack expansion that produces a sequence of expressions.
 
 	   A pack expansion expression contains a pattern (which itself is an expression) followed by an ellipsis. For example:
 	*/
-	CXCursor_PackExpansionExpr CXCursorKind = 142
+	Cursor_PackExpansionExpr CursorKind = 142
 	/*
 	   Represents an expression that computes the length of a parameter pack.
 	*/
-	CXCursor_SizeOfPackExpr CXCursorKind = 143
-	CXCursor_LambdaExpr     CXCursorKind = 144
+	Cursor_SizeOfPackExpr CursorKind = 143
+	Cursor_LambdaExpr     CursorKind = 144
 	/*
 	   Objective-c Boolean Literal.
 	*/
-	CXCursor_ObjCBoolLiteralExpr CXCursorKind = 145
+	Cursor_ObjCBoolLiteralExpr CursorKind = 145
 	/*
 	   Represents the "self" expression in an Objective-C method.
 	*/
-	CXCursor_ObjCSelfExpr CXCursorKind = 146
+	Cursor_ObjCSelfExpr CursorKind = 146
 	/*
 	   OpenMP 5.0 [2.1.5, Array Section]. OpenACC 3.3 [2.7.1, Data Specification for Data Clauses (Sub Arrays)]
 	*/
-	CXCursor_ArraySectionExpr CXCursorKind = 147
+	Cursor_ArraySectionExpr CursorKind = 147
 	/*
 	   Represents an (...) check.
 	*/
-	CXCursor_ObjCAvailabilityCheckExpr CXCursorKind = 148
+	Cursor_ObjCAvailabilityCheckExpr CursorKind = 148
 	/*
 	   Fixed point literal
 	*/
-	CXCursor_FixedPointLiteral CXCursorKind = 149
+	Cursor_FixedPointLiteral CursorKind = 149
 	/*
 	   OpenMP 5.0 [2.1.4, Array Shaping].
 	*/
-	CXCursor_OMPArrayShapingExpr CXCursorKind = 150
+	Cursor_OMPArrayShapingExpr CursorKind = 150
 	/*
 	   OpenMP 5.0 [2.1.6 Iterators]
 	*/
-	CXCursor_OMPIteratorExpr CXCursorKind = 151
+	Cursor_OMPIteratorExpr CursorKind = 151
 	/*
 	   OpenCL's addrspace_cast<> expression.
 	*/
-	CXCursor_CXXAddrspaceCastExpr CXCursorKind = 152
+	Cursor_CXXAddrspaceCastExpr CursorKind = 152
 	/*
 	   Expression that references a C++20 concept.
 	*/
-	CXCursor_ConceptSpecializationExpr CXCursorKind = 153
+	Cursor_ConceptSpecializationExpr CursorKind = 153
 	/*
 	   Expression that references a C++20 requires expression.
 	*/
-	CXCursor_RequiresExpr CXCursorKind = 154
+	Cursor_RequiresExpr CursorKind = 154
 	/*
 	   Expression that references a C++20 parenthesized list aggregate initializer.
 	*/
-	CXCursor_CXXParenListInitExpr CXCursorKind = 155
+	Cursor_CXXParenListInitExpr CursorKind = 155
 	/*
 	   Represents a C++26 pack indexing expression.
 	*/
-	CXCursor_PackIndexingExpr CXCursorKind = 156
+	Cursor_PackIndexingExpr CursorKind = 156
 	/*
 	   Represents a C++26 pack indexing expression.
 	*/
-	CXCursor_LastExpr CXCursorKind = 156
+	Cursor_LastExpr CursorKind = 156
 	/*
 	   Represents a C++26 pack indexing expression.
 	*/
-	CXCursor_FirstStmt CXCursorKind = 200
+	Cursor_FirstStmt CursorKind = 200
 	/*
 	   A statement whose specific kind is not exposed via this interface.
 
 	   Unexposed statements have the same operations as any other kind of statement; one can extract their location information, spelling, children, etc. However, the specific kind of the statement is not reported.
 	*/
-	CXCursor_UnexposedStmt CXCursorKind = 200
+	Cursor_UnexposedStmt CursorKind = 200
 	/*
 	   A labelled statement in a function.
 
 	   This cursor kind is used to describe the "start_over:" label statement in the following example:
 	*/
-	CXCursor_LabelStmt CXCursorKind = 201
+	Cursor_LabelStmt CursorKind = 201
 	/*
 	   A group of statements like { stmt stmt }.
 
 	   This cursor kind is used to describe compound statements, e.g. function bodies.
 	*/
-	CXCursor_CompoundStmt CXCursorKind = 202
+	Cursor_CompoundStmt CursorKind = 202
 	/*
 	   A case statement.
 	*/
-	CXCursor_CaseStmt CXCursorKind = 203
+	Cursor_CaseStmt CursorKind = 203
 	/*
 	   A default statement.
 	*/
-	CXCursor_DefaultStmt CXCursorKind = 204
+	Cursor_DefaultStmt CursorKind = 204
 	/*
 	   An if statement
 	*/
-	CXCursor_IfStmt CXCursorKind = 205
+	Cursor_IfStmt CursorKind = 205
 	/*
 	   A switch statement.
 	*/
-	CXCursor_SwitchStmt CXCursorKind = 206
+	Cursor_SwitchStmt CursorKind = 206
 	/*
 	   A while statement.
 	*/
-	CXCursor_WhileStmt CXCursorKind = 207
+	Cursor_WhileStmt CursorKind = 207
 	/*
 	   A do statement.
 	*/
-	CXCursor_DoStmt CXCursorKind = 208
+	Cursor_DoStmt CursorKind = 208
 	/*
 	   A for statement.
 	*/
-	CXCursor_ForStmt CXCursorKind = 209
+	Cursor_ForStmt CursorKind = 209
 	/*
 	   A goto statement.
 	*/
-	CXCursor_GotoStmt CXCursorKind = 210
+	Cursor_GotoStmt CursorKind = 210
 	/*
 	   An indirect goto statement.
 	*/
-	CXCursor_IndirectGotoStmt CXCursorKind = 211
+	Cursor_IndirectGotoStmt CursorKind = 211
 	/*
 	   A continue statement.
 	*/
-	CXCursor_ContinueStmt CXCursorKind = 212
+	Cursor_ContinueStmt CursorKind = 212
 	/*
 	   A break statement.
 	*/
-	CXCursor_BreakStmt CXCursorKind = 213
+	Cursor_BreakStmt CursorKind = 213
 	/*
 	   A return statement.
 	*/
-	CXCursor_ReturnStmt CXCursorKind = 214
+	Cursor_ReturnStmt CursorKind = 214
 	/*
 	   A GCC inline assembly statement extension.
 	*/
-	CXCursor_GCCAsmStmt CXCursorKind = 215
+	Cursor_GCCAsmStmt CursorKind = 215
 	/*
 	   A GCC inline assembly statement extension.
 	*/
-	CXCursor_AsmStmt CXCursorKind = 215
+	Cursor_AsmStmt CursorKind = 215
 	/*
 	   Objective-C's overall @try-@catch-@finally statement.
 	*/
-	CXCursor_ObjCAtTryStmt CXCursorKind = 216
+	Cursor_ObjCAtTryStmt CursorKind = 216
 	/*
 	   Objective-C's @catch statement.
 	*/
-	CXCursor_ObjCAtCatchStmt CXCursorKind = 217
+	Cursor_ObjCAtCatchStmt CursorKind = 217
 	/*
 	   Objective-C's @finally statement.
 	*/
-	CXCursor_ObjCAtFinallyStmt CXCursorKind = 218
+	Cursor_ObjCAtFinallyStmt CursorKind = 218
 	/*
 	   Objective-C's @throw statement.
 	*/
-	CXCursor_ObjCAtThrowStmt CXCursorKind = 219
+	Cursor_ObjCAtThrowStmt CursorKind = 219
 	/*
 	   Objective-C's @synchronized statement.
 	*/
-	CXCursor_ObjCAtSynchronizedStmt CXCursorKind = 220
+	Cursor_ObjCAtSynchronizedStmt CursorKind = 220
 	/*
 	   Objective-C's autorelease pool statement.
 	*/
-	CXCursor_ObjCAutoreleasePoolStmt CXCursorKind = 221
+	Cursor_ObjCAutoreleasePoolStmt CursorKind = 221
 	/*
 	   Objective-C's collection statement.
 	*/
-	CXCursor_ObjCForCollectionStmt CXCursorKind = 222
+	Cursor_ObjCForCollectionStmt CursorKind = 222
 	/*
 	   C++'s catch statement.
 	*/
-	CXCursor_CXXCatchStmt CXCursorKind = 223
+	Cursor_CXXCatchStmt CursorKind = 223
 	/*
 	   C++'s try statement.
 	*/
-	CXCursor_CXXTryStmt CXCursorKind = 224
+	Cursor_CXXTryStmt CursorKind = 224
 	/*
 	   C++'s for (* : *) statement.
 	*/
-	CXCursor_CXXForRangeStmt CXCursorKind = 225
+	Cursor_CXXForRangeStmt CursorKind = 225
 	/*
 	   Windows Structured Exception Handling's try statement.
 	*/
-	CXCursor_SEHTryStmt CXCursorKind = 226
+	Cursor_SEHTryStmt CursorKind = 226
 	/*
 	   Windows Structured Exception Handling's except statement.
 	*/
-	CXCursor_SEHExceptStmt CXCursorKind = 227
+	Cursor_SEHExceptStmt CursorKind = 227
 	/*
 	   Windows Structured Exception Handling's finally statement.
 	*/
-	CXCursor_SEHFinallyStmt CXCursorKind = 228
+	Cursor_SEHFinallyStmt CursorKind = 228
 	/*
 	   A MS inline assembly statement extension.
 	*/
-	CXCursor_MSAsmStmt CXCursorKind = 229
+	Cursor_MSAsmStmt CursorKind = 229
 	/*
 	   The null statement ";": C99 6.8.3p3.
 
 	   This cursor kind is used to describe the null statement.
 	*/
-	CXCursor_NullStmt CXCursorKind = 230
+	Cursor_NullStmt CursorKind = 230
 	/*
 	   Adaptor class for mixing declarations with statements and expressions.
 	*/
-	CXCursor_DeclStmt CXCursorKind = 231
+	Cursor_DeclStmt CursorKind = 231
 	/*
 	   OpenMP parallel directive.
 	*/
-	CXCursor_OMPParallelDirective CXCursorKind = 232
+	Cursor_OMPParallelDirective CursorKind = 232
 	/*
 	   OpenMP SIMD directive.
 	*/
-	CXCursor_OMPSimdDirective CXCursorKind = 233
+	Cursor_OMPSimdDirective CursorKind = 233
 	/*
 	   OpenMP for directive.
 	*/
-	CXCursor_OMPForDirective CXCursorKind = 234
+	Cursor_OMPForDirective CursorKind = 234
 	/*
 	   OpenMP sections directive.
 	*/
-	CXCursor_OMPSectionsDirective CXCursorKind = 235
+	Cursor_OMPSectionsDirective CursorKind = 235
 	/*
 	   OpenMP section directive.
 	*/
-	CXCursor_OMPSectionDirective CXCursorKind = 236
+	Cursor_OMPSectionDirective CursorKind = 236
 	/*
 	   OpenMP single directive.
 	*/
-	CXCursor_OMPSingleDirective CXCursorKind = 237
+	Cursor_OMPSingleDirective CursorKind = 237
 	/*
 	   OpenMP parallel for directive.
 	*/
-	CXCursor_OMPParallelForDirective CXCursorKind = 238
+	Cursor_OMPParallelForDirective CursorKind = 238
 	/*
 	   OpenMP parallel sections directive.
 	*/
-	CXCursor_OMPParallelSectionsDirective CXCursorKind = 239
+	Cursor_OMPParallelSectionsDirective CursorKind = 239
 	/*
 	   OpenMP task directive.
 	*/
-	CXCursor_OMPTaskDirective CXCursorKind = 240
+	Cursor_OMPTaskDirective CursorKind = 240
 	/*
 	   OpenMP master directive.
 	*/
-	CXCursor_OMPMasterDirective CXCursorKind = 241
+	Cursor_OMPMasterDirective CursorKind = 241
 	/*
 	   OpenMP critical directive.
 	*/
-	CXCursor_OMPCriticalDirective CXCursorKind = 242
+	Cursor_OMPCriticalDirective CursorKind = 242
 	/*
 	   OpenMP taskyield directive.
 	*/
-	CXCursor_OMPTaskyieldDirective CXCursorKind = 243
+	Cursor_OMPTaskyieldDirective CursorKind = 243
 	/*
 	   OpenMP barrier directive.
 	*/
-	CXCursor_OMPBarrierDirective CXCursorKind = 244
+	Cursor_OMPBarrierDirective CursorKind = 244
 	/*
 	   OpenMP taskwait directive.
 	*/
-	CXCursor_OMPTaskwaitDirective CXCursorKind = 245
+	Cursor_OMPTaskwaitDirective CursorKind = 245
 	/*
 	   OpenMP flush directive.
 	*/
-	CXCursor_OMPFlushDirective CXCursorKind = 246
+	Cursor_OMPFlushDirective CursorKind = 246
 	/*
 	   Windows Structured Exception Handling's leave statement.
 	*/
-	CXCursor_SEHLeaveStmt CXCursorKind = 247
+	Cursor_SEHLeaveStmt CursorKind = 247
 	/*
 	   OpenMP ordered directive.
 	*/
-	CXCursor_OMPOrderedDirective CXCursorKind = 248
+	Cursor_OMPOrderedDirective CursorKind = 248
 	/*
 	   OpenMP atomic directive.
 	*/
-	CXCursor_OMPAtomicDirective CXCursorKind = 249
+	Cursor_OMPAtomicDirective CursorKind = 249
 	/*
 	   OpenMP for SIMD directive.
 	*/
-	CXCursor_OMPForSimdDirective CXCursorKind = 250
+	Cursor_OMPForSimdDirective CursorKind = 250
 	/*
 	   OpenMP parallel for SIMD directive.
 	*/
-	CXCursor_OMPParallelForSimdDirective CXCursorKind = 251
+	Cursor_OMPParallelForSimdDirective CursorKind = 251
 	/*
 	   OpenMP target directive.
 	*/
-	CXCursor_OMPTargetDirective CXCursorKind = 252
+	Cursor_OMPTargetDirective CursorKind = 252
 	/*
 	   OpenMP teams directive.
 	*/
-	CXCursor_OMPTeamsDirective CXCursorKind = 253
+	Cursor_OMPTeamsDirective CursorKind = 253
 	/*
 	   OpenMP taskgroup directive.
 	*/
-	CXCursor_OMPTaskgroupDirective CXCursorKind = 254
+	Cursor_OMPTaskgroupDirective CursorKind = 254
 	/*
 	   OpenMP cancellation point directive.
 	*/
-	CXCursor_OMPCancellationPointDirective CXCursorKind = 255
+	Cursor_OMPCancellationPointDirective CursorKind = 255
 	/*
 	   OpenMP cancel directive.
 	*/
-	CXCursor_OMPCancelDirective CXCursorKind = 256
+	Cursor_OMPCancelDirective CursorKind = 256
 	/*
 	   OpenMP target data directive.
 	*/
-	CXCursor_OMPTargetDataDirective CXCursorKind = 257
+	Cursor_OMPTargetDataDirective CursorKind = 257
 	/*
 	   OpenMP taskloop directive.
 	*/
-	CXCursor_OMPTaskLoopDirective CXCursorKind = 258
+	Cursor_OMPTaskLoopDirective CursorKind = 258
 	/*
 	   OpenMP taskloop simd directive.
 	*/
-	CXCursor_OMPTaskLoopSimdDirective CXCursorKind = 259
+	Cursor_OMPTaskLoopSimdDirective CursorKind = 259
 	/*
 	   OpenMP distribute directive.
 	*/
-	CXCursor_OMPDistributeDirective CXCursorKind = 260
+	Cursor_OMPDistributeDirective CursorKind = 260
 	/*
 	   OpenMP target enter data directive.
 	*/
-	CXCursor_OMPTargetEnterDataDirective CXCursorKind = 261
+	Cursor_OMPTargetEnterDataDirective CursorKind = 261
 	/*
 	   OpenMP target exit data directive.
 	*/
-	CXCursor_OMPTargetExitDataDirective CXCursorKind = 262
+	Cursor_OMPTargetExitDataDirective CursorKind = 262
 	/*
 	   OpenMP target parallel directive.
 	*/
-	CXCursor_OMPTargetParallelDirective CXCursorKind = 263
+	Cursor_OMPTargetParallelDirective CursorKind = 263
 	/*
 	   OpenMP target parallel for directive.
 	*/
-	CXCursor_OMPTargetParallelForDirective CXCursorKind = 264
+	Cursor_OMPTargetParallelForDirective CursorKind = 264
 	/*
 	   OpenMP target update directive.
 	*/
-	CXCursor_OMPTargetUpdateDirective CXCursorKind = 265
+	Cursor_OMPTargetUpdateDirective CursorKind = 265
 	/*
 	   OpenMP distribute parallel for directive.
 	*/
-	CXCursor_OMPDistributeParallelForDirective CXCursorKind = 266
+	Cursor_OMPDistributeParallelForDirective CursorKind = 266
 	/*
 	   OpenMP distribute parallel for simd directive.
 	*/
-	CXCursor_OMPDistributeParallelForSimdDirective CXCursorKind = 267
+	Cursor_OMPDistributeParallelForSimdDirective CursorKind = 267
 	/*
 	   OpenMP distribute simd directive.
 	*/
-	CXCursor_OMPDistributeSimdDirective CXCursorKind = 268
+	Cursor_OMPDistributeSimdDirective CursorKind = 268
 	/*
 	   OpenMP target parallel for simd directive.
 	*/
-	CXCursor_OMPTargetParallelForSimdDirective CXCursorKind = 269
+	Cursor_OMPTargetParallelForSimdDirective CursorKind = 269
 	/*
 	   OpenMP target simd directive.
 	*/
-	CXCursor_OMPTargetSimdDirective CXCursorKind = 270
+	Cursor_OMPTargetSimdDirective CursorKind = 270
 	/*
 	   OpenMP teams distribute directive.
 	*/
-	CXCursor_OMPTeamsDistributeDirective CXCursorKind = 271
+	Cursor_OMPTeamsDistributeDirective CursorKind = 271
 	/*
 	   OpenMP teams distribute simd directive.
 	*/
-	CXCursor_OMPTeamsDistributeSimdDirective CXCursorKind = 272
+	Cursor_OMPTeamsDistributeSimdDirective CursorKind = 272
 	/*
 	   OpenMP teams distribute parallel for simd directive.
 	*/
-	CXCursor_OMPTeamsDistributeParallelForSimdDirective CXCursorKind = 273
+	Cursor_OMPTeamsDistributeParallelForSimdDirective CursorKind = 273
 	/*
 	   OpenMP teams distribute parallel for directive.
 	*/
-	CXCursor_OMPTeamsDistributeParallelForDirective CXCursorKind = 274
+	Cursor_OMPTeamsDistributeParallelForDirective CursorKind = 274
 	/*
 	   OpenMP target teams directive.
 	*/
-	CXCursor_OMPTargetTeamsDirective CXCursorKind = 275
+	Cursor_OMPTargetTeamsDirective CursorKind = 275
 	/*
 	   OpenMP target teams distribute directive.
 	*/
-	CXCursor_OMPTargetTeamsDistributeDirective CXCursorKind = 276
+	Cursor_OMPTargetTeamsDistributeDirective CursorKind = 276
 	/*
 	   OpenMP target teams distribute parallel for directive.
 	*/
-	CXCursor_OMPTargetTeamsDistributeParallelForDirective CXCursorKind = 277
+	Cursor_OMPTargetTeamsDistributeParallelForDirective CursorKind = 277
 	/*
 	   OpenMP target teams distribute parallel for simd directive.
 	*/
-	CXCursor_OMPTargetTeamsDistributeParallelForSimdDirective CXCursorKind = 278
+	Cursor_OMPTargetTeamsDistributeParallelForSimdDirective CursorKind = 278
 	/*
 	   OpenMP target teams distribute simd directive.
 	*/
-	CXCursor_OMPTargetTeamsDistributeSimdDirective CXCursorKind = 279
+	Cursor_OMPTargetTeamsDistributeSimdDirective CursorKind = 279
 	/*
 	   C++2a std::bit_cast expression.
 	*/
-	CXCursor_BuiltinBitCastExpr CXCursorKind = 280
+	Cursor_BuiltinBitCastExpr CursorKind = 280
 	/*
 	   OpenMP master taskloop directive.
 	*/
-	CXCursor_OMPMasterTaskLoopDirective CXCursorKind = 281
+	Cursor_OMPMasterTaskLoopDirective CursorKind = 281
 	/*
 	   OpenMP parallel master taskloop directive.
 	*/
-	CXCursor_OMPParallelMasterTaskLoopDirective CXCursorKind = 282
+	Cursor_OMPParallelMasterTaskLoopDirective CursorKind = 282
 	/*
 	   OpenMP master taskloop simd directive.
 	*/
-	CXCursor_OMPMasterTaskLoopSimdDirective CXCursorKind = 283
+	Cursor_OMPMasterTaskLoopSimdDirective CursorKind = 283
 	/*
 	   OpenMP parallel master taskloop simd directive.
 	*/
-	CXCursor_OMPParallelMasterTaskLoopSimdDirective CXCursorKind = 284
+	Cursor_OMPParallelMasterTaskLoopSimdDirective CursorKind = 284
 	/*
 	   OpenMP parallel master directive.
 	*/
-	CXCursor_OMPParallelMasterDirective CXCursorKind = 285
+	Cursor_OMPParallelMasterDirective CursorKind = 285
 	/*
 	   OpenMP depobj directive.
 	*/
-	CXCursor_OMPDepobjDirective CXCursorKind = 286
+	Cursor_OMPDepobjDirective CursorKind = 286
 	/*
 	   OpenMP scan directive.
 	*/
-	CXCursor_OMPScanDirective CXCursorKind = 287
+	Cursor_OMPScanDirective CursorKind = 287
 	/*
 	   OpenMP tile directive.
 	*/
-	CXCursor_OMPTileDirective CXCursorKind = 288
+	Cursor_OMPTileDirective CursorKind = 288
 	/*
 	   OpenMP canonical loop.
 	*/
-	CXCursor_OMPCanonicalLoop CXCursorKind = 289
+	Cursor_OMPCanonicalLoop CursorKind = 289
 	/*
 	   OpenMP interop directive.
 	*/
-	CXCursor_OMPInteropDirective CXCursorKind = 290
+	Cursor_OMPInteropDirective CursorKind = 290
 	/*
 	   OpenMP dispatch directive.
 	*/
-	CXCursor_OMPDispatchDirective CXCursorKind = 291
+	Cursor_OMPDispatchDirective CursorKind = 291
 	/*
 	   OpenMP masked directive.
 	*/
-	CXCursor_OMPMaskedDirective CXCursorKind = 292
+	Cursor_OMPMaskedDirective CursorKind = 292
 	/*
 	   OpenMP unroll directive.
 	*/
-	CXCursor_OMPUnrollDirective CXCursorKind = 293
+	Cursor_OMPUnrollDirective CursorKind = 293
 	/*
 	   OpenMP metadirective directive.
 	*/
-	CXCursor_OMPMetaDirective CXCursorKind = 294
+	Cursor_OMPMetaDirective CursorKind = 294
 	/*
 	   OpenMP loop directive.
 	*/
-	CXCursor_OMPGenericLoopDirective CXCursorKind = 295
+	Cursor_OMPGenericLoopDirective CursorKind = 295
 	/*
 	   OpenMP teams loop directive.
 	*/
-	CXCursor_OMPTeamsGenericLoopDirective CXCursorKind = 296
+	Cursor_OMPTeamsGenericLoopDirective CursorKind = 296
 	/*
 	   OpenMP target teams loop directive.
 	*/
-	CXCursor_OMPTargetTeamsGenericLoopDirective CXCursorKind = 297
+	Cursor_OMPTargetTeamsGenericLoopDirective CursorKind = 297
 	/*
 	   OpenMP parallel loop directive.
 	*/
-	CXCursor_OMPParallelGenericLoopDirective CXCursorKind = 298
+	Cursor_OMPParallelGenericLoopDirective CursorKind = 298
 	/*
 	   OpenMP target parallel loop directive.
 	*/
-	CXCursor_OMPTargetParallelGenericLoopDirective CXCursorKind = 299
+	Cursor_OMPTargetParallelGenericLoopDirective CursorKind = 299
 	/*
 	   OpenMP parallel masked directive.
 	*/
-	CXCursor_OMPParallelMaskedDirective CXCursorKind = 300
+	Cursor_OMPParallelMaskedDirective CursorKind = 300
 	/*
 	   OpenMP masked taskloop directive.
 	*/
-	CXCursor_OMPMaskedTaskLoopDirective CXCursorKind = 301
+	Cursor_OMPMaskedTaskLoopDirective CursorKind = 301
 	/*
 	   OpenMP masked taskloop simd directive.
 	*/
-	CXCursor_OMPMaskedTaskLoopSimdDirective CXCursorKind = 302
+	Cursor_OMPMaskedTaskLoopSimdDirective CursorKind = 302
 	/*
 	   OpenMP parallel masked taskloop directive.
 	*/
-	CXCursor_OMPParallelMaskedTaskLoopDirective CXCursorKind = 303
+	Cursor_OMPParallelMaskedTaskLoopDirective CursorKind = 303
 	/*
 	   OpenMP parallel masked taskloop simd directive.
 	*/
-	CXCursor_OMPParallelMaskedTaskLoopSimdDirective CXCursorKind = 304
+	Cursor_OMPParallelMaskedTaskLoopSimdDirective CursorKind = 304
 	/*
 	   OpenMP error directive.
 	*/
-	CXCursor_OMPErrorDirective CXCursorKind = 305
+	Cursor_OMPErrorDirective CursorKind = 305
 	/*
 	   OpenMP scope directive.
 	*/
-	CXCursor_OMPScopeDirective CXCursorKind = 306
+	Cursor_OMPScopeDirective CursorKind = 306
 	/*
 	   OpenMP reverse directive.
 	*/
-	CXCursor_OMPReverseDirective CXCursorKind = 307
+	Cursor_OMPReverseDirective CursorKind = 307
 	/*
 	   OpenMP interchange directive.
 	*/
-	CXCursor_OMPInterchangeDirective CXCursorKind = 308
+	Cursor_OMPInterchangeDirective CursorKind = 308
 	/*
 	   OpenMP assume directive.
 	*/
-	CXCursor_OMPAssumeDirective CXCursorKind = 309
+	Cursor_OMPAssumeDirective CursorKind = 309
 	/*
 	   OpenMP assume directive.
 	*/
-	CXCursor_OMPStripeDirective CXCursorKind = 310
+	Cursor_OMPStripeDirective CursorKind = 310
 	/*
 	   OpenMP fuse directive
 	*/
-	CXCursor_OMPFuseDirective CXCursorKind = 311
+	Cursor_OMPFuseDirective CursorKind = 311
 	/*
 	   OpenMP split directive.
 	*/
-	CXCursor_OMPSplitDirective CXCursorKind = 312
+	Cursor_OMPSplitDirective CursorKind = 312
 	/*
 	   OpenACC Compute Construct.
 	*/
-	CXCursor_OpenACCComputeConstruct CXCursorKind = 320
+	Cursor_OpenACCComputeConstruct CursorKind = 320
 	/*
 	   OpenACC Loop Construct.
 	*/
-	CXCursor_OpenACCLoopConstruct CXCursorKind = 321
+	Cursor_OpenACCLoopConstruct CursorKind = 321
 	/*
 	   OpenACC Combined Constructs.
 	*/
-	CXCursor_OpenACCCombinedConstruct CXCursorKind = 322
+	Cursor_OpenACCCombinedConstruct CursorKind = 322
 	/*
 	   OpenACC data Construct.
 	*/
-	CXCursor_OpenACCDataConstruct CXCursorKind = 323
+	Cursor_OpenACCDataConstruct CursorKind = 323
 	/*
 	   OpenACC enter data Construct.
 	*/
-	CXCursor_OpenACCEnterDataConstruct CXCursorKind = 324
+	Cursor_OpenACCEnterDataConstruct CursorKind = 324
 	/*
 	   OpenACC exit data Construct.
 	*/
-	CXCursor_OpenACCExitDataConstruct CXCursorKind = 325
+	Cursor_OpenACCExitDataConstruct CursorKind = 325
 	/*
 	   OpenACC host_data Construct.
 	*/
-	CXCursor_OpenACCHostDataConstruct CXCursorKind = 326
+	Cursor_OpenACCHostDataConstruct CursorKind = 326
 	/*
 	   OpenACC wait Construct.
 	*/
-	CXCursor_OpenACCWaitConstruct CXCursorKind = 327
+	Cursor_OpenACCWaitConstruct CursorKind = 327
 	/*
 	   OpenACC init Construct.
 	*/
-	CXCursor_OpenACCInitConstruct CXCursorKind = 328
+	Cursor_OpenACCInitConstruct CursorKind = 328
 	/*
 	   OpenACC shutdown Construct.
 	*/
-	CXCursor_OpenACCShutdownConstruct CXCursorKind = 329
+	Cursor_OpenACCShutdownConstruct CursorKind = 329
 	/*
 	   OpenACC set Construct.
 	*/
-	CXCursor_OpenACCSetConstruct CXCursorKind = 330
+	Cursor_OpenACCSetConstruct CursorKind = 330
 	/*
 	   OpenACC update Construct.
 	*/
-	CXCursor_OpenACCUpdateConstruct CXCursorKind = 331
+	Cursor_OpenACCUpdateConstruct CursorKind = 331
 	/*
 	   OpenACC atomic Construct.
 	*/
-	CXCursor_OpenACCAtomicConstruct CXCursorKind = 332
+	Cursor_OpenACCAtomicConstruct CursorKind = 332
 	/*
 	   OpenACC cache Construct.
 	*/
-	CXCursor_OpenACCCacheConstruct CXCursorKind = 333
+	Cursor_OpenACCCacheConstruct CursorKind = 333
 	/*
 	   OpenACC cache Construct.
 	*/
-	CXCursor_LastStmt CXCursorKind = 333
+	Cursor_LastStmt CursorKind = 333
 	/*
 	   Cursor that represents the translation unit itself.
 
 	   The translation unit cursor exists primarily to act as the root cursor for traversing the contents of a translation unit.
 	*/
-	CXCursor_TranslationUnit CXCursorKind = 350
+	Cursor_TranslationUnit CursorKind = 350
 	/*
 	   Cursor that represents the translation unit itself.
 
 	   The translation unit cursor exists primarily to act as the root cursor for traversing the contents of a translation unit.
 	*/
-	CXCursor_FirstAttr CXCursorKind = 400
+	Cursor_FirstAttr CursorKind = 400
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_UnexposedAttr CXCursorKind = 400
+	Cursor_UnexposedAttr CursorKind = 400
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_IBActionAttr CXCursorKind = 401
+	Cursor_IBActionAttr CursorKind = 401
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_IBOutletAttr CXCursorKind = 402
+	Cursor_IBOutletAttr CursorKind = 402
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_IBOutletCollectionAttr CXCursorKind = 403
+	Cursor_IBOutletCollectionAttr CursorKind = 403
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CXXFinalAttr CXCursorKind = 404
+	Cursor_CXXFinalAttr CursorKind = 404
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CXXOverrideAttr CXCursorKind = 405
+	Cursor_CXXOverrideAttr CursorKind = 405
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_AnnotateAttr CXCursorKind = 406
+	Cursor_AnnotateAttr CursorKind = 406
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_AsmLabelAttr CXCursorKind = 407
+	Cursor_AsmLabelAttr CursorKind = 407
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_PackedAttr CXCursorKind = 408
+	Cursor_PackedAttr CursorKind = 408
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_PureAttr CXCursorKind = 409
+	Cursor_PureAttr CursorKind = 409
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ConstAttr CXCursorKind = 410
+	Cursor_ConstAttr CursorKind = 410
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NoDuplicateAttr CXCursorKind = 411
+	Cursor_NoDuplicateAttr CursorKind = 411
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CUDAConstantAttr CXCursorKind = 412
+	Cursor_CUDAConstantAttr CursorKind = 412
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CUDADeviceAttr CXCursorKind = 413
+	Cursor_CUDADeviceAttr CursorKind = 413
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CUDAGlobalAttr CXCursorKind = 414
+	Cursor_CUDAGlobalAttr CursorKind = 414
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CUDAHostAttr CXCursorKind = 415
+	Cursor_CUDAHostAttr CursorKind = 415
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_CUDASharedAttr CXCursorKind = 416
+	Cursor_CUDASharedAttr CursorKind = 416
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_VisibilityAttr CXCursorKind = 417
+	Cursor_VisibilityAttr CursorKind = 417
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_DLLExport CXCursorKind = 418
+	Cursor_DLLExport CursorKind = 418
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_DLLImport CXCursorKind = 419
+	Cursor_DLLImport CursorKind = 419
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NSReturnsRetained CXCursorKind = 420
+	Cursor_NSReturnsRetained CursorKind = 420
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NSReturnsNotRetained CXCursorKind = 421
+	Cursor_NSReturnsNotRetained CursorKind = 421
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NSReturnsAutoreleased CXCursorKind = 422
+	Cursor_NSReturnsAutoreleased CursorKind = 422
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NSConsumesSelf CXCursorKind = 423
+	Cursor_NSConsumesSelf CursorKind = 423
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_NSConsumed CXCursorKind = 424
+	Cursor_NSConsumed CursorKind = 424
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCException CXCursorKind = 425
+	Cursor_ObjCException CursorKind = 425
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCNSObject CXCursorKind = 426
+	Cursor_ObjCNSObject CursorKind = 426
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCIndependentClass CXCursorKind = 427
+	Cursor_ObjCIndependentClass CursorKind = 427
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCPreciseLifetime CXCursorKind = 428
+	Cursor_ObjCPreciseLifetime CursorKind = 428
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCReturnsInnerPointer CXCursorKind = 429
+	Cursor_ObjCReturnsInnerPointer CursorKind = 429
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCRequiresSuper CXCursorKind = 430
+	Cursor_ObjCRequiresSuper CursorKind = 430
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCRootClass CXCursorKind = 431
+	Cursor_ObjCRootClass CursorKind = 431
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCSubclassingRestricted CXCursorKind = 432
+	Cursor_ObjCSubclassingRestricted CursorKind = 432
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCExplicitProtocolImpl CXCursorKind = 433
+	Cursor_ObjCExplicitProtocolImpl CursorKind = 433
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCDesignatedInitializer CXCursorKind = 434
+	Cursor_ObjCDesignatedInitializer CursorKind = 434
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCRuntimeVisible CXCursorKind = 435
+	Cursor_ObjCRuntimeVisible CursorKind = 435
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ObjCBoxable CXCursorKind = 436
+	Cursor_ObjCBoxable CursorKind = 436
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_FlagEnum CXCursorKind = 437
+	Cursor_FlagEnum CursorKind = 437
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_ConvergentAttr CXCursorKind = 438
+	Cursor_ConvergentAttr CursorKind = 438
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_WarnUnusedAttr CXCursorKind = 439
+	Cursor_WarnUnusedAttr CursorKind = 439
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_WarnUnusedResultAttr CXCursorKind = 440
+	Cursor_WarnUnusedResultAttr CursorKind = 440
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_AlignedAttr CXCursorKind = 441
+	Cursor_AlignedAttr CursorKind = 441
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_LastAttr CXCursorKind = 441
+	Cursor_LastAttr CursorKind = 441
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_PreprocessingDirective CXCursorKind = 500
+	Cursor_PreprocessingDirective CursorKind = 500
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_MacroDefinition CXCursorKind = 501
+	Cursor_MacroDefinition CursorKind = 501
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_MacroExpansion CXCursorKind = 502
+	Cursor_MacroExpansion CursorKind = 502
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_MacroInstantiation CXCursorKind = 502
+	Cursor_MacroInstantiation CursorKind = 502
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_InclusionDirective CXCursorKind = 503
+	Cursor_InclusionDirective CursorKind = 503
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_FirstPreprocessing CXCursorKind = 500
+	Cursor_FirstPreprocessing CursorKind = 500
 	/*
 	   An attribute whose specific kind is not exposed via this interface.
 	*/
-	CXCursor_LastPreprocessing CXCursorKind = 503
+	Cursor_LastPreprocessing CursorKind = 503
 	/*
 	   A module import declaration.
 	*/
-	CXCursor_ModuleImportDecl CXCursorKind = 600
+	Cursor_ModuleImportDecl CursorKind = 600
 	/*
 	   A module import declaration.
 	*/
-	CXCursor_TypeAliasTemplateDecl CXCursorKind = 601
+	Cursor_TypeAliasTemplateDecl CursorKind = 601
 	/*
 	   A static_assert or _Static_assert node
 	*/
-	CXCursor_StaticAssert CXCursorKind = 602
+	Cursor_StaticAssert CursorKind = 602
 	/*
 	   a friend declaration.
 	*/
-	CXCursor_FriendDecl CXCursorKind = 603
+	Cursor_FriendDecl CursorKind = 603
 	/*
 	   a concept declaration.
 	*/
-	CXCursor_ConceptDecl CXCursorKind = 604
+	Cursor_ConceptDecl CursorKind = 604
 	/*
 	   a concept declaration.
 	*/
-	CXCursor_FirstExtraDecl CXCursorKind = 600
+	Cursor_FirstExtraDecl CursorKind = 600
 	/*
 	   a concept declaration.
 	*/
-	CXCursor_LastExtraDecl CXCursorKind = 604
+	Cursor_LastExtraDecl CursorKind = 604
 	/*
 	   A code completion overload candidate.
 	*/
-	CXCursor_OverloadCandidate CXCursorKind = 700
+	Cursor_OverloadCandidate CursorKind = 700
 )
 
 /*
 Describe the linkage of the entity referred to by a cursor.
 */
-type CXLinkageKind uint32
+type LinkageKind uint32
 
 const (
 	/*
 	   This value indicates that no linkage information is available for a provided CXCursor.
 	*/
-	CXLinkage_Invalid CXLinkageKind = 0
+	Linkage_Invalid LinkageKind = 0
 	/*
 	   This is the linkage for variables, parameters, and so on that  have automatic storage.  This covers normal (non-extern) local variables.
 	*/
-	CXLinkage_NoLinkage CXLinkageKind = 1
+	Linkage_NoLinkage LinkageKind = 1
 	/*
 	   This is the linkage for static variables and static functions.
 	*/
-	CXLinkage_Internal CXLinkageKind = 2
+	Linkage_Internal LinkageKind = 2
 	/*
 	   This is the linkage for entities with external linkage that live in C++ anonymous namespaces.
 	*/
-	CXLinkage_UniqueExternal CXLinkageKind = 3
+	Linkage_UniqueExternal LinkageKind = 3
 	/*
 	   This is the linkage for entities with true, external linkage.
 	*/
-	CXLinkage_External CXLinkageKind = 4
+	Linkage_External LinkageKind = 4
 )
 
-type CXVisibilityKind uint32
+type VisibilityKind uint32
 
 const (
 	/*
 	   This value indicates that no visibility information is available for a provided CXCursor.
 	*/
-	CXVisibility_Invalid CXVisibilityKind = 0
+	Visibility_Invalid VisibilityKind = 0
 	/*
 	   Symbol not seen by the linker.
 	*/
-	CXVisibility_Hidden CXVisibilityKind = 1
+	Visibility_Hidden VisibilityKind = 1
 	/*
 	   Symbol seen by the linker but resolves to a symbol inside this object.
 	*/
-	CXVisibility_Protected CXVisibilityKind = 2
+	Visibility_Protected VisibilityKind = 2
 	/*
 	   Symbol seen by the linker and acts like a normal symbol.
 	*/
-	CXVisibility_Default CXVisibilityKind = 3
+	Visibility_Default VisibilityKind = 3
 )
 
 /*
 Describe the "language" of the entity referred to by a cursor.
 */
-type CXLanguageKind uint32
+type LanguageKind uint32
 
 const (
-	CXLanguage_Invalid   CXLanguageKind = 0
-	CXLanguage_C         CXLanguageKind = 1
-	CXLanguage_ObjC      CXLanguageKind = 2
-	CXLanguage_CPlusPlus CXLanguageKind = 3
+	Language_Invalid   LanguageKind = 0
+	Language_C         LanguageKind = 1
+	Language_ObjC      LanguageKind = 2
+	Language_CPlusPlus LanguageKind = 3
 )
 
 /*
 Describe the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
 */
-type CXTLSKind uint32
+type TLSKind uint32
 
 const (
-	CXTLS_None    CXTLSKind = 0
-	CXTLS_Dynamic CXTLSKind = 1
-	CXTLS_Static  CXTLSKind = 2
+	TLS_None    TLSKind = 0
+	TLS_Dynamic TLSKind = 1
+	TLS_Static  TLSKind = 2
 )
 
 /*
 Describes the kind of type
 */
-type CXTypeKind uint32
+type TypeKind uint32
 
 const (
 	/*
 	   Represents an invalid type (e.g., where no type is available).
 	*/
-	CXType_Invalid CXTypeKind = 0
+	Type_Invalid TypeKind = 0
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Unexposed CXTypeKind = 1
+	Type_Unexposed TypeKind = 1
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Void CXTypeKind = 2
+	Type_Void TypeKind = 2
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Bool CXTypeKind = 3
+	Type_Bool TypeKind = 3
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Char_U CXTypeKind = 4
+	Type_Char_U TypeKind = 4
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UChar CXTypeKind = 5
+	Type_UChar TypeKind = 5
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Char16 CXTypeKind = 6
+	Type_Char16 TypeKind = 6
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Char32 CXTypeKind = 7
+	Type_Char32 TypeKind = 7
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UShort CXTypeKind = 8
+	Type_UShort TypeKind = 8
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UInt CXTypeKind = 9
+	Type_UInt TypeKind = 9
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ULong CXTypeKind = 10
+	Type_ULong TypeKind = 10
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ULongLong CXTypeKind = 11
+	Type_ULongLong TypeKind = 11
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UInt128 CXTypeKind = 12
+	Type_UInt128 TypeKind = 12
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Char_S CXTypeKind = 13
+	Type_Char_S TypeKind = 13
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_SChar CXTypeKind = 14
+	Type_SChar TypeKind = 14
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_WChar CXTypeKind = 15
+	Type_WChar TypeKind = 15
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Short CXTypeKind = 16
+	Type_Short TypeKind = 16
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Int CXTypeKind = 17
+	Type_Int TypeKind = 17
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Long CXTypeKind = 18
+	Type_Long TypeKind = 18
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_LongLong CXTypeKind = 19
+	Type_LongLong TypeKind = 19
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Int128 CXTypeKind = 20
+	Type_Int128 TypeKind = 20
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Float CXTypeKind = 21
+	Type_Float TypeKind = 21
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Double CXTypeKind = 22
+	Type_Double TypeKind = 22
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_LongDouble CXTypeKind = 23
+	Type_LongDouble TypeKind = 23
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_NullPtr CXTypeKind = 24
+	Type_NullPtr TypeKind = 24
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Overload CXTypeKind = 25
+	Type_Overload TypeKind = 25
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Dependent CXTypeKind = 26
+	Type_Dependent TypeKind = 26
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ObjCId CXTypeKind = 27
+	Type_ObjCId TypeKind = 27
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ObjCClass CXTypeKind = 28
+	Type_ObjCClass TypeKind = 28
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ObjCSel CXTypeKind = 29
+	Type_ObjCSel TypeKind = 29
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Float128 CXTypeKind = 30
+	Type_Float128 TypeKind = 30
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Half CXTypeKind = 31
+	Type_Half TypeKind = 31
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Float16 CXTypeKind = 32
+	Type_Float16 TypeKind = 32
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ShortAccum CXTypeKind = 33
+	Type_ShortAccum TypeKind = 33
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Accum CXTypeKind = 34
+	Type_Accum TypeKind = 34
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_LongAccum CXTypeKind = 35
+	Type_LongAccum TypeKind = 35
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UShortAccum CXTypeKind = 36
+	Type_UShortAccum TypeKind = 36
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_UAccum CXTypeKind = 37
+	Type_UAccum TypeKind = 37
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ULongAccum CXTypeKind = 38
+	Type_ULongAccum TypeKind = 38
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_BFloat16 CXTypeKind = 39
+	Type_BFloat16 TypeKind = 39
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Ibm128 CXTypeKind = 40
+	Type_Ibm128 TypeKind = 40
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_FirstBuiltin CXTypeKind = 2
+	Type_FirstBuiltin TypeKind = 2
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_LastBuiltin CXTypeKind = 40
+	Type_LastBuiltin TypeKind = 40
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Complex CXTypeKind = 100
+	Type_Complex TypeKind = 100
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Pointer CXTypeKind = 101
+	Type_Pointer TypeKind = 101
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_BlockPointer CXTypeKind = 102
+	Type_BlockPointer TypeKind = 102
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_LValueReference CXTypeKind = 103
+	Type_LValueReference TypeKind = 103
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_RValueReference CXTypeKind = 104
+	Type_RValueReference TypeKind = 104
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Record CXTypeKind = 105
+	Type_Record TypeKind = 105
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Enum CXTypeKind = 106
+	Type_Enum TypeKind = 106
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Typedef CXTypeKind = 107
+	Type_Typedef TypeKind = 107
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ObjCInterface CXTypeKind = 108
+	Type_ObjCInterface TypeKind = 108
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ObjCObjectPointer CXTypeKind = 109
+	Type_ObjCObjectPointer TypeKind = 109
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_FunctionNoProto CXTypeKind = 110
+	Type_FunctionNoProto TypeKind = 110
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_FunctionProto CXTypeKind = 111
+	Type_FunctionProto TypeKind = 111
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_ConstantArray CXTypeKind = 112
+	Type_ConstantArray TypeKind = 112
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Vector CXTypeKind = 113
+	Type_Vector TypeKind = 113
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_IncompleteArray CXTypeKind = 114
+	Type_IncompleteArray TypeKind = 114
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_VariableArray CXTypeKind = 115
+	Type_VariableArray TypeKind = 115
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_DependentSizedArray CXTypeKind = 116
+	Type_DependentSizedArray TypeKind = 116
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_MemberPointer CXTypeKind = 117
+	Type_MemberPointer TypeKind = 117
 	/*
 	   A type whose specific kind is not exposed via this interface.
 	*/
-	CXType_Auto CXTypeKind = 118
+	Type_Auto TypeKind = 118
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_Elaborated CXTypeKind = 119
+	Type_Elaborated TypeKind = 119
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_Pipe CXTypeKind = 120
+	Type_Pipe TypeKind = 120
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dRO CXTypeKind = 121
+	Type_OCLImage1dRO TypeKind = 121
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dArrayRO CXTypeKind = 122
+	Type_OCLImage1dArrayRO TypeKind = 122
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dBufferRO CXTypeKind = 123
+	Type_OCLImage1dBufferRO TypeKind = 123
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dRO CXTypeKind = 124
+	Type_OCLImage2dRO TypeKind = 124
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayRO CXTypeKind = 125
+	Type_OCLImage2dArrayRO TypeKind = 125
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dDepthRO CXTypeKind = 126
+	Type_OCLImage2dDepthRO TypeKind = 126
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayDepthRO CXTypeKind = 127
+	Type_OCLImage2dArrayDepthRO TypeKind = 127
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAARO CXTypeKind = 128
+	Type_OCLImage2dMSAARO TypeKind = 128
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAARO CXTypeKind = 129
+	Type_OCLImage2dArrayMSAARO TypeKind = 129
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAADepthRO CXTypeKind = 130
+	Type_OCLImage2dMSAADepthRO TypeKind = 130
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAADepthRO CXTypeKind = 131
+	Type_OCLImage2dArrayMSAADepthRO TypeKind = 131
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage3dRO CXTypeKind = 132
+	Type_OCLImage3dRO TypeKind = 132
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dWO CXTypeKind = 133
+	Type_OCLImage1dWO TypeKind = 133
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dArrayWO CXTypeKind = 134
+	Type_OCLImage1dArrayWO TypeKind = 134
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dBufferWO CXTypeKind = 135
+	Type_OCLImage1dBufferWO TypeKind = 135
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dWO CXTypeKind = 136
+	Type_OCLImage2dWO TypeKind = 136
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayWO CXTypeKind = 137
+	Type_OCLImage2dArrayWO TypeKind = 137
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dDepthWO CXTypeKind = 138
+	Type_OCLImage2dDepthWO TypeKind = 138
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayDepthWO CXTypeKind = 139
+	Type_OCLImage2dArrayDepthWO TypeKind = 139
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAAWO CXTypeKind = 140
+	Type_OCLImage2dMSAAWO TypeKind = 140
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAAWO CXTypeKind = 141
+	Type_OCLImage2dArrayMSAAWO TypeKind = 141
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAADepthWO CXTypeKind = 142
+	Type_OCLImage2dMSAADepthWO TypeKind = 142
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAADepthWO CXTypeKind = 143
+	Type_OCLImage2dArrayMSAADepthWO TypeKind = 143
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage3dWO CXTypeKind = 144
+	Type_OCLImage3dWO TypeKind = 144
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dRW CXTypeKind = 145
+	Type_OCLImage1dRW TypeKind = 145
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dArrayRW CXTypeKind = 146
+	Type_OCLImage1dArrayRW TypeKind = 146
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage1dBufferRW CXTypeKind = 147
+	Type_OCLImage1dBufferRW TypeKind = 147
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dRW CXTypeKind = 148
+	Type_OCLImage2dRW TypeKind = 148
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayRW CXTypeKind = 149
+	Type_OCLImage2dArrayRW TypeKind = 149
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dDepthRW CXTypeKind = 150
+	Type_OCLImage2dDepthRW TypeKind = 150
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayDepthRW CXTypeKind = 151
+	Type_OCLImage2dArrayDepthRW TypeKind = 151
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAARW CXTypeKind = 152
+	Type_OCLImage2dMSAARW TypeKind = 152
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAARW CXTypeKind = 153
+	Type_OCLImage2dArrayMSAARW TypeKind = 153
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dMSAADepthRW CXTypeKind = 154
+	Type_OCLImage2dMSAADepthRW TypeKind = 154
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage2dArrayMSAADepthRW CXTypeKind = 155
+	Type_OCLImage2dArrayMSAADepthRW TypeKind = 155
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLImage3dRW CXTypeKind = 156
+	Type_OCLImage3dRW TypeKind = 156
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLSampler CXTypeKind = 157
+	Type_OCLSampler TypeKind = 157
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLEvent CXTypeKind = 158
+	Type_OCLEvent TypeKind = 158
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLQueue CXTypeKind = 159
+	Type_OCLQueue TypeKind = 159
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLReserveID CXTypeKind = 160
+	Type_OCLReserveID TypeKind = 160
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_ObjCObject CXTypeKind = 161
+	Type_ObjCObject TypeKind = 161
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_ObjCTypeParam CXTypeKind = 162
+	Type_ObjCTypeParam TypeKind = 162
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_Attributed CXTypeKind = 163
+	Type_Attributed TypeKind = 163
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCMcePayload CXTypeKind = 164
+	Type_OCLIntelSubgroupAVCMcePayload TypeKind = 164
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImePayload CXTypeKind = 165
+	Type_OCLIntelSubgroupAVCImePayload TypeKind = 165
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCRefPayload CXTypeKind = 166
+	Type_OCLIntelSubgroupAVCRefPayload TypeKind = 166
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCSicPayload CXTypeKind = 167
+	Type_OCLIntelSubgroupAVCSicPayload TypeKind = 167
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCMceResult CXTypeKind = 168
+	Type_OCLIntelSubgroupAVCMceResult TypeKind = 168
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeResult CXTypeKind = 169
+	Type_OCLIntelSubgroupAVCImeResult TypeKind = 169
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCRefResult CXTypeKind = 170
+	Type_OCLIntelSubgroupAVCRefResult TypeKind = 170
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCSicResult CXTypeKind = 171
+	Type_OCLIntelSubgroupAVCSicResult TypeKind = 171
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeResultSingleReferenceStreamout CXTypeKind = 172
+	Type_OCLIntelSubgroupAVCImeResultSingleReferenceStreamout TypeKind = 172
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeResultDualReferenceStreamout CXTypeKind = 173
+	Type_OCLIntelSubgroupAVCImeResultDualReferenceStreamout TypeKind = 173
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeSingleReferenceStreamin CXTypeKind = 174
+	Type_OCLIntelSubgroupAVCImeSingleReferenceStreamin TypeKind = 174
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeDualReferenceStreamin CXTypeKind = 175
+	Type_OCLIntelSubgroupAVCImeDualReferenceStreamin TypeKind = 175
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeResultSingleRefStreamout CXTypeKind = 172
+	Type_OCLIntelSubgroupAVCImeResultSingleRefStreamout TypeKind = 172
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeResultDualRefStreamout CXTypeKind = 173
+	Type_OCLIntelSubgroupAVCImeResultDualRefStreamout TypeKind = 173
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeSingleRefStreamin CXTypeKind = 174
+	Type_OCLIntelSubgroupAVCImeSingleRefStreamin TypeKind = 174
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_OCLIntelSubgroupAVCImeDualRefStreamin CXTypeKind = 175
+	Type_OCLIntelSubgroupAVCImeDualRefStreamin TypeKind = 175
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_ExtVector CXTypeKind = 176
+	Type_ExtVector TypeKind = 176
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_Atomic CXTypeKind = 177
+	Type_Atomic TypeKind = 177
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_BTFTagAttributed CXTypeKind = 178
+	Type_BTFTagAttributed TypeKind = 178
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_HLSLResource CXTypeKind = 179
+	Type_HLSLResource TypeKind = 179
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_HLSLAttributedResource CXTypeKind = 180
+	Type_HLSLAttributedResource TypeKind = 180
 	/*
 	   Represents a type that was referred to using an elaborated type keyword.
 
 	   E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
 	*/
-	CXType_HLSLInlineSpirv CXTypeKind = 181
+	Type_HLSLInlineSpirv TypeKind = 181
 )
 
 /*
 Describes the calling convention of a function type
 */
-type CXCallingConv uint32
+type CallingConv uint32
 
 const (
-	CXCallingConv_Default            CXCallingConv = 0
-	CXCallingConv_C                  CXCallingConv = 1
-	CXCallingConv_X86StdCall         CXCallingConv = 2
-	CXCallingConv_X86FastCall        CXCallingConv = 3
-	CXCallingConv_X86ThisCall        CXCallingConv = 4
-	CXCallingConv_X86Pascal          CXCallingConv = 5
-	CXCallingConv_AAPCS              CXCallingConv = 6
-	CXCallingConv_AAPCS_VFP          CXCallingConv = 7
-	CXCallingConv_X86RegCall         CXCallingConv = 8
-	CXCallingConv_IntelOclBicc       CXCallingConv = 9
-	CXCallingConv_Win64              CXCallingConv = 10
-	CXCallingConv_X86_64Win64        CXCallingConv = 10
-	CXCallingConv_X86_64SysV         CXCallingConv = 11
-	CXCallingConv_X86VectorCall      CXCallingConv = 12
-	CXCallingConv_Swift              CXCallingConv = 13
-	CXCallingConv_PreserveMost       CXCallingConv = 14
-	CXCallingConv_PreserveAll        CXCallingConv = 15
-	CXCallingConv_AArch64VectorCall  CXCallingConv = 16
-	CXCallingConv_SwiftAsync         CXCallingConv = 17
-	CXCallingConv_AArch64SVEPCS      CXCallingConv = 18
-	CXCallingConv_M68kRTD            CXCallingConv = 19
-	CXCallingConv_PreserveNone       CXCallingConv = 20
-	CXCallingConv_RISCVVectorCall    CXCallingConv = 21
-	CXCallingConv_RISCVVLSCall_32    CXCallingConv = 22
-	CXCallingConv_RISCVVLSCall_64    CXCallingConv = 23
-	CXCallingConv_RISCVVLSCall_128   CXCallingConv = 24
-	CXCallingConv_RISCVVLSCall_256   CXCallingConv = 25
-	CXCallingConv_RISCVVLSCall_512   CXCallingConv = 26
-	CXCallingConv_RISCVVLSCall_1024  CXCallingConv = 27
-	CXCallingConv_RISCVVLSCall_2048  CXCallingConv = 28
-	CXCallingConv_RISCVVLSCall_4096  CXCallingConv = 29
-	CXCallingConv_RISCVVLSCall_8192  CXCallingConv = 30
-	CXCallingConv_RISCVVLSCall_16384 CXCallingConv = 31
-	CXCallingConv_RISCVVLSCall_32768 CXCallingConv = 32
-	CXCallingConv_RISCVVLSCall_65536 CXCallingConv = 33
-	CXCallingConv_Invalid            CXCallingConv = 100
-	CXCallingConv_Unexposed          CXCallingConv = 200
+	CallingConv_Default            CallingConv = 0
+	CallingConv_C                  CallingConv = 1
+	CallingConv_X86StdCall         CallingConv = 2
+	CallingConv_X86FastCall        CallingConv = 3
+	CallingConv_X86ThisCall        CallingConv = 4
+	CallingConv_X86Pascal          CallingConv = 5
+	CallingConv_AAPCS              CallingConv = 6
+	CallingConv_AAPCS_VFP          CallingConv = 7
+	CallingConv_X86RegCall         CallingConv = 8
+	CallingConv_IntelOclBicc       CallingConv = 9
+	CallingConv_Win64              CallingConv = 10
+	CallingConv_X86_64Win64        CallingConv = 10
+	CallingConv_X86_64SysV         CallingConv = 11
+	CallingConv_X86VectorCall      CallingConv = 12
+	CallingConv_Swift              CallingConv = 13
+	CallingConv_PreserveMost       CallingConv = 14
+	CallingConv_PreserveAll        CallingConv = 15
+	CallingConv_AArch64VectorCall  CallingConv = 16
+	CallingConv_SwiftAsync         CallingConv = 17
+	CallingConv_AArch64SVEPCS      CallingConv = 18
+	CallingConv_M68kRTD            CallingConv = 19
+	CallingConv_PreserveNone       CallingConv = 20
+	CallingConv_RISCVVectorCall    CallingConv = 21
+	CallingConv_RISCVVLSCall_32    CallingConv = 22
+	CallingConv_RISCVVLSCall_64    CallingConv = 23
+	CallingConv_RISCVVLSCall_128   CallingConv = 24
+	CallingConv_RISCVVLSCall_256   CallingConv = 25
+	CallingConv_RISCVVLSCall_512   CallingConv = 26
+	CallingConv_RISCVVLSCall_1024  CallingConv = 27
+	CallingConv_RISCVVLSCall_2048  CallingConv = 28
+	CallingConv_RISCVVLSCall_4096  CallingConv = 29
+	CallingConv_RISCVVLSCall_8192  CallingConv = 30
+	CallingConv_RISCVVLSCall_16384 CallingConv = 31
+	CallingConv_RISCVVLSCall_32768 CallingConv = 32
+	CallingConv_RISCVVLSCall_65536 CallingConv = 33
+	CallingConv_Invalid            CallingConv = 100
+	CallingConv_Unexposed          CallingConv = 200
 )
 
 /*
@@ -2405,44 +2405,44 @@ Describes the kind of a template argument.
 
 See the definition of llvm::clang::TemplateArgument::ArgKind for full element descriptions.
 */
-type CXTemplateArgumentKind uint32
+type TemplateArgumentKind uint32
 
 const (
-	CXTemplateArgumentKind_Null              CXTemplateArgumentKind = 0
-	CXTemplateArgumentKind_Type              CXTemplateArgumentKind = 1
-	CXTemplateArgumentKind_Declaration       CXTemplateArgumentKind = 2
-	CXTemplateArgumentKind_NullPtr           CXTemplateArgumentKind = 3
-	CXTemplateArgumentKind_Integral          CXTemplateArgumentKind = 4
-	CXTemplateArgumentKind_Template          CXTemplateArgumentKind = 5
-	CXTemplateArgumentKind_TemplateExpansion CXTemplateArgumentKind = 6
-	CXTemplateArgumentKind_Expression        CXTemplateArgumentKind = 7
-	CXTemplateArgumentKind_Pack              CXTemplateArgumentKind = 8
-	CXTemplateArgumentKind_Invalid           CXTemplateArgumentKind = 9
+	TemplateArgumentKind_Null              TemplateArgumentKind = 0
+	TemplateArgumentKind_Type              TemplateArgumentKind = 1
+	TemplateArgumentKind_Declaration       TemplateArgumentKind = 2
+	TemplateArgumentKind_NullPtr           TemplateArgumentKind = 3
+	TemplateArgumentKind_Integral          TemplateArgumentKind = 4
+	TemplateArgumentKind_Template          TemplateArgumentKind = 5
+	TemplateArgumentKind_TemplateExpansion TemplateArgumentKind = 6
+	TemplateArgumentKind_Expression        TemplateArgumentKind = 7
+	TemplateArgumentKind_Pack              TemplateArgumentKind = 8
+	TemplateArgumentKind_Invalid           TemplateArgumentKind = 9
 )
 
-type CXTypeNullabilityKind uint32
+type TypeNullabilityKind uint32
 
 const (
 	/*
 	   Values of this type can never be null.
 	*/
-	CXTypeNullability_NonNull CXTypeNullabilityKind = 0
+	TypeNullability_NonNull TypeNullabilityKind = 0
 	/*
 	   Values of this type can be null.
 	*/
-	CXTypeNullability_Nullable CXTypeNullabilityKind = 1
+	TypeNullability_Nullable TypeNullabilityKind = 1
 	/*
 	   Whether values of this type can be null is (explicitly) unspecified. This captures a (fairly rare) case where we can't conclude anything about the nullability of the type even though it has been considered.
 	*/
-	CXTypeNullability_Unspecified CXTypeNullabilityKind = 2
+	TypeNullability_Unspecified TypeNullabilityKind = 2
 	/*
 	   Nullability is not applicable to this type.
 	*/
-	CXTypeNullability_Invalid CXTypeNullabilityKind = 3
+	TypeNullability_Invalid TypeNullabilityKind = 3
 	/*
 	   Generally behaves like Nullable, except when used in a block parameter that was imported into a swift async method. There, swift will assume that the parameter can get null even if no error occurred. _Nullable parameters are assumed to only get null on error.
 	*/
-	CXTypeNullability_NullableResult CXTypeNullabilityKind = 4
+	TypeNullability_NullableResult TypeNullabilityKind = 4
 )
 
 /*
@@ -2450,121 +2450,121 @@ List the possible error codes for clang_Type_getSizeOf,   clang_Type_getAlignOf,
 
 A value of this enumeration type can be returned if the target type is not a valid argument to sizeof, alignof or offsetof.
 */
-type CXTypeLayoutError int32
+type TypeLayoutError int32
 
 const (
 	/*
 	   Type is of kind CXType_Invalid.
 	*/
-	CXTypeLayoutError_Invalid CXTypeLayoutError = -1
+	TypeLayoutError_Invalid TypeLayoutError = -1
 	/*
 	   The type is an incomplete Type.
 	*/
-	CXTypeLayoutError_Incomplete CXTypeLayoutError = -2
+	TypeLayoutError_Incomplete TypeLayoutError = -2
 	/*
 	   The type is a dependent Type.
 	*/
-	CXTypeLayoutError_Dependent CXTypeLayoutError = -3
+	TypeLayoutError_Dependent TypeLayoutError = -3
 	/*
 	   The type is not a constant size type.
 	*/
-	CXTypeLayoutError_NotConstantSize CXTypeLayoutError = -4
+	TypeLayoutError_NotConstantSize TypeLayoutError = -4
 	/*
 	   The Field name is not valid for this record.
 	*/
-	CXTypeLayoutError_InvalidFieldName CXTypeLayoutError = -5
+	TypeLayoutError_InvalidFieldName TypeLayoutError = -5
 	/*
 	   The type is undeduced.
 	*/
-	CXTypeLayoutError_Undeduced CXTypeLayoutError = -6
+	TypeLayoutError_Undeduced TypeLayoutError = -6
 )
 
-type CXRefQualifierKind uint32
+type RefQualifierKind uint32
 
 const (
 	/*
 	   No ref-qualifier was provided.
 	*/
-	CXRefQualifier_None CXRefQualifierKind = 0
+	RefQualifier_None RefQualifierKind = 0
 	/*
 	   An lvalue ref-qualifier was provided (&).
 	*/
-	CXRefQualifier_LValue CXRefQualifierKind = 1
+	RefQualifier_LValue RefQualifierKind = 1
 	/*
 	   An rvalue ref-qualifier was provided (&&).
 	*/
-	CXRefQualifier_RValue CXRefQualifierKind = 2
+	RefQualifier_RValue RefQualifierKind = 2
 )
 
 /*
 Represents the C++ access control level to a base class for a cursor with kind CX_CXXBaseSpecifier.
 */
-type CX_CXXAccessSpecifier uint32
+type _CXXAccessSpecifier uint32
 
 const (
-	CX_CXXInvalidAccessSpecifier CX_CXXAccessSpecifier = 0
-	CX_CXXPublic                 CX_CXXAccessSpecifier = 1
-	CX_CXXProtected              CX_CXXAccessSpecifier = 2
-	CX_CXXPrivate                CX_CXXAccessSpecifier = 3
+	_CXXInvalidAccessSpecifier _CXXAccessSpecifier = 0
+	_CXXPublic                 _CXXAccessSpecifier = 1
+	_CXXProtected              _CXXAccessSpecifier = 2
+	_CXXPrivate                _CXXAccessSpecifier = 3
 )
 
 /*
 Represents the storage classes as declared in the source. CX_SC_Invalid was added for the case that the passed cursor in not a declaration.
 */
-type CX_StorageClass uint32
+type _StorageClass uint32
 
 const (
-	CX_SC_Invalid              CX_StorageClass = 0
-	CX_SC_None                 CX_StorageClass = 1
-	CX_SC_Extern               CX_StorageClass = 2
-	CX_SC_Static               CX_StorageClass = 3
-	CX_SC_PrivateExtern        CX_StorageClass = 4
-	CX_SC_OpenCLWorkGroupLocal CX_StorageClass = 5
-	CX_SC_Auto                 CX_StorageClass = 6
-	CX_SC_Register             CX_StorageClass = 7
+	_SC_Invalid              _StorageClass = 0
+	_SC_None                 _StorageClass = 1
+	_SC_Extern               _StorageClass = 2
+	_SC_Static               _StorageClass = 3
+	_SC_PrivateExtern        _StorageClass = 4
+	_SC_OpenCLWorkGroupLocal _StorageClass = 5
+	_SC_Auto                 _StorageClass = 6
+	_SC_Register             _StorageClass = 7
 )
 
 /*
 Represents a specific kind of binary operator which can appear at a cursor.
 */
-type CX_BinaryOperatorKind uint32
+type _BinaryOperatorKind uint32
 
 const (
-	CX_BO_Invalid   CX_BinaryOperatorKind = 0
-	CX_BO_PtrMemD   CX_BinaryOperatorKind = 1
-	CX_BO_PtrMemI   CX_BinaryOperatorKind = 2
-	CX_BO_Mul       CX_BinaryOperatorKind = 3
-	CX_BO_Div       CX_BinaryOperatorKind = 4
-	CX_BO_Rem       CX_BinaryOperatorKind = 5
-	CX_BO_Add       CX_BinaryOperatorKind = 6
-	CX_BO_Sub       CX_BinaryOperatorKind = 7
-	CX_BO_Shl       CX_BinaryOperatorKind = 8
-	CX_BO_Shr       CX_BinaryOperatorKind = 9
-	CX_BO_Cmp       CX_BinaryOperatorKind = 10
-	CX_BO_LT        CX_BinaryOperatorKind = 11
-	CX_BO_GT        CX_BinaryOperatorKind = 12
-	CX_BO_LE        CX_BinaryOperatorKind = 13
-	CX_BO_GE        CX_BinaryOperatorKind = 14
-	CX_BO_EQ        CX_BinaryOperatorKind = 15
-	CX_BO_NE        CX_BinaryOperatorKind = 16
-	CX_BO_And       CX_BinaryOperatorKind = 17
-	CX_BO_Xor       CX_BinaryOperatorKind = 18
-	CX_BO_Or        CX_BinaryOperatorKind = 19
-	CX_BO_LAnd      CX_BinaryOperatorKind = 20
-	CX_BO_LOr       CX_BinaryOperatorKind = 21
-	CX_BO_Assign    CX_BinaryOperatorKind = 22
-	CX_BO_MulAssign CX_BinaryOperatorKind = 23
-	CX_BO_DivAssign CX_BinaryOperatorKind = 24
-	CX_BO_RemAssign CX_BinaryOperatorKind = 25
-	CX_BO_AddAssign CX_BinaryOperatorKind = 26
-	CX_BO_SubAssign CX_BinaryOperatorKind = 27
-	CX_BO_ShlAssign CX_BinaryOperatorKind = 28
-	CX_BO_ShrAssign CX_BinaryOperatorKind = 29
-	CX_BO_AndAssign CX_BinaryOperatorKind = 30
-	CX_BO_XorAssign CX_BinaryOperatorKind = 31
-	CX_BO_OrAssign  CX_BinaryOperatorKind = 32
-	CX_BO_Comma     CX_BinaryOperatorKind = 33
-	CX_BO_LAST      CX_BinaryOperatorKind = 33
+	_BO_Invalid   _BinaryOperatorKind = 0
+	_BO_PtrMemD   _BinaryOperatorKind = 1
+	_BO_PtrMemI   _BinaryOperatorKind = 2
+	_BO_Mul       _BinaryOperatorKind = 3
+	_BO_Div       _BinaryOperatorKind = 4
+	_BO_Rem       _BinaryOperatorKind = 5
+	_BO_Add       _BinaryOperatorKind = 6
+	_BO_Sub       _BinaryOperatorKind = 7
+	_BO_Shl       _BinaryOperatorKind = 8
+	_BO_Shr       _BinaryOperatorKind = 9
+	_BO_Cmp       _BinaryOperatorKind = 10
+	_BO_LT        _BinaryOperatorKind = 11
+	_BO_GT        _BinaryOperatorKind = 12
+	_BO_LE        _BinaryOperatorKind = 13
+	_BO_GE        _BinaryOperatorKind = 14
+	_BO_EQ        _BinaryOperatorKind = 15
+	_BO_NE        _BinaryOperatorKind = 16
+	_BO_And       _BinaryOperatorKind = 17
+	_BO_Xor       _BinaryOperatorKind = 18
+	_BO_Or        _BinaryOperatorKind = 19
+	_BO_LAnd      _BinaryOperatorKind = 20
+	_BO_LOr       _BinaryOperatorKind = 21
+	_BO_Assign    _BinaryOperatorKind = 22
+	_BO_MulAssign _BinaryOperatorKind = 23
+	_BO_DivAssign _BinaryOperatorKind = 24
+	_BO_RemAssign _BinaryOperatorKind = 25
+	_BO_AddAssign _BinaryOperatorKind = 26
+	_BO_SubAssign _BinaryOperatorKind = 27
+	_BO_ShlAssign _BinaryOperatorKind = 28
+	_BO_ShrAssign _BinaryOperatorKind = 29
+	_BO_AndAssign _BinaryOperatorKind = 30
+	_BO_XorAssign _BinaryOperatorKind = 31
+	_BO_OrAssign  _BinaryOperatorKind = 32
+	_BO_Comma     _BinaryOperatorKind = 33
+	_BO_LAST      _BinaryOperatorKind = 33
 )
 
 /*
@@ -2572,21 +2572,21 @@ Describes how the traversal of the children of a particular cursor should procee
 
 A value of this enumeration type should be returned by each CXCursorVisitor to indicate how clang_visitChildren() proceed.
 */
-type CXChildVisitResult uint32
+type ChildVisitResult uint32
 
 const (
 	/*
 	   Terminates the cursor traversal.
 	*/
-	CXChildVisit_Break CXChildVisitResult = 0
+	ChildVisit_Break ChildVisitResult = 0
 	/*
 	   Continues the cursor traversal with the next sibling of the cursor just visited, without visiting its children.
 	*/
-	CXChildVisit_Continue CXChildVisitResult = 1
+	ChildVisit_Continue ChildVisitResult = 1
 	/*
 	   Recursively traverse the children of this cursor, using the same visitor and client data.
 	*/
-	CXChildVisit_Recurse CXChildVisitResult = 2
+	ChildVisit_Recurse ChildVisitResult = 2
 )
 
 /*
@@ -2594,120 +2594,120 @@ Properties for the printing policy.
 
 See clang::PrintingPolicy for more information.
 */
-type CXPrintingPolicyProperty uint32
+type PrintingPolicyProperty uint32
 
 const (
-	CXPrintingPolicy_Indentation                           CXPrintingPolicyProperty = 0
-	CXPrintingPolicy_SuppressSpecifiers                    CXPrintingPolicyProperty = 1
-	CXPrintingPolicy_SuppressTagKeyword                    CXPrintingPolicyProperty = 2
-	CXPrintingPolicy_IncludeTagDefinition                  CXPrintingPolicyProperty = 3
-	CXPrintingPolicy_SuppressScope                         CXPrintingPolicyProperty = 4
-	CXPrintingPolicy_SuppressUnwrittenScope                CXPrintingPolicyProperty = 5
-	CXPrintingPolicy_SuppressInitializers                  CXPrintingPolicyProperty = 6
-	CXPrintingPolicy_ConstantArraySizeAsWritten            CXPrintingPolicyProperty = 7
-	CXPrintingPolicy_AnonymousTagLocations                 CXPrintingPolicyProperty = 8
-	CXPrintingPolicy_SuppressStrongLifetime                CXPrintingPolicyProperty = 9
-	CXPrintingPolicy_SuppressLifetimeQualifiers            CXPrintingPolicyProperty = 10
-	CXPrintingPolicy_SuppressTemplateArgsInCXXConstructors CXPrintingPolicyProperty = 11
-	CXPrintingPolicy_Bool                                  CXPrintingPolicyProperty = 12
-	CXPrintingPolicy_Restrict                              CXPrintingPolicyProperty = 13
-	CXPrintingPolicy_Alignof                               CXPrintingPolicyProperty = 14
-	CXPrintingPolicy_UnderscoreAlignof                     CXPrintingPolicyProperty = 15
-	CXPrintingPolicy_UseVoidForZeroParams                  CXPrintingPolicyProperty = 16
-	CXPrintingPolicy_TerseOutput                           CXPrintingPolicyProperty = 17
-	CXPrintingPolicy_PolishForDeclaration                  CXPrintingPolicyProperty = 18
-	CXPrintingPolicy_Half                                  CXPrintingPolicyProperty = 19
-	CXPrintingPolicy_MSWChar                               CXPrintingPolicyProperty = 20
-	CXPrintingPolicy_IncludeNewlines                       CXPrintingPolicyProperty = 21
-	CXPrintingPolicy_MSVCFormatting                        CXPrintingPolicyProperty = 22
-	CXPrintingPolicy_ConstantsAsWritten                    CXPrintingPolicyProperty = 23
-	CXPrintingPolicy_SuppressImplicitBase                  CXPrintingPolicyProperty = 24
-	CXPrintingPolicy_FullyQualifiedName                    CXPrintingPolicyProperty = 25
-	CXPrintingPolicy_LastProperty                          CXPrintingPolicyProperty = 25
+	PrintingPolicy_Indentation                           PrintingPolicyProperty = 0
+	PrintingPolicy_SuppressSpecifiers                    PrintingPolicyProperty = 1
+	PrintingPolicy_SuppressTagKeyword                    PrintingPolicyProperty = 2
+	PrintingPolicy_IncludeTagDefinition                  PrintingPolicyProperty = 3
+	PrintingPolicy_SuppressScope                         PrintingPolicyProperty = 4
+	PrintingPolicy_SuppressUnwrittenScope                PrintingPolicyProperty = 5
+	PrintingPolicy_SuppressInitializers                  PrintingPolicyProperty = 6
+	PrintingPolicy_ConstantArraySizeAsWritten            PrintingPolicyProperty = 7
+	PrintingPolicy_AnonymousTagLocations                 PrintingPolicyProperty = 8
+	PrintingPolicy_SuppressStrongLifetime                PrintingPolicyProperty = 9
+	PrintingPolicy_SuppressLifetimeQualifiers            PrintingPolicyProperty = 10
+	PrintingPolicy_SuppressTemplateArgsInCXXConstructors PrintingPolicyProperty = 11
+	PrintingPolicy_Bool                                  PrintingPolicyProperty = 12
+	PrintingPolicy_Restrict                              PrintingPolicyProperty = 13
+	PrintingPolicy_Alignof                               PrintingPolicyProperty = 14
+	PrintingPolicy_UnderscoreAlignof                     PrintingPolicyProperty = 15
+	PrintingPolicy_UseVoidForZeroParams                  PrintingPolicyProperty = 16
+	PrintingPolicy_TerseOutput                           PrintingPolicyProperty = 17
+	PrintingPolicy_PolishForDeclaration                  PrintingPolicyProperty = 18
+	PrintingPolicy_Half                                  PrintingPolicyProperty = 19
+	PrintingPolicy_MSWChar                               PrintingPolicyProperty = 20
+	PrintingPolicy_IncludeNewlines                       PrintingPolicyProperty = 21
+	PrintingPolicy_MSVCFormatting                        PrintingPolicyProperty = 22
+	PrintingPolicy_ConstantsAsWritten                    PrintingPolicyProperty = 23
+	PrintingPolicy_SuppressImplicitBase                  PrintingPolicyProperty = 24
+	PrintingPolicy_FullyQualifiedName                    PrintingPolicyProperty = 25
+	PrintingPolicy_LastProperty                          PrintingPolicyProperty = 25
 )
 
 /*
 Property attributes for a CXCursor_ObjCPropertyDecl.
 */
-type CXObjCPropertyAttrKind uint32
+type ObjCPropertyAttrKind uint32
 
 const (
-	CXObjCPropertyAttr_noattr            CXObjCPropertyAttrKind = 0
-	CXObjCPropertyAttr_readonly          CXObjCPropertyAttrKind = 1
-	CXObjCPropertyAttr_getter            CXObjCPropertyAttrKind = 2
-	CXObjCPropertyAttr_assign            CXObjCPropertyAttrKind = 4
-	CXObjCPropertyAttr_readwrite         CXObjCPropertyAttrKind = 8
-	CXObjCPropertyAttr_retain            CXObjCPropertyAttrKind = 16
-	CXObjCPropertyAttr_copy              CXObjCPropertyAttrKind = 32
-	CXObjCPropertyAttr_nonatomic         CXObjCPropertyAttrKind = 64
-	CXObjCPropertyAttr_setter            CXObjCPropertyAttrKind = 128
-	CXObjCPropertyAttr_atomic            CXObjCPropertyAttrKind = 256
-	CXObjCPropertyAttr_weak              CXObjCPropertyAttrKind = 512
-	CXObjCPropertyAttr_strong            CXObjCPropertyAttrKind = 1024
-	CXObjCPropertyAttr_unsafe_unretained CXObjCPropertyAttrKind = 2048
-	CXObjCPropertyAttr_class             CXObjCPropertyAttrKind = 4096
+	ObjCPropertyAttr_noattr            ObjCPropertyAttrKind = 0
+	ObjCPropertyAttr_readonly          ObjCPropertyAttrKind = 1
+	ObjCPropertyAttr_getter            ObjCPropertyAttrKind = 2
+	ObjCPropertyAttr_assign            ObjCPropertyAttrKind = 4
+	ObjCPropertyAttr_readwrite         ObjCPropertyAttrKind = 8
+	ObjCPropertyAttr_retain            ObjCPropertyAttrKind = 16
+	ObjCPropertyAttr_copy              ObjCPropertyAttrKind = 32
+	ObjCPropertyAttr_nonatomic         ObjCPropertyAttrKind = 64
+	ObjCPropertyAttr_setter            ObjCPropertyAttrKind = 128
+	ObjCPropertyAttr_atomic            ObjCPropertyAttrKind = 256
+	ObjCPropertyAttr_weak              ObjCPropertyAttrKind = 512
+	ObjCPropertyAttr_strong            ObjCPropertyAttrKind = 1024
+	ObjCPropertyAttr_unsafe_unretained ObjCPropertyAttrKind = 2048
+	ObjCPropertyAttr_class             ObjCPropertyAttrKind = 4096
 )
 
 /*
 'Qualifiers' written next to the return and parameter types in Objective-C method declarations.
 */
-type CXObjCDeclQualifierKind uint32
+type ObjCDeclQualifierKind uint32
 
 const (
-	CXObjCDeclQualifier_None   CXObjCDeclQualifierKind = 0
-	CXObjCDeclQualifier_In     CXObjCDeclQualifierKind = 1
-	CXObjCDeclQualifier_Inout  CXObjCDeclQualifierKind = 2
-	CXObjCDeclQualifier_Out    CXObjCDeclQualifierKind = 4
-	CXObjCDeclQualifier_Bycopy CXObjCDeclQualifierKind = 8
-	CXObjCDeclQualifier_Byref  CXObjCDeclQualifierKind = 16
-	CXObjCDeclQualifier_Oneway CXObjCDeclQualifierKind = 32
+	ObjCDeclQualifier_None   ObjCDeclQualifierKind = 0
+	ObjCDeclQualifier_In     ObjCDeclQualifierKind = 1
+	ObjCDeclQualifier_Inout  ObjCDeclQualifierKind = 2
+	ObjCDeclQualifier_Out    ObjCDeclQualifierKind = 4
+	ObjCDeclQualifier_Bycopy ObjCDeclQualifierKind = 8
+	ObjCDeclQualifier_Byref  ObjCDeclQualifierKind = 16
+	ObjCDeclQualifier_Oneway ObjCDeclQualifierKind = 32
 )
 
-type CXNameRefFlags uint32
+type NameRefFlags uint32
 
 const (
 	/*
 	   Include the nested-name-specifier, e.g. Foo:: in x.Foo::y, in the range.
 	*/
-	CXNameRange_WantQualifier CXNameRefFlags = 1
+	NameRange_WantQualifier NameRefFlags = 1
 	/*
 	   Include the explicit template arguments, e.g. <int> in x.f<int>, in the range.
 	*/
-	CXNameRange_WantTemplateArgs CXNameRefFlags = 2
+	NameRange_WantTemplateArgs NameRefFlags = 2
 	/*
 	   If the name is non-contiguous, return the full spanning range.
 
 	   Non-contiguous names occur in Objective-C when a selector with two or more parameters is used, or in C++ when using an operator:
 	*/
-	CXNameRange_WantSinglePiece CXNameRefFlags = 4
+	NameRange_WantSinglePiece NameRefFlags = 4
 )
 
 /*
 Describes a kind of token.
 */
-type CXTokenKind uint32
+type TokenKind uint32
 
 const (
 	/*
 	   A token that contains some kind of punctuation.
 	*/
-	CXToken_Punctuation CXTokenKind = 0
+	Token_Punctuation TokenKind = 0
 	/*
 	   A language keyword.
 	*/
-	CXToken_Keyword CXTokenKind = 1
+	Token_Keyword TokenKind = 1
 	/*
 	   An identifier (that is not a keyword).
 	*/
-	CXToken_Identifier CXTokenKind = 2
+	Token_Identifier TokenKind = 2
 	/*
 	   A numeric, string, or character literal.
 	*/
-	CXToken_Literal CXTokenKind = 3
+	Token_Literal TokenKind = 3
 	/*
 	   A comment.
 	*/
-	CXToken_Comment CXTokenKind = 4
+	Token_Comment TokenKind = 4
 )
 
 /*
@@ -2715,7 +2715,7 @@ Describes a single piece of text within a code-completion string.
 
 Each "chunk" within a code-completion string (CXCompletionString) is either a piece of text with a specific "kind" that describes how that text should be interpreted by the client or is another completion string.
 */
-type CXCompletionChunkKind uint32
+type CompletionChunkKind uint32
 
 const (
 	/*
@@ -2727,31 +2727,31 @@ const (
 
 	   There are many ways to handle Optional chunks. Two simple approaches are:   - Completely ignore optional chunks, in which case the template for the     function "f" would only include the first parameter ("int x").   - Fully expand all optional chunks, in which case the template for the     function "f" would have all of the parameters.
 	*/
-	CXCompletionChunk_Optional CXCompletionChunkKind = 0
+	CompletionChunk_Optional CompletionChunkKind = 0
 	/*
 	   Text that a user would be expected to type to get this code-completion result.
 
 	   There will be exactly one "typed text" chunk in a semantic string, which will typically provide the spelling of a keyword or the name of a declaration that could be used at the current code point. Clients are expected to filter the code-completion results based on the text in this chunk.
 	*/
-	CXCompletionChunk_TypedText CXCompletionChunkKind = 1
+	CompletionChunk_TypedText CompletionChunkKind = 1
 	/*
 	   Text that should be inserted as part of a code-completion result.
 
 	   A "text" chunk represents text that is part of the template to be inserted into user code should this particular code-completion result be selected.
 	*/
-	CXCompletionChunk_Text CXCompletionChunkKind = 2
+	CompletionChunk_Text CompletionChunkKind = 2
 	/*
 	   Placeholder text that should be replaced by the user.
 
 	   A "placeholder" chunk marks a place where the user should insert text into the code-completion template. For example, placeholders might mark the function parameters for a function declaration, to indicate that the user should provide arguments for each of those parameters. The actual text in a placeholder is a suggestion for the text to display before the user replaces the placeholder with real code.
 	*/
-	CXCompletionChunk_Placeholder CXCompletionChunkKind = 3
+	CompletionChunk_Placeholder CompletionChunkKind = 3
 	/*
 	   Informative text that should be displayed but never inserted as part of the template.
 
 	   An "informative" chunk contains annotations that can be displayed to help the user decide whether a particular code-completion result is the right option, but which is not part of the actual template to be inserted by code completion.
 	*/
-	CXCompletionChunk_Informative CXCompletionChunkKind = 4
+	CompletionChunk_Informative CompletionChunkKind = 4
 	/*
 	   Text that describes the current parameter when code-completion is referring to function call, message send, or template specialization.
 
@@ -2759,69 +2759,69 @@ const (
 
 	   and the source code add(, where the code-completion point is after the "(", the code-completion string will contain a "current parameter" chunk for "int x", indicating that the current argument will initialize that parameter. After typing further, to add(17, (where the code-completion point is after the ","), the code-completion string will contain a "current parameter" chunk to "int y".
 	*/
-	CXCompletionChunk_CurrentParameter CXCompletionChunkKind = 5
+	CompletionChunk_CurrentParameter CompletionChunkKind = 5
 	/*
 	   A left parenthesis ('('), used to initiate a function call or signal the beginning of a function parameter list.
 	*/
-	CXCompletionChunk_LeftParen CXCompletionChunkKind = 6
+	CompletionChunk_LeftParen CompletionChunkKind = 6
 	/*
 	   A right parenthesis (')'), used to finish a function call or signal the end of a function parameter list.
 	*/
-	CXCompletionChunk_RightParen CXCompletionChunkKind = 7
+	CompletionChunk_RightParen CompletionChunkKind = 7
 	/*
 	   A left bracket ('[').
 	*/
-	CXCompletionChunk_LeftBracket CXCompletionChunkKind = 8
+	CompletionChunk_LeftBracket CompletionChunkKind = 8
 	/*
 	   A right bracket (']').
 	*/
-	CXCompletionChunk_RightBracket CXCompletionChunkKind = 9
+	CompletionChunk_RightBracket CompletionChunkKind = 9
 	/*
 	   A left brace ('{').
 	*/
-	CXCompletionChunk_LeftBrace CXCompletionChunkKind = 10
+	CompletionChunk_LeftBrace CompletionChunkKind = 10
 	/*
 	   A right brace ('}').
 	*/
-	CXCompletionChunk_RightBrace CXCompletionChunkKind = 11
+	CompletionChunk_RightBrace CompletionChunkKind = 11
 	/*
 	   A left angle bracket ('<').
 	*/
-	CXCompletionChunk_LeftAngle CXCompletionChunkKind = 12
+	CompletionChunk_LeftAngle CompletionChunkKind = 12
 	/*
 	   A right angle bracket ('>').
 	*/
-	CXCompletionChunk_RightAngle CXCompletionChunkKind = 13
+	CompletionChunk_RightAngle CompletionChunkKind = 13
 	/*
 	   A comma separator (',').
 	*/
-	CXCompletionChunk_Comma CXCompletionChunkKind = 14
+	CompletionChunk_Comma CompletionChunkKind = 14
 	/*
 	   Text that specifies the result type of a given result.
 
 	   This special kind of informative chunk is not meant to be inserted into the text buffer. Rather, it is meant to illustrate the type that an expression using the given completion string would have.
 	*/
-	CXCompletionChunk_ResultType CXCompletionChunkKind = 15
+	CompletionChunk_ResultType CompletionChunkKind = 15
 	/*
 	   A colon (':').
 	*/
-	CXCompletionChunk_Colon CXCompletionChunkKind = 16
+	CompletionChunk_Colon CompletionChunkKind = 16
 	/*
 	   A semicolon (';').
 	*/
-	CXCompletionChunk_SemiColon CXCompletionChunkKind = 17
+	CompletionChunk_SemiColon CompletionChunkKind = 17
 	/*
 	   An '=' sign.
 	*/
-	CXCompletionChunk_Equal CXCompletionChunkKind = 18
+	CompletionChunk_Equal CompletionChunkKind = 18
 	/*
 	   Horizontal space (' ').
 	*/
-	CXCompletionChunk_HorizontalSpace CXCompletionChunkKind = 19
+	CompletionChunk_HorizontalSpace CompletionChunkKind = 19
 	/*
 	   Vertical space ('\n'), after which it is generally a good idea to perform indentation.
 	*/
-	CXCompletionChunk_VerticalSpace CXCompletionChunkKind = 20
+	CompletionChunk_VerticalSpace CompletionChunkKind = 20
 )
 
 /*
@@ -2829,29 +2829,29 @@ Flags that can be passed to clang_codeCompleteAt() to modify its behavior.
 
 The enumerators in this enumeration can be bitwise-OR'd together to provide multiple options to clang_codeCompleteAt().
 */
-type CXCodeComplete_Flags uint32
+type CodeComplete_Flags uint32
 
 const (
 	/*
 	   Whether to include macros within the set of code completions returned.
 	*/
-	CXCodeComplete_IncludeMacros CXCodeComplete_Flags = 1
+	CodeComplete_IncludeMacros CodeComplete_Flags = 1
 	/*
 	   Whether to include code patterns for language constructs within the set of code completions, e.g., for loops.
 	*/
-	CXCodeComplete_IncludeCodePatterns CXCodeComplete_Flags = 2
+	CodeComplete_IncludeCodePatterns CodeComplete_Flags = 2
 	/*
 	   Whether to include brief documentation within the set of code completions returned.
 	*/
-	CXCodeComplete_IncludeBriefComments CXCodeComplete_Flags = 4
+	CodeComplete_IncludeBriefComments CodeComplete_Flags = 4
 	/*
 	   Whether to speed up completion by omitting top- or namespace-level entities defined in the preamble. There's no guarantee any particular entity is omitted. This may be useful if the headers are indexed externally.
 	*/
-	CXCodeComplete_SkipPreamble CXCodeComplete_Flags = 8
+	CodeComplete_SkipPreamble CodeComplete_Flags = 8
 	/*
 	   Whether to include completions with small fix-its, e.g. change '.' to '->' on member access, etc.
 	*/
-	CXCodeComplete_IncludeCompletionsWithFixIts CXCodeComplete_Flags = 16
+	CodeComplete_IncludeCompletionsWithFixIts CodeComplete_Flags = 16
 )
 
 /*
@@ -2859,226 +2859,226 @@ Bits that represent the context under which completion is occurring.
 
 The enumerators in this enumeration may be bitwise-OR'd together if multiple contexts are occurring simultaneously.
 */
-type CXCompletionContext uint32
+type CompletionContext uint32
 
 const (
 	/*
 	   The context for completions is unexposed, as only Clang results should be included. (This is equivalent to having no context bits set.)
 	*/
-	CXCompletionContext_Unexposed CXCompletionContext = 0
+	CompletionContext_Unexposed CompletionContext = 0
 	/*
 	   Completions for any possible type should be included in the results.
 	*/
-	CXCompletionContext_AnyType CXCompletionContext = 1
+	CompletionContext_AnyType CompletionContext = 1
 	/*
 	   Completions for any possible value (variables, function calls, etc.) should be included in the results.
 	*/
-	CXCompletionContext_AnyValue CXCompletionContext = 2
+	CompletionContext_AnyValue CompletionContext = 2
 	/*
 	   Completions for values that resolve to an Objective-C object should be included in the results.
 	*/
-	CXCompletionContext_ObjCObjectValue CXCompletionContext = 4
+	CompletionContext_ObjCObjectValue CompletionContext = 4
 	/*
 	   Completions for values that resolve to an Objective-C selector should be included in the results.
 	*/
-	CXCompletionContext_ObjCSelectorValue CXCompletionContext = 8
+	CompletionContext_ObjCSelectorValue CompletionContext = 8
 	/*
 	   Completions for values that resolve to a C++ class type should be included in the results.
 	*/
-	CXCompletionContext_CXXClassTypeValue CXCompletionContext = 16
+	CompletionContext_CXXClassTypeValue CompletionContext = 16
 	/*
 	   Completions for fields of the member being accessed using the dot operator should be included in the results.
 	*/
-	CXCompletionContext_DotMemberAccess CXCompletionContext = 32
+	CompletionContext_DotMemberAccess CompletionContext = 32
 	/*
 	   Completions for fields of the member being accessed using the arrow operator should be included in the results.
 	*/
-	CXCompletionContext_ArrowMemberAccess CXCompletionContext = 64
+	CompletionContext_ArrowMemberAccess CompletionContext = 64
 	/*
 	   Completions for properties of the Objective-C object being accessed using the dot operator should be included in the results.
 	*/
-	CXCompletionContext_ObjCPropertyAccess CXCompletionContext = 128
+	CompletionContext_ObjCPropertyAccess CompletionContext = 128
 	/*
 	   Completions for enum tags should be included in the results.
 	*/
-	CXCompletionContext_EnumTag CXCompletionContext = 256
+	CompletionContext_EnumTag CompletionContext = 256
 	/*
 	   Completions for union tags should be included in the results.
 	*/
-	CXCompletionContext_UnionTag CXCompletionContext = 512
+	CompletionContext_UnionTag CompletionContext = 512
 	/*
 	   Completions for struct tags should be included in the results.
 	*/
-	CXCompletionContext_StructTag CXCompletionContext = 1024
+	CompletionContext_StructTag CompletionContext = 1024
 	/*
 	   Completions for C++ class names should be included in the results.
 	*/
-	CXCompletionContext_ClassTag CXCompletionContext = 2048
+	CompletionContext_ClassTag CompletionContext = 2048
 	/*
 	   Completions for C++ namespaces and namespace aliases should be included in the results.
 	*/
-	CXCompletionContext_Namespace CXCompletionContext = 4096
+	CompletionContext_Namespace CompletionContext = 4096
 	/*
 	   Completions for C++ nested name specifiers should be included in the results.
 	*/
-	CXCompletionContext_NestedNameSpecifier CXCompletionContext = 8192
+	CompletionContext_NestedNameSpecifier CompletionContext = 8192
 	/*
 	   Completions for Objective-C interfaces (classes) should be included in the results.
 	*/
-	CXCompletionContext_ObjCInterface CXCompletionContext = 16384
+	CompletionContext_ObjCInterface CompletionContext = 16384
 	/*
 	   Completions for Objective-C protocols should be included in the results.
 	*/
-	CXCompletionContext_ObjCProtocol CXCompletionContext = 32768
+	CompletionContext_ObjCProtocol CompletionContext = 32768
 	/*
 	   Completions for Objective-C categories should be included in the results.
 	*/
-	CXCompletionContext_ObjCCategory CXCompletionContext = 65536
+	CompletionContext_ObjCCategory CompletionContext = 65536
 	/*
 	   Completions for Objective-C instance messages should be included in the results.
 	*/
-	CXCompletionContext_ObjCInstanceMessage CXCompletionContext = 131072
+	CompletionContext_ObjCInstanceMessage CompletionContext = 131072
 	/*
 	   Completions for Objective-C class messages should be included in the results.
 	*/
-	CXCompletionContext_ObjCClassMessage CXCompletionContext = 262144
+	CompletionContext_ObjCClassMessage CompletionContext = 262144
 	/*
 	   Completions for Objective-C selector names should be included in the results.
 	*/
-	CXCompletionContext_ObjCSelectorName CXCompletionContext = 524288
+	CompletionContext_ObjCSelectorName CompletionContext = 524288
 	/*
 	   Completions for preprocessor macro names should be included in the results.
 	*/
-	CXCompletionContext_MacroName CXCompletionContext = 1048576
+	CompletionContext_MacroName CompletionContext = 1048576
 	/*
 	   Natural language completions should be included in the results.
 	*/
-	CXCompletionContext_NaturalLanguage CXCompletionContext = 2097152
+	CompletionContext_NaturalLanguage CompletionContext = 2097152
 	/*
 	   #include file completions should be included in the results.
 	*/
-	CXCompletionContext_IncludedFile CXCompletionContext = 4194304
+	CompletionContext_IncludedFile CompletionContext = 4194304
 	/*
 	   The current context is unknown, so set all contexts.
 	*/
-	CXCompletionContext_Unknown CXCompletionContext = 8388607
+	CompletionContext_Unknown CompletionContext = 8388607
 )
 
-type CXEvalResultKind uint32
+type EvalResultKind uint32
 
 const (
-	CXEval_Int            CXEvalResultKind = 1
-	CXEval_Float          CXEvalResultKind = 2
-	CXEval_ObjCStrLiteral CXEvalResultKind = 3
-	CXEval_StrLiteral     CXEvalResultKind = 4
-	CXEval_CFStr          CXEvalResultKind = 5
-	CXEval_Other          CXEvalResultKind = 6
-	CXEval_UnExposed      CXEvalResultKind = 0
+	Eval_Int            EvalResultKind = 1
+	Eval_Float          EvalResultKind = 2
+	Eval_ObjCStrLiteral EvalResultKind = 3
+	Eval_StrLiteral     EvalResultKind = 4
+	Eval_CFStr          EvalResultKind = 5
+	Eval_Other          EvalResultKind = 6
+	Eval_UnExposed      EvalResultKind = 0
 )
 
 /*
 @{
 */
-type CXVisitorResult uint32
+type VisitorResult uint32
 
 const (
-	CXVisit_Break    CXVisitorResult = 0
-	CXVisit_Continue CXVisitorResult = 1
+	Visit_Break    VisitorResult = 0
+	Visit_Continue VisitorResult = 1
 )
 
-type CXResult uint32
+type Result uint32
 
 const (
 	/*
 	   Function returned successfully.
 	*/
-	CXResult_Success CXResult = 0
+	Result_Success Result = 0
 	/*
 	   One of the parameters was invalid for the function.
 	*/
-	CXResult_Invalid CXResult = 1
+	Result_Invalid Result = 1
 	/*
 	   The function was terminated by a callback (e.g. it returned CXVisit_Break)
 	*/
-	CXResult_VisitBreak CXResult = 2
+	Result_VisitBreak Result = 2
 )
 
-type CXIdxEntityKind uint32
+type IdxEntityKind uint32
 
 const (
-	CXIdxEntity_Unexposed             CXIdxEntityKind = 0
-	CXIdxEntity_Typedef               CXIdxEntityKind = 1
-	CXIdxEntity_Function              CXIdxEntityKind = 2
-	CXIdxEntity_Variable              CXIdxEntityKind = 3
-	CXIdxEntity_Field                 CXIdxEntityKind = 4
-	CXIdxEntity_EnumConstant          CXIdxEntityKind = 5
-	CXIdxEntity_ObjCClass             CXIdxEntityKind = 6
-	CXIdxEntity_ObjCProtocol          CXIdxEntityKind = 7
-	CXIdxEntity_ObjCCategory          CXIdxEntityKind = 8
-	CXIdxEntity_ObjCInstanceMethod    CXIdxEntityKind = 9
-	CXIdxEntity_ObjCClassMethod       CXIdxEntityKind = 10
-	CXIdxEntity_ObjCProperty          CXIdxEntityKind = 11
-	CXIdxEntity_ObjCIvar              CXIdxEntityKind = 12
-	CXIdxEntity_Enum                  CXIdxEntityKind = 13
-	CXIdxEntity_Struct                CXIdxEntityKind = 14
-	CXIdxEntity_Union                 CXIdxEntityKind = 15
-	CXIdxEntity_CXXClass              CXIdxEntityKind = 16
-	CXIdxEntity_CXXNamespace          CXIdxEntityKind = 17
-	CXIdxEntity_CXXNamespaceAlias     CXIdxEntityKind = 18
-	CXIdxEntity_CXXStaticVariable     CXIdxEntityKind = 19
-	CXIdxEntity_CXXStaticMethod       CXIdxEntityKind = 20
-	CXIdxEntity_CXXInstanceMethod     CXIdxEntityKind = 21
-	CXIdxEntity_CXXConstructor        CXIdxEntityKind = 22
-	CXIdxEntity_CXXDestructor         CXIdxEntityKind = 23
-	CXIdxEntity_CXXConversionFunction CXIdxEntityKind = 24
-	CXIdxEntity_CXXTypeAlias          CXIdxEntityKind = 25
-	CXIdxEntity_CXXInterface          CXIdxEntityKind = 26
-	CXIdxEntity_CXXConcept            CXIdxEntityKind = 27
+	IdxEntity_Unexposed             IdxEntityKind = 0
+	IdxEntity_Typedef               IdxEntityKind = 1
+	IdxEntity_Function              IdxEntityKind = 2
+	IdxEntity_Variable              IdxEntityKind = 3
+	IdxEntity_Field                 IdxEntityKind = 4
+	IdxEntity_EnumConstant          IdxEntityKind = 5
+	IdxEntity_ObjCClass             IdxEntityKind = 6
+	IdxEntity_ObjCProtocol          IdxEntityKind = 7
+	IdxEntity_ObjCCategory          IdxEntityKind = 8
+	IdxEntity_ObjCInstanceMethod    IdxEntityKind = 9
+	IdxEntity_ObjCClassMethod       IdxEntityKind = 10
+	IdxEntity_ObjCProperty          IdxEntityKind = 11
+	IdxEntity_ObjCIvar              IdxEntityKind = 12
+	IdxEntity_Enum                  IdxEntityKind = 13
+	IdxEntity_Struct                IdxEntityKind = 14
+	IdxEntity_Union                 IdxEntityKind = 15
+	IdxEntity_CXXClass              IdxEntityKind = 16
+	IdxEntity_CXXNamespace          IdxEntityKind = 17
+	IdxEntity_CXXNamespaceAlias     IdxEntityKind = 18
+	IdxEntity_CXXStaticVariable     IdxEntityKind = 19
+	IdxEntity_CXXStaticMethod       IdxEntityKind = 20
+	IdxEntity_CXXInstanceMethod     IdxEntityKind = 21
+	IdxEntity_CXXConstructor        IdxEntityKind = 22
+	IdxEntity_CXXDestructor         IdxEntityKind = 23
+	IdxEntity_CXXConversionFunction IdxEntityKind = 24
+	IdxEntity_CXXTypeAlias          IdxEntityKind = 25
+	IdxEntity_CXXInterface          IdxEntityKind = 26
+	IdxEntity_CXXConcept            IdxEntityKind = 27
 )
 
-type CXIdxEntityLanguage uint32
+type IdxEntityLanguage uint32
 
 const (
-	CXIdxEntityLang_None  CXIdxEntityLanguage = 0
-	CXIdxEntityLang_C     CXIdxEntityLanguage = 1
-	CXIdxEntityLang_ObjC  CXIdxEntityLanguage = 2
-	CXIdxEntityLang_CXX   CXIdxEntityLanguage = 3
-	CXIdxEntityLang_Swift CXIdxEntityLanguage = 4
+	IdxEntityLang_None  IdxEntityLanguage = 0
+	IdxEntityLang_C     IdxEntityLanguage = 1
+	IdxEntityLang_ObjC  IdxEntityLanguage = 2
+	IdxEntityLang_CXX   IdxEntityLanguage = 3
+	IdxEntityLang_Swift IdxEntityLanguage = 4
 )
 
 /*
 Extra C++ template information for an entity. This can apply to: CXIdxEntity_Function CXIdxEntity_CXXClass CXIdxEntity_CXXStaticMethod CXIdxEntity_CXXInstanceMethod CXIdxEntity_CXXConstructor CXIdxEntity_CXXConversionFunction CXIdxEntity_CXXTypeAlias
 */
-type CXIdxEntityCXXTemplateKind uint32
+type IdxEntityCXXTemplateKind uint32
 
 const (
-	CXIdxEntity_NonTemplate                   CXIdxEntityCXXTemplateKind = 0
-	CXIdxEntity_Template                      CXIdxEntityCXXTemplateKind = 1
-	CXIdxEntity_TemplatePartialSpecialization CXIdxEntityCXXTemplateKind = 2
-	CXIdxEntity_TemplateSpecialization        CXIdxEntityCXXTemplateKind = 3
+	IdxEntity_NonTemplate                   IdxEntityCXXTemplateKind = 0
+	IdxEntity_Template                      IdxEntityCXXTemplateKind = 1
+	IdxEntity_TemplatePartialSpecialization IdxEntityCXXTemplateKind = 2
+	IdxEntity_TemplateSpecialization        IdxEntityCXXTemplateKind = 3
 )
 
-type CXIdxAttrKind uint32
+type IdxAttrKind uint32
 
 const (
-	CXIdxAttr_Unexposed          CXIdxAttrKind = 0
-	CXIdxAttr_IBAction           CXIdxAttrKind = 1
-	CXIdxAttr_IBOutlet           CXIdxAttrKind = 2
-	CXIdxAttr_IBOutletCollection CXIdxAttrKind = 3
+	IdxAttr_Unexposed          IdxAttrKind = 0
+	IdxAttr_IBAction           IdxAttrKind = 1
+	IdxAttr_IBOutlet           IdxAttrKind = 2
+	IdxAttr_IBOutletCollection IdxAttrKind = 3
 )
 
-type CXIdxDeclInfoFlags uint32
+type IdxDeclInfoFlags uint32
 
 const (
-	CXIdxDeclFlag_Skipped CXIdxDeclInfoFlags = 1
+	IdxDeclFlag_Skipped IdxDeclInfoFlags = 1
 )
 
-type CXIdxObjCContainerKind uint32
+type IdxObjCContainerKind uint32
 
 const (
-	CXIdxObjCContainer_ForwardRef     CXIdxObjCContainerKind = 0
-	CXIdxObjCContainer_Interface      CXIdxObjCContainerKind = 1
-	CXIdxObjCContainer_Implementation CXIdxObjCContainerKind = 2
+	IdxObjCContainer_ForwardRef     IdxObjCContainerKind = 0
+	IdxObjCContainer_Interface      IdxObjCContainerKind = 1
+	IdxObjCContainer_Implementation IdxObjCContainerKind = 2
 )
 
 /*
@@ -3086,17 +3086,17 @@ Data for IndexerCallbacks#indexEntityReference.
 
 This may be deprecated in a future version as this duplicates the CXSymbolRole_Implicit bit in CXSymbolRole.
 */
-type CXIdxEntityRefKind uint32
+type IdxEntityRefKind uint32
 
 const (
 	/*
 	   The entity is referenced directly in user's code.
 	*/
-	CXIdxEntityRef_Direct CXIdxEntityRefKind = 1
+	IdxEntityRef_Direct IdxEntityRefKind = 1
 	/*
 	   An implicit reference, e.g. a reference of an Objective-C method via the dot syntax.
 	*/
-	CXIdxEntityRef_Implicit CXIdxEntityRefKind = 2
+	IdxEntityRef_Implicit IdxEntityRefKind = 2
 )
 
 /*
@@ -3104,266 +3104,266 @@ Roles that are attributed to symbol occurrences.
 
 Internal: this currently mirrors low 9 bits of clang::index::SymbolRole with higher bits zeroed. These high bits may be exposed in the future.
 */
-type CXSymbolRole uint32
+type SymbolRole uint32
 
 const (
-	CXSymbolRole_None        CXSymbolRole = 0
-	CXSymbolRole_Declaration CXSymbolRole = 1
-	CXSymbolRole_Definition  CXSymbolRole = 2
-	CXSymbolRole_Reference   CXSymbolRole = 4
-	CXSymbolRole_Read        CXSymbolRole = 8
-	CXSymbolRole_Write       CXSymbolRole = 16
-	CXSymbolRole_Call        CXSymbolRole = 32
-	CXSymbolRole_Dynamic     CXSymbolRole = 64
-	CXSymbolRole_AddressOf   CXSymbolRole = 128
-	CXSymbolRole_Implicit    CXSymbolRole = 256
+	SymbolRole_None        SymbolRole = 0
+	SymbolRole_Declaration SymbolRole = 1
+	SymbolRole_Definition  SymbolRole = 2
+	SymbolRole_Reference   SymbolRole = 4
+	SymbolRole_Read        SymbolRole = 8
+	SymbolRole_Write       SymbolRole = 16
+	SymbolRole_Call        SymbolRole = 32
+	SymbolRole_Dynamic     SymbolRole = 64
+	SymbolRole_AddressOf   SymbolRole = 128
+	SymbolRole_Implicit    SymbolRole = 256
 )
 
-type CXIndexOptFlags uint32
+type IndexOptFlags uint32
 
 const (
 	/*
 	   Used to indicate that no special indexing options are needed.
 	*/
-	CXIndexOpt_None CXIndexOptFlags = 0
+	IndexOpt_None IndexOptFlags = 0
 	/*
 	   Used to indicate that IndexerCallbacks#indexEntityReference should be invoked for only one reference of an entity per source file that does not also include a declaration/definition of the entity.
 	*/
-	CXIndexOpt_SuppressRedundantRefs CXIndexOptFlags = 1
+	IndexOpt_SuppressRedundantRefs IndexOptFlags = 1
 	/*
 	   Function-local symbols should be indexed. If this is not set function-local symbols will be ignored.
 	*/
-	CXIndexOpt_IndexFunctionLocalSymbols CXIndexOptFlags = 2
+	IndexOpt_IndexFunctionLocalSymbols IndexOptFlags = 2
 	/*
 	   Implicit function/class template instantiations should be indexed. If this is not set, implicit instantiations will be ignored.
 	*/
-	CXIndexOpt_IndexImplicitTemplateInstantiations CXIndexOptFlags = 4
+	IndexOpt_IndexImplicitTemplateInstantiations IndexOptFlags = 4
 	/*
 	   Suppress all compiler warnings when parsing for indexing.
 	*/
-	CXIndexOpt_SuppressWarnings CXIndexOptFlags = 8
+	IndexOpt_SuppressWarnings IndexOptFlags = 8
 	/*
 	   Skip a function/method body that was already parsed during an indexing session associated with a CXIndexAction object. Bodies in system headers are always skipped.
 	*/
-	CXIndexOpt_SkipParsedBodiesInSession CXIndexOptFlags = 16
+	IndexOpt_SkipParsedBodiesInSession IndexOptFlags = 16
 )
 
 /*
 Describes the kind of binary operators.
 */
-type CXBinaryOperatorKind uint32
+type BinaryOperatorKind uint32
 
 const (
 	/*
 	   This value describes cursors which are not binary operators.
 	*/
-	CXBinaryOperator_Invalid CXBinaryOperatorKind = 0
+	BinaryOperator_Invalid BinaryOperatorKind = 0
 	/*
 	   C++ Pointer - to - member operator.
 	*/
-	CXBinaryOperator_PtrMemD CXBinaryOperatorKind = 1
+	BinaryOperator_PtrMemD BinaryOperatorKind = 1
 	/*
 	   C++ Pointer - to - member operator.
 	*/
-	CXBinaryOperator_PtrMemI CXBinaryOperatorKind = 2
+	BinaryOperator_PtrMemI BinaryOperatorKind = 2
 	/*
 	   Multiplication operator.
 	*/
-	CXBinaryOperator_Mul CXBinaryOperatorKind = 3
+	BinaryOperator_Mul BinaryOperatorKind = 3
 	/*
 	   Division operator.
 	*/
-	CXBinaryOperator_Div CXBinaryOperatorKind = 4
+	BinaryOperator_Div BinaryOperatorKind = 4
 	/*
 	   Remainder operator.
 	*/
-	CXBinaryOperator_Rem CXBinaryOperatorKind = 5
+	BinaryOperator_Rem BinaryOperatorKind = 5
 	/*
 	   Addition operator.
 	*/
-	CXBinaryOperator_Add CXBinaryOperatorKind = 6
+	BinaryOperator_Add BinaryOperatorKind = 6
 	/*
 	   Subtraction operator.
 	*/
-	CXBinaryOperator_Sub CXBinaryOperatorKind = 7
+	BinaryOperator_Sub BinaryOperatorKind = 7
 	/*
 	   Bitwise shift left operator.
 	*/
-	CXBinaryOperator_Shl CXBinaryOperatorKind = 8
+	BinaryOperator_Shl BinaryOperatorKind = 8
 	/*
 	   Bitwise shift right operator.
 	*/
-	CXBinaryOperator_Shr CXBinaryOperatorKind = 9
+	BinaryOperator_Shr BinaryOperatorKind = 9
 	/*
 	   C++ three-way comparison (spaceship) operator.
 	*/
-	CXBinaryOperator_Cmp CXBinaryOperatorKind = 10
+	BinaryOperator_Cmp BinaryOperatorKind = 10
 	/*
 	   Less than operator.
 	*/
-	CXBinaryOperator_LT CXBinaryOperatorKind = 11
+	BinaryOperator_LT BinaryOperatorKind = 11
 	/*
 	   Greater than operator.
 	*/
-	CXBinaryOperator_GT CXBinaryOperatorKind = 12
+	BinaryOperator_GT BinaryOperatorKind = 12
 	/*
 	   Less or equal operator.
 	*/
-	CXBinaryOperator_LE CXBinaryOperatorKind = 13
+	BinaryOperator_LE BinaryOperatorKind = 13
 	/*
 	   Greater or equal operator.
 	*/
-	CXBinaryOperator_GE CXBinaryOperatorKind = 14
+	BinaryOperator_GE BinaryOperatorKind = 14
 	/*
 	   Equal operator.
 	*/
-	CXBinaryOperator_EQ CXBinaryOperatorKind = 15
+	BinaryOperator_EQ BinaryOperatorKind = 15
 	/*
 	   Not equal operator.
 	*/
-	CXBinaryOperator_NE CXBinaryOperatorKind = 16
+	BinaryOperator_NE BinaryOperatorKind = 16
 	/*
 	   Bitwise AND operator.
 	*/
-	CXBinaryOperator_And CXBinaryOperatorKind = 17
+	BinaryOperator_And BinaryOperatorKind = 17
 	/*
 	   Bitwise XOR operator.
 	*/
-	CXBinaryOperator_Xor CXBinaryOperatorKind = 18
+	BinaryOperator_Xor BinaryOperatorKind = 18
 	/*
 	   Bitwise OR operator.
 	*/
-	CXBinaryOperator_Or CXBinaryOperatorKind = 19
+	BinaryOperator_Or BinaryOperatorKind = 19
 	/*
 	   Logical AND operator.
 	*/
-	CXBinaryOperator_LAnd CXBinaryOperatorKind = 20
+	BinaryOperator_LAnd BinaryOperatorKind = 20
 	/*
 	   Logical OR operator.
 	*/
-	CXBinaryOperator_LOr CXBinaryOperatorKind = 21
+	BinaryOperator_LOr BinaryOperatorKind = 21
 	/*
 	   Assignment operator.
 	*/
-	CXBinaryOperator_Assign CXBinaryOperatorKind = 22
+	BinaryOperator_Assign BinaryOperatorKind = 22
 	/*
 	   Multiplication assignment operator.
 	*/
-	CXBinaryOperator_MulAssign CXBinaryOperatorKind = 23
+	BinaryOperator_MulAssign BinaryOperatorKind = 23
 	/*
 	   Division assignment operator.
 	*/
-	CXBinaryOperator_DivAssign CXBinaryOperatorKind = 24
+	BinaryOperator_DivAssign BinaryOperatorKind = 24
 	/*
 	   Remainder assignment operator.
 	*/
-	CXBinaryOperator_RemAssign CXBinaryOperatorKind = 25
+	BinaryOperator_RemAssign BinaryOperatorKind = 25
 	/*
 	   Addition assignment operator.
 	*/
-	CXBinaryOperator_AddAssign CXBinaryOperatorKind = 26
+	BinaryOperator_AddAssign BinaryOperatorKind = 26
 	/*
 	   Subtraction assignment operator.
 	*/
-	CXBinaryOperator_SubAssign CXBinaryOperatorKind = 27
+	BinaryOperator_SubAssign BinaryOperatorKind = 27
 	/*
 	   Bitwise shift left assignment operator.
 	*/
-	CXBinaryOperator_ShlAssign CXBinaryOperatorKind = 28
+	BinaryOperator_ShlAssign BinaryOperatorKind = 28
 	/*
 	   Bitwise shift right assignment operator.
 	*/
-	CXBinaryOperator_ShrAssign CXBinaryOperatorKind = 29
+	BinaryOperator_ShrAssign BinaryOperatorKind = 29
 	/*
 	   Bitwise AND assignment operator.
 	*/
-	CXBinaryOperator_AndAssign CXBinaryOperatorKind = 30
+	BinaryOperator_AndAssign BinaryOperatorKind = 30
 	/*
 	   Bitwise XOR assignment operator.
 	*/
-	CXBinaryOperator_XorAssign CXBinaryOperatorKind = 31
+	BinaryOperator_XorAssign BinaryOperatorKind = 31
 	/*
 	   Bitwise OR assignment operator.
 	*/
-	CXBinaryOperator_OrAssign CXBinaryOperatorKind = 32
+	BinaryOperator_OrAssign BinaryOperatorKind = 32
 	/*
 	   Comma operator.
 	*/
-	CXBinaryOperator_Comma CXBinaryOperatorKind = 33
+	BinaryOperator_Comma BinaryOperatorKind = 33
 	/*
 	   Comma operator.
 	*/
-	CXBinaryOperator_Last CXBinaryOperatorKind = 33
+	BinaryOperator_Last BinaryOperatorKind = 33
 )
 
 /*
 Describes the kind of unary operators.
 */
-type CXUnaryOperatorKind uint32
+type UnaryOperatorKind uint32
 
 const (
 	/*
 	   This value describes cursors which are not unary operators.
 	*/
-	CXUnaryOperator_Invalid CXUnaryOperatorKind = 0
+	UnaryOperator_Invalid UnaryOperatorKind = 0
 	/*
 	   Postfix increment operator.
 	*/
-	CXUnaryOperator_PostInc CXUnaryOperatorKind = 1
+	UnaryOperator_PostInc UnaryOperatorKind = 1
 	/*
 	   Postfix decrement operator.
 	*/
-	CXUnaryOperator_PostDec CXUnaryOperatorKind = 2
+	UnaryOperator_PostDec UnaryOperatorKind = 2
 	/*
 	   Prefix increment operator.
 	*/
-	CXUnaryOperator_PreInc CXUnaryOperatorKind = 3
+	UnaryOperator_PreInc UnaryOperatorKind = 3
 	/*
 	   Prefix decrement operator.
 	*/
-	CXUnaryOperator_PreDec CXUnaryOperatorKind = 4
+	UnaryOperator_PreDec UnaryOperatorKind = 4
 	/*
 	   Address of operator.
 	*/
-	CXUnaryOperator_AddrOf CXUnaryOperatorKind = 5
+	UnaryOperator_AddrOf UnaryOperatorKind = 5
 	/*
 	   Dereference operator.
 	*/
-	CXUnaryOperator_Deref CXUnaryOperatorKind = 6
+	UnaryOperator_Deref UnaryOperatorKind = 6
 	/*
 	   Plus operator.
 	*/
-	CXUnaryOperator_Plus CXUnaryOperatorKind = 7
+	UnaryOperator_Plus UnaryOperatorKind = 7
 	/*
 	   Minus operator.
 	*/
-	CXUnaryOperator_Minus CXUnaryOperatorKind = 8
+	UnaryOperator_Minus UnaryOperatorKind = 8
 	/*
 	   Not operator.
 	*/
-	CXUnaryOperator_Not CXUnaryOperatorKind = 9
+	UnaryOperator_Not UnaryOperatorKind = 9
 	/*
 	   LNot operator.
 	*/
-	CXUnaryOperator_LNot CXUnaryOperatorKind = 10
+	UnaryOperator_LNot UnaryOperatorKind = 10
 	/*
 	   "__real expr" operator.
 	*/
-	CXUnaryOperator_Real CXUnaryOperatorKind = 11
+	UnaryOperator_Real UnaryOperatorKind = 11
 	/*
 	   "__imag expr" operator.
 	*/
-	CXUnaryOperator_Imag CXUnaryOperatorKind = 12
+	UnaryOperator_Imag UnaryOperatorKind = 12
 	/*
 	   __extension__ marker operator.
 	*/
-	CXUnaryOperator_Extension CXUnaryOperatorKind = 13
+	UnaryOperator_Extension UnaryOperatorKind = 13
 	/*
 	   C++ co_await operator.
 	*/
-	CXUnaryOperator_Coawait CXUnaryOperatorKind = 14
+	UnaryOperator_Coawait UnaryOperatorKind = 14
 	/*
 	   C++ co_await operator.
 	*/
-	CXUnaryOperator_Last CXUnaryOperatorKind = 14
+	UnaryOperator_Last UnaryOperatorKind = 14
 )

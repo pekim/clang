@@ -35,7 +35,7 @@ func (enums *enums) add(cursor clang.Cursor) {
 	}
 
 	enum := enum{
-		name:    cursor.Spelling(),
+		name:    goName(cursor.Spelling()),
 		typ:     typ,
 		comment: commentText(cursor.ParsedComment()),
 	}
@@ -46,7 +46,7 @@ func (enums *enums) add(cursor clang.Cursor) {
 		}
 
 		enum.members = append(enum.members, enumMember{
-			name:    cursor.Spelling(),
+			name:    goName(cursor.Spelling()),
 			value:   int(cursor.EnumConstantDeclValue()),
 			comment: commentText(cursor.ParsedComment()),
 		})
