@@ -27,13 +27,10 @@ func (enums *enums) add(cursor clang.Cursor) {
 		fatalf("unsupported integer type for enum : %s", kind)
 	}
 
-	// commentDoc := cursor.BriefCommentText()
-	commentDoc := cursor.RawCommentText()
-
 	enums.enums = append(enums.enums, enum{
 		name:       cursor.Spelling(),
 		typ:        typ,
-		commentDoc: commentDoc,
+		commentDoc: commentText(cursor.ParsedComment()),
 	})
 }
 

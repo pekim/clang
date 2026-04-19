@@ -31,7 +31,6 @@ func parseHeaderFile(headerFile string) clang.TranslationUnit {
 	resourcesDir := clangResourceDir()
 	parseArgs := []string{
 		"-I", path.Join(resourcesDir, "include"),
-		"-I", "/home/mike/projects/clang-go/clang-c",
 		"-x", "c-header",
 	}
 	var tu clang.TranslationUnit
