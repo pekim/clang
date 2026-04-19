@@ -37,6 +37,6 @@ func (f file) save() {
 	}
 }
 
-func unsafePointer() *jen.Statement {
-	return jen.Qual("unsafe", "Pointer")
-}
+// func unsafePointer() *jen.Statement {
+// 	return jen.Qual("unsafe", "Pointer")
+// }

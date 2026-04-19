@@ -1,7 +1,6 @@
 package generate
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/go-clang/clang-v15/clang"
@@ -20,10 +19,11 @@ func Generate() {
 	}
 	gen.TranslationUnit = parseHeaderFile(gen.headerFile)
 
+	gen.findEntities()
 	gen.generate()
 }
 
-func (gen *gen) generate() {
+func (gen *gen) findEntities() {
 	gen.TranslationUnitCursor().Visit(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		// ignore cursors that are not from clang-c header files
 		filename, _, _, _ := cursor.Location().FileLocation()
@@ -39,6 +39,8 @@ func (gen *gen) generate() {
 
 		return clang.ChildVisit_Continue
 	})
+}
 
-	fmt.Println(len(gen.enums.enums))
+func (gen *gen) generate() {
+	gen.enums.generate()
 }
