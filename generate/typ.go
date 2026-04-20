@@ -7,10 +7,12 @@ import (
 	"github.com/go-clang/clang-v15/clang"
 )
 
-var scalarTypes = map[clang.TypeKind]struct {
+type scalar struct {
 	code jen.Code
 	size int
-}{
+}
+
+var scalarTypes = map[clang.TypeKind]scalar{
 	clang.Type_Int: {
 		code: jen.Int32(),
 		size: int(unsafe.Sizeof(*new(int32))),

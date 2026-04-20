@@ -16,7 +16,7 @@ type pointerTypes struct {
 
 func (types *pointerTypes) add(cursor clang.Cursor) {
 	types.types = append(types.types, pointerType{
-		name:    goName(cursor.Spelling()),
+		name:    exportedGoName(cursor.Spelling()),
 		comment: commentText(cursor.ParsedComment()),
 	})
 }

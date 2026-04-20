@@ -1,6 +1,7 @@
 package generate
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/dave/jennifer/jen"
@@ -10,6 +11,8 @@ import (
 type structField struct {
 	name          string
 	comment       string
+	scalar        scalar
+	isScalar      bool
 	_tempSpelling string
 }
 
@@ -31,20 +34,29 @@ func (ss *structs) add(cursor clang.Cursor) {
 	}
 
 	struct_ := struct_{
-		name:    goName(cursor.Spelling()),
+		name:    exportedGoName(cursor.Spelling()),
 		comment: commentText(cursor.ParsedComment()),
 	}
 
+	unnamed := 1
 	cursor.Visit(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
 		if cursor.Kind() != clang.Cursor_FieldDecl {
 			return clang.ChildVisit_Continue
 		}
 
+		name := exportedGoName(cursor.Spelling())
+		if name == "" {
+			name = fmt.Sprintf("_%d", unnamed)
+			unnamed++
+		}
+
 		field := structField{
-			name:          goName(cursor.Spelling()),
+			name:          name,
 			comment:       commentText(cursor.ParsedComment()),
 			_tempSpelling: cursor.Type().Spelling(),
 		}
+		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
+
 		struct_.fields = append(struct_.fields, field)
 
 		return clang.ChildVisit_Continue
@@ -61,7 +73,12 @@ func (ss *structs) generate() {
 		file.Comment(struct_.comment)
 		file.Type().Id(struct_.name).StructFunc(func(g *jen.Group) {
 			for _, field := range struct_.fields {
-				g.Commentf("%s => %s", field.name, field._tempSpelling)
+				if field.isScalar {
+					g.Comment(field.comment)
+					g.Id(field.name).Add(field.scalar.code)
+				} else {
+					g.Commentf("%s => %s", field.name, field._tempSpelling)
+				}
 			}
 		})
 	}

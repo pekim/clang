@@ -3,13 +3,13 @@
 package clang
 
 type String struct {
-	// data => const void *
-	// private_flags => unsigned int
+	// Data => const void *
+	Private_flags uint32
 }
 
 type StringSet struct {
 	// Strings => CXString *
-	// Count => unsigned int
+	Count uint32
 }
 
 type VirtualFileOverlayImpl struct{}
@@ -17,23 +17,23 @@ type VirtualFileOverlayImpl struct{}
 type ModuleMapDescriptorImpl struct{}
 
 type FileUniqueID struct {
-	// data => unsigned long long[3]
+	// Data => unsigned long long[3]
 }
 
 type SourceLocation struct {
-	// ptr_data => const void *[2]
-	// int_data => unsigned int
+	// Ptr_data => const void *[2]
+	Int_data uint32
 }
 
 type SourceRange struct {
-	// ptr_data => const void *[2]
-	// begin_int_data => unsigned int
-	// end_int_data => unsigned int
+	// Ptr_data => const void *[2]
+	Begin_int_data uint32
+	End_int_data   uint32
 }
 
 type SourceRangeList struct {
-	// count => unsigned int
-	// ranges => CXSourceRange *
+	Count uint32
+	// Ranges => CXSourceRange *
 }
 
 type TargetInfoImpl struct{}
@@ -48,16 +48,29 @@ Each CXUnsavedFile instance provides the name of a file on the system along with
 type UnsavedFile struct {
 	// Filename => const char *
 	// Contents => const char *
-	// Length => unsigned long
+	/*
+	   The length of the unsaved contents of this buffer.
+
+	*/
+	Length uint64
 }
 
 /*
 Describes a version number of the form major.minor.subminor.
 */
 type Version struct {
-	// Major => int
-	// Minor => int
-	// Subminor => int
+	/*
+	   The major version number, e.g., the '10' in '10.7.3'. A negative value indicates that there is no version number at all.
+	*/
+	Major int32
+	/*
+	   The minor version number, e.g., the '7' in '10.7.3'. This value will be negative if no minor version number was provided, e.g., for version '10'.
+	*/
+	Minor int32
+	/*
+	   The subminor version number, e.g., the '3' in '10.7.3'. This value will be negative if no minor or subminor version number was provided, e.g., in version '10' or '10.7'.
+	*/
+	Subminor int32
 }
 
 /*
@@ -70,31 +83,43 @@ or explicitly initialize the first data member and zero-initialize the rest:
 or to prevent the -Wmissing-field-initializers warning for the above version:
 */
 type IndexOptions struct {
-	// Size => unsigned int
+	/*
+	   The size of struct CXIndexOptions used for option versioning.
+
+	   Always initialize this member to sizeof(CXIndexOptions), or assign sizeof(CXIndexOptions) to it right after creating a CXIndexOptions object.
+	*/
+	Size uint32
 	// ThreadBackgroundPriorityForIndexing => unsigned char
 	// ThreadBackgroundPriorityForEditing => unsigned char
-	// ExcludeDeclarationsFromPCH => unsigned int
-	// DisplayDiagnostics => unsigned int
-	// StorePreamblesInMemory => unsigned int
-	//
-	//	=> unsigned int
-	//
+	/*
+
+
+	 */
+	ExcludeDeclarationsFromPCH uint32
+	/*
+	 */
+	DisplayDiagnostics uint32
+	/*
+	   Store PCH in memory. If zero, PCH are stored in temporary files.
+	*/
+	StorePreamblesInMemory uint32
+	_1                     uint32
 	// PreambleStoragePath => const char *
 	// InvocationEmissionPath => const char *
 }
 
 type TUResourceUsageEntry struct {
-	// kind => enum CXTUResourceUsageKind
-	// amount => unsigned long
+	// Kind => enum CXTUResourceUsageKind
+	Amount uint64
 }
 
 /*
 The memory usage of a CXTranslationUnit, broken into categories.
 */
 type TUResourceUsage struct {
-	// data => void *
-	// numEntries => unsigned int
-	// entries => CXTUResourceUsageEntry *
+	// Data => void *
+	NumEntries uint32
+	// Entries => CXTUResourceUsageEntry *
 }
 
 /*
@@ -105,9 +130,9 @@ The cursor abstraction unifies the different kinds of entities in a program--dec
 Cursors can be produced in two specific ways. clang_getTranslationUnitCursor() produces a cursor for a translation unit, from which one can use clang_visitChildren() to explore the rest of the translation unit. clang_getCursor() maps from a physical source location to the entity that resides at that location, allowing one to map from the source code into the AST.
 */
 type Cursor struct {
-	// kind => enum CXCursorKind
-	// xdata => int
-	// data => const void *[3]
+	// Kind => enum CXCursorKind
+	Xdata int32
+	// Data => const void *[3]
 }
 
 /*
@@ -118,7 +143,11 @@ type PlatformAvailability struct {
 	// Introduced => CXVersion
 	// Deprecated => CXVersion
 	// Obsoleted => CXVersion
-	// Unavailable => int
+	/*
+	   Whether the entity is unconditionally unavailable on this platform.
+
+	*/
+	Unavailable int32
 	// Message => CXString
 }
 
@@ -128,16 +157,16 @@ type CursorSetImpl struct{}
 The type of an element in the abstract syntax tree.
 */
 type Type struct {
-	// kind => enum CXTypeKind
-	// data => void *[2]
+	// Kind => enum CXTypeKind
+	// Data => void *[2]
 }
 
 /*
 Describes a single preprocessing token.
 */
 type Token struct {
-	// int_data => unsigned int[4]
-	// ptr_data => void *
+	// Int_data => unsigned int[4]
+	// Ptr_data => void *
 }
 
 /*
@@ -155,159 +184,174 @@ This data structure contains the results of code completion, as produced by clan
 */
 type CodeCompleteResults struct {
 	// Results => CXCompletionResult *
-	// NumResults => unsigned int
+	/*
+	   The number of code-completion results stored in the Results array.
+
+	*/
+	NumResults uint32
 }
 
 type CursorAndRangeVisitor struct {
-	// context => void *
-	// visit => enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
+	// Context => void *
+	// Visit => enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
 }
 
 /*
 Source location passed to index callbacks.
 */
 type IdxLoc struct {
-	// ptr_data => void *[2]
-	// int_data => unsigned int
+	// Ptr_data => void *[2]
+	Int_data uint32
 }
 
 /*
 Data for ppIncludedFile callback.
 */
 type IdxIncludedFileInfo struct {
-	// hashLoc => CXIdxLoc
-	// filename => const char *
-	// file => CXFile
-	// isImport => int
-	// isAngled => int
-	// isModuleImport => int
+	// HashLoc => CXIdxLoc
+	// Filename => const char *
+	// File => CXFile
+	IsImport int32
+	IsAngled int32
+	/*
+	   Non-zero if the directive was automatically turned into a module import.
+	*/
+	IsModuleImport int32
 }
 
 /*
 Data for IndexerCallbacks#importedASTFile.
 */
 type IdxImportedASTFileInfo struct {
-	// file => CXFile
-	// module => CXModule
-	// loc => CXIdxLoc
-	// isImplicit => int
+	// File => CXFile
+	// Module => CXModule
+	// Loc => CXIdxLoc
+	/*
+	   Non-zero if an inclusion directive was automatically turned into a module import. Applicable only for modules.
+
+	*/
+	IsImplicit int32
 }
 
 type IdxAttrInfo struct {
-	// kind => CXIdxAttrKind
-	// cursor => CXCursor
-	// loc => CXIdxLoc
+	// Kind => CXIdxAttrKind
+	// Cursor => CXCursor
+	// Loc => CXIdxLoc
 }
 
 type IdxEntityInfo struct {
-	// kind => CXIdxEntityKind
-	// templateKind => CXIdxEntityCXXTemplateKind
-	// lang => CXIdxEntityLanguage
-	// name => const char *
+	// Kind => CXIdxEntityKind
+	// TemplateKind => CXIdxEntityCXXTemplateKind
+	// Lang => CXIdxEntityLanguage
+	// Name => const char *
 	// USR => const char *
-	// cursor => CXCursor
-	// attributes => const CXIdxAttrInfo *const *
-	// numAttributes => unsigned int
+	// Cursor => CXCursor
+	// Attributes => const CXIdxAttrInfo *const *
+	NumAttributes uint32
 }
 
 type IdxContainerInfo struct {
-	// cursor => CXCursor
+	// Cursor => CXCursor
 }
 
 type IdxIBOutletCollectionAttrInfo struct {
-	// attrInfo => const CXIdxAttrInfo *
-	// objcClass => const CXIdxEntityInfo *
-	// classCursor => CXCursor
-	// classLoc => CXIdxLoc
+	// AttrInfo => const CXIdxAttrInfo *
+	// ObjcClass => const CXIdxEntityInfo *
+	// ClassCursor => CXCursor
+	// ClassLoc => CXIdxLoc
 }
 
 type IdxDeclInfo struct {
-	// entityInfo => const CXIdxEntityInfo *
-	// cursor => CXCursor
-	// loc => CXIdxLoc
-	// semanticContainer => const CXIdxContainerInfo *
-	// lexicalContainer => const CXIdxContainerInfo *
-	// isRedeclaration => int
-	// isDefinition => int
-	// isContainer => int
-	// declAsContainer => const CXIdxContainerInfo *
-	// isImplicit => int
-	// attributes => const CXIdxAttrInfo *const *
-	// numAttributes => unsigned int
-	// flags => unsigned int
+	// EntityInfo => const CXIdxEntityInfo *
+	// Cursor => CXCursor
+	// Loc => CXIdxLoc
+	// SemanticContainer => const CXIdxContainerInfo *
+	// LexicalContainer => const CXIdxContainerInfo *
+	IsRedeclaration int32
+	IsDefinition    int32
+	IsContainer     int32
+	// DeclAsContainer => const CXIdxContainerInfo *
+	/*
+	   Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
+
+	*/
+	IsImplicit int32
+	// Attributes => const CXIdxAttrInfo *const *
+	NumAttributes uint32
+	Flags         uint32
 }
 
 type IdxObjCContainerDeclInfo struct {
-	// declInfo => const CXIdxDeclInfo *
-	// kind => CXIdxObjCContainerKind
+	// DeclInfo => const CXIdxDeclInfo *
+	// Kind => CXIdxObjCContainerKind
 }
 
 type IdxBaseClassInfo struct {
-	// base => const CXIdxEntityInfo *
-	// cursor => CXCursor
-	// loc => CXIdxLoc
+	// Base => const CXIdxEntityInfo *
+	// Cursor => CXCursor
+	// Loc => CXIdxLoc
 }
 
 type IdxObjCProtocolRefInfo struct {
-	// protocol => const CXIdxEntityInfo *
-	// cursor => CXCursor
-	// loc => CXIdxLoc
+	// Protocol => const CXIdxEntityInfo *
+	// Cursor => CXCursor
+	// Loc => CXIdxLoc
 }
 
 type IdxObjCProtocolRefListInfo struct {
-	// protocols => const CXIdxObjCProtocolRefInfo *const *
-	// numProtocols => unsigned int
+	// Protocols => const CXIdxObjCProtocolRefInfo *const *
+	NumProtocols uint32
 }
 
 type IdxObjCInterfaceDeclInfo struct {
-	// containerInfo => const CXIdxObjCContainerDeclInfo *
-	// superInfo => const CXIdxBaseClassInfo *
-	// protocols => const CXIdxObjCProtocolRefListInfo *
+	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
+	// SuperInfo => const CXIdxBaseClassInfo *
+	// Protocols => const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCCategoryDeclInfo struct {
-	// containerInfo => const CXIdxObjCContainerDeclInfo *
-	// objcClass => const CXIdxEntityInfo *
-	// classCursor => CXCursor
-	// classLoc => CXIdxLoc
-	// protocols => const CXIdxObjCProtocolRefListInfo *
+	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
+	// ObjcClass => const CXIdxEntityInfo *
+	// ClassCursor => CXCursor
+	// ClassLoc => CXIdxLoc
+	// Protocols => const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCPropertyDeclInfo struct {
-	// declInfo => const CXIdxDeclInfo *
-	// getter => const CXIdxEntityInfo *
-	// setter => const CXIdxEntityInfo *
+	// DeclInfo => const CXIdxDeclInfo *
+	// Getter => const CXIdxEntityInfo *
+	// Setter => const CXIdxEntityInfo *
 }
 
 type IdxCXXClassDeclInfo struct {
-	// declInfo => const CXIdxDeclInfo *
-	// bases => const CXIdxBaseClassInfo *const *
-	// numBases => unsigned int
+	// DeclInfo => const CXIdxDeclInfo *
+	// Bases => const CXIdxBaseClassInfo *const *
+	NumBases uint32
 }
 
 /*
 Data for IndexerCallbacks#indexEntityReference.
 */
 type IdxEntityRefInfo struct {
-	// kind => CXIdxEntityRefKind
-	// cursor => CXCursor
-	// loc => CXIdxLoc
-	// referencedEntity => const CXIdxEntityInfo *
-	// parentEntity => const CXIdxEntityInfo *
-	// container => const CXIdxContainerInfo *
-	// role => CXSymbolRole
+	// Kind => CXIdxEntityRefKind
+	// Cursor => CXCursor
+	// Loc => CXIdxLoc
+	// ReferencedEntity => const CXIdxEntityInfo *
+	// ParentEntity => const CXIdxEntityInfo *
+	// Container => const CXIdxContainerInfo *
+	// Role => CXSymbolRole
 }
 
 /*
 A group of callbacks used by #clang_indexSourceFile and #clang_indexTranslationUnit.
 */
 type IndexerCallbacks struct {
-	// abortQuery => int (*)(CXClientData, void *)
-	// diagnostic => void (*)(CXClientData, CXDiagnosticSet, void *)
-	// enteredMainFile => CXIdxClientFile (*)(CXClientData, CXFile, void *)
-	// ppIncludedFile => CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
-	// importedASTFile => CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
-	// startedTranslationUnit => CXIdxClientContainer (*)(CXClientData, void *)
-	// indexDeclaration => void (*)(CXClientData, const CXIdxDeclInfo *)
-	// indexEntityReference => void (*)(CXClientData, const CXIdxEntityRefInfo *)
+	// AbortQuery => int (*)(CXClientData, void *)
+	// Diagnostic => void (*)(CXClientData, CXDiagnosticSet, void *)
+	// EnteredMainFile => CXIdxClientFile (*)(CXClientData, CXFile, void *)
+	// PpIncludedFile => CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
+	// ImportedASTFile => CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
+	// StartedTranslationUnit => CXIdxClientContainer (*)(CXClientData, void *)
+	// IndexDeclaration => void (*)(CXClientData, const CXIdxDeclInfo *)
+	// IndexEntityReference => void (*)(CXClientData, const CXIdxEntityRefInfo *)
 }
