@@ -10,7 +10,8 @@ type gen struct {
 	headerFile string
 	clang.TranslationUnit
 
-	enums enums
+	enums        enums
+	pointerTypes pointerTypes
 }
 
 func Generate() {
@@ -35,6 +36,11 @@ func (gen *gen) findEntities() {
 
 		case clang.Cursor_EnumDecl:
 			gen.enums.add(cursor)
+
+		case clang.Cursor_TypedefDecl:
+			if cursor.TypedefDeclUnderlyingType().Kind() == clang.Type_Pointer {
+				gen.pointerTypes.add(cursor)
+			}
 		}
 
 		return clang.ChildVisit_Continue
@@ -43,4 +49,5 @@ func (gen *gen) findEntities() {
 
 func (gen *gen) generate() {
 	gen.enums.generate()
+	gen.pointerTypes.generate()
 }
