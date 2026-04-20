@@ -1,7 +1,41 @@
 package generate
 
-import "strings"
+import (
+	"slices"
+	"strings"
+	"unicode"
+)
+
+func exportedGoName(name string) string {
+	goName := goName(name)
+	if len(goName) > 0 {
+		upperFirstChar := unicode.ToUpper(rune(goName[0]))
+		goName = string(upperFirstChar) + goName[1:]
+	}
+
+	return goName
+}
 
 func goName(name string) string {
-	return strings.TrimPrefix(name, "CX")
+	goName := strings.TrimPrefix(name, "CX")
+	goName = strings.TrimPrefix(goName, "_")
+
+	if slices.Contains(goKeywords, goName) {
+		goName += "_"
+	}
+
+	return goName
+}
+
+var goKeywords = []string{
+	"args", // not a Go keyword, but is used as a var name in function bodies
+	"func",
+	"interface",
+	"len",
+	"map",
+	"range",
+	"select",
+	"string",
+	"type",
+	"var",
 }

@@ -2499,72 +2499,72 @@ const (
 /*
 Represents the C++ access control level to a base class for a cursor with kind CX_CXXBaseSpecifier.
 */
-type _CXXAccessSpecifier uint32
+type CXXAccessSpecifier uint32
 
 const (
-	_CXXInvalidAccessSpecifier _CXXAccessSpecifier = 0
-	_CXXPublic                 _CXXAccessSpecifier = 1
-	_CXXProtected              _CXXAccessSpecifier = 2
-	_CXXPrivate                _CXXAccessSpecifier = 3
+	CXXInvalidAccessSpecifier CXXAccessSpecifier = 0
+	CXXPublic                 CXXAccessSpecifier = 1
+	CXXProtected              CXXAccessSpecifier = 2
+	CXXPrivate                CXXAccessSpecifier = 3
 )
 
 /*
 Represents the storage classes as declared in the source. CX_SC_Invalid was added for the case that the passed cursor in not a declaration.
 */
-type _StorageClass uint32
+type StorageClass uint32
 
 const (
-	_SC_Invalid              _StorageClass = 0
-	_SC_None                 _StorageClass = 1
-	_SC_Extern               _StorageClass = 2
-	_SC_Static               _StorageClass = 3
-	_SC_PrivateExtern        _StorageClass = 4
-	_SC_OpenCLWorkGroupLocal _StorageClass = 5
-	_SC_Auto                 _StorageClass = 6
-	_SC_Register             _StorageClass = 7
+	SC_Invalid              StorageClass = 0
+	SC_None                 StorageClass = 1
+	SC_Extern               StorageClass = 2
+	SC_Static               StorageClass = 3
+	SC_PrivateExtern        StorageClass = 4
+	SC_OpenCLWorkGroupLocal StorageClass = 5
+	SC_Auto                 StorageClass = 6
+	SC_Register             StorageClass = 7
 )
 
 /*
 Represents a specific kind of binary operator which can appear at a cursor.
 */
-type _BinaryOperatorKind uint32
+type BinaryOperatorKind_ uint32
 
 const (
-	_BO_Invalid   _BinaryOperatorKind = 0
-	_BO_PtrMemD   _BinaryOperatorKind = 1
-	_BO_PtrMemI   _BinaryOperatorKind = 2
-	_BO_Mul       _BinaryOperatorKind = 3
-	_BO_Div       _BinaryOperatorKind = 4
-	_BO_Rem       _BinaryOperatorKind = 5
-	_BO_Add       _BinaryOperatorKind = 6
-	_BO_Sub       _BinaryOperatorKind = 7
-	_BO_Shl       _BinaryOperatorKind = 8
-	_BO_Shr       _BinaryOperatorKind = 9
-	_BO_Cmp       _BinaryOperatorKind = 10
-	_BO_LT        _BinaryOperatorKind = 11
-	_BO_GT        _BinaryOperatorKind = 12
-	_BO_LE        _BinaryOperatorKind = 13
-	_BO_GE        _BinaryOperatorKind = 14
-	_BO_EQ        _BinaryOperatorKind = 15
-	_BO_NE        _BinaryOperatorKind = 16
-	_BO_And       _BinaryOperatorKind = 17
-	_BO_Xor       _BinaryOperatorKind = 18
-	_BO_Or        _BinaryOperatorKind = 19
-	_BO_LAnd      _BinaryOperatorKind = 20
-	_BO_LOr       _BinaryOperatorKind = 21
-	_BO_Assign    _BinaryOperatorKind = 22
-	_BO_MulAssign _BinaryOperatorKind = 23
-	_BO_DivAssign _BinaryOperatorKind = 24
-	_BO_RemAssign _BinaryOperatorKind = 25
-	_BO_AddAssign _BinaryOperatorKind = 26
-	_BO_SubAssign _BinaryOperatorKind = 27
-	_BO_ShlAssign _BinaryOperatorKind = 28
-	_BO_ShrAssign _BinaryOperatorKind = 29
-	_BO_AndAssign _BinaryOperatorKind = 30
-	_BO_XorAssign _BinaryOperatorKind = 31
-	_BO_OrAssign  _BinaryOperatorKind = 32
-	_BO_Comma     _BinaryOperatorKind = 33
-	_BO_LAST      _BinaryOperatorKind = 33
+	BO_Invalid   BinaryOperatorKind_ = 0
+	BO_PtrMemD   BinaryOperatorKind_ = 1
+	BO_PtrMemI   BinaryOperatorKind_ = 2
+	BO_Mul       BinaryOperatorKind_ = 3
+	BO_Div       BinaryOperatorKind_ = 4
+	BO_Rem       BinaryOperatorKind_ = 5
+	BO_Add       BinaryOperatorKind_ = 6
+	BO_Sub       BinaryOperatorKind_ = 7
+	BO_Shl       BinaryOperatorKind_ = 8
+	BO_Shr       BinaryOperatorKind_ = 9
+	BO_Cmp       BinaryOperatorKind_ = 10
+	BO_LT        BinaryOperatorKind_ = 11
+	BO_GT        BinaryOperatorKind_ = 12
+	BO_LE        BinaryOperatorKind_ = 13
+	BO_GE        BinaryOperatorKind_ = 14
+	BO_EQ        BinaryOperatorKind_ = 15
+	BO_NE        BinaryOperatorKind_ = 16
+	BO_And       BinaryOperatorKind_ = 17
+	BO_Xor       BinaryOperatorKind_ = 18
+	BO_Or        BinaryOperatorKind_ = 19
+	BO_LAnd      BinaryOperatorKind_ = 20
+	BO_LOr       BinaryOperatorKind_ = 21
+	BO_Assign    BinaryOperatorKind_ = 22
+	BO_MulAssign BinaryOperatorKind_ = 23
+	BO_DivAssign BinaryOperatorKind_ = 24
+	BO_RemAssign BinaryOperatorKind_ = 25
+	BO_AddAssign BinaryOperatorKind_ = 26
+	BO_SubAssign BinaryOperatorKind_ = 27
+	BO_ShlAssign BinaryOperatorKind_ = 28
+	BO_ShrAssign BinaryOperatorKind_ = 29
+	BO_AndAssign BinaryOperatorKind_ = 30
+	BO_XorAssign BinaryOperatorKind_ = 31
+	BO_OrAssign  BinaryOperatorKind_ = 32
+	BO_Comma     BinaryOperatorKind_ = 33
+	BO_LAST      BinaryOperatorKind_ = 33
 )
 
 /*

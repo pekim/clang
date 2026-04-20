@@ -24,14 +24,20 @@ type enums struct {
 
 func (enums *enums) add(cursor clang.Cursor) {
 	kind := cursor.EnumDeclIntegerType().Kind()
-	typ, ok := scalarTypes[kind]
-	if !ok {
+	scalar, isScalar := scalarTypes[kind]
+	if !isScalar {
 		fatalf("unsupported integer type for enum : %s", kind)
 	}
 
+	name := exportedGoName(cursor.Spelling())
+	if cursor.Spelling() == "CX_BinaryOperatorKind" {
+		// avoid a name clash between CXBinaryOperatorKind and CX_BinaryOperatorKind.
+		name = "BinaryOperatorKind_"
+	}
+
 	enum := enum{
-		name:    goName(cursor.Spelling()),
-		typ:     typ.code,
+		name:    name,
+		typ:     scalar.code,
 		comment: commentText(cursor.ParsedComment()),
 	}
 
@@ -41,7 +47,7 @@ func (enums *enums) add(cursor clang.Cursor) {
 		}
 
 		enum.members = append(enum.members, enumMember{
-			name:    goName(cursor.Spelling()),
+			name:    exportedGoName(cursor.Spelling()),
 			value:   int(cursor.EnumConstantDeclValue()),
 			comment: commentText(cursor.ParsedComment()),
 		})
