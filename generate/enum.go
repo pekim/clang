@@ -5,11 +5,6 @@ import (
 	"github.com/go-clang/clang-v15/clang"
 )
 
-var kindTypes = map[clang.TypeKind]jen.Code{
-	clang.Type_Int:  jen.Int32(),
-	clang.Type_UInt: jen.Uint32(),
-}
-
 type enum struct {
 	name    string
 	typ     jen.Code
@@ -29,14 +24,14 @@ type enums struct {
 
 func (enums *enums) add(cursor clang.Cursor) {
 	kind := cursor.EnumDeclIntegerType().Kind()
-	typ, ok := kindTypes[kind]
+	typ, ok := scalarTypes[kind]
 	if !ok {
 		fatalf("unsupported integer type for enum : %s", kind)
 	}
 
 	enum := enum{
 		name:    goName(cursor.Spelling()),
-		typ:     typ,
+		typ:     typ.code,
 		comment: commentText(cursor.ParsedComment()),
 	}
 
