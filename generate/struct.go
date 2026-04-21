@@ -11,16 +11,17 @@ import (
 type structField struct {
 	goName       string
 	comment      string
-	enum         *enum
-	isEnum       bool
-	scalar       scalar
-	isScalar     bool
-	struct_      *struct_
-	isStruct     bool
-	isPointer    bool
 	offset       int
 	size         int
 	typeSpelling string
+
+	enum      *enum
+	isEnum    bool
+	scalar    scalar
+	isScalar  bool
+	struct_   *struct_
+	isStruct  bool
+	isPointer bool
 }
 
 type struct_ struct {
@@ -96,46 +97,39 @@ func (struct_ *struct_) enrich(gen *gen) {
 	})
 }
 
-func (ss *structs) generate() {
-	file := newFile("clang", ".", "struct")
-	defer file.save()
+func (struct_ struct_) generate(file file) {
+	file.Comment(struct_.comment)
+	file.Type().Id(struct_.goName).StructFunc(func(g *jen.Group) {
+		g.Id("_").Qual("structs", "HostLayout")
+		g.Line()
 
-	for _, struct_ := range ss.structs_ {
-		file.Comment(struct_.comment)
-		file.Type().Id(struct_.goName).StructFunc(func(g *jen.Group) {
-			g.Id("_").Qual("structs", "HostLayout")
-			g.Line()
+		var prevField *structField
+		for _, field := range struct_.fields {
+			struct_.generateFieldPadding(g, field.offset, prevField)
 
-			var prevField *structField
-			for _, field := range struct_.fields {
-				generateFieldPadding(g, field.offset, prevField)
+			g.Comment(field.comment)
+			// g.Commentf("OFFSET, SIZE : %d, %d", field.offset, field.size)
 
-				g.Comment(field.comment)
-				// g.Commentf("OFFSET, SIZE : %d, %d", field.offset, field.size)
-
-				if field.isEnum {
-					g.Id(field.goName).Id(field.enum.goName)
-				} else if field.isScalar {
-					g.Id(field.goName).Add(field.scalar.code)
-				} else if field.isStruct {
-					g.Id(field.goName).Id(field.struct_.goName)
-				} else if field.isPointer {
-					g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
-				} else {
-					g.Id(field.goName).Index(jen.Lit(field.size)).Byte().Comment(field.typeSpelling)
-				}
-
-				prevField = &field
+			if field.isEnum {
+				g.Id(field.goName).Id(field.enum.goName)
+			} else if field.isScalar {
+				g.Id(field.goName).Add(field.scalar.code)
+			} else if field.isStruct {
+				g.Id(field.goName).Id(field.struct_.goName)
+			} else if field.isPointer {
+				g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
+			} else {
+				g.Id(field.goName).Index(jen.Lit(field.size)).Byte().Comment(field.typeSpelling)
 			}
 
-			generateFieldPadding(g, struct_.size*8, prevField)
-		})
-	}
+			prevField = &field
+		}
 
-	ss.generateTestVars()
+		struct_.generateFieldPadding(g, struct_.size*8, prevField)
+	})
 }
 
-func generateFieldPadding(g *jen.Group, targetOffset int, prevField *structField) {
+func (struct_ struct_) generateFieldPadding(g *jen.Group, targetOffset int, prevField *structField) {
 	if prevField == nil {
 		return
 	}
@@ -145,6 +139,17 @@ func generateFieldPadding(g *jen.Group, targetOffset int, prevField *structField
 	if padding > 0 {
 		g.Id("_").Index(jen.Lit(padding)).Byte()
 	}
+}
+
+func (ss *structs) generate() {
+	file := newFile("clang", ".", "struct")
+	defer file.save()
+
+	for _, struct_ := range ss.structs_ {
+		struct_.generate(file)
+	}
+
+	ss.generateTestVars()
 }
 
 func (ss *structs) generateTestVars() {
