@@ -6,7 +6,8 @@ import (
 )
 
 type enum struct {
-	name    string
+	cName   string
+	goName  string
 	typ     jen.Code
 	comment string
 	members []enumMember
@@ -36,7 +37,8 @@ func (enums *enums) add(cursor clang.Cursor) {
 	}
 
 	enum := enum{
-		name:    name,
+		cName:   cursor.Spelling(),
+		goName:  name,
 		typ:     scalar.code,
 		comment: commentText(cursor.ParsedComment()),
 	}
@@ -64,15 +66,24 @@ func (enums *enums) generate() {
 
 	for _, enum := range enums.enums {
 		file.Comment(enum.comment)
-		file.Type().Id(enum.name).Add(enum.typ)
+		file.Type().Id(enum.goName).Add(enum.typ)
 		file.Line()
 
 		file.Const().DefsFunc(func(g *jen.Group) {
 			for _, member := range enum.members {
 				g.Comment(member.comment)
-				g.Id(member.name).Id(enum.name).Op("=").Lit(member.value)
+				g.Id(member.name).Id(enum.goName).Op("=").Lit(member.value)
 			}
 		})
 		file.Line()
 	}
+}
+
+func (enums *enums) find(cName string) (*enum, bool) {
+	for _, enum := range enums.enums {
+		if enum.cName == cName {
+			return &enum, true
+		}
+	}
+	return nil, false
 }

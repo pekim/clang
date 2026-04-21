@@ -366,7 +366,7 @@ type IdxImportedASTFileInfo struct {
 type IdxAttrInfo struct {
 	_ structs.HostLayout
 
-	Kind   [4]byte // CXIdxAttrKind
+	Kind   IdxAttrKind
 	_      [4]byte
 	Cursor [32]byte // CXCursor
 	Loc    [24]byte // CXIdxLoc
@@ -375,9 +375,9 @@ type IdxAttrInfo struct {
 type IdxEntityInfo struct {
 	_ structs.HostLayout
 
-	Kind          [4]byte // CXIdxEntityKind
-	TemplateKind  [4]byte // CXIdxEntityCXXTemplateKind
-	Lang          [4]byte // CXIdxEntityLanguage
+	Kind          IdxEntityKind
+	TemplateKind  IdxEntityCXXTemplateKind
+	Lang          IdxEntityLanguage
 	_             [4]byte
 	name          uintptr  // const char *
 	USR           uintptr  // const char *
@@ -432,7 +432,7 @@ type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
 	declInfo uintptr // const CXIdxDeclInfo *
-	Kind     [4]byte // CXIdxObjCContainerKind
+	Kind     IdxObjCContainerKind
 	_        [4]byte
 }
 
@@ -501,7 +501,7 @@ Data for IndexerCallbacks#indexEntityReference.
 type IdxEntityRefInfo struct {
 	_ structs.HostLayout
 
-	Kind [4]byte // CXIdxEntityRefKind
+	Kind IdxEntityRefKind
 	_    [4]byte
 	/*
 	   Reference cursor.
@@ -525,7 +525,7 @@ type IdxEntityRefInfo struct {
 	/*
 	   Sets of symbol roles of the reference.
 	*/
-	Role [4]byte // CXSymbolRole
+	Role SymbolRole
 	_    [4]byte
 }
 

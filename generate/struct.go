@@ -11,6 +11,8 @@ import (
 type structField struct {
 	goName       string
 	comment      string
+	enum         *enum
+	isEnum       bool
 	scalar       scalar
 	isScalar     bool
 	isPointer    bool
@@ -31,7 +33,7 @@ type structs struct {
 	structs_ []struct_
 }
 
-func (ss *structs) add(cursor clang.Cursor) {
+func (ss *structs) add(cursor clang.Cursor, enums enums) {
 	// Structs with a name that start with a "_" do not appear to be referenced
 	// anywhere in the API. So do not generate them.
 	if strings.HasPrefix(cursor.Spelling(), "_") {
@@ -51,12 +53,7 @@ func (ss *structs) add(cursor clang.Cursor) {
 			return clang.ChildVisit_Continue
 		}
 
-		// isPointer := strings.Contains(cursor.Type().Spelling(), "*")
 		isPointer := cursor.Type().Kind() == clang.Type_Pointer
-		// fmt.Println(cursor.Type().Spelling())
-		// fmt.Println("  ", cursor.Type().Kind())
-		// fmt.Println("  ", cursor.Type().PointeeType().Kind())
-		// fmt.Println()
 
 		name := exportedGoName(cursor.Spelling())
 		if name == "" {
@@ -75,6 +72,7 @@ func (ss *structs) add(cursor clang.Cursor) {
 			size:         int(cursor.Type().SizeOf()),
 			typeSpelling: cursor.Type().Spelling(),
 		}
+		field.enum, field.isEnum = enums.find(cursor.Type().Spelling())
 		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
 
 		struct_.fields = append(struct_.fields, field)
@@ -102,7 +100,9 @@ func (ss *structs) generate() {
 				g.Comment(field.comment)
 				// g.Commentf("OFFSET, SIZE : %d, %d", field.offset, field.size)
 
-				if field.isScalar {
+				if field.isEnum {
+					g.Id(field.goName).Id(field.enum.goName)
+				} else if field.isScalar {
 					g.Id(field.goName).Add(field.scalar.code)
 				} else if field.isPointer {
 					g.Id(field.goName).Uintptr().Comment(field.typeSpelling)

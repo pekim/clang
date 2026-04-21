@@ -39,7 +39,7 @@ func (gen *gen) findEntities() {
 			gen.enums.add(cursor)
 
 		case clang.Cursor_StructDecl:
-			gen.structs.add(cursor)
+			gen.structs.add(cursor, gen.enums)
 
 		case clang.Cursor_TypedefDecl:
 			if cursor.TypedefDeclUnderlyingType().Kind() == clang.Type_Pointer {
