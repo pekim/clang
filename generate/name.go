@@ -19,6 +19,10 @@ func exportedGoName(name string) string {
 func goName(name string) string {
 	goName := strings.TrimPrefix(name, "CX")
 	goName = strings.TrimPrefix(goName, "_")
+	if len(goName) > 0 {
+		lowerFirstChar := unicode.ToLower(rune(goName[0]))
+		goName = string(lowerFirstChar) + goName[1:]
+	}
 
 	if slices.Contains(goKeywords, goName) {
 		goName += "_"

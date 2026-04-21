@@ -9,7 +9,7 @@ var structTestVars = []struct {
 	cSize  uintptr
 	goSize uintptr
 }{
-	{"CXString", 16, unsafe.Sizeof(*new(String))},
+	{"CXString", 16, unsafe.Sizeof(*new(String_))},
 	{"CXStringSet", 16, unsafe.Sizeof(*new(StringSet))},
 	{"CXFileUniqueID", 24, unsafe.Sizeof(*new(FileUniqueID))},
 	{"CXSourceLocation", 24, unsafe.Sizeof(*new(SourceLocation))},
@@ -22,7 +22,7 @@ var structTestVars = []struct {
 	{"CXTUResourceUsage", 24, unsafe.Sizeof(*new(TUResourceUsage))},
 	{"CXCursor", 32, unsafe.Sizeof(*new(Cursor))},
 	{"CXPlatformAvailability", 72, unsafe.Sizeof(*new(PlatformAvailability))},
-	{"CXType", 24, unsafe.Sizeof(*new(Type))},
+	{"CXType", 24, unsafe.Sizeof(*new(Type_))},
 	{"CXToken", 24, unsafe.Sizeof(*new(Token))},
 	{"CXCompletionResult", 16, unsafe.Sizeof(*new(CompletionResult))},
 	{"CXCodeCompleteResults", 16, unsafe.Sizeof(*new(CodeCompleteResults))},

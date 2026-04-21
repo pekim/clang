@@ -4,7 +4,7 @@ package clang
 
 import "structs"
 
-type String struct {
+type String_ struct {
 	_ structs.HostLayout
 
 	data          uintptr // const void *
@@ -15,7 +15,7 @@ type String struct {
 type StringSet struct {
 	_ structs.HostLayout
 
-	Strings uintptr // CXString *
+	strings uintptr // CXString *
 	Count   uint32
 	_       [4]byte
 }
@@ -79,11 +79,11 @@ type UnsavedFile struct {
 
 	   This file must already exist in the file system.
 	*/
-	Filename uintptr // const char *
+	filename uintptr // const char *
 	/*
 	   A buffer containing the unsaved contents of this file.
 	*/
-	Contents uintptr // const char *
+	contents uintptr // const char *
 	/*
 	   The length of the unsaved contents of this buffer.
 	*/
@@ -154,11 +154,11 @@ type IndexOptions struct {
 
 	   Libclang does not create the directory at the specified path in the file system. Therefore it must exist, or storing PCH files will fail.
 	*/
-	PreambleStoragePath uintptr // const char *
+	preambleStoragePath uintptr // const char *
 	/*
 	   Specifies a path which will contain log files for certain libclang invocations. A null value implies that libclang invocations are not logged.
 	*/
-	InvocationEmissionPath uintptr // const char *
+	invocationEmissionPath uintptr // const char *
 }
 
 type TUResourceUsageEntry struct {
@@ -237,7 +237,7 @@ type CursorSetImpl struct {
 /*
 The type of an element in the abstract syntax tree.
 */
-type Type struct {
+type Type_ struct {
 	_ structs.HostLayout
 
 	Kind [4]byte // enum CXTypeKind
@@ -285,7 +285,7 @@ type CodeCompleteResults struct {
 	/*
 	   The code-completion results.
 	*/
-	Results uintptr // CXCompletionResult *
+	results uintptr // CXCompletionResult *
 	/*
 	   The number of code-completion results stored in the Results array.
 	*/
@@ -380,7 +380,7 @@ type IdxEntityInfo struct {
 	Lang          IdxEntityLanguage
 	_             [4]byte
 	name          uintptr  // const char *
-	USR           uintptr  // const char *
+	uSR           uintptr  // const char *
 	Cursor        [32]byte // CXCursor
 	attributes    uintptr  // const CXIdxAttrInfo *const *
 	NumAttributes uint32
