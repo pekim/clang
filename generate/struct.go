@@ -72,6 +72,9 @@ func (ss *structs) generate() {
 	for _, struct_ := range ss.structs_ {
 		file.Comment(struct_.comment)
 		file.Type().Id(struct_.name).StructFunc(func(g *jen.Group) {
+			g.Id("_").Qual("structs", "HostLayout")
+			g.Line()
+
 			for _, field := range struct_.fields {
 				if field.isScalar {
 					g.Comment(field.comment)

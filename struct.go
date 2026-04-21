@@ -2,43 +2,65 @@
 
 package clang
 
+import "structs"
+
 type String struct {
+	_ structs.HostLayout
+
 	// Data => const void *
 	Private_flags uint32
 }
 
 type StringSet struct {
+	_ structs.HostLayout
+
 	// Strings => CXString *
 	Count uint32
 }
 
-type VirtualFileOverlayImpl struct{}
+type VirtualFileOverlayImpl struct {
+	_ structs.HostLayout
+}
 
-type ModuleMapDescriptorImpl struct{}
+type ModuleMapDescriptorImpl struct {
+	_ structs.HostLayout
+}
 
 type FileUniqueID struct {
+	_ structs.HostLayout
+
 	// Data => unsigned long long[3]
 }
 
 type SourceLocation struct {
+	_ structs.HostLayout
+
 	// Ptr_data => const void *[2]
 	Int_data uint32
 }
 
 type SourceRange struct {
+	_ structs.HostLayout
+
 	// Ptr_data => const void *[2]
 	Begin_int_data uint32
 	End_int_data   uint32
 }
 
 type SourceRangeList struct {
+	_ structs.HostLayout
+
 	Count uint32
 	// Ranges => CXSourceRange *
 }
 
-type TargetInfoImpl struct{}
+type TargetInfoImpl struct {
+	_ structs.HostLayout
+}
 
-type TranslationUnitImpl struct{}
+type TranslationUnitImpl struct {
+	_ structs.HostLayout
+}
 
 /*
 Provides the contents of a file that has not yet been saved to disk.
@@ -46,6 +68,8 @@ Provides the contents of a file that has not yet been saved to disk.
 Each CXUnsavedFile instance provides the name of a file on the system along with the current contents of that file that have not yet been saved to disk.
 */
 type UnsavedFile struct {
+	_ structs.HostLayout
+
 	// Filename => const char *
 	// Contents => const char *
 	/*
@@ -59,6 +83,8 @@ type UnsavedFile struct {
 Describes a version number of the form major.minor.subminor.
 */
 type Version struct {
+	_ structs.HostLayout
+
 	/*
 	   The major version number, e.g., the '10' in '10.7.3'. A negative value indicates that there is no version number at all.
 	*/
@@ -83,6 +109,8 @@ or explicitly initialize the first data member and zero-initialize the rest:
 or to prevent the -Wmissing-field-initializers warning for the above version:
 */
 type IndexOptions struct {
+	_ structs.HostLayout
+
 	/*
 	   The size of struct CXIndexOptions used for option versioning.
 
@@ -109,6 +137,8 @@ type IndexOptions struct {
 }
 
 type TUResourceUsageEntry struct {
+	_ structs.HostLayout
+
 	// Kind => enum CXTUResourceUsageKind
 	Amount uint64
 }
@@ -117,6 +147,8 @@ type TUResourceUsageEntry struct {
 The memory usage of a CXTranslationUnit, broken into categories.
 */
 type TUResourceUsage struct {
+	_ structs.HostLayout
+
 	// Data => void *
 	NumEntries uint32
 	// Entries => CXTUResourceUsageEntry *
@@ -130,6 +162,8 @@ The cursor abstraction unifies the different kinds of entities in a program--dec
 Cursors can be produced in two specific ways. clang_getTranslationUnitCursor() produces a cursor for a translation unit, from which one can use clang_visitChildren() to explore the rest of the translation unit. clang_getCursor() maps from a physical source location to the entity that resides at that location, allowing one to map from the source code into the AST.
 */
 type Cursor struct {
+	_ structs.HostLayout
+
 	// Kind => enum CXCursorKind
 	Xdata int32
 	// Data => const void *[3]
@@ -139,6 +173,8 @@ type Cursor struct {
 Describes the availability of a given entity on a particular platform, e.g., a particular class might only be available on Mac OS 10.7 or newer.
 */
 type PlatformAvailability struct {
+	_ structs.HostLayout
+
 	// Platform => CXString
 	// Introduced => CXVersion
 	// Deprecated => CXVersion
@@ -151,12 +187,16 @@ type PlatformAvailability struct {
 	// Message => CXString
 }
 
-type CursorSetImpl struct{}
+type CursorSetImpl struct {
+	_ structs.HostLayout
+}
 
 /*
 The type of an element in the abstract syntax tree.
 */
 type Type struct {
+	_ structs.HostLayout
+
 	// Kind => enum CXTypeKind
 	// Data => void *[2]
 }
@@ -165,6 +205,8 @@ type Type struct {
 Describes a single preprocessing token.
 */
 type Token struct {
+	_ structs.HostLayout
+
 	// Int_data => unsigned int[4]
 	// Ptr_data => void *
 }
@@ -173,6 +215,8 @@ type Token struct {
 A single result of code completion.
 */
 type CompletionResult struct {
+	_ structs.HostLayout
+
 	// CursorKind => enum CXCursorKind
 	// CompletionString => CXCompletionString
 }
@@ -183,6 +227,8 @@ Contains the results of code-completion.
 This data structure contains the results of code completion, as produced by clang_codeCompleteAt(). Its contents must be freed by clang_disposeCodeCompleteResults.
 */
 type CodeCompleteResults struct {
+	_ structs.HostLayout
+
 	// Results => CXCompletionResult *
 	/*
 	   The number of code-completion results stored in the Results array.
@@ -192,6 +238,8 @@ type CodeCompleteResults struct {
 }
 
 type CursorAndRangeVisitor struct {
+	_ structs.HostLayout
+
 	// Context => void *
 	// Visit => enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
 }
@@ -200,6 +248,8 @@ type CursorAndRangeVisitor struct {
 Source location passed to index callbacks.
 */
 type IdxLoc struct {
+	_ structs.HostLayout
+
 	// Ptr_data => void *[2]
 	Int_data uint32
 }
@@ -208,6 +258,8 @@ type IdxLoc struct {
 Data for ppIncludedFile callback.
 */
 type IdxIncludedFileInfo struct {
+	_ structs.HostLayout
+
 	// HashLoc => CXIdxLoc
 	// Filename => const char *
 	// File => CXFile
@@ -223,6 +275,8 @@ type IdxIncludedFileInfo struct {
 Data for IndexerCallbacks#importedASTFile.
 */
 type IdxImportedASTFileInfo struct {
+	_ structs.HostLayout
+
 	// File => CXFile
 	// Module => CXModule
 	// Loc => CXIdxLoc
@@ -234,12 +288,16 @@ type IdxImportedASTFileInfo struct {
 }
 
 type IdxAttrInfo struct {
+	_ structs.HostLayout
+
 	// Kind => CXIdxAttrKind
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
 }
 
 type IdxEntityInfo struct {
+	_ structs.HostLayout
+
 	// Kind => CXIdxEntityKind
 	// TemplateKind => CXIdxEntityCXXTemplateKind
 	// Lang => CXIdxEntityLanguage
@@ -251,10 +309,14 @@ type IdxEntityInfo struct {
 }
 
 type IdxContainerInfo struct {
+	_ structs.HostLayout
+
 	// Cursor => CXCursor
 }
 
 type IdxIBOutletCollectionAttrInfo struct {
+	_ structs.HostLayout
+
 	// AttrInfo => const CXIdxAttrInfo *
 	// ObjcClass => const CXIdxEntityInfo *
 	// ClassCursor => CXCursor
@@ -262,6 +324,8 @@ type IdxIBOutletCollectionAttrInfo struct {
 }
 
 type IdxDeclInfo struct {
+	_ structs.HostLayout
+
 	// EntityInfo => const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
@@ -282,34 +346,46 @@ type IdxDeclInfo struct {
 }
 
 type IdxObjCContainerDeclInfo struct {
+	_ structs.HostLayout
+
 	// DeclInfo => const CXIdxDeclInfo *
 	// Kind => CXIdxObjCContainerKind
 }
 
 type IdxBaseClassInfo struct {
+	_ structs.HostLayout
+
 	// Base => const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
 }
 
 type IdxObjCProtocolRefInfo struct {
+	_ structs.HostLayout
+
 	// Protocol => const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
 }
 
 type IdxObjCProtocolRefListInfo struct {
+	_ structs.HostLayout
+
 	// Protocols => const CXIdxObjCProtocolRefInfo *const *
 	NumProtocols uint32
 }
 
 type IdxObjCInterfaceDeclInfo struct {
+	_ structs.HostLayout
+
 	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
 	// SuperInfo => const CXIdxBaseClassInfo *
 	// Protocols => const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCCategoryDeclInfo struct {
+	_ structs.HostLayout
+
 	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
 	// ObjcClass => const CXIdxEntityInfo *
 	// ClassCursor => CXCursor
@@ -318,12 +394,16 @@ type IdxObjCCategoryDeclInfo struct {
 }
 
 type IdxObjCPropertyDeclInfo struct {
+	_ structs.HostLayout
+
 	// DeclInfo => const CXIdxDeclInfo *
 	// Getter => const CXIdxEntityInfo *
 	// Setter => const CXIdxEntityInfo *
 }
 
 type IdxCXXClassDeclInfo struct {
+	_ structs.HostLayout
+
 	// DeclInfo => const CXIdxDeclInfo *
 	// Bases => const CXIdxBaseClassInfo *const *
 	NumBases uint32
@@ -333,6 +413,8 @@ type IdxCXXClassDeclInfo struct {
 Data for IndexerCallbacks#indexEntityReference.
 */
 type IdxEntityRefInfo struct {
+	_ structs.HostLayout
+
 	// Kind => CXIdxEntityRefKind
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
@@ -346,6 +428,8 @@ type IdxEntityRefInfo struct {
 A group of callbacks used by #clang_indexSourceFile and #clang_indexTranslationUnit.
 */
 type IndexerCallbacks struct {
+	_ structs.HostLayout
+
 	// AbortQuery => int (*)(CXClientData, void *)
 	// Diagnostic => void (*)(CXClientData, CXDiagnosticSet, void *)
 	// EnteredMainFile => CXIdxClientFile (*)(CXClientData, CXFile, void *)
