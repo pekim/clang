@@ -15,6 +15,8 @@ type structField struct {
 	isEnum       bool
 	scalar       scalar
 	isScalar     bool
+	struct_      *struct_
+	isStruct     bool
 	isPointer    bool
 	offset       int
 	size         int
@@ -22,6 +24,7 @@ type structField struct {
 }
 
 type struct_ struct {
+	cursor  clang.Cursor
 	cName   string
 	goName  string
 	comment string
@@ -33,7 +36,7 @@ type structs struct {
 	structs_ []struct_
 }
 
-func (ss *structs) add(cursor clang.Cursor, enums enums) {
+func (ss *structs) add(cursor clang.Cursor) {
 	// Structs with a name that start with a "_" do not appear to be referenced
 	// anywhere in the API. So do not generate them.
 	if strings.HasPrefix(cursor.Spelling(), "_") {
@@ -41,14 +44,25 @@ func (ss *structs) add(cursor clang.Cursor, enums enums) {
 	}
 
 	struct_ := struct_{
+		cursor:  cursor,
 		cName:   cursor.Spelling(),
 		goName:  exportedGoName(cursor.Spelling()),
 		comment: commentText(cursor.ParsedComment()),
 		size:    int(cursor.Type().SizeOf()),
 	}
 
+	ss.structs_ = append(ss.structs_, struct_)
+}
+
+func (ss *structs) enrich(gen *gen) {
+	for i := range ss.structs_ {
+		(&ss.structs_[i]).enrich(gen)
+	}
+}
+
+func (struct_ *struct_) enrich(gen *gen) {
 	unnamed := 1
-	cursor.Visit(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
+	struct_.cursor.Visit(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
 		if cursor.Kind() != clang.Cursor_FieldDecl {
 			return clang.ChildVisit_Continue
 		}
@@ -72,15 +86,14 @@ func (ss *structs) add(cursor clang.Cursor, enums enums) {
 			size:         int(cursor.Type().SizeOf()),
 			typeSpelling: cursor.Type().Spelling(),
 		}
-		field.enum, field.isEnum = enums.find(cursor.Type().Spelling())
+		field.enum, field.isEnum = gen.enums.find(cursor.Type().Spelling())
 		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
+		field.struct_, field.isStruct = gen.structs.find(cursor.Type().Spelling())
 
 		struct_.fields = append(struct_.fields, field)
 
 		return clang.ChildVisit_Continue
 	})
-
-	ss.structs_ = append(ss.structs_, struct_)
 }
 
 func (ss *structs) generate() {
@@ -104,6 +117,8 @@ func (ss *structs) generate() {
 					g.Id(field.goName).Id(field.enum.goName)
 				} else if field.isScalar {
 					g.Id(field.goName).Add(field.scalar.code)
+				} else if field.isStruct {
+					g.Id(field.goName).Id(field.struct_.goName)
 				} else if field.isPointer {
 					g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
 				} else {
@@ -158,4 +173,13 @@ func (ss *structs) generateTestVars() {
 			}
 			g.Line()
 		})
+}
+
+func (ss *structs) find(cName string) (*struct_, bool) {
+	for _, struct_ := range ss.structs_ {
+		if struct_.cName == cName {
+			return &struct_, true
+		}
+	}
+	return nil, false
 }

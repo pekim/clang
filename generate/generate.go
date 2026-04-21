@@ -22,6 +22,7 @@ func Generate() {
 	gen.TranslationUnit = parseHeaderFile(gen.headerFile)
 
 	gen.findEntities()
+	gen.enrich()
 	gen.generate()
 }
 
@@ -39,7 +40,7 @@ func (gen *gen) findEntities() {
 			gen.enums.add(cursor)
 
 		case clang.Cursor_StructDecl:
-			gen.structs.add(cursor, gen.enums)
+			gen.structs.add(cursor)
 
 		case clang.Cursor_TypedefDecl:
 			if cursor.TypedefDeclUnderlyingType().Kind() == clang.Type_Pointer {
@@ -49,6 +50,10 @@ func (gen *gen) findEntities() {
 
 		return clang.ChildVisit_Continue
 	})
+}
+
+func (gen *gen) enrich() {
+	gen.structs.enrich(gen)
 }
 
 func (gen *gen) generate() {

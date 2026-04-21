@@ -207,19 +207,19 @@ type PlatformAvailability struct {
 
 	   Possible values are "ios" or "macos".
 	*/
-	Platform [16]byte // CXString
+	Platform String_
 	/*
 	   The version number in which this entity was introduced.
 	*/
-	Introduced [12]byte // CXVersion
+	Introduced Version
 	/*
 	   The version number in which this entity was deprecated (but is still available).
 	*/
-	Deprecated [12]byte // CXVersion
+	Deprecated Version
 	/*
 	   The version number in which this entity was obsoleted, and therefore is no longer available.
 	*/
-	Obsoleted [12]byte // CXVersion
+	Obsoleted Version
 	/*
 	   Whether the entity is unconditionally unavailable on this platform.
 	*/
@@ -227,7 +227,7 @@ type PlatformAvailability struct {
 	/*
 	   An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
 	*/
-	Message [16]byte // CXString
+	Message String_
 }
 
 type CursorSetImpl struct {
@@ -320,7 +320,7 @@ type IdxIncludedFileInfo struct {
 	/*
 	   Location of '#' in the #include/#import directive.
 	*/
-	HashLoc [24]byte // CXIdxLoc
+	HashLoc IdxLoc
 	/*
 	   Filename as written in the #include/#import directive.
 	*/
@@ -355,7 +355,7 @@ type IdxImportedASTFileInfo struct {
 	/*
 	   Location where the file is imported. Applicable only for modules.
 	*/
-	Loc [24]byte // CXIdxLoc
+	Loc IdxLoc
 	/*
 	   Non-zero if an inclusion directive was automatically turned into a module import. Applicable only for modules.
 	*/
@@ -368,8 +368,8 @@ type IdxAttrInfo struct {
 
 	Kind   IdxAttrKind
 	_      [4]byte
-	Cursor [32]byte // CXCursor
-	Loc    [24]byte // CXIdxLoc
+	Cursor Cursor
+	Loc    IdxLoc
 }
 
 type IdxEntityInfo struct {
@@ -379,10 +379,10 @@ type IdxEntityInfo struct {
 	TemplateKind  IdxEntityCXXTemplateKind
 	Lang          IdxEntityLanguage
 	_             [4]byte
-	name          uintptr  // const char *
-	uSR           uintptr  // const char *
-	Cursor        [32]byte // CXCursor
-	attributes    uintptr  // const CXIdxAttrInfo *const *
+	name          uintptr // const char *
+	uSR           uintptr // const char *
+	Cursor        Cursor
+	attributes    uintptr // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	_             [4]byte
 }
@@ -390,25 +390,25 @@ type IdxEntityInfo struct {
 type IdxContainerInfo struct {
 	_ structs.HostLayout
 
-	Cursor [32]byte // CXCursor
+	Cursor Cursor
 }
 
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
-	attrInfo    uintptr  // const CXIdxAttrInfo *
-	objcClass   uintptr  // const CXIdxEntityInfo *
-	ClassCursor [32]byte // CXCursor
-	ClassLoc    [24]byte // CXIdxLoc
+	attrInfo    uintptr // const CXIdxAttrInfo *
+	objcClass   uintptr // const CXIdxEntityInfo *
+	ClassCursor Cursor
+	ClassLoc    IdxLoc
 }
 
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
-	entityInfo        uintptr  // const CXIdxEntityInfo *
-	Cursor            [32]byte // CXCursor
-	Loc               [24]byte // CXIdxLoc
-	semanticContainer uintptr  // const CXIdxContainerInfo *
+	entityInfo        uintptr // const CXIdxEntityInfo *
+	Cursor            Cursor
+	Loc               IdxLoc
+	semanticContainer uintptr // const CXIdxContainerInfo *
 	/*
 	   Generally same as #semanticContainer but can be different in cases like out-of-line C++ member functions.
 	*/
@@ -439,17 +439,17 @@ type IdxObjCContainerDeclInfo struct {
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
-	base   uintptr  // const CXIdxEntityInfo *
-	Cursor [32]byte // CXCursor
-	Loc    [24]byte // CXIdxLoc
+	base   uintptr // const CXIdxEntityInfo *
+	Cursor Cursor
+	Loc    IdxLoc
 }
 
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
-	protocol uintptr  // const CXIdxEntityInfo *
-	Cursor   [32]byte // CXCursor
-	Loc      [24]byte // CXIdxLoc
+	protocol uintptr // const CXIdxEntityInfo *
+	Cursor   Cursor
+	Loc      IdxLoc
 }
 
 type IdxObjCProtocolRefListInfo struct {
@@ -471,11 +471,11 @@ type IdxObjCInterfaceDeclInfo struct {
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo uintptr  // const CXIdxObjCContainerDeclInfo *
-	objcClass     uintptr  // const CXIdxEntityInfo *
-	ClassCursor   [32]byte // CXCursor
-	ClassLoc      [24]byte // CXIdxLoc
-	protocols     uintptr  // const CXIdxObjCProtocolRefListInfo *
+	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
+	objcClass     uintptr // const CXIdxEntityInfo *
+	ClassCursor   Cursor
+	ClassLoc      IdxLoc
+	protocols     uintptr // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCPropertyDeclInfo struct {
@@ -506,8 +506,8 @@ type IdxEntityRefInfo struct {
 	/*
 	   Reference cursor.
 	*/
-	Cursor [32]byte // CXCursor
-	Loc    [24]byte // CXIdxLoc
+	Cursor Cursor
+	Loc    IdxLoc
 	/*
 	   The entity that gets referenced.
 	*/
