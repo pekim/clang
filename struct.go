@@ -9,6 +9,7 @@ type String struct {
 
 	data          uintptr // const void *
 	Private_flags uint32
+	_             [4]byte
 }
 
 type StringSet struct {
@@ -16,6 +17,7 @@ type StringSet struct {
 
 	Strings uintptr // CXString *
 	Count   uint32
+	_       [4]byte
 }
 
 type VirtualFileOverlayImpl struct {
@@ -29,20 +31,21 @@ type ModuleMapDescriptorImpl struct {
 type FileUniqueID struct {
 	_ structs.HostLayout
 
-	// Data => unsigned long long[3]
+	Data [24]byte // unsigned long long[3]
 }
 
 type SourceLocation struct {
 	_ structs.HostLayout
 
-	ptr_data uintptr // const void *[2]
+	Ptr_data [16]byte // const void *[2]
 	Int_data uint32
+	_        [4]byte
 }
 
 type SourceRange struct {
 	_ structs.HostLayout
 
-	ptr_data       uintptr // const void *[2]
+	Ptr_data       [16]byte // const void *[2]
 	Begin_int_data uint32
 	End_int_data   uint32
 }
@@ -51,6 +54,7 @@ type SourceRangeList struct {
 	_ structs.HostLayout
 
 	Count  uint32
+	_      [4]byte
 	ranges uintptr // CXSourceRange *
 }
 
@@ -160,7 +164,8 @@ type IndexOptions struct {
 type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 
-	// Kind => enum CXTUResourceUsageKind
+	Kind   [4]byte // enum CXTUResourceUsageKind
+	_      [4]byte
 	Amount uint64
 }
 
@@ -172,6 +177,7 @@ type TUResourceUsage struct {
 
 	data       uintptr // void *
 	NumEntries uint32
+	_          [4]byte
 	entries    uintptr // CXTUResourceUsageEntry *
 }
 
@@ -185,9 +191,9 @@ Cursors can be produced in two specific ways. clang_getTranslationUnitCursor() p
 type Cursor struct {
 	_ structs.HostLayout
 
-	// Kind => enum CXCursorKind
+	Kind  [4]byte // enum CXCursorKind
 	Xdata int32
-	data  uintptr // const void *[3]
+	Data  [24]byte // const void *[3]
 }
 
 /*
@@ -196,16 +202,32 @@ Describes the availability of a given entity on a particular platform, e.g., a p
 type PlatformAvailability struct {
 	_ structs.HostLayout
 
-	// Platform => CXString
-	// Introduced => CXVersion
-	// Deprecated => CXVersion
-	// Obsoleted => CXVersion
+	/*
+	   A string that describes the platform for which this structure provides availability information.
+
+	   Possible values are "ios" or "macos".
+	*/
+	Platform [16]byte // CXString
+	/*
+	   The version number in which this entity was introduced.
+	*/
+	Introduced [12]byte // CXVersion
+	/*
+	   The version number in which this entity was deprecated (but is still available).
+	*/
+	Deprecated [12]byte // CXVersion
+	/*
+	   The version number in which this entity was obsoleted, and therefore is no longer available.
+	*/
+	Obsoleted [12]byte // CXVersion
 	/*
 	   Whether the entity is unconditionally unavailable on this platform.
-
 	*/
 	Unavailable int32
-	// Message => CXString
+	/*
+	   An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
+	*/
+	Message [16]byte // CXString
 }
 
 type CursorSetImpl struct {
@@ -218,8 +240,9 @@ The type of an element in the abstract syntax tree.
 type Type struct {
 	_ structs.HostLayout
 
-	// Kind => enum CXTypeKind
-	data uintptr // void *[2]
+	Kind [4]byte // enum CXTypeKind
+	_    [4]byte
+	Data [16]byte // void *[2]
 }
 
 /*
@@ -228,8 +251,8 @@ Describes a single preprocessing token.
 type Token struct {
 	_ structs.HostLayout
 
-	// Int_data => unsigned int[4]
-	ptr_data uintptr // void *
+	Int_data [16]byte // unsigned int[4]
+	ptr_data uintptr  // void *
 }
 
 /*
@@ -238,8 +261,17 @@ A single result of code completion.
 type CompletionResult struct {
 	_ structs.HostLayout
 
-	// CursorKind => enum CXCursorKind
-	// CompletionString => CXCompletionString
+	/*
+	   The kind of entity that this completion refers to.
+
+	   The cursor kind will be a macro, keyword, or a declaration (one of the *Decl cursor kinds), describing the entity that the completion is referring to.
+	*/
+	CursorKind [4]byte // enum CXCursorKind
+	_          [4]byte
+	/*
+	   The code-completion string that describes how to insert this code-completion result into the editing buffer.
+	*/
+	CompletionString [8]byte // CXCompletionString
 }
 
 /*
@@ -258,6 +290,7 @@ type CodeCompleteResults struct {
 	   The number of code-completion results stored in the Results array.
 	*/
 	NumResults uint32
+	_          [4]byte
 }
 
 type CursorAndRangeVisitor struct {
@@ -273,8 +306,9 @@ Source location passed to index callbacks.
 type IdxLoc struct {
 	_ structs.HostLayout
 
-	ptr_data uintptr // void *[2]
+	Ptr_data [16]byte // void *[2]
 	Int_data uint32
+	_        [4]byte
 }
 
 /*
@@ -283,19 +317,25 @@ Data for ppIncludedFile callback.
 type IdxIncludedFileInfo struct {
 	_ structs.HostLayout
 
-	// HashLoc => CXIdxLoc
+	/*
+	   Location of '#' in the #include/#import directive.
+	*/
+	HashLoc [24]byte // CXIdxLoc
 	/*
 	   Filename as written in the #include/#import directive.
-
 	*/
 	filename uintptr // const char *
-	// File => CXFile
+	/*
+	   The actual file that the #include/#import directive resolved to.
+	*/
+	File     [8]byte // CXFile
 	IsImport int32
 	IsAngled int32
 	/*
 	   Non-zero if the directive was automatically turned into a module import.
 	*/
 	IsModuleImport int32
+	_              [4]byte
 }
 
 /*
@@ -304,59 +344,71 @@ Data for IndexerCallbacks#importedASTFile.
 type IdxImportedASTFileInfo struct {
 	_ structs.HostLayout
 
-	// File => CXFile
-	// Module => CXModule
-	// Loc => CXIdxLoc
+	/*
+	   Top level AST file containing the imported PCH, module or submodule.
+	*/
+	File [8]byte // CXFile
+	/*
+	   The imported module or NULL if the AST file is a PCH.
+	*/
+	Module [8]byte // CXModule
+	/*
+	   Location where the file is imported. Applicable only for modules.
+	*/
+	Loc [24]byte // CXIdxLoc
 	/*
 	   Non-zero if an inclusion directive was automatically turned into a module import. Applicable only for modules.
-
 	*/
 	IsImplicit int32
+	_          [4]byte
 }
 
 type IdxAttrInfo struct {
 	_ structs.HostLayout
 
-	// Kind => CXIdxAttrKind
-	// Cursor => CXCursor
-	// Loc => CXIdxLoc
+	Kind   [4]byte // CXIdxAttrKind
+	_      [4]byte
+	Cursor [32]byte // CXCursor
+	Loc    [24]byte // CXIdxLoc
 }
 
 type IdxEntityInfo struct {
 	_ structs.HostLayout
 
-	// Kind => CXIdxEntityKind
-	// TemplateKind => CXIdxEntityCXXTemplateKind
-	// Lang => CXIdxEntityLanguage
-	name uintptr // const char *
-	USR  uintptr // const char *
-	// Cursor => CXCursor
-	attributes    uintptr // const CXIdxAttrInfo *const *
+	Kind          [4]byte // CXIdxEntityKind
+	TemplateKind  [4]byte // CXIdxEntityCXXTemplateKind
+	Lang          [4]byte // CXIdxEntityLanguage
+	_             [4]byte
+	name          uintptr  // const char *
+	USR           uintptr  // const char *
+	Cursor        [32]byte // CXCursor
+	attributes    uintptr  // const CXIdxAttrInfo *const *
 	NumAttributes uint32
+	_             [4]byte
 }
 
 type IdxContainerInfo struct {
 	_ structs.HostLayout
 
-	// Cursor => CXCursor
+	Cursor [32]byte // CXCursor
 }
 
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
-	attrInfo  uintptr // const CXIdxAttrInfo *
-	objcClass uintptr // const CXIdxEntityInfo *
-	// ClassCursor => CXCursor
-	// ClassLoc => CXIdxLoc
+	attrInfo    uintptr  // const CXIdxAttrInfo *
+	objcClass   uintptr  // const CXIdxEntityInfo *
+	ClassCursor [32]byte // CXCursor
+	ClassLoc    [24]byte // CXIdxLoc
 }
 
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
-	entityInfo uintptr // const CXIdxEntityInfo *
-	// Cursor => CXCursor
-	// Loc => CXIdxLoc
-	semanticContainer uintptr // const CXIdxContainerInfo *
+	entityInfo        uintptr  // const CXIdxEntityInfo *
+	Cursor            [32]byte // CXCursor
+	Loc               [24]byte // CXIdxLoc
+	semanticContainer uintptr  // const CXIdxContainerInfo *
 	/*
 	   Generally same as #semanticContainer but can be different in cases like out-of-line C++ member functions.
 	*/
@@ -364,11 +416,13 @@ type IdxDeclInfo struct {
 	IsRedeclaration  int32
 	IsDefinition     int32
 	IsContainer      int32
+	_                [4]byte
 	declAsContainer  uintptr // const CXIdxContainerInfo *
 	/*
 	   Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
 	*/
 	IsImplicit    int32
+	_             [4]byte
 	attributes    uintptr // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	Flags         uint32
@@ -378,23 +432,24 @@ type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
 	declInfo uintptr // const CXIdxDeclInfo *
-	// Kind => CXIdxObjCContainerKind
+	Kind     [4]byte // CXIdxObjCContainerKind
+	_        [4]byte
 }
 
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
-	base uintptr // const CXIdxEntityInfo *
-	// Cursor => CXCursor
-	// Loc => CXIdxLoc
+	base   uintptr  // const CXIdxEntityInfo *
+	Cursor [32]byte // CXCursor
+	Loc    [24]byte // CXIdxLoc
 }
 
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
-	protocol uintptr // const CXIdxEntityInfo *
-	// Cursor => CXCursor
-	// Loc => CXIdxLoc
+	protocol uintptr  // const CXIdxEntityInfo *
+	Cursor   [32]byte // CXCursor
+	Loc      [24]byte // CXIdxLoc
 }
 
 type IdxObjCProtocolRefListInfo struct {
@@ -402,6 +457,7 @@ type IdxObjCProtocolRefListInfo struct {
 
 	protocols    uintptr // const CXIdxObjCProtocolRefInfo *const *
 	NumProtocols uint32
+	_            [4]byte
 }
 
 type IdxObjCInterfaceDeclInfo struct {
@@ -415,11 +471,11 @@ type IdxObjCInterfaceDeclInfo struct {
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
-	objcClass     uintptr // const CXIdxEntityInfo *
-	// ClassCursor => CXCursor
-	// ClassLoc => CXIdxLoc
-	protocols uintptr // const CXIdxObjCProtocolRefListInfo *
+	containerInfo uintptr  // const CXIdxObjCContainerDeclInfo *
+	objcClass     uintptr  // const CXIdxEntityInfo *
+	ClassCursor   [32]byte // CXCursor
+	ClassLoc      [24]byte // CXIdxLoc
+	protocols     uintptr  // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCPropertyDeclInfo struct {
@@ -436,6 +492,7 @@ type IdxCXXClassDeclInfo struct {
 	declInfo uintptr // const CXIdxDeclInfo *
 	bases    uintptr // const CXIdxBaseClassInfo *const *
 	NumBases uint32
+	_        [4]byte
 }
 
 /*
@@ -444,12 +501,15 @@ Data for IndexerCallbacks#indexEntityReference.
 type IdxEntityRefInfo struct {
 	_ structs.HostLayout
 
-	// Kind => CXIdxEntityRefKind
-	// Cursor => CXCursor
-	// Loc => CXIdxLoc
+	Kind [4]byte // CXIdxEntityRefKind
+	_    [4]byte
+	/*
+	   Reference cursor.
+	*/
+	Cursor [32]byte // CXCursor
+	Loc    [24]byte // CXIdxLoc
 	/*
 	   The entity that gets referenced.
-
 	*/
 	referencedEntity uintptr // const CXIdxEntityInfo *
 	/*
@@ -462,7 +522,11 @@ type IdxEntityRefInfo struct {
 	   Lexical container context of the reference.
 	*/
 	container uintptr // const CXIdxContainerInfo *
-	// Role => CXSymbolRole
+	/*
+	   Sets of symbol roles of the reference.
+	*/
+	Role [4]byte // CXSymbolRole
+	_    [4]byte
 }
 
 /*

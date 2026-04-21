@@ -9,17 +9,21 @@ import (
 )
 
 type structField struct {
-	name          string
-	comment       string
-	scalar        scalar
-	isScalar      bool
-	isPointer     bool
-	_tempSpelling string
+	goName       string
+	comment      string
+	scalar       scalar
+	isScalar     bool
+	isPointer    bool
+	offset       int
+	size         int
+	typeSpelling string
 }
 
 type struct_ struct {
-	name    string
+	cName   string
+	goName  string
 	comment string
+	size    int
 	fields  []structField
 }
 
@@ -35,8 +39,10 @@ func (ss *structs) add(cursor clang.Cursor) {
 	}
 
 	struct_ := struct_{
-		name:    exportedGoName(cursor.Spelling()),
+		cName:   cursor.Spelling(),
+		goName:  exportedGoName(cursor.Spelling()),
 		comment: commentText(cursor.ParsedComment()),
+		size:    int(cursor.Type().SizeOf()),
 	}
 
 	unnamed := 1
@@ -45,7 +51,12 @@ func (ss *structs) add(cursor clang.Cursor) {
 			return clang.ChildVisit_Continue
 		}
 
-		isPointer := strings.Contains(cursor.Type().Spelling(), "*")
+		// isPointer := strings.Contains(cursor.Type().Spelling(), "*")
+		isPointer := cursor.Type().Kind() == clang.Type_Pointer
+		// fmt.Println(cursor.Type().Spelling())
+		// fmt.Println("  ", cursor.Type().Kind())
+		// fmt.Println("  ", cursor.Type().PointeeType().Kind())
+		// fmt.Println()
 
 		name := exportedGoName(cursor.Spelling())
 		if name == "" {
@@ -57,10 +68,12 @@ func (ss *structs) add(cursor clang.Cursor) {
 		}
 
 		field := structField{
-			name:          name,
-			comment:       commentText(cursor.ParsedComment()),
-			isPointer:     isPointer,
-			_tempSpelling: cursor.Type().Spelling(),
+			goName:       name,
+			comment:      commentText(cursor.ParsedComment()),
+			isPointer:    isPointer,
+			offset:       int(cursor.OffsetOfField()),
+			size:         int(cursor.Type().SizeOf()),
+			typeSpelling: cursor.Type().Spelling(),
 		}
 		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
 
@@ -78,21 +91,71 @@ func (ss *structs) generate() {
 
 	for _, struct_ := range ss.structs_ {
 		file.Comment(struct_.comment)
-		file.Type().Id(struct_.name).StructFunc(func(g *jen.Group) {
+		file.Type().Id(struct_.goName).StructFunc(func(g *jen.Group) {
 			g.Id("_").Qual("structs", "HostLayout")
 			g.Line()
 
+			var prevField *structField
 			for _, field := range struct_.fields {
+				generateFieldPadding(g, field.offset, prevField)
+
+				g.Comment(field.comment)
+				// g.Commentf("OFFSET, SIZE : %d, %d", field.offset, field.size)
+
 				if field.isScalar {
-					g.Comment(field.comment)
-					g.Id(field.name).Add(field.scalar.code)
+					g.Id(field.goName).Add(field.scalar.code)
 				} else if field.isPointer {
-					g.Comment(field.comment)
-					g.Id(field.name).Uintptr().Comment(field._tempSpelling)
+					g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
 				} else {
-					g.Commentf("%s => %s", field.name, field._tempSpelling)
+					g.Id(field.goName).Index(jen.Lit(field.size)).Byte().Comment(field.typeSpelling)
 				}
+
+				prevField = &field
 			}
+
+			generateFieldPadding(g, struct_.size*8, prevField)
 		})
 	}
+
+	ss.generateTestVars()
+}
+
+func generateFieldPadding(g *jen.Group, targetOffset int, prevField *structField) {
+	if prevField == nil {
+		return
+	}
+
+	prevFieldEndOffset := (prevField.offset / 8) + prevField.size
+	padding := (targetOffset / 8) - prevFieldEndOffset
+	if padding > 0 {
+		g.Id("_").Index(jen.Lit(padding)).Byte()
+	}
+}
+
+func (ss *structs) generateTestVars() {
+	file := newFile("clang", ".", "struct_testvars")
+	defer file.save()
+
+	file.
+		Var().Id("structTestVars").
+		Op("=").
+		Index().Struct(
+		jen.Id("name").String(),
+		jen.Id("cSize").Uintptr(),
+		jen.Id("goSize").Uintptr(),
+	).
+		ValuesFunc(func(g *jen.Group) {
+			for _, struct_ := range ss.structs_ {
+				if struct_.size == clang.TypeLayoutError_Incomplete {
+					continue
+				}
+
+				g.Line().Values(
+					jen.Lit(struct_.cName),
+					jen.Lit(struct_.size),
+					jen.Qual("unsafe", "Sizeof").Call(jen.Op("*").New(jen.Id(struct_.goName))),
+				)
+			}
+			g.Line()
+		})
 }
