@@ -7,15 +7,15 @@ import "structs"
 type String struct {
 	_ structs.HostLayout
 
-	// Data => const void *
+	data          uintptr // const void *
 	Private_flags uint32
 }
 
 type StringSet struct {
 	_ structs.HostLayout
 
-	// Strings => CXString *
-	Count uint32
+	Strings uintptr // CXString *
+	Count   uint32
 }
 
 type VirtualFileOverlayImpl struct {
@@ -35,14 +35,14 @@ type FileUniqueID struct {
 type SourceLocation struct {
 	_ structs.HostLayout
 
-	// Ptr_data => const void *[2]
+	ptr_data uintptr // const void *[2]
 	Int_data uint32
 }
 
 type SourceRange struct {
 	_ structs.HostLayout
 
-	// Ptr_data => const void *[2]
+	ptr_data       uintptr // const void *[2]
 	Begin_int_data uint32
 	End_int_data   uint32
 }
@@ -50,8 +50,8 @@ type SourceRange struct {
 type SourceRangeList struct {
 	_ structs.HostLayout
 
-	Count uint32
-	// Ranges => CXSourceRange *
+	Count  uint32
+	ranges uintptr // CXSourceRange *
 }
 
 type TargetInfoImpl struct {
@@ -70,11 +70,18 @@ Each CXUnsavedFile instance provides the name of a file on the system along with
 type UnsavedFile struct {
 	_ structs.HostLayout
 
-	// Filename => const char *
-	// Contents => const char *
+	/*
+	   The file whose contents have not yet been saved.
+
+	   This file must already exist in the file system.
+	*/
+	Filename uintptr // const char *
+	/*
+	   A buffer containing the unsaved contents of this file.
+	*/
+	Contents uintptr // const char *
 	/*
 	   The length of the unsaved contents of this buffer.
-
 	*/
 	Length uint64
 }
@@ -117,11 +124,15 @@ type IndexOptions struct {
 	   Always initialize this member to sizeof(CXIndexOptions), or assign sizeof(CXIndexOptions) to it right after creating a CXIndexOptions object.
 	*/
 	Size uint32
-	// ThreadBackgroundPriorityForIndexing => unsigned char
-	// ThreadBackgroundPriorityForEditing => unsigned char
 	/*
-
-
+	   A CXChoice enumerator that specifies the indexing priority policy.
+	*/
+	ThreadBackgroundPriorityForIndexing byte
+	/*
+	   A CXChoice enumerator that specifies the editing priority policy.
+	*/
+	ThreadBackgroundPriorityForEditing byte
+	/*
 	 */
 	ExcludeDeclarationsFromPCH uint32
 	/*
@@ -132,8 +143,18 @@ type IndexOptions struct {
 	*/
 	StorePreamblesInMemory uint32
 	_1                     uint32
-	// PreambleStoragePath => const char *
-	// InvocationEmissionPath => const char *
+	/*
+	   The path to a directory, in which to store temporary PCH files. If null or empty, the default system temporary directory is used. These PCH files are deleted on clean exit but stay on disk if the program crashes or is killed.
+
+	   This option is ignored if StorePreamblesInMemory is non-zero.
+
+	   Libclang does not create the directory at the specified path in the file system. Therefore it must exist, or storing PCH files will fail.
+	*/
+	PreambleStoragePath uintptr // const char *
+	/*
+	   Specifies a path which will contain log files for certain libclang invocations. A null value implies that libclang invocations are not logged.
+	*/
+	InvocationEmissionPath uintptr // const char *
 }
 
 type TUResourceUsageEntry struct {
@@ -149,9 +170,9 @@ The memory usage of a CXTranslationUnit, broken into categories.
 type TUResourceUsage struct {
 	_ structs.HostLayout
 
-	// Data => void *
+	data       uintptr // void *
 	NumEntries uint32
-	// Entries => CXTUResourceUsageEntry *
+	entries    uintptr // CXTUResourceUsageEntry *
 }
 
 /*
@@ -166,7 +187,7 @@ type Cursor struct {
 
 	// Kind => enum CXCursorKind
 	Xdata int32
-	// Data => const void *[3]
+	data  uintptr // const void *[3]
 }
 
 /*
@@ -198,7 +219,7 @@ type Type struct {
 	_ structs.HostLayout
 
 	// Kind => enum CXTypeKind
-	// Data => void *[2]
+	data uintptr // void *[2]
 }
 
 /*
@@ -208,7 +229,7 @@ type Token struct {
 	_ structs.HostLayout
 
 	// Int_data => unsigned int[4]
-	// Ptr_data => void *
+	ptr_data uintptr // void *
 }
 
 /*
@@ -229,10 +250,12 @@ This data structure contains the results of code completion, as produced by clan
 type CodeCompleteResults struct {
 	_ structs.HostLayout
 
-	// Results => CXCompletionResult *
+	/*
+	   The code-completion results.
+	*/
+	Results uintptr // CXCompletionResult *
 	/*
 	   The number of code-completion results stored in the Results array.
-
 	*/
 	NumResults uint32
 }
@@ -240,8 +263,8 @@ type CodeCompleteResults struct {
 type CursorAndRangeVisitor struct {
 	_ structs.HostLayout
 
-	// Context => void *
-	// Visit => enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
+	context uintptr // void *
+	visit   uintptr // enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
 }
 
 /*
@@ -250,7 +273,7 @@ Source location passed to index callbacks.
 type IdxLoc struct {
 	_ structs.HostLayout
 
-	// Ptr_data => void *[2]
+	ptr_data uintptr // void *[2]
 	Int_data uint32
 }
 
@@ -261,7 +284,11 @@ type IdxIncludedFileInfo struct {
 	_ structs.HostLayout
 
 	// HashLoc => CXIdxLoc
-	// Filename => const char *
+	/*
+	   Filename as written in the #include/#import directive.
+
+	*/
+	filename uintptr // const char *
 	// File => CXFile
 	IsImport int32
 	IsAngled int32
@@ -301,10 +328,10 @@ type IdxEntityInfo struct {
 	// Kind => CXIdxEntityKind
 	// TemplateKind => CXIdxEntityCXXTemplateKind
 	// Lang => CXIdxEntityLanguage
-	// Name => const char *
-	// USR => const char *
+	name uintptr // const char *
+	USR  uintptr // const char *
 	// Cursor => CXCursor
-	// Attributes => const CXIdxAttrInfo *const *
+	attributes    uintptr // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 }
 
@@ -317,8 +344,8 @@ type IdxContainerInfo struct {
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
-	// AttrInfo => const CXIdxAttrInfo *
-	// ObjcClass => const CXIdxEntityInfo *
+	attrInfo  uintptr // const CXIdxAttrInfo *
+	objcClass uintptr // const CXIdxEntityInfo *
 	// ClassCursor => CXCursor
 	// ClassLoc => CXIdxLoc
 }
@@ -326,21 +353,23 @@ type IdxIBOutletCollectionAttrInfo struct {
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
-	// EntityInfo => const CXIdxEntityInfo *
+	entityInfo uintptr // const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
-	// SemanticContainer => const CXIdxContainerInfo *
-	// LexicalContainer => const CXIdxContainerInfo *
-	IsRedeclaration int32
-	IsDefinition    int32
-	IsContainer     int32
-	// DeclAsContainer => const CXIdxContainerInfo *
+	semanticContainer uintptr // const CXIdxContainerInfo *
+	/*
+	   Generally same as #semanticContainer but can be different in cases like out-of-line C++ member functions.
+	*/
+	lexicalContainer uintptr // const CXIdxContainerInfo *
+	IsRedeclaration  int32
+	IsDefinition     int32
+	IsContainer      int32
+	declAsContainer  uintptr // const CXIdxContainerInfo *
 	/*
 	   Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
-
 	*/
-	IsImplicit int32
-	// Attributes => const CXIdxAttrInfo *const *
+	IsImplicit    int32
+	attributes    uintptr // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	Flags         uint32
 }
@@ -348,14 +377,14 @@ type IdxDeclInfo struct {
 type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
-	// DeclInfo => const CXIdxDeclInfo *
+	declInfo uintptr // const CXIdxDeclInfo *
 	// Kind => CXIdxObjCContainerKind
 }
 
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
-	// Base => const CXIdxEntityInfo *
+	base uintptr // const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
 }
@@ -363,7 +392,7 @@ type IdxBaseClassInfo struct {
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
-	// Protocol => const CXIdxEntityInfo *
+	protocol uintptr // const CXIdxEntityInfo *
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
 }
@@ -371,41 +400,41 @@ type IdxObjCProtocolRefInfo struct {
 type IdxObjCProtocolRefListInfo struct {
 	_ structs.HostLayout
 
-	// Protocols => const CXIdxObjCProtocolRefInfo *const *
+	protocols    uintptr // const CXIdxObjCProtocolRefInfo *const *
 	NumProtocols uint32
 }
 
 type IdxObjCInterfaceDeclInfo struct {
 	_ structs.HostLayout
 
-	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
-	// SuperInfo => const CXIdxBaseClassInfo *
-	// Protocols => const CXIdxObjCProtocolRefListInfo *
+	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
+	superInfo     uintptr // const CXIdxBaseClassInfo *
+	protocols     uintptr // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
-	// ContainerInfo => const CXIdxObjCContainerDeclInfo *
-	// ObjcClass => const CXIdxEntityInfo *
+	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
+	objcClass     uintptr // const CXIdxEntityInfo *
 	// ClassCursor => CXCursor
 	// ClassLoc => CXIdxLoc
-	// Protocols => const CXIdxObjCProtocolRefListInfo *
+	protocols uintptr // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCPropertyDeclInfo struct {
 	_ structs.HostLayout
 
-	// DeclInfo => const CXIdxDeclInfo *
-	// Getter => const CXIdxEntityInfo *
-	// Setter => const CXIdxEntityInfo *
+	declInfo uintptr // const CXIdxDeclInfo *
+	getter   uintptr // const CXIdxEntityInfo *
+	setter   uintptr // const CXIdxEntityInfo *
 }
 
 type IdxCXXClassDeclInfo struct {
 	_ structs.HostLayout
 
-	// DeclInfo => const CXIdxDeclInfo *
-	// Bases => const CXIdxBaseClassInfo *const *
+	declInfo uintptr // const CXIdxDeclInfo *
+	bases    uintptr // const CXIdxBaseClassInfo *const *
 	NumBases uint32
 }
 
@@ -418,9 +447,21 @@ type IdxEntityRefInfo struct {
 	// Kind => CXIdxEntityRefKind
 	// Cursor => CXCursor
 	// Loc => CXIdxLoc
-	// ReferencedEntity => const CXIdxEntityInfo *
-	// ParentEntity => const CXIdxEntityInfo *
-	// Container => const CXIdxContainerInfo *
+	/*
+	   The entity that gets referenced.
+
+	*/
+	referencedEntity uintptr // const CXIdxEntityInfo *
+	/*
+	   Immediate "parent" of the reference. For example:
+
+	   The parent of reference of type 'Foo' is the variable 'var'. For references inside statement bodies of functions/methods, the parentEntity will be the function/method.
+	*/
+	parentEntity uintptr // const CXIdxEntityInfo *
+	/*
+	   Lexical container context of the reference.
+	*/
+	container uintptr // const CXIdxContainerInfo *
 	// Role => CXSymbolRole
 }
 
@@ -430,12 +471,32 @@ A group of callbacks used by #clang_indexSourceFile and #clang_indexTranslationU
 type IndexerCallbacks struct {
 	_ structs.HostLayout
 
-	// AbortQuery => int (*)(CXClientData, void *)
-	// Diagnostic => void (*)(CXClientData, CXDiagnosticSet, void *)
-	// EnteredMainFile => CXIdxClientFile (*)(CXClientData, CXFile, void *)
-	// PpIncludedFile => CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
-	// ImportedASTFile => CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
-	// StartedTranslationUnit => CXIdxClientContainer (*)(CXClientData, void *)
-	// IndexDeclaration => void (*)(CXClientData, const CXIdxDeclInfo *)
-	// IndexEntityReference => void (*)(CXClientData, const CXIdxEntityRefInfo *)
+	/*
+	   Called periodically to check whether indexing should be aborted. Should return 0 to continue, and non-zero to abort.
+	*/
+	abortQuery uintptr // int (*)(CXClientData, void *)
+	/*
+	   Called at the end of indexing; passes the complete diagnostic set.
+	*/
+	diagnostic      uintptr // void (*)(CXClientData, CXDiagnosticSet, void *)
+	enteredMainFile uintptr // CXIdxClientFile (*)(CXClientData, CXFile, void *)
+	/*
+	   Called when a file gets #included/#imported.
+	*/
+	ppIncludedFile uintptr // CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
+	/*
+	   Called when a AST file (PCH or module) gets imported.
+
+	   AST files will not get indexed (there will not be callbacks to index all the entities in an AST file). The recommended action is that, if the AST file is not already indexed, to initiate a new indexing job specific to the AST file.
+	*/
+	importedASTFile uintptr // CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
+	/*
+	   Called at the beginning of indexing a translation unit.
+	*/
+	startedTranslationUnit uintptr // CXIdxClientContainer (*)(CXClientData, void *)
+	indexDeclaration       uintptr // void (*)(CXClientData, const CXIdxDeclInfo *)
+	/*
+	   Called to index a reference of an entity.
+	*/
+	indexEntityReference uintptr // void (*)(CXClientData, const CXIdxEntityRefInfo *)
 }

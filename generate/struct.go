@@ -13,6 +13,7 @@ type structField struct {
 	comment       string
 	scalar        scalar
 	isScalar      bool
+	isPointer     bool
 	_tempSpelling string
 }
 
@@ -44,15 +45,21 @@ func (ss *structs) add(cursor clang.Cursor) {
 			return clang.ChildVisit_Continue
 		}
 
+		isPointer := strings.Contains(cursor.Type().Spelling(), "*")
+
 		name := exportedGoName(cursor.Spelling())
 		if name == "" {
 			name = fmt.Sprintf("_%d", unnamed)
 			unnamed++
 		}
+		if isPointer {
+			name = goName(cursor.Spelling())
+		}
 
 		field := structField{
 			name:          name,
 			comment:       commentText(cursor.ParsedComment()),
+			isPointer:     isPointer,
 			_tempSpelling: cursor.Type().Spelling(),
 		}
 		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
@@ -79,6 +86,9 @@ func (ss *structs) generate() {
 				if field.isScalar {
 					g.Comment(field.comment)
 					g.Id(field.name).Add(field.scalar.code)
+				} else if field.isPointer {
+					g.Comment(field.comment)
+					g.Id(field.name).Uintptr().Comment(field._tempSpelling)
 				} else {
 					g.Commentf("%s => %s", field.name, field._tempSpelling)
 				}

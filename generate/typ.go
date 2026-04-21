@@ -21,6 +21,10 @@ var scalarTypes = map[clang.TypeKind]scalar{
 		code: jen.Uint32(),
 		size: int(unsafe.Sizeof(*new(uint32))),
 	},
+	clang.Type_UChar: {
+		code: jen.Byte(),
+		size: int(unsafe.Sizeof(*new(byte))),
+	},
 	clang.Type_ULong: {
 		code: jen.Uint64(),
 		size: int(unsafe.Sizeof(*new(uint64))),
