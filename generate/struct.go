@@ -15,6 +15,11 @@ type structField struct {
 	size         int
 	typeSpelling string
 
+	isBitfield            bool
+	bitWidth              int
+	bitfieldOffset        int
+	bitfieldDataFieldName string
+
 	enum      *enum
 	isEnum    bool
 	scalar    scalar
@@ -62,7 +67,10 @@ func (ss *structs) enrich(gen *gen) {
 }
 
 func (struct_ *struct_) enrich(gen *gen) {
-	unnamed := 1
+	nameSuffix := 0
+	bitfieldOffset := 0
+	var prevField *structField
+
 	struct_.cursor.Visit(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
 		if cursor.Kind() != clang.Cursor_FieldDecl {
 			return clang.ChildVisit_Continue
@@ -71,9 +79,9 @@ func (struct_ *struct_) enrich(gen *gen) {
 		isPointer := cursor.Type().Kind() == clang.Type_Pointer
 
 		name := exportedGoName(cursor.Spelling())
-		if name == "" {
-			name = fmt.Sprintf("_%d", unnamed)
-			unnamed++
+		if name == "" && !cursor.IsBitField() {
+			name = fmt.Sprintf("_%d", nameSuffix)
+			nameSuffix++
 		}
 		if isPointer {
 			name = goName(cursor.Spelling())
@@ -91,7 +99,18 @@ func (struct_ *struct_) enrich(gen *gen) {
 		field.scalar, field.isScalar = scalarTypes[cursor.Type().Kind()]
 		field.struct_, field.isStruct = gen.structs.find(cursor.Type().Spelling())
 
+		field.isBitfield = cursor.IsBitField()
+		field.bitWidth = int(cursor.FieldDeclBitWidth())
+		if field.isBitfield {
+			field.bitfieldDataFieldName = fmt.Sprintf("bitfield_%d", nameSuffix)
+			field.bitfieldOffset = bitfieldOffset
+			bitfieldOffset += field.bitWidth
+		} else if prevField != nil && prevField.isBitfield {
+			nameSuffix++
+		}
+
 		struct_.fields = append(struct_.fields, field)
+		prevField = &field
 
 		return clang.ChildVisit_Continue
 	})
@@ -103,23 +122,36 @@ func (struct_ struct_) generate(file file) {
 		g.Id("_").Qual("structs", "HostLayout")
 		g.Line()
 
+		var firstBitfield *structField
 		var prevField *structField
 		for _, field := range struct_.fields {
 			struct_.generateFieldPadding(g, field.offset, prevField)
 
-			g.Comment(field.comment)
-			// g.Commentf("OFFSET, SIZE : %d, %d", field.offset, field.size)
+			if !field.isBitfield && prevField != nil && prevField.isBitfield {
+				// generate a field to hold one or more bitfields
+				g.Id(prevField.bitfieldDataFieldName).Index(jen.Lit((field.offset - firstBitfield.offset) / 8)).Byte()
+			}
 
-			if field.isEnum {
-				g.Id(field.goName).Id(field.enum.goName)
-			} else if field.isScalar {
-				g.Id(field.goName).Add(field.scalar.code)
-			} else if field.isStruct {
-				g.Id(field.goName).Id(field.struct_.goName)
-			} else if field.isPointer {
-				g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
+			if !field.isBitfield {
+				g.Comment(field.comment)
+
+				if field.isEnum {
+					g.Id(field.goName).Id(field.enum.goName)
+				} else if field.isScalar {
+					g.Id(field.goName).Add(field.scalar.code)
+				} else if field.isStruct {
+					g.Id(field.goName).Id(field.struct_.goName)
+				} else if field.isPointer {
+					g.Id(field.goName).Uintptr().Comment(field.typeSpelling)
+				} else {
+					g.Id(field.goName).Index(jen.Lit(field.size)).Byte().Comment(field.typeSpelling)
+				}
+
+				firstBitfield = nil
 			} else {
-				g.Id(field.goName).Index(jen.Lit(field.size)).Byte().Comment(field.typeSpelling)
+				if firstBitfield == nil {
+					firstBitfield = &field
+				}
 			}
 
 			prevField = &field
