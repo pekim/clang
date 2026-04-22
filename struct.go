@@ -136,7 +136,7 @@ type IndexOptions struct {
 	   A CXChoice enumerator that specifies the editing priority policy.
 	*/
 	ThreadBackgroundPriorityForEditing byte
-	bitfield_0                         [2]byte
+	bitfield_0                         uint16
 	/*
 	   The path to a directory, in which to store temporary PCH files. If null or empty, the default system temporary directory is used. These PCH files are deleted on clean exit but stay on disk if the program crashes or is killed.
 

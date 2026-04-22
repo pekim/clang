@@ -129,7 +129,11 @@ func (struct_ struct_) generate(file file) {
 
 			if !field.isBitfield && prevField != nil && prevField.isBitfield {
 				// generate a field to hold one or more bitfields
-				g.Id(prevField.bitfieldDataFieldName).Index(jen.Lit((field.offset - firstBitfield.offset) / 8)).Byte()
+				if (field.offset-firstBitfield.offset)/8 != 2 {
+					// for now, the only bitfields total 16 bits
+					fatalf("expected bitfields for %s.%s to be 16 bits", struct_.goName, firstBitfield.goName)
+				}
+				g.Id(prevField.bitfieldDataFieldName).Uint16()
 			}
 
 			if !field.isBitfield {
