@@ -11,6 +11,7 @@ require github.com/go-clang/clang-v15 v0.0.0-00010101000000-000000000000
 require (
 	github.com/dave/jennifer v1.7.1
 	github.com/stretchr/testify v1.11.1
+	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f
 )
 
 require (
