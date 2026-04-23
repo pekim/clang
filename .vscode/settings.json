@@ -1,0 +1,4 @@
+{
+  "go.buildTags": "nofakecgo",
+  "go.toolsEnvVars": { "CGO_ENABLED": "0" }
+}

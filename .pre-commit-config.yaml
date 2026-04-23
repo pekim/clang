@@ -13,4 +13,6 @@ repos:
       - id: go-imports
       - id: go-mod-tidy
       - id: go-test-mod
+        args: [--hook:env:CGO_ENABLED=0]
       - id: golangci-lint-mod
+        args: [--hook:env:CGO_ENABLED=0]
