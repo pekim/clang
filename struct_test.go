@@ -13,3 +13,11 @@ func TestStructsSizes(t *testing.T) {
 		})
 	}
 }
+
+func TestStringStructField(t *testing.T) {
+	var indexOptions IndexOptions
+	assert.Empty(t, indexOptions.PreambleStoragePath())
+	free := indexOptions.SetPreambleStoragePath("qwerty 42")
+	assert.Equal(t, "qwerty 42", indexOptions.PreambleStoragePath())
+	free()
+}

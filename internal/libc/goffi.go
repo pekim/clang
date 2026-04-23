@@ -7,7 +7,7 @@ import (
 	"github.com/go-webgpu/goffi/ffi"
 	"github.com/go-webgpu/goffi/types"
 
-	"github.com/pekim/clang/lib"
+	"github.com/pekim/clang/internal/lib"
 )
 
 var cif_free = &types.CallInterface{}

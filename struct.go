@@ -2,12 +2,17 @@
 
 package clang
 
-import "structs"
+import (
+	"structs"
+	"unsafe"
+
+	libc "github.com/pekim/clang/internal/libc"
+)
 
 type String_ struct {
 	_ structs.HostLayout
 
-	data          uintptr // const void *
+	data          unsafe.Pointer // const void *
 	Private_flags uint32
 	_             [4]byte
 }
@@ -15,7 +20,7 @@ type String_ struct {
 type StringSet struct {
 	_ structs.HostLayout
 
-	strings uintptr // CXString *
+	strings unsafe.Pointer // CXString *
 	Count   uint32
 	_       [4]byte
 }
@@ -55,7 +60,7 @@ type SourceRangeList struct {
 
 	Count  uint32
 	_      [4]byte
-	ranges uintptr // CXSourceRange *
+	ranges unsafe.Pointer // CXSourceRange *
 }
 
 type TargetInfoImpl struct {
@@ -79,11 +84,53 @@ type UnsavedFile struct {
 
 	   This file must already exist in the file system.
 	*/
-	filename uintptr // const char *
+	filename unsafe.Pointer // const char *
 	// A buffer containing the unsaved contents of this file.
-	contents uintptr // const char *
+	contents unsafe.Pointer // const char *
 	// The length of the unsaved contents of this buffer.
 	Length uint64
+}
+
+/*
+The file whose contents have not yet been saved.
+
+This file must already exist in the file system.
+*/
+func (s *UnsavedFile) Filename() string {
+	return libc.GoString(s.filename)
+}
+
+/*
+The file whose contents have not yet been saved.
+
+This file must already exist in the file system.
+*/
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *UnsavedFile) SetFilename(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.filename = cString
+	return free
+}
+
+// A buffer containing the unsaved contents of this file.
+func (s *UnsavedFile) Contents() string {
+	return libc.GoString(s.contents)
+}
+
+// A buffer containing the unsaved contents of this file.
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *UnsavedFile) SetContents(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.contents = cString
+	return free
 }
 
 // Describes a version number of the form major.minor.subminor.
@@ -128,9 +175,9 @@ type IndexOptions struct {
 
 	   Libclang does not create the directory at the specified path in the file system. Therefore it must exist, or storing PCH files will fail.
 	*/
-	preambleStoragePath uintptr // const char *
+	preambleStoragePath unsafe.Pointer // const char *
 	// Specifies a path which will contain log files for certain libclang invocations. A null value implies that libclang invocations are not logged.
-	invocationEmissionPath uintptr // const char *
+	invocationEmissionPath unsafe.Pointer // const char *
 }
 
 func (s *IndexOptions) ExcludeDeclarationsFromPCH() uint {
@@ -159,6 +206,52 @@ func (s *IndexOptions) SetStorePreamblesInMemory(value uint) {
 	bitfieldSet(s.bitfield_0, 2, 1, value)
 }
 
+/*
+The path to a directory, in which to store temporary PCH files. If null or empty, the default system temporary directory is used. These PCH files are deleted on clean exit but stay on disk if the program crashes or is killed.
+
+This option is ignored if StorePreamblesInMemory is non-zero.
+
+Libclang does not create the directory at the specified path in the file system. Therefore it must exist, or storing PCH files will fail.
+*/
+func (s *IndexOptions) PreambleStoragePath() string {
+	return libc.GoString(s.preambleStoragePath)
+}
+
+/*
+The path to a directory, in which to store temporary PCH files. If null or empty, the default system temporary directory is used. These PCH files are deleted on clean exit but stay on disk if the program crashes or is killed.
+
+This option is ignored if StorePreamblesInMemory is non-zero.
+
+Libclang does not create the directory at the specified path in the file system. Therefore it must exist, or storing PCH files will fail.
+*/
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *IndexOptions) SetPreambleStoragePath(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.preambleStoragePath = cString
+	return free
+}
+
+// Specifies a path which will contain log files for certain libclang invocations. A null value implies that libclang invocations are not logged.
+func (s *IndexOptions) InvocationEmissionPath() string {
+	return libc.GoString(s.invocationEmissionPath)
+}
+
+// Specifies a path which will contain log files for certain libclang invocations. A null value implies that libclang invocations are not logged.
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *IndexOptions) SetInvocationEmissionPath(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.invocationEmissionPath = cString
+	return free
+}
+
 type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 
@@ -171,10 +264,10 @@ type TUResourceUsageEntry struct {
 type TUResourceUsage struct {
 	_ structs.HostLayout
 
-	data       uintptr // void *
+	data       unsafe.Pointer // void *
 	NumEntries uint32
 	_          [4]byte
-	entries    uintptr // CXTUResourceUsageEntry *
+	entries    unsafe.Pointer // CXTUResourceUsageEntry *
 }
 
 /*
@@ -231,8 +324,8 @@ type Type_ struct {
 type Token struct {
 	_ structs.HostLayout
 
-	Int_data [16]byte // unsigned int[4]
-	ptr_data uintptr  // void *
+	Int_data [16]byte       // unsigned int[4]
+	ptr_data unsafe.Pointer // void *
 }
 
 // A single result of code completion.
@@ -259,7 +352,7 @@ type CodeCompleteResults struct {
 	_ structs.HostLayout
 
 	// The code-completion results.
-	results uintptr // CXCompletionResult *
+	results unsafe.Pointer // CXCompletionResult *
 	// The number of code-completion results stored in the Results array.
 	NumResults uint32
 	_          [4]byte
@@ -268,8 +361,8 @@ type CodeCompleteResults struct {
 type CursorAndRangeVisitor struct {
 	_ structs.HostLayout
 
-	context uintptr // void *
-	visit   uintptr // enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
+	context unsafe.Pointer // void *
+	visit   unsafe.Pointer // enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
 }
 
 // Source location passed to index callbacks.
@@ -288,7 +381,7 @@ type IdxIncludedFileInfo struct {
 	// Location of '#' in the #include/#import directive.
 	HashLoc IdxLoc
 	// Filename as written in the #include/#import directive.
-	filename uintptr // const char *
+	filename unsafe.Pointer // const char *
 	// The actual file that the #include/#import directive resolved to.
 	File     [8]byte // CXFile
 	IsImport int32
@@ -296,6 +389,23 @@ type IdxIncludedFileInfo struct {
 	// Non-zero if the directive was automatically turned into a module import.
 	IsModuleImport int32
 	_              [4]byte
+}
+
+// Filename as written in the #include/#import directive.
+func (s *IdxIncludedFileInfo) Filename() string {
+	return libc.GoString(s.filename)
+}
+
+// Filename as written in the #include/#import directive.
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *IdxIncludedFileInfo) SetFilename(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.filename = cString
+	return free
 }
 
 // Data for IndexerCallbacks#importedASTFile.
@@ -329,12 +439,44 @@ type IdxEntityInfo struct {
 	TemplateKind  IdxEntityCXXTemplateKind
 	Lang          IdxEntityLanguage
 	_             [4]byte
-	name          uintptr // const char *
-	uSR           uintptr // const char *
+	name          unsafe.Pointer // const char *
+	uSR           unsafe.Pointer // const char *
 	Cursor        Cursor
-	attributes    uintptr // const CXIdxAttrInfo *const *
+	attributes    unsafe.Pointer // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	_             [4]byte
+}
+
+func (s *IdxEntityInfo) Name() string {
+	return libc.GoString(s.name)
+}
+
+//
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *IdxEntityInfo) SetName(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.name = cString
+	return free
+}
+
+func (s *IdxEntityInfo) USR() string {
+	return libc.GoString(s.uSR)
+}
+
+//
+/*
+
+A C string will be allocated on the C heap.
+A function is returned that when called will free the C string's memory.
+*/
+func (s *IdxEntityInfo) SetUSR(str string) (free func()) {
+	cString, free := libc.CString(str)
+	s.uSR = cString
+	return free
 }
 
 type IdxContainerInfo struct {
@@ -346,8 +488,8 @@ type IdxContainerInfo struct {
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
-	attrInfo    uintptr // const CXIdxAttrInfo *
-	objcClass   uintptr // const CXIdxEntityInfo *
+	attrInfo    unsafe.Pointer // const CXIdxAttrInfo *
+	objcClass   unsafe.Pointer // const CXIdxEntityInfo *
 	ClassCursor Cursor
 	ClassLoc    IdxLoc
 }
@@ -355,21 +497,21 @@ type IdxIBOutletCollectionAttrInfo struct {
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
-	entityInfo        uintptr // const CXIdxEntityInfo *
+	entityInfo        unsafe.Pointer // const CXIdxEntityInfo *
 	Cursor            Cursor
 	Loc               IdxLoc
-	semanticContainer uintptr // const CXIdxContainerInfo *
+	semanticContainer unsafe.Pointer // const CXIdxContainerInfo *
 	// Generally same as #semanticContainer but can be different in cases like out-of-line C++ member functions.
-	lexicalContainer uintptr // const CXIdxContainerInfo *
+	lexicalContainer unsafe.Pointer // const CXIdxContainerInfo *
 	IsRedeclaration  int32
 	IsDefinition     int32
 	IsContainer      int32
 	_                [4]byte
-	declAsContainer  uintptr // const CXIdxContainerInfo *
+	declAsContainer  unsafe.Pointer // const CXIdxContainerInfo *
 	// Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
 	IsImplicit    int32
 	_             [4]byte
-	attributes    uintptr // const CXIdxAttrInfo *const *
+	attributes    unsafe.Pointer // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	Flags         uint32
 }
@@ -377,7 +519,7 @@ type IdxDeclInfo struct {
 type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo uintptr // const CXIdxDeclInfo *
+	declInfo unsafe.Pointer // const CXIdxDeclInfo *
 	Kind     IdxObjCContainerKind
 	_        [4]byte
 }
@@ -385,7 +527,7 @@ type IdxObjCContainerDeclInfo struct {
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
-	base   uintptr // const CXIdxEntityInfo *
+	base   unsafe.Pointer // const CXIdxEntityInfo *
 	Cursor Cursor
 	Loc    IdxLoc
 }
@@ -393,7 +535,7 @@ type IdxBaseClassInfo struct {
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
-	protocol uintptr // const CXIdxEntityInfo *
+	protocol unsafe.Pointer // const CXIdxEntityInfo *
 	Cursor   Cursor
 	Loc      IdxLoc
 }
@@ -401,7 +543,7 @@ type IdxObjCProtocolRefInfo struct {
 type IdxObjCProtocolRefListInfo struct {
 	_ structs.HostLayout
 
-	protocols    uintptr // const CXIdxObjCProtocolRefInfo *const *
+	protocols    unsafe.Pointer // const CXIdxObjCProtocolRefInfo *const *
 	NumProtocols uint32
 	_            [4]byte
 }
@@ -409,34 +551,34 @@ type IdxObjCProtocolRefListInfo struct {
 type IdxObjCInterfaceDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
-	superInfo     uintptr // const CXIdxBaseClassInfo *
-	protocols     uintptr // const CXIdxObjCProtocolRefListInfo *
+	containerInfo unsafe.Pointer // const CXIdxObjCContainerDeclInfo *
+	superInfo     unsafe.Pointer // const CXIdxBaseClassInfo *
+	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo uintptr // const CXIdxObjCContainerDeclInfo *
-	objcClass     uintptr // const CXIdxEntityInfo *
+	containerInfo unsafe.Pointer // const CXIdxObjCContainerDeclInfo *
+	objcClass     unsafe.Pointer // const CXIdxEntityInfo *
 	ClassCursor   Cursor
 	ClassLoc      IdxLoc
-	protocols     uintptr // const CXIdxObjCProtocolRefListInfo *
+	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
 }
 
 type IdxObjCPropertyDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo uintptr // const CXIdxDeclInfo *
-	getter   uintptr // const CXIdxEntityInfo *
-	setter   uintptr // const CXIdxEntityInfo *
+	declInfo unsafe.Pointer // const CXIdxDeclInfo *
+	getter   unsafe.Pointer // const CXIdxEntityInfo *
+	setter   unsafe.Pointer // const CXIdxEntityInfo *
 }
 
 type IdxCXXClassDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo uintptr // const CXIdxDeclInfo *
-	bases    uintptr // const CXIdxBaseClassInfo *const *
+	declInfo unsafe.Pointer // const CXIdxDeclInfo *
+	bases    unsafe.Pointer // const CXIdxBaseClassInfo *const *
 	NumBases uint32
 	_        [4]byte
 }
@@ -451,15 +593,15 @@ type IdxEntityRefInfo struct {
 	Cursor Cursor
 	Loc    IdxLoc
 	// The entity that gets referenced.
-	referencedEntity uintptr // const CXIdxEntityInfo *
+	referencedEntity unsafe.Pointer // const CXIdxEntityInfo *
 	/*
 	   Immediate "parent" of the reference. For example:
 
 	   The parent of reference of type 'Foo' is the variable 'var'. For references inside statement bodies of functions/methods, the parentEntity will be the function/method.
 	*/
-	parentEntity uintptr // const CXIdxEntityInfo *
+	parentEntity unsafe.Pointer // const CXIdxEntityInfo *
 	// Lexical container context of the reference.
-	container uintptr // const CXIdxContainerInfo *
+	container unsafe.Pointer // const CXIdxContainerInfo *
 	// Sets of symbol roles of the reference.
 	Role SymbolRole
 	_    [4]byte
@@ -470,21 +612,21 @@ type IndexerCallbacks struct {
 	_ structs.HostLayout
 
 	// Called periodically to check whether indexing should be aborted. Should return 0 to continue, and non-zero to abort.
-	abortQuery uintptr // int (*)(CXClientData, void *)
+	abortQuery unsafe.Pointer // int (*)(CXClientData, void *)
 	// Called at the end of indexing; passes the complete diagnostic set.
-	diagnostic      uintptr // void (*)(CXClientData, CXDiagnosticSet, void *)
-	enteredMainFile uintptr // CXIdxClientFile (*)(CXClientData, CXFile, void *)
+	diagnostic      unsafe.Pointer // void (*)(CXClientData, CXDiagnosticSet, void *)
+	enteredMainFile unsafe.Pointer // CXIdxClientFile (*)(CXClientData, CXFile, void *)
 	// Called when a file gets #included/#imported.
-	ppIncludedFile uintptr // CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
+	ppIncludedFile unsafe.Pointer // CXIdxClientFile (*)(CXClientData, const CXIdxIncludedFileInfo *)
 	/*
 	   Called when a AST file (PCH or module) gets imported.
 
 	   AST files will not get indexed (there will not be callbacks to index all the entities in an AST file). The recommended action is that, if the AST file is not already indexed, to initiate a new indexing job specific to the AST file.
 	*/
-	importedASTFile uintptr // CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
+	importedASTFile unsafe.Pointer // CXIdxClientASTFile (*)(CXClientData, const CXIdxImportedASTFileInfo *)
 	// Called at the beginning of indexing a translation unit.
-	startedTranslationUnit uintptr // CXIdxClientContainer (*)(CXClientData, void *)
-	indexDeclaration       uintptr // void (*)(CXClientData, const CXIdxDeclInfo *)
+	startedTranslationUnit unsafe.Pointer // CXIdxClientContainer (*)(CXClientData, void *)
+	indexDeclaration       unsafe.Pointer // void (*)(CXClientData, const CXIdxDeclInfo *)
 	// Called to index a reference of an entity.
-	indexEntityReference uintptr // void (*)(CXClientData, const CXIdxEntityRefInfo *)
+	indexEntityReference unsafe.Pointer // void (*)(CXClientData, const CXIdxEntityRefInfo *)
 }

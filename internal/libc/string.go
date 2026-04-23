@@ -30,6 +30,10 @@ func CStringFree(cStr unsafe.Pointer) {
 //
 // The Go string is a copy of the C bytes.
 func GoString(cStr unsafe.Pointer) string {
+	if cStr == nil {
+		return ""
+	}
+
 	// Look for terminating 0, to find the length of the string.
 	length := 0
 	str := unsafe.Slice((*byte)(cStr), math.MaxInt)
