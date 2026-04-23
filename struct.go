@@ -151,6 +151,44 @@ type IndexOptions struct {
 	invocationEmissionPath uintptr // const char *
 }
 
+/*
+ */
+func (s *IndexOptions) ExcludeDeclarationsFromPCH() uint {
+	return bitfieldGet(s.bitfield_0, 0, 1)
+}
+
+/*
+ */
+func (s *IndexOptions) SetExcludeDeclarationsFromPCH(value uint) {
+	bitfieldSet(s.bitfield_0, 0, 1, value)
+}
+
+/*
+ */
+func (s *IndexOptions) DisplayDiagnostics() uint {
+	return bitfieldGet(s.bitfield_0, 1, 1)
+}
+
+/*
+ */
+func (s *IndexOptions) SetDisplayDiagnostics(value uint) {
+	bitfieldSet(s.bitfield_0, 1, 1, value)
+}
+
+/*
+Store PCH in memory. If zero, PCH are stored in temporary files.
+*/
+func (s *IndexOptions) StorePreamblesInMemory() uint {
+	return bitfieldGet(s.bitfield_0, 2, 1)
+}
+
+/*
+Store PCH in memory. If zero, PCH are stored in temporary files.
+*/
+func (s *IndexOptions) SetStorePreamblesInMemory(value uint) {
+	bitfieldSet(s.bitfield_0, 2, 1, value)
+}
+
 type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 

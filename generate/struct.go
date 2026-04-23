@@ -117,6 +117,11 @@ func (struct_ *struct_) enrich(gen *gen) {
 }
 
 func (struct_ struct_) generate(file file) {
+	struct_.generateStruct(file)
+	struct_.generateAccessors(file)
+}
+
+func (struct_ struct_) generateStruct(file file) {
 	file.Comment(struct_.comment)
 	file.Type().Id(struct_.goName).StructFunc(func(g *jen.Group) {
 		g.Id("_").Qual("structs", "HostLayout")
@@ -163,6 +168,52 @@ func (struct_ struct_) generate(file file) {
 
 		struct_.generateFieldPadding(g, struct_.size*8, prevField)
 	})
+}
+
+func (struct_ struct_) generateAccessors(file file) {
+	for _, field := range struct_.fields {
+		if field.isBitfield {
+			if field.goName == "" {
+				continue
+			}
+
+			// getter
+			file.Comment(field.comment)
+			file.
+				Func().
+				Params(jen.Id("s").Op("*").Id(struct_.goName)).
+				Id(field.goName).Params().Uint().Block(
+				jen.Return().Id("bitfieldGet").Call(
+					jen.Id("s").Dot(field.bitfieldDataFieldName),
+					jen.Lit(field.bitfieldOffset),
+					jen.Lit(field.bitWidth),
+				),
+			)
+			file.Line()
+
+			// setter
+			file.Comment(field.comment)
+			file.
+				Func().
+				Params(jen.Id("s").Op("*").Id(struct_.goName)).
+				Id("Set" + field.goName).Params(jen.Id("value").Uint()).Block(
+				jen.Id("bitfieldSet").Call(
+					jen.Id("s").Dot(field.bitfieldDataFieldName),
+					jen.Lit(field.bitfieldOffset),
+					jen.Lit(field.bitWidth),
+					jen.Id("value"),
+				),
+			)
+			file.Line()
+
+			/*
+			   // Docs go HERE.
+			   func (s *IndexOptions) SetExcludeDeclarationsFromPCH(value uint) {
+			   	bitfieldSet(s.bitfield_0, 0, 1, value)
+			   }
+			*/
+		}
+	}
 }
 
 func (struct_ struct_) generateFieldPadding(g *jen.Group, targetOffset int, prevField *structField) {
