@@ -9,7 +9,16 @@ import (
 func commentText(comment clang.Comment) string {
 	var builder strings.Builder
 	commentChildrenText(comment, &builder)
-	return builder.String()
+
+	// trim leading and trailing white space from lines
+	lines := strings.Split(builder.String(), "\n")
+	builder.Reset()
+	for _, line := range lines {
+		builder.WriteString(strings.TrimSpace(line))
+		builder.WriteRune('\n')
+	}
+
+	return strings.TrimSpace(builder.String())
 }
 
 func commentChildrenText(comment clang.Comment, builder *strings.Builder) {

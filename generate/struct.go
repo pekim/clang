@@ -205,13 +205,6 @@ func (struct_ struct_) generateAccessors(file file) {
 				),
 			)
 			file.Line()
-
-			/*
-			   // Docs go HERE.
-			   func (s *IndexOptions) SetExcludeDeclarationsFromPCH(value uint) {
-			   	bitfieldSet(s.bitfield_0, 0, 1, value)
-			   }
-			*/
 		}
 	}
 }

@@ -22,37 +22,27 @@ type DiagnosticSet struct {
 	c uintptr
 }
 
-/*
-An "index" that consists of a set of translation units that would typically be linked together into an executable or library.
-*/
+// An "index" that consists of a set of translation units that would typically be linked together into an executable or library.
 type Index struct {
 	c uintptr
 }
 
-/*
-An opaque type representing target information for a given translation unit.
-*/
+// An opaque type representing target information for a given translation unit.
 type TargetInfo struct {
 	c uintptr
 }
 
-/*
-A single translation unit, which resides in an index.
-*/
+// A single translation unit, which resides in an index.
 type TranslationUnit struct {
 	c uintptr
 }
 
-/*
-Opaque pointer representing client data that will be passed through to various callbacks and visitors.
-*/
+// Opaque pointer representing client data that will be passed through to various callbacks and visitors.
 type ClientData struct {
 	c uintptr
 }
 
-/*
-A fast container representing a set of CXCursors.
-*/
+// A fast container representing a set of CXCursors.
 type CursorSet struct {
 	c uintptr
 }
@@ -72,9 +62,7 @@ type CursorVisitorBlock struct {
 	c uintptr
 }
 
-/*
-Opaque pointer representing a policy that controls pretty printing for clang_getCursorPrettyPrinted.
-*/
+// Opaque pointer representing a policy that controls pretty printing for clang_getCursorPrettyPrinted.
 type PrintingPolicy struct {
 	c uintptr
 }
@@ -106,9 +94,7 @@ type InclusionVisitor struct {
 	c uintptr
 }
 
-/*
-Evaluation result of a cursor
-*/
+// Evaluation result of a cursor
 type EvalResult struct {
 	c uintptr
 }
@@ -117,37 +103,27 @@ type CursorAndRangeVisitorBlock struct {
 	c uintptr
 }
 
-/*
-The client's data object that is associated with a CXFile.
-*/
+// The client's data object that is associated with a CXFile.
 type IdxClientFile struct {
 	c uintptr
 }
 
-/*
-The client's data object that is associated with a semantic entity.
-*/
+// The client's data object that is associated with a semantic entity.
 type IdxClientEntity struct {
 	c uintptr
 }
 
-/*
-The client's data object that is associated with a semantic container of entities.
-*/
+// The client's data object that is associated with a semantic container of entities.
 type IdxClientContainer struct {
 	c uintptr
 }
 
-/*
-The client's data object that is associated with an AST file (PCH or module).
-*/
+// The client's data object that is associated with an AST file (PCH or module).
 type IdxClientASTFile struct {
 	c uintptr
 }
 
-/*
-An indexing action/session, to be applied to one or multiple translation units.
-*/
+// An indexing action/session, to be applied to one or multiple translation units.
 type IndexAction struct {
 	c uintptr
 }
@@ -163,9 +139,7 @@ type FieldVisitor struct {
 	c uintptr
 }
 
-/*
-@}
-*/
+// @}
 type Remapping struct {
 	c uintptr
 }
