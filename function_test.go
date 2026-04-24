@@ -11,3 +11,7 @@ func TestFunctionNoArgsNoReturn(t *testing.T) {
 		EnableStackTraces()
 	})
 }
+
+// func TestFunctionReturnCXString(t *testing.T) {
+// 	GetClangVersion()
+// }
