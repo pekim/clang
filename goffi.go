@@ -13,12 +13,14 @@ import (
 var cif_clang_getNullLocation = &types.CallInterface{}
 var cif_clang_getNullRange = &types.CallInterface{}
 var cif_clang_getNullCursor = &types.CallInterface{}
+var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_enableStackTraces = &types.CallInterface{}
 var cif_clang_getClangVersion = &types.CallInterface{}
 
 var ptr_clang_getNullLocation unsafe.Pointer
 var ptr_clang_getNullRange unsafe.Pointer
 var ptr_clang_getNullCursor unsafe.Pointer
+var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_enableStackTraces unsafe.Pointer
 var ptr_clang_getClangVersion unsafe.Pointer
 
@@ -54,6 +56,15 @@ func init() {
 			returnType := cursorTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getNullCursor, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_createCXCursorSet, err = ffi.GetSymbol(library, "clang_createCXCursorSet")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_createCXCursorSet, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

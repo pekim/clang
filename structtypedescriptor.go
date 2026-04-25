@@ -253,11 +253,7 @@ var completionResultTypeDescriptor = &types.TypeDescriptor{
 			Kind:      types.UInt8Type,
 			Size:      4,
 		},
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      8,
-		},
+		types.PointerTypeDescriptor,
 	},
 	Size: unsafe.Sizeof(CompletionResult{}),
 }
@@ -302,11 +298,7 @@ var idxIncludedFileInfoTypeDescriptor = &types.TypeDescriptor{
 	Members: []*types.TypeDescriptor{
 		idxLocTypeDescriptor,
 		types.PointerTypeDescriptor,
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      8,
-		},
+		types.PointerTypeDescriptor,
 		types.SInt32TypeDescriptor,
 		types.SInt32TypeDescriptor,
 		types.SInt32TypeDescriptor,
@@ -318,16 +310,8 @@ var idxImportedASTFileInfoTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      8,
-		},
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      8,
-		},
+		types.PointerTypeDescriptor,
+		types.PointerTypeDescriptor,
 		idxLocTypeDescriptor,
 		types.SInt32TypeDescriptor,
 	},
