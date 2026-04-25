@@ -1,8 +1,10 @@
 package clang
 
 import (
+	"strings"
 	"testing"
 
+	"github.com/pekim/clang/internal/libc"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,6 +14,8 @@ func TestFunctionNoArgsNoReturn(t *testing.T) {
 	})
 }
 
-// func TestFunctionReturnCXString(t *testing.T) {
-// 	GetClangVersion()
-// }
+func TestFunctionReturnCXString(t *testing.T) {
+	cxString := GetClangVersion()
+	version := libc.GoString(cxString.data)
+	assert.True(t, strings.HasPrefix(version, "clang version "))
+}
