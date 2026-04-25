@@ -73,9 +73,9 @@ func ModuleMapDescriptor_create(Options uint32) ModuleMapDescriptor {
 
 // not supported : clang_getFileTime : return value : time_t
 
-// not supported : clang_getFileUniqueID : return value : int
+// not supported : clang_getFileUniqueID : param file : CXFile
 
-// not supported : clang_File_isEqual : return value : int
+// not supported : clang_File_isEqual : param file1 : CXFile
 
 // not supported : clang_File_tryGetRealPathName : param file : CXFile
 
@@ -92,11 +92,11 @@ func GetNullLocation() SourceLocation {
 	return ret
 }
 
-// not supported : clang_equalLocations : return value : unsigned int
+// not supported : clang_equalLocations : param loc1 : CXSourceLocation
 
-// not supported : clang_Location_isInSystemHeader : return value : int
+// not supported : clang_Location_isInSystemHeader : param location : CXSourceLocation
 
-// not supported : clang_Location_isFromMainFile : return value : int
+// not supported : clang_Location_isFromMainFile : param location : CXSourceLocation
 
 func GetNullRange() SourceRange {
 	var retC SourceRange
@@ -113,9 +113,9 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_getRange : param begin : CXSourceLocation
 
-// not supported : clang_equalRanges : return value : unsigned int
+// not supported : clang_equalRanges : param range1 : CXSourceRange
 
-// not supported : clang_Range_isNull : return value : int
+// not supported : clang_Range_isNull : param range : CXSourceRange
 
 // not supported : clang_getExpansionLocation : param location : CXSourceLocation
 
@@ -133,7 +133,7 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_disposeSourceRangeList : param ranges : CXSourceRangeList *
 
-// not supported : clang_getNumDiagnosticsInSet : return value : unsigned int
+// not supported : clang_getNumDiagnosticsInSet : param Diags : CXDiagnosticSet
 
 // not supported : clang_getDiagnosticInSet : param Diags : CXDiagnosticSet
 
@@ -147,7 +147,18 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_formatDiagnostic : param Diagnostic : CXDiagnostic
 
-// not supported : clang_defaultDiagnosticDisplayOptions : return value : unsigned int
+func DefaultDiagnosticDisplayOptions() uint32 {
+	var retC uint32
+	args := []unsafe.Pointer{}
+
+	err := ffi.CallFunction(cif_clang_defaultDiagnosticDisplayOptions, ptr_clang_defaultDiagnosticDisplayOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultDiagnosticDisplayOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getDiagnosticSeverity : return value : enum CXDiagnosticSeverity
 
@@ -157,7 +168,7 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_getDiagnosticOption : param Diag : CXDiagnostic
 
-// not supported : clang_getDiagnosticCategory : return value : unsigned int
+// not supported : clang_getDiagnosticCategory : param  : CXDiagnostic
 
 func GetDiagnosticCategoryName(Category uint32) String_ {
 	c_Category := Category
@@ -178,11 +189,11 @@ func GetDiagnosticCategoryName(Category uint32) String_ {
 
 // not supported : clang_getDiagnosticCategoryText : param  : CXDiagnostic
 
-// not supported : clang_getDiagnosticNumRanges : return value : unsigned int
+// not supported : clang_getDiagnosticNumRanges : param  : CXDiagnostic
 
 // not supported : clang_getDiagnosticRange : param Diagnostic : CXDiagnostic
 
-// not supported : clang_getDiagnosticNumFixIts : return value : unsigned int
+// not supported : clang_getDiagnosticNumFixIts : param Diagnostic : CXDiagnostic
 
 // not supported : clang_getDiagnosticFixIt : param Diagnostic : CXDiagnostic
 
@@ -222,11 +233,11 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 
 // not supported : clang_CXIndex_setGlobalOptions : param  : CXIndex
 
-// not supported : clang_CXIndex_getGlobalOptions : return value : unsigned int
+// not supported : clang_CXIndex_getGlobalOptions : param  : CXIndex
 
 // not supported : clang_CXIndex_setInvocationEmissionPathOption : param  : CXIndex
 
-// not supported : clang_isFileMultipleIncludeGuarded : return value : unsigned int
+// not supported : clang_isFileMultipleIncludeGuarded : param tu : CXTranslationUnit
 
 // not supported : clang_getFile : param tu : CXTranslationUnit
 
@@ -240,7 +251,7 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 
 // not supported : clang_getAllSkippedRanges : return value : CXSourceRangeList *
 
-// not supported : clang_getNumDiagnostics : return value : unsigned int
+// not supported : clang_getNumDiagnostics : param Unit : CXTranslationUnit
 
 // not supported : clang_getDiagnostic : param Unit : CXTranslationUnit
 
@@ -254,7 +265,23 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 
 // not supported : clang_createTranslationUnit2 : return value : enum CXErrorCode
 
-// not supported : clang_defaultEditingTranslationUnitOptions : return value : unsigned int
+/*
+Returns the set of flags that is suitable for parsing a translation unit that is being edited.
+
+The set of flags returned provide options for clang_parseTranslationUnit() to indicate that the translation unit is likely to be reparsed many times, either explicitly (via clang_reparseTranslationUnit()) or implicitly (e.g., by code completion (clang_codeCompletionAt())). The returned flag set contains an unspecified set of optimizations (e.g., the precompiled preamble) geared toward improving the performance of these routines. The set of optimizations enabled may change from one version to the next.
+*/
+func DefaultEditingTranslationUnitOptions() uint32 {
+	var retC uint32
+	args := []unsafe.Pointer{}
+
+	err := ffi.CallFunction(cif_clang_defaultEditingTranslationUnitOptions, ptr_clang_defaultEditingTranslationUnitOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultEditingTranslationUnitOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_parseTranslationUnit : param CIdx : CXIndex
 
@@ -262,17 +289,17 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 
 // not supported : clang_parseTranslationUnit2FullArgv : return value : enum CXErrorCode
 
-// not supported : clang_defaultSaveOptions : return value : unsigned int
+// not supported : clang_defaultSaveOptions : param TU : CXTranslationUnit
 
-// not supported : clang_saveTranslationUnit : return value : int
+// not supported : clang_saveTranslationUnit : param TU : CXTranslationUnit
 
-// not supported : clang_suspendTranslationUnit : return value : unsigned int
+// not supported : clang_suspendTranslationUnit : param  : CXTranslationUnit
 
 // not supported : clang_disposeTranslationUnit : param  : CXTranslationUnit
 
-// not supported : clang_defaultReparseOptions : return value : unsigned int
+// not supported : clang_defaultReparseOptions : param TU : CXTranslationUnit
 
-// not supported : clang_reparseTranslationUnit : return value : int
+// not supported : clang_reparseTranslationUnit : param TU : CXTranslationUnit
 
 // not supported : clang_getTUResourceUsageName : return value : const char *
 
@@ -286,7 +313,7 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 
 // not supported : clang_TargetInfo_getTriple : param Info : CXTargetInfo
 
-// not supported : clang_TargetInfo_getPointerWidth : return value : int
+// not supported : clang_TargetInfo_getPointerWidth : param Info : CXTargetInfo
 
 // Retrieve the NULL cursor, which represents no entity.
 func GetNullCursor() Cursor {
@@ -304,35 +331,35 @@ func GetNullCursor() Cursor {
 
 // not supported : clang_getTranslationUnitCursor : param  : CXTranslationUnit
 
-// not supported : clang_equalCursors : return value : unsigned int
+// not supported : clang_equalCursors : param  : CXCursor
 
-// not supported : clang_Cursor_isNull : return value : int
+// not supported : clang_Cursor_isNull : param cursor : CXCursor
 
-// not supported : clang_hashCursor : return value : unsigned int
+// not supported : clang_hashCursor : param  : CXCursor
 
 // not supported : clang_getCursorKind : return value : enum CXCursorKind
 
-// not supported : clang_isDeclaration : return value : unsigned int
+// not supported : clang_isDeclaration : param  : enum CXCursorKind
 
-// not supported : clang_isInvalidDeclaration : return value : unsigned int
+// not supported : clang_isInvalidDeclaration : param  : CXCursor
 
-// not supported : clang_isReference : return value : unsigned int
+// not supported : clang_isReference : param  : enum CXCursorKind
 
-// not supported : clang_isExpression : return value : unsigned int
+// not supported : clang_isExpression : param  : enum CXCursorKind
 
-// not supported : clang_isStatement : return value : unsigned int
+// not supported : clang_isStatement : param  : enum CXCursorKind
 
-// not supported : clang_isAttribute : return value : unsigned int
+// not supported : clang_isAttribute : param  : enum CXCursorKind
 
-// not supported : clang_Cursor_hasAttrs : return value : unsigned int
+// not supported : clang_Cursor_hasAttrs : param C : CXCursor
 
-// not supported : clang_isInvalid : return value : unsigned int
+// not supported : clang_isInvalid : param  : enum CXCursorKind
 
-// not supported : clang_isTranslationUnit : return value : unsigned int
+// not supported : clang_isTranslationUnit : param  : enum CXCursorKind
 
-// not supported : clang_isPreprocessing : return value : unsigned int
+// not supported : clang_isPreprocessing : param  : enum CXCursorKind
 
-// not supported : clang_isUnexposed : return value : unsigned int
+// not supported : clang_isUnexposed : param  : enum CXCursorKind
 
 // not supported : clang_getCursorLinkage : return value : enum CXLinkageKind
 
@@ -340,15 +367,15 @@ func GetNullCursor() Cursor {
 
 // not supported : clang_getCursorAvailability : return value : enum CXAvailabilityKind
 
-// not supported : clang_getCursorPlatformAvailability : return value : int
+// not supported : clang_getCursorPlatformAvailability : param cursor : CXCursor
 
 // not supported : clang_disposeCXPlatformAvailability : param availability : CXPlatformAvailability *
 
 // not supported : clang_Cursor_getVarDeclInitializer : param cursor : CXCursor
 
-// not supported : clang_Cursor_hasVarDeclGlobalStorage : return value : int
+// not supported : clang_Cursor_hasVarDeclGlobalStorage : param cursor : CXCursor
 
-// not supported : clang_Cursor_hasVarDeclExternalStorage : return value : int
+// not supported : clang_Cursor_hasVarDeclExternalStorage : param cursor : CXCursor
 
 // not supported : clang_getCursorLanguage : return value : enum CXLanguageKind
 
@@ -372,9 +399,9 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_disposeCXCursorSet : param cset : CXCursorSet
 
-// not supported : clang_CXCursorSet_contains : return value : unsigned int
+// not supported : clang_CXCursorSet_contains : param cset : CXCursorSet
 
-// not supported : clang_CXCursorSet_insert : return value : unsigned int
+// not supported : clang_CXCursorSet_insert : param cset : CXCursorSet
 
 // not supported : clang_getCursorSemanticParent : param cursor : CXCursor
 
@@ -404,15 +431,15 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_getEnumConstantDeclUnsignedValue : return value : unsigned long long
 
-// not supported : clang_Cursor_isBitField : return value : unsigned int
+// not supported : clang_Cursor_isBitField : param C : CXCursor
 
-// not supported : clang_getFieldDeclBitWidth : return value : int
+// not supported : clang_getFieldDeclBitWidth : param C : CXCursor
 
-// not supported : clang_Cursor_getNumArguments : return value : int
+// not supported : clang_Cursor_getNumArguments : param C : CXCursor
 
 // not supported : clang_Cursor_getArgument : param C : CXCursor
 
-// not supported : clang_Cursor_getNumTemplateArguments : return value : int
+// not supported : clang_Cursor_getNumTemplateArguments : param C : CXCursor
 
 // not supported : clang_Cursor_getTemplateArgumentKind : return value : enum CXTemplateArgumentKind
 
@@ -422,23 +449,23 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Cursor_getTemplateArgumentUnsignedValue : return value : unsigned long long
 
-// not supported : clang_equalTypes : return value : unsigned int
+// not supported : clang_equalTypes : param A : CXType
 
 // not supported : clang_getCanonicalType : param T : CXType
 
-// not supported : clang_isConstQualifiedType : return value : unsigned int
+// not supported : clang_isConstQualifiedType : param T : CXType
 
-// not supported : clang_Cursor_isMacroFunctionLike : return value : unsigned int
+// not supported : clang_Cursor_isMacroFunctionLike : param C : CXCursor
 
-// not supported : clang_Cursor_isMacroBuiltin : return value : unsigned int
+// not supported : clang_Cursor_isMacroBuiltin : param C : CXCursor
 
-// not supported : clang_Cursor_isFunctionInlined : return value : unsigned int
+// not supported : clang_Cursor_isFunctionInlined : param C : CXCursor
 
-// not supported : clang_isVolatileQualifiedType : return value : unsigned int
+// not supported : clang_isVolatileQualifiedType : param T : CXType
 
-// not supported : clang_isRestrictQualifiedType : return value : unsigned int
+// not supported : clang_isRestrictQualifiedType : param T : CXType
 
-// not supported : clang_getAddressSpace : return value : unsigned int
+// not supported : clang_getAddressSpace : param T : CXType
 
 // not supported : clang_getTypedefName : param CT : CXType
 
@@ -460,29 +487,29 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_getResultType : param T : CXType
 
-// not supported : clang_getExceptionSpecificationType : return value : int
+// not supported : clang_getExceptionSpecificationType : param T : CXType
 
-// not supported : clang_getNumArgTypes : return value : int
+// not supported : clang_getNumArgTypes : param T : CXType
 
 // not supported : clang_getArgType : param T : CXType
 
 // not supported : clang_Type_getObjCObjectBaseType : param T : CXType
 
-// not supported : clang_Type_getNumObjCProtocolRefs : return value : unsigned int
+// not supported : clang_Type_getNumObjCProtocolRefs : param T : CXType
 
 // not supported : clang_Type_getObjCProtocolDecl : param T : CXType
 
-// not supported : clang_Type_getNumObjCTypeArgs : return value : unsigned int
+// not supported : clang_Type_getNumObjCTypeArgs : param T : CXType
 
 // not supported : clang_Type_getObjCTypeArg : param T : CXType
 
-// not supported : clang_isFunctionTypeVariadic : return value : unsigned int
+// not supported : clang_isFunctionTypeVariadic : param T : CXType
 
 // not supported : clang_getCursorResultType : param C : CXCursor
 
-// not supported : clang_getCursorExceptionSpecificationType : return value : int
+// not supported : clang_getCursorExceptionSpecificationType : param C : CXCursor
 
-// not supported : clang_isPODType : return value : unsigned int
+// not supported : clang_isPODType : param T : CXType
 
 // not supported : clang_getElementType : param T : CXType
 
@@ -494,7 +521,7 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Type_getNamedType : param T : CXType
 
-// not supported : clang_Type_isTransparentTagTypedef : return value : unsigned int
+// not supported : clang_Type_isTransparentTagTypedef : param T : CXType
 
 // not supported : clang_Type_getNullability : return value : enum CXTypeNullabilityKind
 
@@ -512,19 +539,19 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Cursor_getOffsetOfField : return value : long long
 
-// not supported : clang_Cursor_isAnonymous : return value : unsigned int
+// not supported : clang_Cursor_isAnonymous : param C : CXCursor
 
-// not supported : clang_Cursor_isAnonymousRecordDecl : return value : unsigned int
+// not supported : clang_Cursor_isAnonymousRecordDecl : param C : CXCursor
 
-// not supported : clang_Cursor_isInlineNamespace : return value : unsigned int
+// not supported : clang_Cursor_isInlineNamespace : param C : CXCursor
 
-// not supported : clang_Type_getNumTemplateArguments : return value : int
+// not supported : clang_Type_getNumTemplateArguments : param T : CXType
 
 // not supported : clang_Type_getTemplateArgumentAsType : param T : CXType
 
 // not supported : clang_Type_getCXXRefQualifier : return value : enum CXRefQualifierKind
 
-// not supported : clang_isVirtualBase : return value : unsigned int
+// not supported : clang_isVirtualBase : param  : CXCursor
 
 // not supported : clang_getOffsetOfBase : return value : long long
 
@@ -536,15 +563,15 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Cursor_getStorageClass : return value : enum CX_StorageClass
 
-// not supported : clang_getNumOverloadedDecls : return value : unsigned int
+// not supported : clang_getNumOverloadedDecls : param cursor : CXCursor
 
 // not supported : clang_getOverloadedDecl : param cursor : CXCursor
 
 // not supported : clang_getIBOutletCollectionType : param  : CXCursor
 
-// not supported : clang_visitChildren : return value : unsigned int
+// not supported : clang_visitChildren : param parent : CXCursor
 
-// not supported : clang_visitChildrenWithBlock : return value : unsigned int
+// not supported : clang_visitChildrenWithBlock : param parent : CXCursor
 
 // not supported : clang_getCursorUSR : param  : CXCursor
 
@@ -564,7 +591,7 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Cursor_getSpellingNameRange : param  : CXCursor
 
-// not supported : clang_PrintingPolicy_getProperty : return value : unsigned int
+// not supported : clang_PrintingPolicy_getProperty : param Policy : CXPrintingPolicy
 
 // not supported : clang_PrintingPolicy_setProperty : param Policy : CXPrintingPolicy
 
@@ -584,29 +611,29 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_getCursorDefinition : param  : CXCursor
 
-// not supported : clang_isCursorDefinition : return value : unsigned int
+// not supported : clang_isCursorDefinition : param  : CXCursor
 
 // not supported : clang_getCanonicalCursor : param  : CXCursor
 
-// not supported : clang_Cursor_getObjCSelectorIndex : return value : int
+// not supported : clang_Cursor_getObjCSelectorIndex : param  : CXCursor
 
-// not supported : clang_Cursor_isDynamicCall : return value : int
+// not supported : clang_Cursor_isDynamicCall : param C : CXCursor
 
 // not supported : clang_Cursor_getReceiverType : param C : CXCursor
 
-// not supported : clang_Cursor_getObjCPropertyAttributes : return value : unsigned int
+// not supported : clang_Cursor_getObjCPropertyAttributes : param C : CXCursor
 
 // not supported : clang_Cursor_getObjCPropertyGetterName : param C : CXCursor
 
 // not supported : clang_Cursor_getObjCPropertySetterName : param C : CXCursor
 
-// not supported : clang_Cursor_getObjCDeclQualifiers : return value : unsigned int
+// not supported : clang_Cursor_getObjCDeclQualifiers : param C : CXCursor
 
-// not supported : clang_Cursor_isObjCOptional : return value : unsigned int
+// not supported : clang_Cursor_isObjCOptional : param C : CXCursor
 
-// not supported : clang_Cursor_isVariadic : return value : unsigned int
+// not supported : clang_Cursor_isVariadic : param C : CXCursor
 
-// not supported : clang_Cursor_isExternalSymbol : return value : unsigned int
+// not supported : clang_Cursor_isExternalSymbol : param C : CXCursor
 
 // not supported : clang_Cursor_getCommentRange : param C : CXCursor
 
@@ -622,21 +649,21 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Cursor_getGCCAssemblyTemplate : param  : CXCursor
 
-// not supported : clang_Cursor_isGCCAssemblyHasGoto : return value : unsigned int
+// not supported : clang_Cursor_isGCCAssemblyHasGoto : param  : CXCursor
 
-// not supported : clang_Cursor_getGCCAssemblyNumOutputs : return value : unsigned int
+// not supported : clang_Cursor_getGCCAssemblyNumOutputs : param  : CXCursor
 
-// not supported : clang_Cursor_getGCCAssemblyNumInputs : return value : unsigned int
+// not supported : clang_Cursor_getGCCAssemblyNumInputs : param  : CXCursor
 
-// not supported : clang_Cursor_getGCCAssemblyInput : return value : unsigned int
+// not supported : clang_Cursor_getGCCAssemblyInput : param Cursor : CXCursor
 
-// not supported : clang_Cursor_getGCCAssemblyOutput : return value : unsigned int
+// not supported : clang_Cursor_getGCCAssemblyOutput : param Cursor : CXCursor
 
-// not supported : clang_Cursor_getGCCAssemblyNumClobbers : return value : unsigned int
+// not supported : clang_Cursor_getGCCAssemblyNumClobbers : param Cursor : CXCursor
 
 // not supported : clang_Cursor_getGCCAssemblyClobber : param Cursor : CXCursor
 
-// not supported : clang_Cursor_isGCCAssemblyVolatile : return value : unsigned int
+// not supported : clang_Cursor_isGCCAssemblyVolatile : param Cursor : CXCursor
 
 // not supported : clang_Cursor_getModule : param C : CXCursor
 
@@ -650,43 +677,43 @@ func CreateCXCursorSet() CursorSet {
 
 // not supported : clang_Module_getFullName : param Module : CXModule
 
-// not supported : clang_Module_isSystem : return value : int
+// not supported : clang_Module_isSystem : param Module : CXModule
 
-// not supported : clang_Module_getNumTopLevelHeaders : return value : unsigned int
+// not supported : clang_Module_getNumTopLevelHeaders : param  : CXTranslationUnit
 
 // not supported : clang_Module_getTopLevelHeader : param  : CXTranslationUnit
 
-// not supported : clang_CXXConstructor_isConvertingConstructor : return value : unsigned int
+// not supported : clang_CXXConstructor_isConvertingConstructor : param C : CXCursor
 
-// not supported : clang_CXXConstructor_isCopyConstructor : return value : unsigned int
+// not supported : clang_CXXConstructor_isCopyConstructor : param C : CXCursor
 
-// not supported : clang_CXXConstructor_isDefaultConstructor : return value : unsigned int
+// not supported : clang_CXXConstructor_isDefaultConstructor : param C : CXCursor
 
-// not supported : clang_CXXConstructor_isMoveConstructor : return value : unsigned int
+// not supported : clang_CXXConstructor_isMoveConstructor : param C : CXCursor
 
-// not supported : clang_CXXField_isMutable : return value : unsigned int
+// not supported : clang_CXXField_isMutable : param C : CXCursor
 
-// not supported : clang_CXXMethod_isDefaulted : return value : unsigned int
+// not supported : clang_CXXMethod_isDefaulted : param C : CXCursor
 
-// not supported : clang_CXXMethod_isDeleted : return value : unsigned int
+// not supported : clang_CXXMethod_isDeleted : param C : CXCursor
 
-// not supported : clang_CXXMethod_isPureVirtual : return value : unsigned int
+// not supported : clang_CXXMethod_isPureVirtual : param C : CXCursor
 
-// not supported : clang_CXXMethod_isStatic : return value : unsigned int
+// not supported : clang_CXXMethod_isStatic : param C : CXCursor
 
-// not supported : clang_CXXMethod_isVirtual : return value : unsigned int
+// not supported : clang_CXXMethod_isVirtual : param C : CXCursor
 
-// not supported : clang_CXXMethod_isCopyAssignmentOperator : return value : unsigned int
+// not supported : clang_CXXMethod_isCopyAssignmentOperator : param C : CXCursor
 
-// not supported : clang_CXXMethod_isMoveAssignmentOperator : return value : unsigned int
+// not supported : clang_CXXMethod_isMoveAssignmentOperator : param C : CXCursor
 
-// not supported : clang_CXXMethod_isExplicit : return value : unsigned int
+// not supported : clang_CXXMethod_isExplicit : param C : CXCursor
 
-// not supported : clang_CXXRecord_isAbstract : return value : unsigned int
+// not supported : clang_CXXRecord_isAbstract : param C : CXCursor
 
-// not supported : clang_EnumDecl_isScoped : return value : unsigned int
+// not supported : clang_EnumDecl_isScoped : param C : CXCursor
 
-// not supported : clang_CXXMethod_isConst : return value : unsigned int
+// not supported : clang_CXXMethod_isConst : param C : CXCursor
 
 // not supported : clang_getTemplateCursorKind : return value : enum CXCursorKind
 
@@ -731,13 +758,13 @@ func EnableStackTraces() {
 
 // not supported : clang_getCompletionChunkCompletionString : param completion_string : CXCompletionString
 
-// not supported : clang_getNumCompletionChunks : return value : unsigned int
+// not supported : clang_getNumCompletionChunks : param completion_string : CXCompletionString
 
-// not supported : clang_getCompletionPriority : return value : unsigned int
+// not supported : clang_getCompletionPriority : param completion_string : CXCompletionString
 
 // not supported : clang_getCompletionAvailability : return value : enum CXAvailabilityKind
 
-// not supported : clang_getCompletionNumAnnotations : return value : unsigned int
+// not supported : clang_getCompletionNumAnnotations : param completion_string : CXCompletionString
 
 // not supported : clang_getCompletionAnnotation : param completion_string : CXCompletionString
 
@@ -747,11 +774,23 @@ func EnableStackTraces() {
 
 // not supported : clang_getCursorCompletionString : param cursor : CXCursor
 
-// not supported : clang_getCompletionNumFixIts : return value : unsigned int
+// not supported : clang_getCompletionNumFixIts : param results : CXCodeCompleteResults *
 
 // not supported : clang_getCompletionFixIt : param results : CXCodeCompleteResults *
 
-// not supported : clang_defaultCodeCompleteOptions : return value : unsigned int
+// Returns a default set of code-completion options that can be passed toclang_codeCompleteAt().
+func DefaultCodeCompleteOptions() uint32 {
+	var retC uint32
+	args := []unsafe.Pointer{}
+
+	err := ffi.CallFunction(cif_clang_defaultCodeCompleteOptions, ptr_clang_defaultCodeCompleteOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultCodeCompleteOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_codeCompleteAt : return value : CXCodeCompleteResults *
 
@@ -759,7 +798,7 @@ func EnableStackTraces() {
 
 // not supported : clang_disposeCodeCompleteResults : param Results : CXCodeCompleteResults *
 
-// not supported : clang_codeCompleteGetNumDiagnostics : return value : unsigned int
+// not supported : clang_codeCompleteGetNumDiagnostics : param Results : CXCodeCompleteResults *
 
 // not supported : clang_codeCompleteGetDiagnostic : param Results : CXCodeCompleteResults *
 
@@ -805,11 +844,11 @@ func ToggleCrashRecovery(IsEnabled uint32) {
 
 // not supported : clang_EvalResult_getKind : return value : CXEvalResultKind
 
-// not supported : clang_EvalResult_getAsInt : return value : int
+// not supported : clang_EvalResult_getAsInt : param E : CXEvalResult
 
 // not supported : clang_EvalResult_getAsLongLong : return value : long long
 
-// not supported : clang_EvalResult_isUnsignedInt : return value : unsigned int
+// not supported : clang_EvalResult_isUnsignedInt : param E : CXEvalResult
 
 // not supported : clang_EvalResult_getAsUnsigned : return value : unsigned long long
 
@@ -827,7 +866,7 @@ func ToggleCrashRecovery(IsEnabled uint32) {
 
 // not supported : clang_findIncludesInFileWithBlock : return value : CXResult
 
-// not supported : clang_index_isEntityObjCContainerKind : return value : int
+// not supported : clang_index_isEntityObjCContainerKind : param  : CXIdxEntityKind
 
 // not supported : clang_index_getObjCContainerDeclInfo : return value : const CXIdxObjCContainerDeclInfo *
 
@@ -855,21 +894,21 @@ func ToggleCrashRecovery(IsEnabled uint32) {
 
 // not supported : clang_IndexAction_dispose : param  : CXIndexAction
 
-// not supported : clang_indexSourceFile : return value : int
+// not supported : clang_indexSourceFile : param  : CXIndexAction
 
-// not supported : clang_indexSourceFileFullArgv : return value : int
+// not supported : clang_indexSourceFileFullArgv : param  : CXIndexAction
 
-// not supported : clang_indexTranslationUnit : return value : int
+// not supported : clang_indexTranslationUnit : param  : CXIndexAction
 
 // not supported : clang_indexLoc_getFileLocation : param loc : CXIdxLoc
 
 // not supported : clang_indexLoc_getCXSourceLocation : param loc : CXIdxLoc
 
-// not supported : clang_Type_visitFields : return value : unsigned int
+// not supported : clang_Type_visitFields : param T : CXType
 
-// not supported : clang_visitCXXBaseClasses : return value : unsigned int
+// not supported : clang_visitCXXBaseClasses : param T : CXType
 
-// not supported : clang_visitCXXMethods : return value : unsigned int
+// not supported : clang_visitCXXMethods : param T : CXType
 
 // not supported : clang_getBinaryOperatorKindSpelling : param kind : enum CXBinaryOperatorKind
 
@@ -883,7 +922,7 @@ func ToggleCrashRecovery(IsEnabled uint32) {
 
 // not supported : clang_getRemappingsFromFileList : param  : const char **
 
-// not supported : clang_remap_getNumFiles : return value : unsigned int
+// not supported : clang_remap_getNumFiles : param  : CXRemapping
 
 // not supported : clang_remap_getFilenames : param  : CXRemapping
 

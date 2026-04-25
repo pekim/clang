@@ -14,11 +14,14 @@ var cif_clang_VirtualFileOverlay_create = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_create = &types.CallInterface{}
 var cif_clang_getNullLocation = &types.CallInterface{}
 var cif_clang_getNullRange = &types.CallInterface{}
+var cif_clang_defaultDiagnosticDisplayOptions = &types.CallInterface{}
 var cif_clang_getDiagnosticCategoryName = &types.CallInterface{}
 var cif_clang_createIndex = &types.CallInterface{}
+var cif_clang_defaultEditingTranslationUnitOptions = &types.CallInterface{}
 var cif_clang_getNullCursor = &types.CallInterface{}
 var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_enableStackTraces = &types.CallInterface{}
+var cif_clang_defaultCodeCompleteOptions = &types.CallInterface{}
 var cif_clang_getClangVersion = &types.CallInterface{}
 var cif_clang_toggleCrashRecovery = &types.CallInterface{}
 
@@ -26,11 +29,14 @@ var ptr_clang_VirtualFileOverlay_create unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_create unsafe.Pointer
 var ptr_clang_getNullLocation unsafe.Pointer
 var ptr_clang_getNullRange unsafe.Pointer
+var ptr_clang_defaultDiagnosticDisplayOptions unsafe.Pointer
 var ptr_clang_getDiagnosticCategoryName unsafe.Pointer
 var ptr_clang_createIndex unsafe.Pointer
+var ptr_clang_defaultEditingTranslationUnitOptions unsafe.Pointer
 var ptr_clang_getNullCursor unsafe.Pointer
 var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_enableStackTraces unsafe.Pointer
+var ptr_clang_defaultCodeCompleteOptions unsafe.Pointer
 var ptr_clang_getClangVersion unsafe.Pointer
 var ptr_clang_toggleCrashRecovery unsafe.Pointer
 
@@ -83,6 +89,15 @@ func init() {
 	}
 
 	{
+		ptr_clang_defaultDiagnosticDisplayOptions, err = ffi.GetSymbol(library, "clang_defaultDiagnosticDisplayOptions")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_defaultDiagnosticDisplayOptions, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getDiagnosticCategoryName, err = ffi.GetSymbol(library, "clang_getDiagnosticCategoryName")
 		if err == nil {
 			returnType := string_TypeDescriptor
@@ -102,6 +117,15 @@ func init() {
 				types.SInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createIndex, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_defaultEditingTranslationUnitOptions, err = ffi.GetSymbol(library, "clang_defaultEditingTranslationUnitOptions")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_defaultEditingTranslationUnitOptions, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -129,6 +153,15 @@ func init() {
 			returnType := types.VoidTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_enableStackTraces, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_defaultCodeCompleteOptions, err = ffi.GetSymbol(library, "clang_defaultCodeCompleteOptions")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_defaultCodeCompleteOptions, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
