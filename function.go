@@ -21,7 +21,9 @@ func VirtualFileOverlay_create(Options uint32) VirtualFileOverlay {
 	c_Options := Options
 
 	var retC VirtualFileOverlay
-	args := []unsafe.Pointer{unsafe.Pointer(&c_Options)}
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_Options),
+	}
 
 	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_create, ptr_clang_VirtualFileOverlay_create, unsafe.Pointer(&retC), args)
 	if err != nil {
@@ -46,7 +48,9 @@ func ModuleMapDescriptor_create(Options uint32) ModuleMapDescriptor {
 	c_Options := Options
 
 	var retC ModuleMapDescriptor
-	args := []unsafe.Pointer{unsafe.Pointer(&c_Options)}
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_Options),
+	}
 
 	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_create, ptr_clang_ModuleMapDescriptor_create, unsafe.Pointer(&retC), args)
 	if err != nil {
@@ -159,7 +163,9 @@ func GetDiagnosticCategoryName(Category uint32) String_ {
 	c_Category := Category
 
 	var retC String_
-	args := []unsafe.Pointer{unsafe.Pointer(&c_Category)}
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_Category),
+	}
 
 	err := ffi.CallFunction(cif_clang_getDiagnosticCategoryName, ptr_clang_getDiagnosticCategoryName, unsafe.Pointer(&retC), args)
 	if err != nil {
@@ -196,7 +202,10 @@ func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Ind
 	c_DisplayDiagnostics := DisplayDiagnostics
 
 	var retC Index
-	args := []unsafe.Pointer{unsafe.Pointer(&c_ExcludeDeclarationsFromPCH), unsafe.Pointer(&c_DisplayDiagnostics)}
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_ExcludeDeclarationsFromPCH),
+		unsafe.Pointer(&c_DisplayDiagnostics),
+	}
 
 	err := ffi.CallFunction(cif_clang_createIndex, ptr_clang_createIndex, unsafe.Pointer(&retC), args)
 	if err != nil {
@@ -780,7 +789,9 @@ func GetClangVersion() String_ {
 func ToggleCrashRecovery(IsEnabled uint32) {
 	c_IsEnabled := IsEnabled
 
-	args := []unsafe.Pointer{unsafe.Pointer(&c_IsEnabled)}
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_IsEnabled),
+	}
 
 	err := ffi.CallFunction(cif_clang_toggleCrashRecovery, ptr_clang_toggleCrashRecovery, nil, args)
 	if err != nil {
