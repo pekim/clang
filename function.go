@@ -17,7 +17,20 @@ import (
 
 // not supported : clang_getBuildSessionTimestamp : return value : unsigned long long
 
-// not supported : clang_VirtualFileOverlay_create : param options : unsigned int
+func VirtualFileOverlay_create(Options uint32) VirtualFileOverlay {
+	c_Options := Options
+
+	var retC VirtualFileOverlay
+	args := []unsafe.Pointer{unsafe.Pointer(&c_Options)}
+
+	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_create, ptr_clang_VirtualFileOverlay_create, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_create", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_VirtualFileOverlay_addFileMapping : return value : enum CXErrorCode
 
@@ -29,7 +42,20 @@ import (
 
 // not supported : clang_VirtualFileOverlay_dispose : param  : CXVirtualFileOverlay
 
-// not supported : clang_ModuleMapDescriptor_create : param options : unsigned int
+func ModuleMapDescriptor_create(Options uint32) ModuleMapDescriptor {
+	c_Options := Options
+
+	var retC ModuleMapDescriptor
+	args := []unsafe.Pointer{unsafe.Pointer(&c_Options)}
+
+	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_create, ptr_clang_ModuleMapDescriptor_create, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_create", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_ModuleMapDescriptor_setFrameworkModuleName : return value : enum CXErrorCode
 
@@ -129,7 +155,20 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_getDiagnosticCategory : return value : unsigned int
 
-// not supported : clang_getDiagnosticCategoryName : param Category : unsigned int
+func GetDiagnosticCategoryName(Category uint32) String_ {
+	c_Category := Category
+
+	var retC String_
+	args := []unsafe.Pointer{unsafe.Pointer(&c_Category)}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticCategoryName, ptr_clang_getDiagnosticCategoryName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryName", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getDiagnosticCategoryText : param  : CXDiagnostic
 
@@ -141,7 +180,32 @@ func GetNullRange() SourceRange {
 
 // not supported : clang_getDiagnosticFixIt : param Diagnostic : CXDiagnostic
 
-// not supported : clang_createIndex : param excludeDeclarationsFromPCH : int
+/*
+Provides a shared context for creating translation units.
+
+It provides two options:
+
+- excludeDeclarationsFromPCH: When non-zero, allows enumeration of "local" declarations (when loading any new translation units). A "local" declaration is one that belongs in the translation unit itself and not in a precompiled header that was used by the translation unit. If zero, all declarations will be enumerated.
+
+Here is an example:
+
+This process of creating the 'pch', loading it separately, and using it (via -include-pch) allows 'excludeDeclsFromPCH' to remove redundant callbacks (which gives the indexer the same performance benefit as the compiler).
+*/
+func CreateIndex(ExcludeDeclarationsFromPCH int32, DisplayDiagnostics int32) Index {
+	c_ExcludeDeclarationsFromPCH := ExcludeDeclarationsFromPCH
+	c_DisplayDiagnostics := DisplayDiagnostics
+
+	var retC Index
+	args := []unsafe.Pointer{unsafe.Pointer(&c_ExcludeDeclarationsFromPCH), unsafe.Pointer(&c_DisplayDiagnostics)}
+
+	err := ffi.CallFunction(cif_clang_createIndex, ptr_clang_createIndex, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createIndex", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_disposeIndex : param index : CXIndex
 
@@ -712,7 +776,17 @@ func GetClangVersion() String_ {
 	return ret
 }
 
-// not supported : clang_toggleCrashRecovery : param isEnabled : unsigned int
+// Enable/disable crash recovery.
+func ToggleCrashRecovery(IsEnabled uint32) {
+	c_IsEnabled := IsEnabled
+
+	args := []unsafe.Pointer{unsafe.Pointer(&c_IsEnabled)}
+
+	err := ffi.CallFunction(cif_clang_toggleCrashRecovery, ptr_clang_toggleCrashRecovery, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_toggleCrashRecovery", err))
+	}
+}
 
 // not supported : clang_getInclusions : param tu : CXTranslationUnit
 

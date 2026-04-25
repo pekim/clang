@@ -19,3 +19,8 @@ func TestFunctionReturnCXString(t *testing.T) {
 	version := libc.GoString(cxString.data)
 	assert.True(t, strings.HasPrefix(version, "clang version "))
 }
+
+func TestFunctionScalarArgsPointerTypeReturn(t *testing.T) {
+	index := CreateIndex(0, 0)
+	assert.NotNil(t, index)
+}
