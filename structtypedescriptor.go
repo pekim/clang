@@ -322,11 +322,7 @@ var idxAttrInfoTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		cursorTypeDescriptor,
 		idxLocTypeDescriptor,
 	},
@@ -337,21 +333,9 @@ var idxEntityInfoTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
+		types.UInt32TypeDescriptor,
+		types.UInt32TypeDescriptor,
 		types.PointerTypeDescriptor,
 		types.PointerTypeDescriptor,
 		cursorTypeDescriptor,
@@ -408,11 +392,7 @@ var idxObjCContainerDeclInfoTypeDescriptor = &types.TypeDescriptor{
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
 		types.PointerTypeDescriptor,
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 	},
 	Size: unsafe.Sizeof(IdxObjCContainerDeclInfo{}),
 }
@@ -499,21 +479,13 @@ var idxEntityRefInfoTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		cursorTypeDescriptor,
 		idxLocTypeDescriptor,
 		types.PointerTypeDescriptor,
 		types.PointerTypeDescriptor,
 		types.PointerTypeDescriptor,
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 	},
 	Size: unsafe.Sizeof(IdxEntityRefInfo{}),
 }
