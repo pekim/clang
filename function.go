@@ -7,9 +7,25 @@ import (
 	"unsafe"
 
 	ffi "github.com/go-webgpu/goffi/ffi"
+	libc "github.com/pekim/clang/internal/libc"
 )
 
-// not supported : clang_getCString : return value : const char *
+func GetCString(string_ String_) string {
+	c_string_ := string_
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_string_),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCString, ptr_clang_getCString, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCString", err))
+	}
+
+	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
+	return ret
+}
 
 func DisposeString(string_ String_) {
 	c_string_ := string_
@@ -765,7 +781,7 @@ func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
 
 // not supported : clang_getFile : param file_name : const char *
 
-// not supported : clang_getFileContents : return value : const char *
+// not supported : clang_getFileContents : param size : size_t *
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
 func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) SourceLocation {
@@ -1005,7 +1021,7 @@ func DefaultReparseOptions(tU TranslationUnit) uint32 {
 
 // not supported : clang_reparseTranslationUnit : param unsaved_files : struct CXUnsavedFile *
 
-// not supported : clang_getTUResourceUsageName : return value : const char *
+// not supported : clang_getTUResourceUsageName : param kind : enum CXTUResourceUsageKind
 
 // Return the memory usage of a translation unit.  This object  should be released with clang_disposeCXTUResourceUsage().
 func GetCXTUResourceUsage(tU TranslationUnit) TUResourceUsage {
@@ -4775,7 +4791,23 @@ func EvalResult_isUnsignedInt(e EvalResult) uint32 {
 
 // not supported : clang_EvalResult_getAsDouble : return value : double
 
-// not supported : clang_EvalResult_getAsStr : return value : const char *
+// Returns the evaluation result as a constant string if the kind is other than Int or float. User must not free this pointer, instead call clang_EvalResult_dispose on the CXEvalResult returned by clang_Cursor_Evaluate.
+func EvalResult_getAsStr(e EvalResult) string {
+	c_e := e
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(cif_clang_EvalResult_getAsStr, ptr_clang_EvalResult_getAsStr, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsStr", err))
+	}
+
+	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
+	return ret
+}
 
 // Disposes the created Eval memory.
 func EvalResult_dispose(e EvalResult) {

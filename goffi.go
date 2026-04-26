@@ -10,6 +10,7 @@ import (
 	lib "github.com/pekim/clang/internal/lib"
 )
 
+var cif_clang_getCString = &types.CallInterface{}
 var cif_clang_disposeString = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_create = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_setCaseSensitivity = &types.CallInterface{}
@@ -243,6 +244,7 @@ var cif_clang_Cursor_Evaluate = &types.CallInterface{}
 var cif_clang_EvalResult_getKind = &types.CallInterface{}
 var cif_clang_EvalResult_getAsInt = &types.CallInterface{}
 var cif_clang_EvalResult_isUnsignedInt = &types.CallInterface{}
+var cif_clang_EvalResult_getAsStr = &types.CallInterface{}
 var cif_clang_EvalResult_dispose = &types.CallInterface{}
 var cif_clang_findReferencesInFile = &types.CallInterface{}
 var cif_clang_findIncludesInFile = &types.CallInterface{}
@@ -259,6 +261,7 @@ var cif_clang_getCursorUnaryOperatorKind = &types.CallInterface{}
 var cif_clang_remap_getNumFiles = &types.CallInterface{}
 var cif_clang_remap_dispose = &types.CallInterface{}
 
+var ptr_clang_getCString unsafe.Pointer
 var ptr_clang_disposeString unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_create unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_setCaseSensitivity unsafe.Pointer
@@ -492,6 +495,7 @@ var ptr_clang_Cursor_Evaluate unsafe.Pointer
 var ptr_clang_EvalResult_getKind unsafe.Pointer
 var ptr_clang_EvalResult_getAsInt unsafe.Pointer
 var ptr_clang_EvalResult_isUnsignedInt unsafe.Pointer
+var ptr_clang_EvalResult_getAsStr unsafe.Pointer
 var ptr_clang_EvalResult_dispose unsafe.Pointer
 var ptr_clang_findReferencesInFile unsafe.Pointer
 var ptr_clang_findIncludesInFile unsafe.Pointer
@@ -515,6 +519,17 @@ func init() {
 	})
 
 	var err error
+
+	{
+		ptr_clang_getCString, err = ffi.GetSymbol(library, "clang_getCString")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				string_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCString, types.DefaultCall, returnType, argTypes)
+		}
+	}
 
 	{
 		ptr_clang_disposeString, err = ffi.GetSymbol(library, "clang_disposeString")
@@ -3115,6 +3130,17 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_isUnsignedInt, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_EvalResult_getAsStr, err = ffi.GetSymbol(library, "clang_EvalResult_getAsStr")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsStr, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
