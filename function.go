@@ -53,7 +53,18 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 
 // not supported : clang_free : param buffer : void *
 
-// not supported : clang_VirtualFileOverlay_dispose : param p0 : CXVirtualFileOverlay
+func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
+	c_p0 := p0
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_dispose, ptr_clang_VirtualFileOverlay_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_dispose", err))
+	}
+}
 
 func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 	c_options := options
@@ -78,17 +89,75 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 
 // not supported : clang_ModuleMapDescriptor_writeToBuffer : return value : enum CXErrorCode
 
-// not supported : clang_ModuleMapDescriptor_dispose : param p0 : CXModuleMapDescriptor
+func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
+	c_p0 := p0
 
-// not supported : clang_getFileName : param SFile : CXFile
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_dispose, ptr_clang_ModuleMapDescriptor_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_dispose", err))
+	}
+}
+
+func GetFileName(sFile File) String_ {
+	c_sFile := sFile
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_sFile),
+	}
+
+	err := ffi.CallFunction(cif_clang_getFileName, ptr_clang_getFileName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileName", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getFileTime : return value : time_t
 
-// not supported : clang_getFileUniqueID : param file : CXFile
+// not supported : clang_getFileUniqueID : param outID : CXFileUniqueID *
 
-// not supported : clang_File_isEqual : param file1 : CXFile
+func File_isEqual(file1 File, file2 File) int32 {
+	c_file1 := file1
+	c_file2 := file2
 
-// not supported : clang_File_tryGetRealPathName : param file : CXFile
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_file1),
+		unsafe.Pointer(&c_file2),
+	}
+
+	err := ffi.CallFunction(cif_clang_File_isEqual, ptr_clang_File_isEqual, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_File_isEqual", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func File_tryGetRealPathName(file File) String_ {
+	c_file := file
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_file),
+	}
+
+	err := ffi.CallFunction(cif_clang_File_tryGetRealPathName, ptr_clang_File_tryGetRealPathName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_File_tryGetRealPathName", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func GetNullLocation() SourceLocation {
 	var retC SourceLocation
@@ -289,19 +358,105 @@ func GetRangeEnd(range_ SourceRange) SourceLocation {
 
 // not supported : clang_disposeSourceRangeList : param ranges : CXSourceRangeList *
 
-// not supported : clang_getNumDiagnosticsInSet : param Diags : CXDiagnosticSet
+func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
+	c_diags := diags
 
-// not supported : clang_getDiagnosticInSet : param Diags : CXDiagnosticSet
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+	}
+
+	err := ffi.CallFunction(cif_clang_getNumDiagnosticsInSet, ptr_clang_getNumDiagnosticsInSet, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnosticsInSet", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
+	c_diags := diags
+	c_index := index
+
+	var retC Diagnostic
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_index),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticInSet, ptr_clang_getDiagnosticInSet, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticInSet", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_loadDiagnostics : param file : const char *
 
-// not supported : clang_disposeDiagnosticSet : param Diags : CXDiagnosticSet
+func DisposeDiagnosticSet(diags DiagnosticSet) {
+	c_diags := diags
 
-// not supported : clang_getChildDiagnostics : param D : CXDiagnostic
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+	}
 
-// not supported : clang_disposeDiagnostic : param Diagnostic : CXDiagnostic
+	err := ffi.CallFunction(cif_clang_disposeDiagnosticSet, ptr_clang_disposeDiagnosticSet, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnosticSet", err))
+	}
+}
 
-// not supported : clang_formatDiagnostic : param Diagnostic : CXDiagnostic
+func GetChildDiagnostics(d Diagnostic) DiagnosticSet {
+	c_d := d
+
+	var retC DiagnosticSet
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_d),
+	}
+
+	err := ffi.CallFunction(cif_clang_getChildDiagnostics, ptr_clang_getChildDiagnostics, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getChildDiagnostics", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func DisposeDiagnostic(diagnostic Diagnostic) {
+	c_diagnostic := diagnostic
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+	}
+
+	err := ffi.CallFunction(cif_clang_disposeDiagnostic, ptr_clang_disposeDiagnostic, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnostic", err))
+	}
+}
+
+func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
+	c_diagnostic := diagnostic
+	c_options := options
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(cif_clang_formatDiagnostic, ptr_clang_formatDiagnostic, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_formatDiagnostic", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func DefaultDiagnosticDisplayOptions() uint32 {
 	var retC uint32
@@ -318,13 +473,58 @@ func DefaultDiagnosticDisplayOptions() uint32 {
 
 // not supported : clang_getDiagnosticSeverity : return value : enum CXDiagnosticSeverity
 
-// not supported : clang_getDiagnosticLocation : param p0 : CXDiagnostic
+func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
+	c_p0 := p0
 
-// not supported : clang_getDiagnosticSpelling : param p0 : CXDiagnostic
+	var retC SourceLocation
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
 
-// not supported : clang_getDiagnosticOption : param Diag : CXDiagnostic
+	err := ffi.CallFunction(cif_clang_getDiagnosticLocation, ptr_clang_getDiagnosticLocation, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticLocation", err))
+	}
 
-// not supported : clang_getDiagnosticCategory : param p0 : CXDiagnostic
+	ret := retC
+	return ret
+}
+
+func GetDiagnosticSpelling(p0 Diagnostic) String_ {
+	c_p0 := p0
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticSpelling, ptr_clang_getDiagnosticSpelling, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSpelling", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getDiagnosticOption : param Disable : CXString *
+
+func GetDiagnosticCategory(p0 Diagnostic) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticCategory, ptr_clang_getDiagnosticCategory, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategory", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func GetDiagnosticCategoryName(category uint32) String_ {
 	c_category := category
@@ -343,15 +543,77 @@ func GetDiagnosticCategoryName(category uint32) String_ {
 	return ret
 }
 
-// not supported : clang_getDiagnosticCategoryText : param p0 : CXDiagnostic
+func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
+	c_p0 := p0
 
-// not supported : clang_getDiagnosticNumRanges : param p0 : CXDiagnostic
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
 
-// not supported : clang_getDiagnosticRange : param Diagnostic : CXDiagnostic
+	err := ffi.CallFunction(cif_clang_getDiagnosticCategoryText, ptr_clang_getDiagnosticCategoryText, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryText", err))
+	}
 
-// not supported : clang_getDiagnosticNumFixIts : param Diagnostic : CXDiagnostic
+	ret := retC
+	return ret
+}
 
-// not supported : clang_getDiagnosticFixIt : param Diagnostic : CXDiagnostic
+func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticNumRanges, ptr_clang_getDiagnosticNumRanges, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumRanges", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
+	c_diagnostic := diagnostic
+	c_range_ := range_
+
+	var retC SourceRange
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_range_),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticRange, ptr_clang_getDiagnosticRange, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticRange", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
+	c_diagnostic := diagnostic
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticNumFixIts, ptr_clang_getDiagnosticNumFixIts, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumFixIts", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getDiagnosticFixIt : param ReplacementRange : CXSourceRange *
 
 /*
 Provides a shared context for creating translation units.
@@ -383,41 +645,223 @@ func CreateIndex(excludeDeclarationsFromPCH int32, displayDiagnostics int32) Ind
 	return ret
 }
 
-// not supported : clang_disposeIndex : param index : CXIndex
+/*
+Destroy the given index.
+
+The index must not be destroyed until all of the translation units created within that index have been destroyed.
+*/
+func DisposeIndex(index Index) {
+	c_index := index
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_index),
+	}
+
+	err := ffi.CallFunction(cif_clang_disposeIndex, ptr_clang_disposeIndex, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeIndex", err))
+	}
+}
 
 // not supported : clang_createIndexWithOptions : param options : const CXIndexOptions *
 
-// not supported : clang_CXIndex_setGlobalOptions : param p0 : CXIndex
+/*
+Sets general options associated with a CXIndex.
 
-// not supported : clang_CXIndex_getGlobalOptions : param p0 : CXIndex
+This function is DEPRECATED. Set CXIndexOptions::ThreadBackgroundPriorityForIndexing and/or CXIndexOptions::ThreadBackgroundPriorityForEditing and call clang_createIndexWithOptions() instead.
 
-// not supported : clang_CXIndex_setInvocationEmissionPathOption : param p0 : CXIndex
+For example:
+*/
+func Index_setGlobalOptions(p0 Index, options uint32) {
+	c_p0 := p0
+	c_options := options
 
-// not supported : clang_isFileMultipleIncludeGuarded : param tu : CXTranslationUnit
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_options),
+	}
 
-// not supported : clang_getFile : param tu : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_CXIndex_setGlobalOptions, ptr_clang_CXIndex_setGlobalOptions, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_setGlobalOptions", err))
+	}
+}
+
+/*
+Gets the general options associated with a CXIndex.
+
+This function allows to obtain the final option values used by libclang after specifying the option policies via CXChoice enumerators.
+*/
+func Index_getGlobalOptions(p0 Index) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_CXIndex_getGlobalOptions, ptr_clang_CXIndex_getGlobalOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_getGlobalOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_CXIndex_setInvocationEmissionPathOption : param Path : const char *
+
+// Determine whether the given header is guarded against multiple inclusions, either with the conventional #ifndef/#define/#endif macro guards or with #pragma once.
+func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
+	c_tu := tu
+	c_file := file
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_file),
+	}
+
+	err := ffi.CallFunction(cif_clang_isFileMultipleIncludeGuarded, ptr_clang_isFileMultipleIncludeGuarded, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_isFileMultipleIncludeGuarded", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getFile : param file_name : const char *
 
 // not supported : clang_getFileContents : return value : const char *
 
-// not supported : clang_getLocation : param tu : CXTranslationUnit
+// Retrieves the source location associated with a given file/line/column in a particular translation unit.
+func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) SourceLocation {
+	c_tu := tu
+	c_file := file
+	c_line := line
+	c_column := column
 
-// not supported : clang_getLocationForOffset : param tu : CXTranslationUnit
+	var retC SourceLocation
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+	}
+
+	err := ffi.CallFunction(cif_clang_getLocation, ptr_clang_getLocation, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getLocation", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieves the source location associated with a given character offset in a particular translation unit.
+func GetLocationForOffset(tu TranslationUnit, file File, offset uint32) SourceLocation {
+	c_tu := tu
+	c_file := file
+	c_offset := offset
+
+	var retC SourceLocation
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(cif_clang_getLocationForOffset, ptr_clang_getLocationForOffset, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getLocationForOffset", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getSkippedRanges : return value : CXSourceRangeList *
 
 // not supported : clang_getAllSkippedRanges : return value : CXSourceRangeList *
 
-// not supported : clang_getNumDiagnostics : param Unit : CXTranslationUnit
+// Determine the number of diagnostics produced for the given translation unit.
+func GetNumDiagnostics(unit TranslationUnit) uint32 {
+	c_unit := unit
 
-// not supported : clang_getDiagnostic : param Unit : CXTranslationUnit
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_unit),
+	}
 
-// not supported : clang_getDiagnosticSetFromTU : param Unit : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_getNumDiagnostics, ptr_clang_getNumDiagnostics, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnostics", err))
+	}
 
-// not supported : clang_getTranslationUnitSpelling : param CTUnit : CXTranslationUnit
+	ret := retC
+	return ret
+}
 
-// not supported : clang_createTranslationUnitFromSourceFile : param CIdx : CXIndex
+// Retrieve a diagnostic associated with the given translation unit.
+func GetDiagnostic(unit TranslationUnit, index uint32) Diagnostic {
+	c_unit := unit
+	c_index := index
 
-// not supported : clang_createTranslationUnit : param CIdx : CXIndex
+	var retC Diagnostic
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_unit),
+		unsafe.Pointer(&c_index),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnostic, ptr_clang_getDiagnostic, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnostic", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the complete set of diagnostics associated with a        translation unit.
+func GetDiagnosticSetFromTU(unit TranslationUnit) DiagnosticSet {
+	c_unit := unit
+
+	var retC DiagnosticSet
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_unit),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticSetFromTU, ptr_clang_getDiagnosticSetFromTU, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSetFromTU", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Get the original translation unit source file name.
+func GetTranslationUnitSpelling(cTUnit TranslationUnit) String_ {
+	c_cTUnit := cTUnit
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cTUnit),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTranslationUnitSpelling, ptr_clang_getTranslationUnitSpelling, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitSpelling", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_createTranslationUnitFromSourceFile : param source_filename : const char *
+
+// not supported : clang_createTranslationUnit : param ast_filename : const char *
 
 // not supported : clang_createTranslationUnit2 : return value : enum CXErrorCode
 
@@ -439,27 +883,115 @@ func DefaultEditingTranslationUnitOptions() uint32 {
 	return ret
 }
 
-// not supported : clang_parseTranslationUnit : param CIdx : CXIndex
+// not supported : clang_parseTranslationUnit : param source_filename : const char *
 
 // not supported : clang_parseTranslationUnit2 : return value : enum CXErrorCode
 
 // not supported : clang_parseTranslationUnit2FullArgv : return value : enum CXErrorCode
 
-// not supported : clang_defaultSaveOptions : param TU : CXTranslationUnit
+/*
+Returns the set of flags that is suitable for saving a translation unit.
 
-// not supported : clang_saveTranslationUnit : param TU : CXTranslationUnit
+The set of flags returned provide options for clang_saveTranslationUnit() by default. The returned flag set contains an unspecified set of options that save translation units with the most commonly-requested data.
+*/
+func DefaultSaveOptions(tU TranslationUnit) uint32 {
+	c_tU := tU
 
-// not supported : clang_suspendTranslationUnit : param p0 : CXTranslationUnit
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+	}
 
-// not supported : clang_disposeTranslationUnit : param p0 : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_defaultSaveOptions, ptr_clang_defaultSaveOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultSaveOptions", err))
+	}
 
-// not supported : clang_defaultReparseOptions : param TU : CXTranslationUnit
+	ret := retC
+	return ret
+}
 
-// not supported : clang_reparseTranslationUnit : param TU : CXTranslationUnit
+// not supported : clang_saveTranslationUnit : param FileName : const char *
+
+/*
+Suspend a translation unit in order to free memory associated with it.
+
+A suspended translation unit uses significantly less memory but on the other side does not support any other calls than clang_reparseTranslationUnit to resume it or clang_disposeTranslationUnit to dispose it completely.
+*/
+func SuspendTranslationUnit(p0 TranslationUnit) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_suspendTranslationUnit, ptr_clang_suspendTranslationUnit, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_suspendTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Destroy the specified CXTranslationUnit object.
+func DisposeTranslationUnit(p0 TranslationUnit) {
+	c_p0 := p0
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_disposeTranslationUnit, ptr_clang_disposeTranslationUnit, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeTranslationUnit", err))
+	}
+}
+
+/*
+Returns the set of flags that is suitable for reparsing a translation unit.
+
+The set of flags returned provide options for clang_reparseTranslationUnit() by default. The returned flag set contains an unspecified set of optimizations geared toward common uses of reparsing. The set of optimizations enabled may change from one version to the next.
+*/
+func DefaultReparseOptions(tU TranslationUnit) uint32 {
+	c_tU := tU
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+	}
+
+	err := ffi.CallFunction(cif_clang_defaultReparseOptions, ptr_clang_defaultReparseOptions, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultReparseOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_reparseTranslationUnit : param unsaved_files : struct CXUnsavedFile *
 
 // not supported : clang_getTUResourceUsageName : return value : const char *
 
-// not supported : clang_getCXTUResourceUsage : param TU : CXTranslationUnit
+// Return the memory usage of a translation unit.  This object  should be released with clang_disposeCXTUResourceUsage().
+func GetCXTUResourceUsage(tU TranslationUnit) TUResourceUsage {
+	c_tU := tU
+
+	var retC TUResourceUsage
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCXTUResourceUsage, ptr_clang_getCXTUResourceUsage, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCXTUResourceUsage", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 	c_usage := usage
@@ -474,13 +1006,85 @@ func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 	}
 }
 
-// not supported : clang_getTranslationUnitTargetInfo : param CTUnit : CXTranslationUnit
+/*
+Get target information for this translation unit.
 
-// not supported : clang_TargetInfo_dispose : param Info : CXTargetInfo
+The CXTargetInfo object cannot outlive the CXTranslationUnit object.
+*/
+func GetTranslationUnitTargetInfo(cTUnit TranslationUnit) TargetInfo {
+	c_cTUnit := cTUnit
 
-// not supported : clang_TargetInfo_getTriple : param Info : CXTargetInfo
+	var retC TargetInfo
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cTUnit),
+	}
 
-// not supported : clang_TargetInfo_getPointerWidth : param Info : CXTargetInfo
+	err := ffi.CallFunction(cif_clang_getTranslationUnitTargetInfo, ptr_clang_getTranslationUnitTargetInfo, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitTargetInfo", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Destroy the CXTargetInfo object.
+func TargetInfo_dispose(info TargetInfo) {
+	c_info := info
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_info),
+	}
+
+	err := ffi.CallFunction(cif_clang_TargetInfo_dispose, ptr_clang_TargetInfo_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_dispose", err))
+	}
+}
+
+/*
+Get the normalized target triple as a string.
+
+Returns the empty string in case of any error.
+*/
+func TargetInfo_getTriple(info TargetInfo) String_ {
+	c_info := info
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_info),
+	}
+
+	err := ffi.CallFunction(cif_clang_TargetInfo_getTriple, ptr_clang_TargetInfo_getTriple, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getTriple", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Get the pointer width of the target in bits.
+
+Returns -1 in case of error.
+*/
+func TargetInfo_getPointerWidth(info TargetInfo) int32 {
+	c_info := info
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_info),
+	}
+
+	err := ffi.CallFunction(cif_clang_TargetInfo_getPointerWidth, ptr_clang_TargetInfo_getPointerWidth, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getPointerWidth", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve the NULL cursor, which represents no entity.
 func GetNullCursor() Cursor {
@@ -496,7 +1100,27 @@ func GetNullCursor() Cursor {
 	return ret
 }
 
-// not supported : clang_getTranslationUnitCursor : param p0 : CXTranslationUnit
+/*
+Retrieve the cursor that represents the given translation unit.
+
+The translation unit cursor can be used to start traversing the various declarations within the given translation unit.
+*/
+func GetTranslationUnitCursor(p0 TranslationUnit) Cursor {
+	c_p0 := p0
+
+	var retC Cursor
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTranslationUnitCursor, ptr_clang_getTranslationUnitCursor, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitCursor", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Determine whether two cursors are equivalent.
 func EqualCursors(p0 Cursor, p1 Cursor) uint32 {
@@ -714,11 +1338,59 @@ func CreateCXCursorSet() CursorSet {
 	return ret
 }
 
-// not supported : clang_disposeCXCursorSet : param cset : CXCursorSet
+// Disposes a CXCursorSet and releases its associated memory.
+func DisposeCXCursorSet(cset CursorSet) {
+	c_cset := cset
 
-// not supported : clang_CXCursorSet_contains : param cset : CXCursorSet
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cset),
+	}
 
-// not supported : clang_CXCursorSet_insert : param cset : CXCursorSet
+	err := ffi.CallFunction(cif_clang_disposeCXCursorSet, ptr_clang_disposeCXCursorSet, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeCXCursorSet", err))
+	}
+}
+
+// Queries a CXCursorSet to see if it contains a specific CXCursor.
+func CursorSet_contains(cset CursorSet, cursor Cursor) uint32 {
+	c_cset := cset
+	c_cursor := cursor
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cset),
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_CXCursorSet_contains, ptr_clang_CXCursorSet_contains, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXCursorSet_contains", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Inserts a CXCursor into a CXCursorSet.
+func CursorSet_insert(cset CursorSet, cursor Cursor) uint32 {
+	c_cset := cset
+	c_cursor := cursor
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cset),
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_CXCursorSet_insert, ptr_clang_CXCursorSet_insert, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXCursorSet_insert", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Determine the semantic parent of the given cursor.
@@ -798,7 +1470,29 @@ func GetIncludedFile(cursor Cursor) File {
 	return ret
 }
 
-// not supported : clang_getCursor : param p0 : CXTranslationUnit
+/*
+Map a source location to the cursor that describes the entity at that location in the source code.
+
+clang_getCursor() maps an arbitrary source location within a translation unit down to the most specific cursor that describes the entity at that location. For example, given an expression x + y, invoking clang_getCursor() with a source location pointing to "x" will return the cursor for "x"; similarly for "y". If the cursor points anywhere between "x" or "y" (e.g., on the + or the whitespace around it), clang_getCursor() will return a cursor referring to the "+" expression.
+*/
+func GetCursor(p0 TranslationUnit, p1 SourceLocation) Cursor {
+	c_p0 := p0
+	c_p1 := p1
+
+	var retC Cursor
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursor, ptr_clang_getCursor, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursor", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the physical location of the source constructor referenced by the given cursor.
@@ -2038,9 +2732,51 @@ func GetIBOutletCollectionType(p0 Cursor) Type_ {
 	return ret
 }
 
-// not supported : clang_visitChildren : param visitor : CXCursorVisitor
+/*
+Visit the children of a particular cursor.
 
-// not supported : clang_visitChildrenWithBlock : param block : CXCursorVisitorBlock
+This function visits all the direct children of the given cursor, invoking the given visitor function with the cursors of each visited child. The traversal may be recursive, if the visitor returns CXChildVisit_Recurse. The traversal may also be ended prematurely, if the visitor returns CXChildVisit_Break.
+*/
+func VisitChildren(parent Cursor, visitor CursorVisitor, client_data ClientData) uint32 {
+	c_parent := parent
+	c_visitor := visitor
+	c_client_data := client_data
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_parent),
+		unsafe.Pointer(&c_visitor),
+		unsafe.Pointer(&c_client_data),
+	}
+
+	err := ffi.CallFunction(cif_clang_visitChildren, ptr_clang_visitChildren, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitChildren", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Visits the children of a cursor using the specified block.  Behaves identically to clang_visitChildren() in all other respects.
+func VisitChildrenWithBlock(parent Cursor, block CursorVisitorBlock) uint32 {
+	c_parent := parent
+	c_block := block
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_parent),
+		unsafe.Pointer(&c_block),
+	}
+
+	err := ffi.CallFunction(cif_clang_visitChildrenWithBlock, ptr_clang_visitChildrenWithBlock, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitChildrenWithBlock", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve a Unified Symbol Resolution (USR) for the entity referenced by the given cursor.
@@ -2116,9 +2852,9 @@ func Cursor_getSpellingNameRange(p0 Cursor, pieceIndex uint32, options uint32) S
 	return ret
 }
 
-// not supported : clang_PrintingPolicy_getProperty : param Policy : CXPrintingPolicy
+// not supported : clang_PrintingPolicy_getProperty : param Property : enum CXPrintingPolicyProperty
 
-// not supported : clang_PrintingPolicy_setProperty : param Policy : CXPrintingPolicy
+// not supported : clang_PrintingPolicy_setProperty : param Property : enum CXPrintingPolicyProperty
 
 /*
 Retrieve the default policy for the cursor.
@@ -2142,13 +2878,91 @@ func GetCursorPrintingPolicy(p0 Cursor) PrintingPolicy {
 	return ret
 }
 
-// not supported : clang_PrintingPolicy_dispose : param Policy : CXPrintingPolicy
+// Release a printing policy.
+func PrintingPolicy_dispose(policy PrintingPolicy) {
+	c_policy := policy
 
-// not supported : clang_getCursorPrettyPrinted : param Policy : CXPrintingPolicy
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_policy),
+	}
 
-// not supported : clang_getTypePrettyPrinted : param cxPolicy : CXPrintingPolicy
+	err := ffi.CallFunction(cif_clang_PrintingPolicy_dispose, ptr_clang_PrintingPolicy_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_PrintingPolicy_dispose", err))
+	}
+}
 
-// not supported : clang_getFullyQualifiedName : param Policy : CXPrintingPolicy
+// Pretty print declarations.
+func GetCursorPrettyPrinted(cursor Cursor, policy PrintingPolicy) String_ {
+	c_cursor := cursor
+	c_policy := policy
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+		unsafe.Pointer(&c_policy),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorPrettyPrinted, ptr_clang_getCursorPrettyPrinted, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorPrettyPrinted", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Pretty-print the underlying type using a custom printing policy.
+
+If the type is invalid, an empty string is returned.
+*/
+func GetTypePrettyPrinted(cT Type_, cxPolicy PrintingPolicy) String_ {
+	c_cT := cT
+	c_cxPolicy := cxPolicy
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cT),
+		unsafe.Pointer(&c_cxPolicy),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTypePrettyPrinted, ptr_clang_getTypePrettyPrinted, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypePrettyPrinted", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Get the fully qualified name for a type.
+
+This includes full qualification of all template parameters.
+
+Policy - Further refine the type formatting WithGlobalNsPrefix - If non-zero, function will prepend a '::' to qualified names
+*/
+func GetFullyQualifiedName(cT Type_, policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
+	c_cT := cT
+	c_policy := policy
+	c_withGlobalNsPrefix := withGlobalNsPrefix
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cT),
+		unsafe.Pointer(&c_policy),
+		unsafe.Pointer(&c_withGlobalNsPrefix),
+	}
+
+	err := ffi.CallFunction(cif_clang_getFullyQualifiedName, ptr_clang_getFullyQualifiedName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFullyQualifiedName", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the display name for the entity referenced by this cursor.
@@ -2678,21 +3492,150 @@ func Cursor_getModule(c Cursor) Module {
 	return ret
 }
 
-// not supported : clang_getModuleForFile : param p0 : CXTranslationUnit
+// Given a CXFile header file, return the module that contains it, if one exists.
+func GetModuleForFile(p0 TranslationUnit, p1 File) Module {
+	c_p0 := p0
+	c_p1 := p1
 
-// not supported : clang_Module_getASTFile : param Module : CXModule
+	var retC Module
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
 
-// not supported : clang_Module_getParent : param Module : CXModule
+	err := ffi.CallFunction(cif_clang_getModuleForFile, ptr_clang_getModuleForFile, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getModuleForFile", err))
+	}
 
-// not supported : clang_Module_getName : param Module : CXModule
+	ret := retC
+	return ret
+}
 
-// not supported : clang_Module_getFullName : param Module : CXModule
+func Module_getASTFile(module Module) File {
+	c_module := module
 
-// not supported : clang_Module_isSystem : param Module : CXModule
+	var retC File
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_module),
+	}
 
-// not supported : clang_Module_getNumTopLevelHeaders : param p0 : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_Module_getASTFile, ptr_clang_Module_getASTFile, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getASTFile", err))
+	}
 
-// not supported : clang_Module_getTopLevelHeader : param p0 : CXTranslationUnit
+	ret := retC
+	return ret
+}
+
+func Module_getParent(module Module) Module {
+	c_module := module
+
+	var retC Module
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_module),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_getParent, ptr_clang_Module_getParent, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getParent", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Module_getName(module Module) String_ {
+	c_module := module
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_module),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_getName, ptr_clang_Module_getName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getName", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Module_getFullName(module Module) String_ {
+	c_module := module
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_module),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_getFullName, ptr_clang_Module_getFullName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getFullName", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Module_isSystem(module Module) int32 {
+	c_module := module
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_module),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_isSystem, ptr_clang_Module_isSystem, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_isSystem", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Module_getNumTopLevelHeaders(p0 TranslationUnit, module Module) uint32 {
+	c_p0 := p0
+	c_module := module
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_module),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_getNumTopLevelHeaders, ptr_clang_Module_getNumTopLevelHeaders, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getNumTopLevelHeaders", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Module_getTopLevelHeader(p0 TranslationUnit, module Module, index uint32) File {
+	c_p0 := p0
+	c_module := module
+	c_index := index
+
+	var retC File
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_index),
+	}
+
+	err := ffi.CallFunction(cif_clang_Module_getTopLevelHeader, ptr_clang_Module_getTopLevelHeader, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getTopLevelHeader", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Determine if a C++ constructor is a converting constructor.
 func XConstructor_isConvertingConstructor(c Cursor) uint32 {
@@ -3102,17 +4045,75 @@ func GetTokenKind(p0 Token) TokenKind {
 	return ret
 }
 
-// not supported : clang_getTokenSpelling : param p0 : CXTranslationUnit
+/*
+Determine the spelling of the given token.
 
-// not supported : clang_getTokenLocation : param p0 : CXTranslationUnit
+The spelling of a token is the textual representation of that token, e.g., the text of an identifier or keyword.
+*/
+func GetTokenSpelling(p0 TranslationUnit, p1 Token) String_ {
+	c_p0 := p0
+	c_p1 := p1
 
-// not supported : clang_getTokenExtent : param p0 : CXTranslationUnit
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
 
-// not supported : clang_tokenize : param TU : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_getTokenSpelling, ptr_clang_getTokenSpelling, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenSpelling", err))
+	}
 
-// not supported : clang_annotateTokens : param TU : CXTranslationUnit
+	ret := retC
+	return ret
+}
 
-// not supported : clang_disposeTokens : param TU : CXTranslationUnit
+// Retrieve the source location of the given token.
+func GetTokenLocation(p0 TranslationUnit, p1 Token) SourceLocation {
+	c_p0 := p0
+	c_p1 := p1
+
+	var retC SourceLocation
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTokenLocation, ptr_clang_getTokenLocation, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenLocation", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve a source range that covers the given token.
+func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
+	c_p0 := p0
+	c_p1 := p1
+
+	var retC SourceRange
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTokenExtent, ptr_clang_getTokenExtent, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenExtent", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_tokenize : param Tokens : CXToken **
+
+// not supported : clang_annotateTokens : param Tokens : CXToken *
+
+// not supported : clang_disposeTokens : param Tokens : CXToken *
 
 // not supported : clang_getCursorKindSpelling : param Kind : enum CXCursorKind
 
@@ -3131,23 +4132,145 @@ func EnableStackTraces() {
 
 // not supported : clang_getCompletionChunkKind : return value : enum CXCompletionChunkKind
 
-// not supported : clang_getCompletionChunkText : param completion_string : CXCompletionString
+// Retrieve the text associated with a particular chunk within a completion string.
+func GetCompletionChunkText(completion_string CompletionString, chunk_number uint32) String_ {
+	c_completion_string := completion_string
+	c_chunk_number := chunk_number
 
-// not supported : clang_getCompletionChunkCompletionString : param completion_string : CXCompletionString
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_chunk_number),
+	}
 
-// not supported : clang_getNumCompletionChunks : param completion_string : CXCompletionString
+	err := ffi.CallFunction(cif_clang_getCompletionChunkText, ptr_clang_getCompletionChunkText, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkText", err))
+	}
 
-// not supported : clang_getCompletionPriority : param completion_string : CXCompletionString
+	ret := retC
+	return ret
+}
+
+// Retrieve the completion string associated with a particular chunk within a completion string.
+func GetCompletionChunkCompletionString(completion_string CompletionString, chunk_number uint32) CompletionString {
+	c_completion_string := completion_string
+	c_chunk_number := chunk_number
+
+	var retC CompletionString
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_chunk_number),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionChunkCompletionString, ptr_clang_getCompletionChunkCompletionString, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkCompletionString", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the number of chunks in the given code-completion string.
+func GetNumCompletionChunks(completion_string CompletionString) uint32 {
+	c_completion_string := completion_string
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+	}
+
+	err := ffi.CallFunction(cif_clang_getNumCompletionChunks, ptr_clang_getNumCompletionChunks, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumCompletionChunks", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Determine the priority of this code completion.
+
+The priority of a code completion indicates how likely it is that this particular completion is the completion that the user will select. The priority is selected by various internal heuristics.
+*/
+func GetCompletionPriority(completion_string CompletionString) uint32 {
+	c_completion_string := completion_string
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionPriority, ptr_clang_getCompletionPriority, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionPriority", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getCompletionAvailability : return value : enum CXAvailabilityKind
 
-// not supported : clang_getCompletionNumAnnotations : param completion_string : CXCompletionString
+// Retrieve the number of annotations associated with the given completion string.
+func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
+	c_completion_string := completion_string
 
-// not supported : clang_getCompletionAnnotation : param completion_string : CXCompletionString
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+	}
 
-// not supported : clang_getCompletionParent : param completion_string : CXCompletionString
+	err := ffi.CallFunction(cif_clang_getCompletionNumAnnotations, ptr_clang_getCompletionNumAnnotations, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionNumAnnotations", err))
+	}
 
-// not supported : clang_getCompletionBriefComment : param completion_string : CXCompletionString
+	ret := retC
+	return ret
+}
+
+// Retrieve the annotation associated with the given completion string.
+func GetCompletionAnnotation(completion_string CompletionString, annotation_number uint32) String_ {
+	c_completion_string := completion_string
+	c_annotation_number := annotation_number
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_annotation_number),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionAnnotation, ptr_clang_getCompletionAnnotation, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionAnnotation", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getCompletionParent : param kind : enum CXCursorKind *
+
+// Retrieve the brief documentation comment attached to the declaration that corresponds to the given completion string.
+func GetCompletionBriefComment(completion_string CompletionString) String_ {
+	c_completion_string := completion_string
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionBriefComment, ptr_clang_getCompletionBriefComment, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionBriefComment", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve a completion string for an arbitrary declaration or macro definition cursor.
 func GetCursorCompletionString(cursor Cursor) CompletionString {
@@ -3231,7 +4354,23 @@ func ToggleCrashRecovery(isEnabled uint32) {
 	}
 }
 
-// not supported : clang_getInclusions : param tu : CXTranslationUnit
+// Visit the set of preprocessor inclusions in a translation unit.   The visitor function is called with the provided data for every included   file.  This does not include headers included by the PCH file (unless one   is inspecting the inclusions in the PCH file itself).
+func GetInclusions(tu TranslationUnit, visitor InclusionVisitor, client_data ClientData) {
+	c_tu := tu
+	c_visitor := visitor
+	c_client_data := client_data
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_visitor),
+		unsafe.Pointer(&c_client_data),
+	}
+
+	err := ffi.CallFunction(cif_clang_getInclusions, ptr_clang_getInclusions, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getInclusions", err))
+	}
+}
 
 // If cursor is a statement declaration tries to evaluate the statement and if its variable, tries to evaluate its initializer, into its corresponding type. If it's an expression, tries to evaluate the expression.
 func Cursor_Evaluate(c Cursor) EvalResult {
@@ -3251,13 +4390,61 @@ func Cursor_Evaluate(c Cursor) EvalResult {
 	return ret
 }
 
-// not supported : clang_EvalResult_getKind : param E : CXEvalResult
+// Returns the kind of the evaluated result.
+func EvalResult_getKind(e EvalResult) EvalResultKind {
+	c_e := e
 
-// not supported : clang_EvalResult_getAsInt : param E : CXEvalResult
+	var retC EvalResultKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(cif_clang_EvalResult_getKind, ptr_clang_EvalResult_getKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getKind", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Returns the evaluation result as integer if the kind is Int.
+func EvalResult_getAsInt(e EvalResult) int32 {
+	c_e := e
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(cif_clang_EvalResult_getAsInt, ptr_clang_EvalResult_getAsInt, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsInt", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_EvalResult_getAsLongLong : return value : long long
 
-// not supported : clang_EvalResult_isUnsignedInt : param E : CXEvalResult
+// Returns a non-zero value if the kind is Int and the evaluation result resulted in an unsigned integer.
+func EvalResult_isUnsignedInt(e EvalResult) uint32 {
+	c_e := e
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(cif_clang_EvalResult_isUnsignedInt, ptr_clang_EvalResult_isUnsignedInt, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_isUnsignedInt", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_EvalResult_getAsUnsigned : return value : unsigned long long
 
@@ -3265,15 +4452,105 @@ func Cursor_Evaluate(c Cursor) EvalResult {
 
 // not supported : clang_EvalResult_getAsStr : return value : const char *
 
-// not supported : clang_EvalResult_dispose : param E : CXEvalResult
+// Disposes the created Eval memory.
+func EvalResult_dispose(e EvalResult) {
+	c_e := e
 
-// not supported : clang_findReferencesInFile : param file : CXFile
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
 
-// not supported : clang_findIncludesInFile : param TU : CXTranslationUnit
+	err := ffi.CallFunction(cif_clang_EvalResult_dispose, ptr_clang_EvalResult_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_dispose", err))
+	}
+}
 
-// not supported : clang_findReferencesInFileWithBlock : param p1 : CXFile
+// Find references of a declaration in a specific file.
+func FindReferencesInFile(cursor Cursor, file File, visitor CursorAndRangeVisitor) Result {
+	c_cursor := cursor
+	c_file := file
+	c_visitor := visitor
 
-// not supported : clang_findIncludesInFileWithBlock : param p0 : CXTranslationUnit
+	var retC Result
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_visitor),
+	}
+
+	err := ffi.CallFunction(cif_clang_findReferencesInFile, ptr_clang_findReferencesInFile, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_findReferencesInFile", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Find #import/#include directives in a specific file.
+func FindIncludesInFile(tU TranslationUnit, file File, visitor CursorAndRangeVisitor) Result {
+	c_tU := tU
+	c_file := file
+	c_visitor := visitor
+
+	var retC Result
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_visitor),
+	}
+
+	err := ffi.CallFunction(cif_clang_findIncludesInFile, ptr_clang_findIncludesInFile, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_findIncludesInFile", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func FindReferencesInFileWithBlock(p0 Cursor, p1 File, p2 CursorAndRangeVisitorBlock) Result {
+	c_p0 := p0
+	c_p1 := p1
+	c_p2 := p2
+
+	var retC Result
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+		unsafe.Pointer(&c_p2),
+	}
+
+	err := ffi.CallFunction(cif_clang_findReferencesInFileWithBlock, ptr_clang_findReferencesInFileWithBlock, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_findReferencesInFileWithBlock", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func FindIncludesInFileWithBlock(p0 TranslationUnit, p1 File, p2 CursorAndRangeVisitorBlock) Result {
+	c_p0 := p0
+	c_p1 := p1
+	c_p2 := p2
+
+	var retC Result
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+		unsafe.Pointer(&c_p2),
+	}
+
+	err := ffi.CallFunction(cif_clang_findIncludesInFileWithBlock, ptr_clang_findIncludesInFileWithBlock, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_findIncludesInFileWithBlock", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_index_isEntityObjCContainerKind : param p0 : CXIdxEntityKind
 
@@ -3299,15 +4576,47 @@ func Cursor_Evaluate(c Cursor) EvalResult {
 
 // not supported : clang_index_setClientEntity : param p0 : const CXIdxEntityInfo *
 
-// not supported : clang_IndexAction_create : param CIdx : CXIndex
+// An indexing action/session, to be applied to one or multiple translation units.
+func IndexAction_create(cIdx Index) IndexAction {
+	c_cIdx := cIdx
 
-// not supported : clang_IndexAction_dispose : param p0 : CXIndexAction
+	var retC IndexAction
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+	}
 
-// not supported : clang_indexSourceFile : param p0 : CXIndexAction
+	err := ffi.CallFunction(cif_clang_IndexAction_create, ptr_clang_IndexAction_create, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_IndexAction_create", err))
+	}
 
-// not supported : clang_indexSourceFileFullArgv : param p0 : CXIndexAction
+	ret := retC
+	return ret
+}
 
-// not supported : clang_indexTranslationUnit : param p0 : CXIndexAction
+/*
+Destroy the given index action.
+
+The index action must not be destroyed until all of the translation units created within that index action have been destroyed.
+*/
+func IndexAction_dispose(p0 IndexAction) {
+	c_p0 := p0
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_IndexAction_dispose, ptr_clang_IndexAction_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_IndexAction_dispose", err))
+	}
+}
+
+// not supported : clang_indexSourceFile : param index_callbacks : IndexerCallbacks *
+
+// not supported : clang_indexSourceFileFullArgv : param index_callbacks : IndexerCallbacks *
+
+// not supported : clang_indexTranslationUnit : param index_callbacks : IndexerCallbacks *
 
 // not supported : clang_indexLoc_getFileLocation : param indexFile : CXIdxClientFile *
 
@@ -3329,11 +4638,83 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 	return ret
 }
 
-// not supported : clang_Type_visitFields : param visitor : CXFieldVisitor
+/*
+Visit the fields of a particular type.
 
-// not supported : clang_visitCXXBaseClasses : param visitor : CXFieldVisitor
+This function visits all the direct fields of the given cursor, invoking the given visitor function with the cursors of each visited field. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
+*/
+func Type_visitFields(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+	c_t := t
+	c_visitor := visitor
+	c_client_data := client_data
 
-// not supported : clang_visitCXXMethods : param visitor : CXFieldVisitor
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+		unsafe.Pointer(&c_visitor),
+		unsafe.Pointer(&c_client_data),
+	}
+
+	err := ffi.CallFunction(cif_clang_Type_visitFields, ptr_clang_Type_visitFields, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_visitFields", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Visit the base classes of a type.
+
+This function visits all the direct base classes of a the given cursor, invoking the given visitor function with the cursors of each visited base. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
+*/
+func VisitCXXBaseClasses(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+	c_t := t
+	c_visitor := visitor
+	c_client_data := client_data
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+		unsafe.Pointer(&c_visitor),
+		unsafe.Pointer(&c_client_data),
+	}
+
+	err := ffi.CallFunction(cif_clang_visitCXXBaseClasses, ptr_clang_visitCXXBaseClasses, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitCXXBaseClasses", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Visit the class methods of a type.
+
+This function visits all the methods of the given cursor, invoking the given visitor function with the cursors of each visited method. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
+*/
+func VisitCXXMethods(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+	c_t := t
+	c_visitor := visitor
+	c_client_data := client_data
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+		unsafe.Pointer(&c_visitor),
+		unsafe.Pointer(&c_client_data),
+	}
+
+	err := ffi.CallFunction(cif_clang_visitCXXMethods, ptr_clang_visitCXXMethods, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitCXXMethods", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getBinaryOperatorKindSpelling : param kind : enum CXBinaryOperatorKind
 
@@ -3347,8 +4728,34 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 
 // not supported : clang_getRemappingsFromFileList : param p0 : const char **
 
-// not supported : clang_remap_getNumFiles : param p0 : CXRemapping
+func Remap_getNumFiles(p0 Remapping) uint32 {
+	c_p0 := p0
 
-// not supported : clang_remap_getFilenames : param p0 : CXRemapping
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
 
-// not supported : clang_remap_dispose : param p0 : CXRemapping
+	err := ffi.CallFunction(cif_clang_remap_getNumFiles, ptr_clang_remap_getNumFiles, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_getNumFiles", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_remap_getFilenames : param p2 : CXString *
+
+func Remap_dispose(p0 Remapping) {
+	c_p0 := p0
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_remap_dispose, ptr_clang_remap_dispose, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_dispose", err))
+	}
+}
