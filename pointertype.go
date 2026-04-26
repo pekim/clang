@@ -4,15 +4,20 @@ package clang
 
 import "unsafe"
 
+// Object encapsulating information about overlaying virtual file/directories over the real file system.
 type VirtualFileOverlay unsafe.Pointer
 
+// Object encapsulating information about a module.modulemap file.
 type ModuleMapDescriptor unsafe.Pointer
 
-type File unsafe.Pointer
-
+// A single diagnostic, containing the diagnostic's severity, location, text, source ranges, and fix-it hints.
 type Diagnostic unsafe.Pointer
 
+// A group of CXDiagnostics.
 type DiagnosticSet unsafe.Pointer
+
+// A particular source file that is part of a translation unit.
+type File unsafe.Pointer
 
 // An "index" that consists of a set of translation units that would typically be linked together into an executable or library.
 type Index unsafe.Pointer

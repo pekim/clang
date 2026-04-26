@@ -8,26 +8,6 @@ import (
 	types "github.com/go-webgpu/goffi/types"
 )
 
-var string_TypeDescriptor = &types.TypeDescriptor{
-	Alignment: 0,
-	Kind:      types.StructType,
-	Members: []*types.TypeDescriptor{
-		types.PointerTypeDescriptor,
-		types.UInt32TypeDescriptor,
-	},
-	Size: unsafe.Sizeof(String_{}),
-}
-
-var stringSetTypeDescriptor = &types.TypeDescriptor{
-	Alignment: 0,
-	Kind:      types.StructType,
-	Members: []*types.TypeDescriptor{
-		types.PointerTypeDescriptor,
-		types.UInt32TypeDescriptor,
-	},
-	Size: unsafe.Sizeof(StringSet{}),
-}
-
 var virtualFileOverlayImplTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
@@ -92,6 +72,26 @@ var sourceRangeListTypeDescriptor = &types.TypeDescriptor{
 		types.PointerTypeDescriptor,
 	},
 	Size: unsafe.Sizeof(SourceRangeList{}),
+}
+
+var string_TypeDescriptor = &types.TypeDescriptor{
+	Alignment: 0,
+	Kind:      types.StructType,
+	Members: []*types.TypeDescriptor{
+		types.PointerTypeDescriptor,
+		types.UInt32TypeDescriptor,
+	},
+	Size: unsafe.Sizeof(String_{}),
+}
+
+var stringSetTypeDescriptor = &types.TypeDescriptor{
+	Alignment: 0,
+	Kind:      types.StructType,
+	Members: []*types.TypeDescriptor{
+		types.PointerTypeDescriptor,
+		types.UInt32TypeDescriptor,
+	},
+	Size: unsafe.Sizeof(StringSet{}),
 }
 
 var targetInfoImplTypeDescriptor = &types.TypeDescriptor{

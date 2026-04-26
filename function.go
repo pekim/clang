@@ -10,50 +10,9 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
-func GetCString(string_ String_) string {
-	c_string_ := string_
-
-	var retC unsafe.Pointer
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_string_),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getCString,
-		ptr_clang_getCString,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCString", err))
-	}
-
-	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
-	return ret
-}
-
-func DisposeString(string_ String_) {
-	c_string_ := string_
-
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_string_),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_disposeString,
-		ptr_clang_disposeString,
-		nil,
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeString", err))
-	}
-}
-
-// not supported : clang_disposeStringSet : param set : CXStringSet *
-
 // not supported : clang_getBuildSessionTimestamp : return value : unsigned long long
 
+// Create a CXVirtualFileOverlay object. Must be disposed with clang_VirtualFileOverlay_dispose().
 func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 	c_options := options
 
@@ -76,6 +35,7 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 	return ret
 }
 
+// Map an absolute virtual file path to an absolute real one. The virtual path must be canonicalized (not contain "."/"..").
 func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string, realPath string) ErrorCode {
 	c_p0 := p0
 	c_virtualPath, free_c_virtualPath := libc.CString(virtualPath)
@@ -104,6 +64,7 @@ func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string
 	return ret
 }
 
+// Set the case sensitivity for the CXVirtualFileOverlay object. The CXVirtualFileOverlay object is case-sensitive by default, this option can be used to override the default.
 func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive int32) ErrorCode {
 	c_p0 := p0
 	c_caseSensitive := caseSensitive
@@ -132,6 +93,7 @@ func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive 
 
 // not supported : clang_free : param buffer : void *
 
+// Dispose a CXVirtualFileOverlay object.
 func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
 	c_p0 := p0
 
@@ -150,6 +112,7 @@ func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
 	}
 }
 
+// Create a CXModuleMapDescriptor object. Must be disposed with clang_ModuleMapDescriptor_dispose().
 func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 	c_options := options
 
@@ -172,6 +135,7 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 	return ret
 }
 
+// Sets the framework module name that the module.modulemap describes.
 func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
@@ -197,6 +161,7 @@ func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name str
 	return ret
 }
 
+// Sets the umbrella header name that the module.modulemap describes.
 func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
@@ -224,6 +189,7 @@ func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) 
 
 // not supported : clang_ModuleMapDescriptor_writeToBuffer : param out_buffer_ptr : char **
 
+// Dispose a CXModuleMapDescriptor object.
 func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
 	c_p0 := p0
 
@@ -242,6 +208,397 @@ func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
 	}
 }
 
+// not supported : clang_ModuleCache_prune : param PruneInterval : time_t
+
+// Determine the number of diagnostics in a CXDiagnosticSet.
+func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
+	c_diags := diags
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getNumDiagnosticsInSet,
+		ptr_clang_getNumDiagnosticsInSet,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnosticsInSet", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve a diagnostic associated with the given CXDiagnosticSet.
+func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
+	c_diags := diags
+	c_index := index
+
+	var retC Diagnostic
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_index),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticInSet,
+		ptr_clang_getDiagnosticInSet,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticInSet", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_loadDiagnostics : param error : enum CXLoadDiag_Error *
+
+// Release a CXDiagnosticSet and all of its contained diagnostics.
+func DisposeDiagnosticSet(diags DiagnosticSet) {
+	c_diags := diags
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diags),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeDiagnosticSet,
+		ptr_clang_disposeDiagnosticSet,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnosticSet", err))
+	}
+}
+
+/*
+Retrieve the child diagnostics of a CXDiagnostic.
+
+This CXDiagnosticSet does not need to be released by clang_disposeDiagnosticSet.
+*/
+func GetChildDiagnostics(d Diagnostic) DiagnosticSet {
+	c_d := d
+
+	var retC DiagnosticSet
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_d),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getChildDiagnostics,
+		ptr_clang_getChildDiagnostics,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getChildDiagnostics", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Destroy a diagnostic.
+func DisposeDiagnostic(diagnostic Diagnostic) {
+	c_diagnostic := diagnostic
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeDiagnostic,
+		ptr_clang_disposeDiagnostic,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnostic", err))
+	}
+}
+
+/*
+Format the given diagnostic in a manner that is suitable for display.
+
+This routine will format the given diagnostic to a string, rendering the diagnostic according to the various options given. The clang_defaultDiagnosticDisplayOptions() function returns the set of options that most closely mimics the behavior of the clang compiler.
+*/
+func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
+	c_diagnostic := diagnostic
+	c_options := options
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_formatDiagnostic,
+		ptr_clang_formatDiagnostic,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_formatDiagnostic", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the set of display options most similar to the default behavior of the clang compiler.
+func DefaultDiagnosticDisplayOptions() uint32 {
+	var retC uint32
+	args := []unsafe.Pointer{}
+
+	err := ffi.CallFunction(
+		cif_clang_defaultDiagnosticDisplayOptions,
+		ptr_clang_defaultDiagnosticDisplayOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultDiagnosticDisplayOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the severity of the given diagnostic.
+func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
+	c_p0 := p0
+
+	var retC DiagnosticSeverity
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticSeverity,
+		ptr_clang_getDiagnosticSeverity,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSeverity", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Retrieve the source location of the given diagnostic.
+
+This location is where Clang would print the caret ('^') when displaying the diagnostic on the command line.
+*/
+func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
+	c_p0 := p0
+
+	var retC SourceLocation
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticLocation,
+		ptr_clang_getDiagnosticLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticLocation", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the text of the given diagnostic.
+func GetDiagnosticSpelling(p0 Diagnostic) String_ {
+	c_p0 := p0
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticSpelling,
+		ptr_clang_getDiagnosticSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSpelling", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getDiagnosticOption : param Disable : CXString *
+
+/*
+Retrieve the category number for this diagnostic.
+
+Diagnostics can be categorized into groups along with other, related diagnostics (e.g., diagnostics under the same warning flag). This routine retrieves the category number for the given diagnostic.
+*/
+func GetDiagnosticCategory(p0 Diagnostic) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategory,
+		ptr_clang_getDiagnosticCategory,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategory", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the name of a particular diagnostic category.  This  is now deprecated.  Use clang_getDiagnosticCategoryText()  instead.
+func GetDiagnosticCategoryName(category uint32) String_ {
+	c_category := category
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_category),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategoryName,
+		ptr_clang_getDiagnosticCategoryName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryName", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Retrieve the diagnostic category text for a given diagnostic.
+func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
+	c_p0 := p0
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategoryText,
+		ptr_clang_getDiagnosticCategoryText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryText", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the number of source ranges associated with the given diagnostic.
+func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
+	c_p0 := p0
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticNumRanges,
+		ptr_clang_getDiagnosticNumRanges,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumRanges", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Retrieve a source range associated with the diagnostic.
+
+A diagnostic's source ranges highlight important elements in the source code. On the command line, Clang displays source ranges by underlining them with '~' characters.
+*/
+func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
+	c_diagnostic := diagnostic
+	c_range_ := range_
+
+	var retC SourceRange
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_range_),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticRange,
+		ptr_clang_getDiagnosticRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticRange", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the number of fix-it hints associated with the given diagnostic.
+func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
+	c_diagnostic := diagnostic
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticNumFixIts,
+		ptr_clang_getDiagnosticNumFixIts,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumFixIts", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_getDiagnosticFixIt : param ReplacementRange : CXSourceRange *
+
+// Retrieve the complete file and path name of the given file.
 func GetFileName(sFile File) String_ {
 	c_sFile := sFile
 
@@ -268,6 +625,7 @@ func GetFileName(sFile File) String_ {
 
 // not supported : clang_getFileUniqueID : param outID : CXFileUniqueID *
 
+// Returns non-zero if the file1 and file2 point to the same file, or they are both NULL.
 func File_isEqual(file1 File, file2 File) int32 {
 	c_file1 := file1
 	c_file2 := file2
@@ -292,6 +650,11 @@ func File_isEqual(file1 File, file2 File) int32 {
 	return ret
 }
 
+/*
+Returns the real path name of file.
+
+An empty string may be returned. Use clang_getFileName() in that case.
+*/
 func File_tryGetRealPathName(file File) String_ {
 	c_file := file
 
@@ -314,6 +677,7 @@ func File_tryGetRealPathName(file File) String_ {
 	return ret
 }
 
+// Retrieve a NULL (invalid) source location.
 func GetNullLocation() SourceLocation {
 	var retC SourceLocation
 	args := []unsafe.Pointer{}
@@ -332,6 +696,7 @@ func GetNullLocation() SourceLocation {
 	return ret
 }
 
+// Determine whether two source locations, which must refer into the same translation unit, refer to exactly the same point in the source code.
 func EqualLocations(loc1 SourceLocation, loc2 SourceLocation) uint32 {
 	c_loc1 := loc1
 	c_loc2 := loc2
@@ -356,6 +721,7 @@ func EqualLocations(loc1 SourceLocation, loc2 SourceLocation) uint32 {
 	return ret
 }
 
+// Determine for two source locations if the first comes strictly before the second one in the source code.
 func IsBeforeInTranslationUnit(loc1 SourceLocation, loc2 SourceLocation) uint32 {
 	c_loc1 := loc1
 	c_loc2 := loc2
@@ -380,6 +746,7 @@ func IsBeforeInTranslationUnit(loc1 SourceLocation, loc2 SourceLocation) uint32 
 	return ret
 }
 
+// Returns non-zero if the given source location is in a system header.
 func Location_isInSystemHeader(location SourceLocation) int32 {
 	c_location := location
 
@@ -402,6 +769,7 @@ func Location_isInSystemHeader(location SourceLocation) int32 {
 	return ret
 }
 
+// Returns non-zero if the given source location is in the main file of the corresponding translation unit.
 func Location_isFromMainFile(location SourceLocation) int32 {
 	c_location := location
 
@@ -424,6 +792,7 @@ func Location_isFromMainFile(location SourceLocation) int32 {
 	return ret
 }
 
+// Retrieve a NULL (invalid) source range.
 func GetNullRange() SourceRange {
 	var retC SourceRange
 	args := []unsafe.Pointer{}
@@ -442,6 +811,7 @@ func GetNullRange() SourceRange {
 	return ret
 }
 
+// Retrieve a source range given the beginning and ending source locations.
 func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
 	c_begin := begin
 	c_end := end
@@ -466,6 +836,7 @@ func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
 	return ret
 }
 
+// Determine whether two ranges are equivalent.
 func EqualRanges(range1 SourceRange, range2 SourceRange) uint32 {
 	c_range1 := range1
 	c_range2 := range2
@@ -490,6 +861,7 @@ func EqualRanges(range1 SourceRange, range2 SourceRange) uint32 {
 	return ret
 }
 
+// Returns non-zero if range is null.
 func Range_isNull(range_ SourceRange) int32 {
 	c_range_ := range_
 
@@ -522,6 +894,7 @@ func Range_isNull(range_ SourceRange) int32 {
 
 // not supported : clang_getFileLocation : param file : CXFile *
 
+// Retrieve a source location representing the first character within a source range.
 func GetRangeStart(range_ SourceRange) SourceLocation {
 	c_range_ := range_
 
@@ -544,6 +917,7 @@ func GetRangeStart(range_ SourceRange) SourceLocation {
 	return ret
 }
 
+// Retrieve a source location representing the last character within a source range.
 func GetRangeEnd(range_ SourceRange) SourceLocation {
 	c_range_ := range_
 
@@ -568,357 +942,53 @@ func GetRangeEnd(range_ SourceRange) SourceLocation {
 
 // not supported : clang_disposeSourceRangeList : param ranges : CXSourceRangeList *
 
-func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
-	c_diags := diags
+/*
+Retrieve the character data associated with the given string.
 
-	var retC uint32
+The returned data is a reference and not owned by the user. This data is only valid while the `CXString` is valid. This function is similar to `std::string::c_str()`.
+*/
+func GetCString(string_ String_) string {
+	c_string_ := string_
+
+	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_string_),
 	}
 
 	err := ffi.CallFunction(
-		cif_clang_getNumDiagnosticsInSet,
-		ptr_clang_getNumDiagnosticsInSet,
+		cif_clang_getCString,
+		ptr_clang_getCString,
 		unsafe.Pointer(&retC),
 		args,
 	)
 	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnosticsInSet", err))
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCString", err))
 	}
 
-	ret := retC
+	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
 	return ret
 }
 
-func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
-	c_diags := diags
-	c_index := index
+// Free the given string.
+func DisposeString(string_ String_) {
+	c_string_ := string_
 
-	var retC Diagnostic
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
-		unsafe.Pointer(&c_index),
+		unsafe.Pointer(&c_string_),
 	}
 
 	err := ffi.CallFunction(
-		cif_clang_getDiagnosticInSet,
-		ptr_clang_getDiagnosticInSet,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticInSet", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-// not supported : clang_loadDiagnostics : param error : enum CXLoadDiag_Error *
-
-func DisposeDiagnosticSet(diags DiagnosticSet) {
-	c_diags := diags
-
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_disposeDiagnosticSet,
-		ptr_clang_disposeDiagnosticSet,
+		cif_clang_disposeString,
+		ptr_clang_disposeString,
 		nil,
 		args,
 	)
 	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnosticSet", err))
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeString", err))
 	}
 }
 
-func GetChildDiagnostics(d Diagnostic) DiagnosticSet {
-	c_d := d
-
-	var retC DiagnosticSet
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_d),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getChildDiagnostics,
-		ptr_clang_getChildDiagnostics,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getChildDiagnostics", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func DisposeDiagnostic(diagnostic Diagnostic) {
-	c_diagnostic := diagnostic
-
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_disposeDiagnostic,
-		ptr_clang_disposeDiagnostic,
-		nil,
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnostic", err))
-	}
-}
-
-func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
-	c_diagnostic := diagnostic
-	c_options := options
-
-	var retC String_
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
-		unsafe.Pointer(&c_options),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_formatDiagnostic,
-		ptr_clang_formatDiagnostic,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_formatDiagnostic", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func DefaultDiagnosticDisplayOptions() uint32 {
-	var retC uint32
-	args := []unsafe.Pointer{}
-
-	err := ffi.CallFunction(
-		cif_clang_defaultDiagnosticDisplayOptions,
-		ptr_clang_defaultDiagnosticDisplayOptions,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultDiagnosticDisplayOptions", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
-	c_p0 := p0
-
-	var retC DiagnosticSeverity
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticSeverity,
-		ptr_clang_getDiagnosticSeverity,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSeverity", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
-	c_p0 := p0
-
-	var retC SourceLocation
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticLocation,
-		ptr_clang_getDiagnosticLocation,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticLocation", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticSpelling(p0 Diagnostic) String_ {
-	c_p0 := p0
-
-	var retC String_
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticSpelling,
-		ptr_clang_getDiagnosticSpelling,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSpelling", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-// not supported : clang_getDiagnosticOption : param Disable : CXString *
-
-func GetDiagnosticCategory(p0 Diagnostic) uint32 {
-	c_p0 := p0
-
-	var retC uint32
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticCategory,
-		ptr_clang_getDiagnosticCategory,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategory", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticCategoryName(category uint32) String_ {
-	c_category := category
-
-	var retC String_
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_category),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticCategoryName,
-		ptr_clang_getDiagnosticCategoryName,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryName", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
-	c_p0 := p0
-
-	var retC String_
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticCategoryText,
-		ptr_clang_getDiagnosticCategoryText,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryText", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
-	c_p0 := p0
-
-	var retC uint32
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticNumRanges,
-		ptr_clang_getDiagnosticNumRanges,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumRanges", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
-	c_diagnostic := diagnostic
-	c_range_ := range_
-
-	var retC SourceRange
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
-		unsafe.Pointer(&c_range_),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticRange,
-		ptr_clang_getDiagnosticRange,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticRange", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
-	c_diagnostic := diagnostic
-
-	var retC uint32
-	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
-	}
-
-	err := ffi.CallFunction(
-		cif_clang_getDiagnosticNumFixIts,
-		ptr_clang_getDiagnosticNumFixIts,
-		unsafe.Pointer(&retC),
-		args,
-	)
-	if err != nil {
-		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumFixIts", err))
-	}
-
-	ret := retC
-	return ret
-}
-
-// not supported : clang_getDiagnosticFixIt : param ReplacementRange : CXSourceRange *
+// not supported : clang_disposeStringSet : param set : CXStringSet *
 
 /*
 Provides a shared context for creating translation units.

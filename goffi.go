@@ -10,8 +10,6 @@ import (
 	lib "github.com/pekim/clang/internal/lib"
 )
 
-var cif_clang_getCString = &types.CallInterface{}
-var cif_clang_disposeString = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_create = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_addFileMapping = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_setCaseSensitivity = &types.CallInterface{}
@@ -20,20 +18,6 @@ var cif_clang_ModuleMapDescriptor_create = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_setFrameworkModuleName = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_setUmbrellaHeader = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_dispose = &types.CallInterface{}
-var cif_clang_getFileName = &types.CallInterface{}
-var cif_clang_File_isEqual = &types.CallInterface{}
-var cif_clang_File_tryGetRealPathName = &types.CallInterface{}
-var cif_clang_getNullLocation = &types.CallInterface{}
-var cif_clang_equalLocations = &types.CallInterface{}
-var cif_clang_isBeforeInTranslationUnit = &types.CallInterface{}
-var cif_clang_Location_isInSystemHeader = &types.CallInterface{}
-var cif_clang_Location_isFromMainFile = &types.CallInterface{}
-var cif_clang_getNullRange = &types.CallInterface{}
-var cif_clang_getRange = &types.CallInterface{}
-var cif_clang_equalRanges = &types.CallInterface{}
-var cif_clang_Range_isNull = &types.CallInterface{}
-var cif_clang_getRangeStart = &types.CallInterface{}
-var cif_clang_getRangeEnd = &types.CallInterface{}
 var cif_clang_getNumDiagnosticsInSet = &types.CallInterface{}
 var cif_clang_getDiagnosticInSet = &types.CallInterface{}
 var cif_clang_disposeDiagnosticSet = &types.CallInterface{}
@@ -50,6 +34,22 @@ var cif_clang_getDiagnosticCategoryText = &types.CallInterface{}
 var cif_clang_getDiagnosticNumRanges = &types.CallInterface{}
 var cif_clang_getDiagnosticRange = &types.CallInterface{}
 var cif_clang_getDiagnosticNumFixIts = &types.CallInterface{}
+var cif_clang_getFileName = &types.CallInterface{}
+var cif_clang_File_isEqual = &types.CallInterface{}
+var cif_clang_File_tryGetRealPathName = &types.CallInterface{}
+var cif_clang_getNullLocation = &types.CallInterface{}
+var cif_clang_equalLocations = &types.CallInterface{}
+var cif_clang_isBeforeInTranslationUnit = &types.CallInterface{}
+var cif_clang_Location_isInSystemHeader = &types.CallInterface{}
+var cif_clang_Location_isFromMainFile = &types.CallInterface{}
+var cif_clang_getNullRange = &types.CallInterface{}
+var cif_clang_getRange = &types.CallInterface{}
+var cif_clang_equalRanges = &types.CallInterface{}
+var cif_clang_Range_isNull = &types.CallInterface{}
+var cif_clang_getRangeStart = &types.CallInterface{}
+var cif_clang_getRangeEnd = &types.CallInterface{}
+var cif_clang_getCString = &types.CallInterface{}
+var cif_clang_disposeString = &types.CallInterface{}
 var cif_clang_createIndex = &types.CallInterface{}
 var cif_clang_disposeIndex = &types.CallInterface{}
 var cif_clang_CXIndex_setGlobalOptions = &types.CallInterface{}
@@ -275,8 +275,6 @@ var cif_clang_getRemappings = &types.CallInterface{}
 var cif_clang_remap_getNumFiles = &types.CallInterface{}
 var cif_clang_remap_dispose = &types.CallInterface{}
 
-var ptr_clang_getCString unsafe.Pointer
-var ptr_clang_disposeString unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_create unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_addFileMapping unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_setCaseSensitivity unsafe.Pointer
@@ -285,20 +283,6 @@ var ptr_clang_ModuleMapDescriptor_create unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_setFrameworkModuleName unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_setUmbrellaHeader unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_dispose unsafe.Pointer
-var ptr_clang_getFileName unsafe.Pointer
-var ptr_clang_File_isEqual unsafe.Pointer
-var ptr_clang_File_tryGetRealPathName unsafe.Pointer
-var ptr_clang_getNullLocation unsafe.Pointer
-var ptr_clang_equalLocations unsafe.Pointer
-var ptr_clang_isBeforeInTranslationUnit unsafe.Pointer
-var ptr_clang_Location_isInSystemHeader unsafe.Pointer
-var ptr_clang_Location_isFromMainFile unsafe.Pointer
-var ptr_clang_getNullRange unsafe.Pointer
-var ptr_clang_getRange unsafe.Pointer
-var ptr_clang_equalRanges unsafe.Pointer
-var ptr_clang_Range_isNull unsafe.Pointer
-var ptr_clang_getRangeStart unsafe.Pointer
-var ptr_clang_getRangeEnd unsafe.Pointer
 var ptr_clang_getNumDiagnosticsInSet unsafe.Pointer
 var ptr_clang_getDiagnosticInSet unsafe.Pointer
 var ptr_clang_disposeDiagnosticSet unsafe.Pointer
@@ -315,6 +299,22 @@ var ptr_clang_getDiagnosticCategoryText unsafe.Pointer
 var ptr_clang_getDiagnosticNumRanges unsafe.Pointer
 var ptr_clang_getDiagnosticRange unsafe.Pointer
 var ptr_clang_getDiagnosticNumFixIts unsafe.Pointer
+var ptr_clang_getFileName unsafe.Pointer
+var ptr_clang_File_isEqual unsafe.Pointer
+var ptr_clang_File_tryGetRealPathName unsafe.Pointer
+var ptr_clang_getNullLocation unsafe.Pointer
+var ptr_clang_equalLocations unsafe.Pointer
+var ptr_clang_isBeforeInTranslationUnit unsafe.Pointer
+var ptr_clang_Location_isInSystemHeader unsafe.Pointer
+var ptr_clang_Location_isFromMainFile unsafe.Pointer
+var ptr_clang_getNullRange unsafe.Pointer
+var ptr_clang_getRange unsafe.Pointer
+var ptr_clang_equalRanges unsafe.Pointer
+var ptr_clang_Range_isNull unsafe.Pointer
+var ptr_clang_getRangeStart unsafe.Pointer
+var ptr_clang_getRangeEnd unsafe.Pointer
+var ptr_clang_getCString unsafe.Pointer
+var ptr_clang_disposeString unsafe.Pointer
 var ptr_clang_createIndex unsafe.Pointer
 var ptr_clang_disposeIndex unsafe.Pointer
 var ptr_clang_CXIndex_setGlobalOptions unsafe.Pointer
@@ -549,28 +549,6 @@ func init() {
 	var err error
 
 	{
-		ptr_clang_getCString, err = ffi.GetSymbol(library, "clang_getCString")
-		if err == nil {
-			returnType := types.PointerTypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				string_TypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_getCString, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_disposeString, err = ffi.GetSymbol(library, "clang_disposeString")
-		if err == nil {
-			returnType := types.VoidTypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				string_TypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_disposeString, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
 		ptr_clang_VirtualFileOverlay_create, err = ffi.GetSymbol(library, "clang_VirtualFileOverlay_create")
 		if err == nil {
 			returnType := types.PointerTypeDescriptor
@@ -660,161 +638,6 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_ModuleMapDescriptor_dispose, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getFileName, err = ffi.GetSymbol(library, "clang_getFileName")
-		if err == nil {
-			returnType := string_TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				types.PointerTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_getFileName, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_File_isEqual, err = ffi.GetSymbol(library, "clang_File_isEqual")
-		if err == nil {
-			returnType := types.SInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				types.PointerTypeDescriptor,
-				types.PointerTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_File_isEqual, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_File_tryGetRealPathName, err = ffi.GetSymbol(library, "clang_File_tryGetRealPathName")
-		if err == nil {
-			returnType := string_TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				types.PointerTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_File_tryGetRealPathName, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getNullLocation, err = ffi.GetSymbol(library, "clang_getNullLocation")
-		if err == nil {
-			returnType := sourceLocationTypeDescriptor
-			argTypes := []*types.TypeDescriptor{}
-			err = ffi.PrepareCallInterface(cif_clang_getNullLocation, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_equalLocations, err = ffi.GetSymbol(library, "clang_equalLocations")
-		if err == nil {
-			returnType := types.UInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceLocationTypeDescriptor,
-				sourceLocationTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_equalLocations, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_isBeforeInTranslationUnit, err = ffi.GetSymbol(library, "clang_isBeforeInTranslationUnit")
-		if err == nil {
-			returnType := types.UInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceLocationTypeDescriptor,
-				sourceLocationTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_isBeforeInTranslationUnit, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_Location_isInSystemHeader, err = ffi.GetSymbol(library, "clang_Location_isInSystemHeader")
-		if err == nil {
-			returnType := types.SInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceLocationTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_Location_isInSystemHeader, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_Location_isFromMainFile, err = ffi.GetSymbol(library, "clang_Location_isFromMainFile")
-		if err == nil {
-			returnType := types.SInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceLocationTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_Location_isFromMainFile, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getNullRange, err = ffi.GetSymbol(library, "clang_getNullRange")
-		if err == nil {
-			returnType := sourceRangeTypeDescriptor
-			argTypes := []*types.TypeDescriptor{}
-			err = ffi.PrepareCallInterface(cif_clang_getNullRange, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getRange, err = ffi.GetSymbol(library, "clang_getRange")
-		if err == nil {
-			returnType := sourceRangeTypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceLocationTypeDescriptor,
-				sourceLocationTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_getRange, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_equalRanges, err = ffi.GetSymbol(library, "clang_equalRanges")
-		if err == nil {
-			returnType := types.UInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceRangeTypeDescriptor,
-				sourceRangeTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_equalRanges, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_Range_isNull, err = ffi.GetSymbol(library, "clang_Range_isNull")
-		if err == nil {
-			returnType := types.SInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceRangeTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_Range_isNull, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getRangeStart, err = ffi.GetSymbol(library, "clang_getRangeStart")
-		if err == nil {
-			returnType := sourceLocationTypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceRangeTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_getRangeStart, types.DefaultCall, returnType, argTypes)
-		}
-	}
-
-	{
-		ptr_clang_getRangeEnd, err = ffi.GetSymbol(library, "clang_getRangeEnd")
-		if err == nil {
-			returnType := sourceLocationTypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				sourceRangeTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_getRangeEnd, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -992,6 +815,183 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticNumFixIts, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getFileName, err = ffi.GetSymbol(library, "clang_getFileName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getFileName, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_File_isEqual, err = ffi.GetSymbol(library, "clang_File_isEqual")
+		if err == nil {
+			returnType := types.SInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_File_isEqual, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_File_tryGetRealPathName, err = ffi.GetSymbol(library, "clang_File_tryGetRealPathName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_File_tryGetRealPathName, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getNullLocation, err = ffi.GetSymbol(library, "clang_getNullLocation")
+		if err == nil {
+			returnType := sourceLocationTypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_getNullLocation, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_equalLocations, err = ffi.GetSymbol(library, "clang_equalLocations")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceLocationTypeDescriptor,
+				sourceLocationTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_equalLocations, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_isBeforeInTranslationUnit, err = ffi.GetSymbol(library, "clang_isBeforeInTranslationUnit")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceLocationTypeDescriptor,
+				sourceLocationTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_isBeforeInTranslationUnit, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Location_isInSystemHeader, err = ffi.GetSymbol(library, "clang_Location_isInSystemHeader")
+		if err == nil {
+			returnType := types.SInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceLocationTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Location_isInSystemHeader, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Location_isFromMainFile, err = ffi.GetSymbol(library, "clang_Location_isFromMainFile")
+		if err == nil {
+			returnType := types.SInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceLocationTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Location_isFromMainFile, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getNullRange, err = ffi.GetSymbol(library, "clang_getNullRange")
+		if err == nil {
+			returnType := sourceRangeTypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_getNullRange, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getRange, err = ffi.GetSymbol(library, "clang_getRange")
+		if err == nil {
+			returnType := sourceRangeTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceLocationTypeDescriptor,
+				sourceLocationTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getRange, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_equalRanges, err = ffi.GetSymbol(library, "clang_equalRanges")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceRangeTypeDescriptor,
+				sourceRangeTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_equalRanges, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Range_isNull, err = ffi.GetSymbol(library, "clang_Range_isNull")
+		if err == nil {
+			returnType := types.SInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceRangeTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Range_isNull, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getRangeStart, err = ffi.GetSymbol(library, "clang_getRangeStart")
+		if err == nil {
+			returnType := sourceLocationTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceRangeTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getRangeStart, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getRangeEnd, err = ffi.GetSymbol(library, "clang_getRangeEnd")
+		if err == nil {
+			returnType := sourceLocationTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				sourceRangeTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getRangeEnd, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCString, err = ffi.GetSymbol(library, "clang_getCString")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				string_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCString, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_disposeString, err = ffi.GetSymbol(library, "clang_disposeString")
+		if err == nil {
+			returnType := types.VoidTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				string_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_disposeString, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

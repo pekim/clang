@@ -9,6 +9,63 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
+type VirtualFileOverlayImpl struct {
+	_ structs.HostLayout
+}
+
+type ModuleMapDescriptorImpl struct {
+	_ structs.HostLayout
+}
+
+// Uniquely identifies a CXFile, that refers to the same underlying file, across an indexing session.
+type FileUniqueID struct {
+	_ structs.HostLayout
+
+	Data [24]byte // unsigned long long[3]
+}
+
+/*
+Identifies a specific source location within a translation unit.
+
+Use clang_getExpansionLocation() or clang_getSpellingLocation() to map a source location to a particular file, line, and column.
+*/
+type SourceLocation struct {
+	_ structs.HostLayout
+
+	Ptr_data [16]byte // const void *[2]
+	Int_data uint32
+	_        [4]byte
+}
+
+/*
+Identifies a half-open character range in the source code.
+
+Use clang_getRangeStart() and clang_getRangeEnd() to retrieve the starting and end locations from a source range, respectively.
+*/
+type SourceRange struct {
+	_ structs.HostLayout
+
+	Ptr_data       [16]byte // const void *[2]
+	Begin_int_data uint32
+	End_int_data   uint32
+}
+
+// Identifies an array of ranges.
+type SourceRangeList struct {
+	_ structs.HostLayout
+
+	// The number of ranges in the ranges array.
+	Count uint32
+	_     [4]byte
+	// An array of CXSourceRanges.
+	ranges unsafe.Pointer // CXSourceRange *
+}
+
+/*
+A character string.
+
+The CXString type is used to return strings from the interface when the ownership of that string might differ from one call to the next. Use clang_getCString() to retrieve the string data and, once finished with the string data, call clang_disposeString() to free the string.
+*/
 type String_ struct {
 	_ structs.HostLayout
 
@@ -23,44 +80,6 @@ type StringSet struct {
 	strings unsafe.Pointer // CXString *
 	Count   uint32
 	_       [4]byte
-}
-
-type VirtualFileOverlayImpl struct {
-	_ structs.HostLayout
-}
-
-type ModuleMapDescriptorImpl struct {
-	_ structs.HostLayout
-}
-
-type FileUniqueID struct {
-	_ structs.HostLayout
-
-	Data [24]byte // unsigned long long[3]
-}
-
-type SourceLocation struct {
-	_ structs.HostLayout
-
-	Ptr_data [16]byte // const void *[2]
-	Int_data uint32
-	_        [4]byte
-}
-
-type SourceRange struct {
-	_ structs.HostLayout
-
-	Ptr_data       [16]byte // const void *[2]
-	Begin_int_data uint32
-	End_int_data   uint32
-}
-
-type SourceRangeList struct {
-	_ structs.HostLayout
-
-	Count  uint32
-	_      [4]byte
-	ranges unsafe.Pointer // CXSourceRange *
 }
 
 type TargetInfoImpl struct {

@@ -2,44 +2,106 @@
 
 package clang
 
-type ErrorCode uint32
-
-const (
-	Error_Success          ErrorCode = 0
-	Error_Failure          ErrorCode = 1
-	Error_Crashed          ErrorCode = 2
-	Error_InvalidArguments ErrorCode = 3
-	Error_ASTReadError     ErrorCode = 4
-)
-
+// Describes the severity of a particular diagnostic.
 type DiagnosticSeverity uint32
 
 const (
+	// A diagnostic that has been suppressed, e.g., by a command-line option.
 	Diagnostic_Ignored DiagnosticSeverity = 0
-	Diagnostic_Note    DiagnosticSeverity = 1
+	// This diagnostic is a note that should be attached to the previous (non-note) diagnostic.
+	Diagnostic_Note DiagnosticSeverity = 1
+	// This diagnostic indicates suspicious code that may not be wrong.
 	Diagnostic_Warning DiagnosticSeverity = 2
-	Diagnostic_Error   DiagnosticSeverity = 3
-	Diagnostic_Fatal   DiagnosticSeverity = 4
+	// This diagnostic indicates that the code is ill-formed.
+	Diagnostic_Error DiagnosticSeverity = 3
+	// This diagnostic indicates that the code is ill-formed such that future parser recovery is unlikely to produce useful results.
+	Diagnostic_Fatal DiagnosticSeverity = 4
 )
 
+// Describes the kind of error that occurred (if any) in a call to clang_loadDiagnostics.
 type LoadDiag_Error uint32
 
 const (
-	LoadDiag_None        LoadDiag_Error = 0
-	LoadDiag_Unknown     LoadDiag_Error = 1
-	LoadDiag_CannotLoad  LoadDiag_Error = 2
+	// Indicates that no error occurred.
+	LoadDiag_None LoadDiag_Error = 0
+	// Indicates that an unknown error occurred while attempting to deserialize diagnostics.
+	LoadDiag_Unknown LoadDiag_Error = 1
+	// Indicates that the file containing the serialized diagnostics could not be opened.
+	LoadDiag_CannotLoad LoadDiag_Error = 2
+	// Indicates that the serialized diagnostics file is invalid or corrupt.
 	LoadDiag_InvalidFile LoadDiag_Error = 3
 )
 
+/*
+Options to control the display of diagnostics.
+
+The values in this enum are meant to be combined to customize the behavior of clang_formatDiagnostic().
+*/
 type DiagnosticDisplayOptions uint32
 
 const (
+	/*
+	   Display the source-location information where the diagnostic was located.
+
+	   When set, diagnostics will be prefixed by the file, line, and (optionally) column to which the diagnostic refers. For example,
+
+	   This option corresponds to the clang flag -fshow-source-location.
+	*/
 	Diagnostic_DisplaySourceLocation DiagnosticDisplayOptions = 1
-	Diagnostic_DisplayColumn         DiagnosticDisplayOptions = 2
-	Diagnostic_DisplaySourceRanges   DiagnosticDisplayOptions = 4
-	Diagnostic_DisplayOption         DiagnosticDisplayOptions = 8
-	Diagnostic_DisplayCategoryId     DiagnosticDisplayOptions = 16
-	Diagnostic_DisplayCategoryName   DiagnosticDisplayOptions = 32
+	/*
+	   If displaying the source-location information of the diagnostic, also include the column number.
+
+	   This option corresponds to the clang flag -fshow-column.
+	*/
+	Diagnostic_DisplayColumn DiagnosticDisplayOptions = 2
+	/*
+	   If displaying the source-location information of the diagnostic, also include information about source ranges in a machine-parsable format.
+
+	   This option corresponds to the clang flag -fdiagnostics-print-source-range-info.
+	*/
+	Diagnostic_DisplaySourceRanges DiagnosticDisplayOptions = 4
+	/*
+	   Display the option name associated with this diagnostic, if any.
+
+	   The option name displayed (e.g., -Wconversion) will be placed in brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-option.
+	*/
+	Diagnostic_DisplayOption DiagnosticDisplayOptions = 8
+	/*
+	   Display the category number associated with this diagnostic, if any.
+
+	   The category number is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=id.
+	*/
+	Diagnostic_DisplayCategoryId DiagnosticDisplayOptions = 16
+	/*
+	   Display the category name associated with this diagnostic, if any.
+
+	   The category name is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=name.
+	*/
+	Diagnostic_DisplayCategoryName DiagnosticDisplayOptions = 32
+)
+
+/*
+Error codes returned by libclang routines.
+
+Zero (CXError_Success) is the only error code indicating success.  Other error codes, including not yet assigned non-zero values, indicate errors.
+*/
+type ErrorCode uint32
+
+const (
+	// No error.
+	Error_Success ErrorCode = 0
+	/*
+	   A generic error code, no further details are available.
+
+	   Errors of this kind can get their own specific error codes in future libclang versions.
+	*/
+	Error_Failure ErrorCode = 1
+	// libclang crashed while performing the requested operation.
+	Error_Crashed ErrorCode = 2
+	// The function detected that the arguments violate the function contract.
+	Error_InvalidArguments ErrorCode = 3
+	// An AST deserialization error has occurred.
+	Error_ASTReadError ErrorCode = 4
 )
 
 // Describes the availability of a particular entity, which indicates whether the use of this entity will result in a warning or error due to it being deprecated or unavailable.
