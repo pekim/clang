@@ -83,6 +83,7 @@ var cif_clang_Cursor_isObjCOptional = &types.CallInterface{}
 var cif_clang_Cursor_isVariadic = &types.CallInterface{}
 var cif_clang_EnumDecl_isScoped = &types.CallInterface{}
 var cif_clang_EvalResult_dispose = &types.CallInterface{}
+var cif_clang_EvalResult_getAsDouble = &types.CallInterface{}
 var cif_clang_EvalResult_getAsInt = &types.CallInterface{}
 var cif_clang_EvalResult_getAsLongLong = &types.CallInterface{}
 var cif_clang_EvalResult_getAsStr = &types.CallInterface{}
@@ -411,6 +412,7 @@ var ptr_clang_Cursor_isObjCOptional unsafe.Pointer
 var ptr_clang_Cursor_isVariadic unsafe.Pointer
 var ptr_clang_EnumDecl_isScoped unsafe.Pointer
 var ptr_clang_EvalResult_dispose unsafe.Pointer
+var ptr_clang_EvalResult_getAsDouble unsafe.Pointer
 var ptr_clang_EvalResult_getAsInt unsafe.Pointer
 var ptr_clang_EvalResult_getAsLongLong unsafe.Pointer
 var ptr_clang_EvalResult_getAsStr unsafe.Pointer
@@ -1493,6 +1495,17 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_dispose, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_EvalResult_getAsDouble, err = ffi.GetSymbol(library, "clang_EvalResult_getAsDouble")
+		if err == nil {
+			returnType := types.DoubleTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsDouble, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

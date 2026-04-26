@@ -1882,7 +1882,28 @@ func EvalResult_dispose(e EvalResult) {
 	}
 }
 
-// not supported : clang_EvalResult_getAsDouble : return value : double
+// Returns the evaluation result as double if the kind is double.
+func EvalResult_getAsDouble(e EvalResult) float64 {
+	c_e := e
+
+	var retC float64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getAsDouble,
+		ptr_clang_EvalResult_getAsDouble,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsDouble", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the evaluation result as integer if the kind is Int.
 func EvalResult_getAsInt(e EvalResult) int32 {
