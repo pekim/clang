@@ -4915,7 +4915,34 @@ func GetCompletionNumFixIts(results *CodeCompleteResults, completion_index uint3
 	return ret
 }
 
-// not supported : clang_getCompletionParent : param kind : enum CXCursorKind *
+/*
+Retrieve the parent context of the given completion string.
+
+The parent context of a completion string is the semantic parent of the declaration (if any) that the code completion represents. For example, a code completion for an Objective-C method would have the method's class or protocol as its context.
+*/
+func GetCompletionParent(completion_string CompletionString, kind *CursorKind) String_ {
+	c_completion_string := completion_string
+	c_kind := kind
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_kind),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getCompletionParent,
+		ptr_clang_getCompletionParent,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionParent", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Determine the priority of this code completion.
@@ -8015,7 +8042,33 @@ func IsVolatileQualifiedType(t Type_) uint32 {
 	return ret
 }
 
-// not supported : clang_loadDiagnostics : param error : enum CXLoadDiag_Error *
+// Deserialize a set of diagnostics from a Clang diagnostics bitcode file.
+func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String_) DiagnosticSet {
+	c_file, free_c_file := libc.CString(file)
+	defer free_c_file()
+	c_error := error
+	c_errorString := errorString
+
+	var retC DiagnosticSet
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_error),
+		unsafe.Pointer(&c_errorString),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_loadDiagnostics,
+		ptr_clang_loadDiagnostics,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_loadDiagnostics", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Same as clang_parseTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
 func ParseTranslationUnit(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) TranslationUnit {

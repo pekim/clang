@@ -205,6 +205,7 @@ var cif_clang_getCompletionChunkText = &types.CallInterface{}
 var cif_clang_getCompletionFixIt = &types.CallInterface{}
 var cif_clang_getCompletionNumAnnotations = &types.CallInterface{}
 var cif_clang_getCompletionNumFixIts = &types.CallInterface{}
+var cif_clang_getCompletionParent = &types.CallInterface{}
 var cif_clang_getCompletionPriority = &types.CallInterface{}
 var cif_clang_getCursor = &types.CallInterface{}
 var cif_clang_getCursorAvailability = &types.CallInterface{}
@@ -325,6 +326,7 @@ var cif_clang_isTranslationUnit = &types.CallInterface{}
 var cif_clang_isUnexposed = &types.CallInterface{}
 var cif_clang_isVirtualBase = &types.CallInterface{}
 var cif_clang_isVolatileQualifiedType = &types.CallInterface{}
+var cif_clang_loadDiagnostics = &types.CallInterface{}
 var cif_clang_parseTranslationUnit = &types.CallInterface{}
 var cif_clang_remap_dispose = &types.CallInterface{}
 var cif_clang_remap_getFilenames = &types.CallInterface{}
@@ -534,6 +536,7 @@ var ptr_clang_getCompletionChunkText unsafe.Pointer
 var ptr_clang_getCompletionFixIt unsafe.Pointer
 var ptr_clang_getCompletionNumAnnotations unsafe.Pointer
 var ptr_clang_getCompletionNumFixIts unsafe.Pointer
+var ptr_clang_getCompletionParent unsafe.Pointer
 var ptr_clang_getCompletionPriority unsafe.Pointer
 var ptr_clang_getCursor unsafe.Pointer
 var ptr_clang_getCursorAvailability unsafe.Pointer
@@ -654,6 +657,7 @@ var ptr_clang_isTranslationUnit unsafe.Pointer
 var ptr_clang_isUnexposed unsafe.Pointer
 var ptr_clang_isVirtualBase unsafe.Pointer
 var ptr_clang_isVolatileQualifiedType unsafe.Pointer
+var ptr_clang_loadDiagnostics unsafe.Pointer
 var ptr_clang_parseTranslationUnit unsafe.Pointer
 var ptr_clang_remap_dispose unsafe.Pointer
 var ptr_clang_remap_getFilenames unsafe.Pointer
@@ -2891,6 +2895,18 @@ func init() {
 	}
 
 	{
+		ptr_clang_getCompletionParent, err = ffi.GetSymbol(library, "clang_getCompletionParent")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCompletionParent, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getCompletionPriority, err = ffi.GetSymbol(library, "clang_getCompletionPriority")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -4239,6 +4255,19 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isVolatileQualifiedType, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_loadDiagnostics, err = ffi.GetSymbol(library, "clang_loadDiagnostics")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_loadDiagnostics, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
