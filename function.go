@@ -3654,7 +3654,33 @@ func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
 	return ret
 }
 
-// not supported : clang_createTranslationUnit2 : param out_TU : CXTranslationUnit *
+// Create a translation unit from an AST file (-emit-ast).
+func CreateTranslationUnit2(cIdx Index, ast_filename string, out_TU *TranslationUnit) ErrorCode {
+	c_cIdx := cIdx
+	c_ast_filename, free_c_ast_filename := libc.CString(ast_filename)
+	defer free_c_ast_filename()
+	c_out_TU := out_TU
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_ast_filename),
+		unsafe.Pointer(&c_out_TU),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_createTranslationUnit2,
+		ptr_clang_createTranslationUnit2,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createTranslationUnit2", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Return the CXTranslationUnit for a given source file and the provided command line arguments one would pass to the compiler.
@@ -6169,7 +6195,7 @@ func GetExceptionSpecificationType(t Type_) int32 {
 	return ret
 }
 
-// not supported : clang_getExpansionLocation : param file : CXFile *
+// not supported : clang_getExpansionLocation : param line : unsigned int *
 
 /*
 Retrieve the bit width of a bit-field declaration as an integer.
@@ -6228,7 +6254,7 @@ func GetFile(tu TranslationUnit, file_name string) File {
 
 // not supported : clang_getFileContents : param size : size_t *
 
-// not supported : clang_getFileLocation : param file : CXFile *
+// not supported : clang_getFileLocation : param line : unsigned int *
 
 // Retrieve the complete file and path name of the given file.
 func GetFileName(sFile File) String_ {
@@ -6409,7 +6435,7 @@ func GetInclusions(tu TranslationUnit, visitor InclusionVisitor, client_data Cli
 	}
 }
 
-// not supported : clang_getInstantiationLocation : param file : CXFile *
+// not supported : clang_getInstantiationLocation : param line : unsigned int *
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
 func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) SourceLocation {
@@ -6986,7 +7012,7 @@ func GetSpecializedCursorTemplate(c Cursor) Cursor {
 	return ret
 }
 
-// not supported : clang_getSpellingLocation : param file : CXFile *
+// not supported : clang_getSpellingLocation : param line : unsigned int *
 
 // Returns the human-readable null-terminated C string that represents  the name of the memory category.  This string should never be freed.
 func GetTUResourceUsageName(kind TUResourceUsageKind) string {
@@ -7502,11 +7528,111 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 	return ret
 }
 
-// not supported : clang_indexLoc_getFileLocation : param indexFile : CXIdxClientFile *
+// not supported : clang_indexLoc_getFileLocation : param line : unsigned int *
 
-// not supported : clang_indexSourceFile : param out_TU : CXTranslationUnit *
+/*
+Index the given source file and the translation unit corresponding to that file via callbacks implemented through #IndexerCallbacks.
 
-// not supported : clang_indexSourceFileFullArgv : param out_TU : CXTranslationUnit *
+The rest of the parameters are the same as #clang_parseTranslationUnit.
+*/
+func IndexSourceFile(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+	c_p0 := p0
+	c_client_data := client_data
+	c_index_callbacks := index_callbacks
+	c_index_callbacks_size := index_callbacks_size
+	c_index_options := index_options
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_command_line_args, free_c_command_line_args := libc.CStrings(command_line_args)
+	defer free_c_command_line_args()
+	c_num_command_line_args := len(command_line_args)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_out_TU := out_TU
+	c_tU_options := tU_options
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_client_data),
+		unsafe.Pointer(&c_index_callbacks),
+		unsafe.Pointer(&c_index_callbacks_size),
+		unsafe.Pointer(&c_index_options),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_command_line_args),
+		unsafe.Pointer(&c_num_command_line_args),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_out_TU),
+		unsafe.Pointer(&c_tU_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_indexSourceFile,
+		ptr_clang_indexSourceFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexSourceFile", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Same as clang_indexSourceFile but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
+func IndexSourceFileFullArgv(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+	c_p0 := p0
+	c_client_data := client_data
+	c_index_callbacks := index_callbacks
+	c_index_callbacks_size := index_callbacks_size
+	c_index_options := index_options
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_command_line_args, free_c_command_line_args := libc.CStrings(command_line_args)
+	defer free_c_command_line_args()
+	c_num_command_line_args := len(command_line_args)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_out_TU := out_TU
+	c_tU_options := tU_options
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_client_data),
+		unsafe.Pointer(&c_index_callbacks),
+		unsafe.Pointer(&c_index_callbacks_size),
+		unsafe.Pointer(&c_index_options),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_command_line_args),
+		unsafe.Pointer(&c_num_command_line_args),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_out_TU),
+		unsafe.Pointer(&c_tU_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_indexSourceFileFullArgv,
+		ptr_clang_indexSourceFileFullArgv,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexSourceFileFullArgv", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Index the given translation unit via callbacks implemented through #IndexerCallbacks.
@@ -8110,9 +8236,93 @@ func ParseTranslationUnit(cIdx Index, source_filename string, command_line_args 
 	return ret
 }
 
-// not supported : clang_parseTranslationUnit2 : param out_TU : CXTranslationUnit *
+/*
+Parse the given source file and the translation unit corresponding to that file.
 
-// not supported : clang_parseTranslationUnit2FullArgv : param out_TU : CXTranslationUnit *
+This routine is the main entry point for the Clang C API, providing the ability to parse a source file into a translation unit that can then be queried by other functions in the API. This routine accepts a set of command-line arguments so that the compilation can be configured in the same way that the compiler is configured on the command line.
+*/
+func ParseTranslationUnit2(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+	c_cIdx := cIdx
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_command_line_args, free_c_command_line_args := libc.CStrings(command_line_args)
+	defer free_c_command_line_args()
+	c_num_command_line_args := len(command_line_args)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_options := options
+	c_out_TU := out_TU
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_command_line_args),
+		unsafe.Pointer(&c_num_command_line_args),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_options),
+		unsafe.Pointer(&c_out_TU),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_parseTranslationUnit2,
+		ptr_clang_parseTranslationUnit2,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_parseTranslationUnit2", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Same as clang_parseTranslationUnit2 but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
+func ParseTranslationUnit2FullArgv(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+	c_cIdx := cIdx
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_command_line_args, free_c_command_line_args := libc.CStrings(command_line_args)
+	defer free_c_command_line_args()
+	c_num_command_line_args := len(command_line_args)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_options := options
+	c_out_TU := out_TU
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_command_line_args),
+		unsafe.Pointer(&c_num_command_line_args),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_options),
+		unsafe.Pointer(&c_out_TU),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_parseTranslationUnit2FullArgv,
+		ptr_clang_parseTranslationUnit2FullArgv,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_parseTranslationUnit2FullArgv", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func Remap_dispose(p0 Remapping) {
 	c_p0 := p0
