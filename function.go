@@ -61,7 +61,28 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 	return ret
 }
 
-// not supported : clang_VirtualFileOverlay_addFileMapping : param virtualPath : const char *
+func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string, realPath string) ErrorCode {
+	c_p0 := p0
+	c_virtualPath, free_c_virtualPath := libc.CString(virtualPath)
+	defer free_c_virtualPath()
+	c_realPath, free_c_realPath := libc.CString(realPath)
+	defer free_c_realPath()
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_virtualPath),
+		unsafe.Pointer(&c_realPath),
+	}
+
+	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_addFileMapping, ptr_clang_VirtualFileOverlay_addFileMapping, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_addFileMapping", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive int32) ErrorCode {
 	c_p0 := p0
@@ -116,9 +137,45 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 	return ret
 }
 
-// not supported : clang_ModuleMapDescriptor_setFrameworkModuleName : param name : const char *
+func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name string) ErrorCode {
+	c_p0 := p0
+	c_name, free_c_name := libc.CString(name)
+	defer free_c_name()
 
-// not supported : clang_ModuleMapDescriptor_setUmbrellaHeader : param name : const char *
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_name),
+	}
+
+	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_setFrameworkModuleName, ptr_clang_ModuleMapDescriptor_setFrameworkModuleName, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_setFrameworkModuleName", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) ErrorCode {
+	c_p0 := p0
+	c_name, free_c_name := libc.CString(name)
+	defer free_c_name()
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_name),
+	}
+
+	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_setUmbrellaHeader, ptr_clang_ModuleMapDescriptor_setUmbrellaHeader, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_setUmbrellaHeader", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_ModuleMapDescriptor_writeToBuffer : param out_buffer_ptr : char **
 
@@ -427,7 +484,7 @@ func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
 	return ret
 }
 
-// not supported : clang_loadDiagnostics : param file : const char *
+// not supported : clang_loadDiagnostics : param error : enum CXLoadDiag_Error *
 
 func DisposeDiagnosticSet(diags DiagnosticSet) {
 	c_diags := diags
@@ -757,7 +814,28 @@ func Index_getGlobalOptions(p0 Index) uint32 {
 	return ret
 }
 
-// not supported : clang_CXIndex_setInvocationEmissionPathOption : param Path : const char *
+/*
+Sets the invocation emission path option in a CXIndex.
+
+This function is DEPRECATED. Set CXIndexOptions::InvocationEmissionPath and call clang_createIndexWithOptions() instead.
+
+The invocation emission path specifies a path which will contain log files for certain libclang invocations. A null value (default) implies that libclang invocations are not logged..
+*/
+func Index_setInvocationEmissionPathOption(p0 Index, path string) {
+	c_p0 := p0
+	c_path, free_c_path := libc.CString(path)
+	defer free_c_path()
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_path),
+	}
+
+	err := ffi.CallFunction(cif_clang_CXIndex_setInvocationEmissionPathOption, ptr_clang_CXIndex_setInvocationEmissionPathOption, nil, args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_setInvocationEmissionPathOption", err))
+	}
+}
 
 // Determine whether the given header is guarded against multiple inclusions, either with the conventional #ifndef/#define/#endif macro guards or with #pragma once.
 func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
@@ -779,7 +857,26 @@ func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
 	return ret
 }
 
-// not supported : clang_getFile : param file_name : const char *
+// Retrieve a file handle within the given translation unit.
+func GetFile(tu TranslationUnit, file_name string) File {
+	c_tu := tu
+	c_file_name, free_c_file_name := libc.CString(file_name)
+	defer free_c_file_name()
+
+	var retC File
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_file_name),
+	}
+
+	err := ffi.CallFunction(cif_clang_getFile, ptr_clang_getFile, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFile", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getFileContents : param size : size_t *
 
@@ -907,11 +1004,30 @@ func GetTranslationUnitSpelling(cTUnit TranslationUnit) String_ {
 	return ret
 }
 
-// not supported : clang_createTranslationUnitFromSourceFile : param source_filename : const char *
+// not supported : clang_createTranslationUnitFromSourceFile : param clang_command_line_args : const char *const *
 
-// not supported : clang_createTranslationUnit : param ast_filename : const char *
+// Same as clang_createTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
+func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
+	c_cIdx := cIdx
+	c_ast_filename, free_c_ast_filename := libc.CString(ast_filename)
+	defer free_c_ast_filename()
 
-// not supported : clang_createTranslationUnit2 : param ast_filename : const char *
+	var retC TranslationUnit
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_ast_filename),
+	}
+
+	err := ffi.CallFunction(cif_clang_createTranslationUnit, ptr_clang_createTranslationUnit, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_createTranslationUnit2 : param out_TU : CXTranslationUnit *
 
 /*
 Returns the set of flags that is suitable for parsing a translation unit that is being edited.
@@ -931,11 +1047,11 @@ func DefaultEditingTranslationUnitOptions() uint32 {
 	return ret
 }
 
-// not supported : clang_parseTranslationUnit : param source_filename : const char *
+// not supported : clang_parseTranslationUnit : param command_line_args : const char *const *
 
-// not supported : clang_parseTranslationUnit2 : param source_filename : const char *
+// not supported : clang_parseTranslationUnit2 : param command_line_args : const char *const *
 
-// not supported : clang_parseTranslationUnit2FullArgv : param source_filename : const char *
+// not supported : clang_parseTranslationUnit2FullArgv : param command_line_args : const char *const *
 
 /*
 Returns the set of flags that is suitable for saving a translation unit.
@@ -959,7 +1075,32 @@ func DefaultSaveOptions(tU TranslationUnit) uint32 {
 	return ret
 }
 
-// not supported : clang_saveTranslationUnit : param FileName : const char *
+/*
+Saves a translation unit into a serialized representation of that translation unit on disk.
+
+Any translation unit that was parsed without error can be saved into a file. The translation unit can then be deserialized into a new CXTranslationUnit with clang_createTranslationUnit() or, if it is an incomplete translation unit that corresponds to a header, used as a precompiled header when parsing other translation units.
+*/
+func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) int32 {
+	c_tU := tU
+	c_fileName, free_c_fileName := libc.CString(fileName)
+	defer free_c_fileName()
+	c_options := options
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_fileName),
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(cif_clang_saveTranslationUnit, ptr_clang_saveTranslationUnit, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_saveTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Suspend a translation unit in order to free memory associated with it.
@@ -3087,17 +3228,130 @@ func GetCursorUSR(p0 Cursor) String_ {
 	return ret
 }
 
-// not supported : clang_constructUSR_ObjCClass : param class_name : const char *
+// Construct a USR for a specified Objective-C class.
+func ConstructUSR_ObjCClass(class_name string) String_ {
+	c_class_name, free_c_class_name := libc.CString(class_name)
+	defer free_c_class_name()
 
-// not supported : clang_constructUSR_ObjCCategory : param class_name : const char *
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_class_name),
+	}
 
-// not supported : clang_constructUSR_ObjCProtocol : param protocol_name : const char *
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCClass, ptr_clang_constructUSR_ObjCClass, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCClass", err))
+	}
 
-// not supported : clang_constructUSR_ObjCIvar : param name : const char *
+	ret := retC
+	return ret
+}
 
-// not supported : clang_constructUSR_ObjCMethod : param name : const char *
+// Construct a USR for a specified Objective-C category.
+func ConstructUSR_ObjCCategory(class_name string, category_name string) String_ {
+	c_class_name, free_c_class_name := libc.CString(class_name)
+	defer free_c_class_name()
+	c_category_name, free_c_category_name := libc.CString(category_name)
+	defer free_c_category_name()
 
-// not supported : clang_constructUSR_ObjCProperty : param property : const char *
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_class_name),
+		unsafe.Pointer(&c_category_name),
+	}
+
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCCategory, ptr_clang_constructUSR_ObjCCategory, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCCategory", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Construct a USR for a specified Objective-C protocol.
+func ConstructUSR_ObjCProtocol(protocol_name string) String_ {
+	c_protocol_name, free_c_protocol_name := libc.CString(protocol_name)
+	defer free_c_protocol_name()
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_protocol_name),
+	}
+
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCProtocol, ptr_clang_constructUSR_ObjCProtocol, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProtocol", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Construct a USR for a specified Objective-C instance variable and   the USR for its containing class.
+func ConstructUSR_ObjCIvar(name string, classUSR String_) String_ {
+	c_name, free_c_name := libc.CString(name)
+	defer free_c_name()
+	c_classUSR := classUSR
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_name),
+		unsafe.Pointer(&c_classUSR),
+	}
+
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCIvar, ptr_clang_constructUSR_ObjCIvar, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCIvar", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Construct a USR for a specified Objective-C method and   the USR for its containing class.
+func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String_) String_ {
+	c_name, free_c_name := libc.CString(name)
+	defer free_c_name()
+	c_isInstanceMethod := isInstanceMethod
+	c_classUSR := classUSR
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_name),
+		unsafe.Pointer(&c_isInstanceMethod),
+		unsafe.Pointer(&c_classUSR),
+	}
+
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCMethod, ptr_clang_constructUSR_ObjCMethod, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCMethod", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Construct a USR for a specified Objective-C property and the USR  for its containing class.
+func ConstructUSR_ObjCProperty(property string, classUSR String_) String_ {
+	c_property, free_c_property := libc.CString(property)
+	defer free_c_property()
+	c_classUSR := classUSR
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_property),
+		unsafe.Pointer(&c_classUSR),
+	}
+
+	err := ffi.CallFunction(cif_clang_constructUSR_ObjCProperty, ptr_clang_constructUSR_ObjCProperty, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProperty", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve a name for the entity referenced by this cursor.
 func GetCursorSpelling(p0 Cursor) String_ {
@@ -5121,7 +5375,23 @@ func GetCursorUnaryOperatorKind(cursor Cursor) UnaryOperatorKind {
 	return ret
 }
 
-// not supported : clang_getRemappings : param p0 : const char *
+func GetRemappings(p0 string) Remapping {
+	c_p0, free_c_p0 := libc.CString(p0)
+	defer free_c_p0()
+
+	var retC Remapping
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getRemappings, ptr_clang_getRemappings, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getRemappings", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getRemappingsFromFileList : param p0 : const char **
 
