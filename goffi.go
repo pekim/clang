@@ -54,12 +54,15 @@ var cif_clang_Cursor_getObjCPropertyAttributes = &types.CallInterface{}
 var cif_clang_Cursor_getObjCPropertyGetterName = &types.CallInterface{}
 var cif_clang_Cursor_getObjCPropertySetterName = &types.CallInterface{}
 var cif_clang_Cursor_getObjCSelectorIndex = &types.CallInterface{}
+var cif_clang_Cursor_getOffsetOfField = &types.CallInterface{}
 var cif_clang_Cursor_getRawCommentText = &types.CallInterface{}
 var cif_clang_Cursor_getReceiverType = &types.CallInterface{}
 var cif_clang_Cursor_getSpellingNameRange = &types.CallInterface{}
 var cif_clang_Cursor_getStorageClass = &types.CallInterface{}
 var cif_clang_Cursor_getTemplateArgumentKind = &types.CallInterface{}
 var cif_clang_Cursor_getTemplateArgumentType = &types.CallInterface{}
+var cif_clang_Cursor_getTemplateArgumentUnsignedValue = &types.CallInterface{}
+var cif_clang_Cursor_getTemplateArgumentValue = &types.CallInterface{}
 var cif_clang_Cursor_getTranslationUnit = &types.CallInterface{}
 var cif_clang_Cursor_getVarDeclInitializer = &types.CallInterface{}
 var cif_clang_Cursor_hasAttrs = &types.CallInterface{}
@@ -81,7 +84,9 @@ var cif_clang_Cursor_isVariadic = &types.CallInterface{}
 var cif_clang_EnumDecl_isScoped = &types.CallInterface{}
 var cif_clang_EvalResult_dispose = &types.CallInterface{}
 var cif_clang_EvalResult_getAsInt = &types.CallInterface{}
+var cif_clang_EvalResult_getAsLongLong = &types.CallInterface{}
 var cif_clang_EvalResult_getAsStr = &types.CallInterface{}
+var cif_clang_EvalResult_getAsUnsigned = &types.CallInterface{}
 var cif_clang_EvalResult_getKind = &types.CallInterface{}
 var cif_clang_EvalResult_isUnsignedInt = &types.CallInterface{}
 var cif_clang_File_isEqual = &types.CallInterface{}
@@ -108,6 +113,7 @@ var cif_clang_Range_isNull = &types.CallInterface{}
 var cif_clang_TargetInfo_dispose = &types.CallInterface{}
 var cif_clang_TargetInfo_getPointerWidth = &types.CallInterface{}
 var cif_clang_TargetInfo_getTriple = &types.CallInterface{}
+var cif_clang_Type_getAlignOf = &types.CallInterface{}
 var cif_clang_Type_getCXXRefQualifier = &types.CallInterface{}
 var cif_clang_Type_getClassType = &types.CallInterface{}
 var cif_clang_Type_getModifiedType = &types.CallInterface{}
@@ -120,6 +126,8 @@ var cif_clang_Type_getObjCEncoding = &types.CallInterface{}
 var cif_clang_Type_getObjCObjectBaseType = &types.CallInterface{}
 var cif_clang_Type_getObjCProtocolDecl = &types.CallInterface{}
 var cif_clang_Type_getObjCTypeArg = &types.CallInterface{}
+var cif_clang_Type_getOffsetOf = &types.CallInterface{}
+var cif_clang_Type_getSizeOf = &types.CallInterface{}
 var cif_clang_Type_getTemplateArgumentAsType = &types.CallInterface{}
 var cif_clang_Type_getValueType = &types.CallInterface{}
 var cif_clang_Type_isTransparentTagTypedef = &types.CallInterface{}
@@ -131,6 +139,7 @@ var cif_clang_VirtualFileOverlay_setCaseSensitivity = &types.CallInterface{}
 var cif_clang_annotateTokens = &types.CallInterface{}
 var cif_clang_codeCompleteAt = &types.CallInterface{}
 var cif_clang_codeCompleteGetContainerUSR = &types.CallInterface{}
+var cif_clang_codeCompleteGetContexts = &types.CallInterface{}
 var cif_clang_codeCompleteGetDiagnostic = &types.CallInterface{}
 var cif_clang_codeCompleteGetNumDiagnostics = &types.CallInterface{}
 var cif_clang_codeCompleteGetObjCSelector = &types.CallInterface{}
@@ -176,7 +185,9 @@ var cif_clang_getAddressSpace = &types.CallInterface{}
 var cif_clang_getAllSkippedRanges = &types.CallInterface{}
 var cif_clang_getArgType = &types.CallInterface{}
 var cif_clang_getArrayElementType = &types.CallInterface{}
+var cif_clang_getArraySize = &types.CallInterface{}
 var cif_clang_getBinaryOperatorKindSpelling = &types.CallInterface{}
+var cif_clang_getBuildSessionTimestamp = &types.CallInterface{}
 var cif_clang_getCString = &types.CallInterface{}
 var cif_clang_getCXTUResourceUsage = &types.CallInterface{}
 var cif_clang_getCXXAccessSpecifier = &types.CallInterface{}
@@ -236,6 +247,8 @@ var cif_clang_getDiagnosticSetFromTU = &types.CallInterface{}
 var cif_clang_getDiagnosticSeverity = &types.CallInterface{}
 var cif_clang_getDiagnosticSpelling = &types.CallInterface{}
 var cif_clang_getElementType = &types.CallInterface{}
+var cif_clang_getEnumConstantDeclUnsignedValue = &types.CallInterface{}
+var cif_clang_getEnumConstantDeclValue = &types.CallInterface{}
 var cif_clang_getEnumDeclIntegerType = &types.CallInterface{}
 var cif_clang_getExceptionSpecificationType = &types.CallInterface{}
 var cif_clang_getFieldDeclBitWidth = &types.CallInterface{}
@@ -258,7 +271,9 @@ var cif_clang_getNumArgTypes = &types.CallInterface{}
 var cif_clang_getNumCompletionChunks = &types.CallInterface{}
 var cif_clang_getNumDiagnostics = &types.CallInterface{}
 var cif_clang_getNumDiagnosticsInSet = &types.CallInterface{}
+var cif_clang_getNumElements = &types.CallInterface{}
 var cif_clang_getNumOverloadedDecls = &types.CallInterface{}
+var cif_clang_getOffsetOfBase = &types.CallInterface{}
 var cif_clang_getOverloadedDecl = &types.CallInterface{}
 var cif_clang_getPointeeType = &types.CallInterface{}
 var cif_clang_getRange = &types.CallInterface{}
@@ -367,12 +382,15 @@ var ptr_clang_Cursor_getObjCPropertyAttributes unsafe.Pointer
 var ptr_clang_Cursor_getObjCPropertyGetterName unsafe.Pointer
 var ptr_clang_Cursor_getObjCPropertySetterName unsafe.Pointer
 var ptr_clang_Cursor_getObjCSelectorIndex unsafe.Pointer
+var ptr_clang_Cursor_getOffsetOfField unsafe.Pointer
 var ptr_clang_Cursor_getRawCommentText unsafe.Pointer
 var ptr_clang_Cursor_getReceiverType unsafe.Pointer
 var ptr_clang_Cursor_getSpellingNameRange unsafe.Pointer
 var ptr_clang_Cursor_getStorageClass unsafe.Pointer
 var ptr_clang_Cursor_getTemplateArgumentKind unsafe.Pointer
 var ptr_clang_Cursor_getTemplateArgumentType unsafe.Pointer
+var ptr_clang_Cursor_getTemplateArgumentUnsignedValue unsafe.Pointer
+var ptr_clang_Cursor_getTemplateArgumentValue unsafe.Pointer
 var ptr_clang_Cursor_getTranslationUnit unsafe.Pointer
 var ptr_clang_Cursor_getVarDeclInitializer unsafe.Pointer
 var ptr_clang_Cursor_hasAttrs unsafe.Pointer
@@ -394,7 +412,9 @@ var ptr_clang_Cursor_isVariadic unsafe.Pointer
 var ptr_clang_EnumDecl_isScoped unsafe.Pointer
 var ptr_clang_EvalResult_dispose unsafe.Pointer
 var ptr_clang_EvalResult_getAsInt unsafe.Pointer
+var ptr_clang_EvalResult_getAsLongLong unsafe.Pointer
 var ptr_clang_EvalResult_getAsStr unsafe.Pointer
+var ptr_clang_EvalResult_getAsUnsigned unsafe.Pointer
 var ptr_clang_EvalResult_getKind unsafe.Pointer
 var ptr_clang_EvalResult_isUnsignedInt unsafe.Pointer
 var ptr_clang_File_isEqual unsafe.Pointer
@@ -421,6 +441,7 @@ var ptr_clang_Range_isNull unsafe.Pointer
 var ptr_clang_TargetInfo_dispose unsafe.Pointer
 var ptr_clang_TargetInfo_getPointerWidth unsafe.Pointer
 var ptr_clang_TargetInfo_getTriple unsafe.Pointer
+var ptr_clang_Type_getAlignOf unsafe.Pointer
 var ptr_clang_Type_getCXXRefQualifier unsafe.Pointer
 var ptr_clang_Type_getClassType unsafe.Pointer
 var ptr_clang_Type_getModifiedType unsafe.Pointer
@@ -433,6 +454,8 @@ var ptr_clang_Type_getObjCEncoding unsafe.Pointer
 var ptr_clang_Type_getObjCObjectBaseType unsafe.Pointer
 var ptr_clang_Type_getObjCProtocolDecl unsafe.Pointer
 var ptr_clang_Type_getObjCTypeArg unsafe.Pointer
+var ptr_clang_Type_getOffsetOf unsafe.Pointer
+var ptr_clang_Type_getSizeOf unsafe.Pointer
 var ptr_clang_Type_getTemplateArgumentAsType unsafe.Pointer
 var ptr_clang_Type_getValueType unsafe.Pointer
 var ptr_clang_Type_isTransparentTagTypedef unsafe.Pointer
@@ -444,6 +467,7 @@ var ptr_clang_VirtualFileOverlay_setCaseSensitivity unsafe.Pointer
 var ptr_clang_annotateTokens unsafe.Pointer
 var ptr_clang_codeCompleteAt unsafe.Pointer
 var ptr_clang_codeCompleteGetContainerUSR unsafe.Pointer
+var ptr_clang_codeCompleteGetContexts unsafe.Pointer
 var ptr_clang_codeCompleteGetDiagnostic unsafe.Pointer
 var ptr_clang_codeCompleteGetNumDiagnostics unsafe.Pointer
 var ptr_clang_codeCompleteGetObjCSelector unsafe.Pointer
@@ -489,7 +513,9 @@ var ptr_clang_getAddressSpace unsafe.Pointer
 var ptr_clang_getAllSkippedRanges unsafe.Pointer
 var ptr_clang_getArgType unsafe.Pointer
 var ptr_clang_getArrayElementType unsafe.Pointer
+var ptr_clang_getArraySize unsafe.Pointer
 var ptr_clang_getBinaryOperatorKindSpelling unsafe.Pointer
+var ptr_clang_getBuildSessionTimestamp unsafe.Pointer
 var ptr_clang_getCString unsafe.Pointer
 var ptr_clang_getCXTUResourceUsage unsafe.Pointer
 var ptr_clang_getCXXAccessSpecifier unsafe.Pointer
@@ -549,6 +575,8 @@ var ptr_clang_getDiagnosticSetFromTU unsafe.Pointer
 var ptr_clang_getDiagnosticSeverity unsafe.Pointer
 var ptr_clang_getDiagnosticSpelling unsafe.Pointer
 var ptr_clang_getElementType unsafe.Pointer
+var ptr_clang_getEnumConstantDeclUnsignedValue unsafe.Pointer
+var ptr_clang_getEnumConstantDeclValue unsafe.Pointer
 var ptr_clang_getEnumDeclIntegerType unsafe.Pointer
 var ptr_clang_getExceptionSpecificationType unsafe.Pointer
 var ptr_clang_getFieldDeclBitWidth unsafe.Pointer
@@ -571,7 +599,9 @@ var ptr_clang_getNumArgTypes unsafe.Pointer
 var ptr_clang_getNumCompletionChunks unsafe.Pointer
 var ptr_clang_getNumDiagnostics unsafe.Pointer
 var ptr_clang_getNumDiagnosticsInSet unsafe.Pointer
+var ptr_clang_getNumElements unsafe.Pointer
 var ptr_clang_getNumOverloadedDecls unsafe.Pointer
+var ptr_clang_getOffsetOfBase unsafe.Pointer
 var ptr_clang_getOverloadedDecl unsafe.Pointer
 var ptr_clang_getPointeeType unsafe.Pointer
 var ptr_clang_getRange unsafe.Pointer
@@ -1142,6 +1172,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_Cursor_getOffsetOfField, err = ffi.GetSymbol(library, "clang_Cursor_getOffsetOfField")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getOffsetOfField, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_Cursor_getRawCommentText, err = ffi.GetSymbol(library, "clang_Cursor_getRawCommentText")
 		if err == nil {
 			returnType := string_TypeDescriptor
@@ -1208,6 +1249,30 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentType, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Cursor_getTemplateArgumentUnsignedValue, err = ffi.GetSymbol(library, "clang_Cursor_getTemplateArgumentUnsignedValue")
+		if err == nil {
+			returnType := types.UInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentUnsignedValue, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Cursor_getTemplateArgumentValue, err = ffi.GetSymbol(library, "clang_Cursor_getTemplateArgumentValue")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentValue, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1443,6 +1508,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_EvalResult_getAsLongLong, err = ffi.GetSymbol(library, "clang_EvalResult_getAsLongLong")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsLongLong, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_EvalResult_getAsStr, err = ffi.GetSymbol(library, "clang_EvalResult_getAsStr")
 		if err == nil {
 			returnType := types.PointerTypeDescriptor
@@ -1450,6 +1526,17 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsStr, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_EvalResult_getAsUnsigned, err = ffi.GetSymbol(library, "clang_EvalResult_getAsUnsigned")
+		if err == nil {
+			returnType := types.UInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsUnsigned, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1749,6 +1836,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_Type_getAlignOf, err = ffi.GetSymbol(library, "clang_Type_getAlignOf")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Type_getAlignOf, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_Type_getCXXRefQualifier, err = ffi.GetSymbol(library, "clang_Type_getCXXRefQualifier")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -1879,6 +1977,29 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCTypeArg, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Type_getOffsetOf, err = ffi.GetSymbol(library, "clang_Type_getOffsetOf")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Type_getOffsetOf, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Type_getSizeOf, err = ffi.GetSymbol(library, "clang_Type_getSizeOf")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Type_getSizeOf, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -2015,6 +2136,17 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetContainerUSR, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_codeCompleteGetContexts, err = ffi.GetSymbol(library, "clang_codeCompleteGetContexts")
+		if err == nil {
+			returnType := types.UInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetContexts, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -2533,6 +2665,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_getArraySize, err = ffi.GetSymbol(library, "clang_getArraySize")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getArraySize, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getBinaryOperatorKindSpelling, err = ffi.GetSymbol(library, "clang_getBinaryOperatorKindSpelling")
 		if err == nil {
 			returnType := string_TypeDescriptor
@@ -2540,6 +2683,15 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getBinaryOperatorKindSpelling, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getBuildSessionTimestamp, err = ffi.GetSymbol(library, "clang_getBuildSessionTimestamp")
+		if err == nil {
+			returnType := types.UInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{}
+			err = ffi.PrepareCallInterface(cif_clang_getBuildSessionTimestamp, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -3209,6 +3361,28 @@ func init() {
 	}
 
 	{
+		ptr_clang_getEnumConstantDeclUnsignedValue, err = ffi.GetSymbol(library, "clang_getEnumConstantDeclUnsignedValue")
+		if err == nil {
+			returnType := types.UInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getEnumConstantDeclUnsignedValue, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getEnumConstantDeclValue, err = ffi.GetSymbol(library, "clang_getEnumConstantDeclValue")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getEnumConstantDeclValue, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getEnumDeclIntegerType, err = ffi.GetSymbol(library, "clang_getEnumDeclIntegerType")
 		if err == nil {
 			returnType := type_TypeDescriptor
@@ -3457,6 +3631,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_getNumElements, err = ffi.GetSymbol(library, "clang_getNumElements")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getNumElements, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getNumOverloadedDecls, err = ffi.GetSymbol(library, "clang_getNumOverloadedDecls")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -3464,6 +3649,18 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumOverloadedDecls, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getOffsetOfBase, err = ffi.GetSymbol(library, "clang_getOffsetOfBase")
+		if err == nil {
+			returnType := types.SInt64TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getOffsetOfBase, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

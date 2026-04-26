@@ -1151,7 +1151,32 @@ func Cursor_getObjCSelectorIndex(p0 Cursor) int32 {
 	return ret
 }
 
-// not supported : clang_Cursor_getOffsetOfField : return value : long long
+/*
+Return the offset of the field represented by the Cursor.
+
+If the cursor is not a field declaration, -1 is returned. If the cursor semantic parent is not a record field declaration,   CXTypeLayoutError_Invalid is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
+*/
+func Cursor_getOffsetOfField(c Cursor) int64 {
+	c_c := c
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getOffsetOfField,
+		ptr_clang_Cursor_getOffsetOfField,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getOffsetOfField", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Given a cursor that represents a declaration, return the associated comment text, including comment markers.
 func Cursor_getRawCommentText(c Cursor) String_ {
@@ -1323,9 +1348,75 @@ func Cursor_getTemplateArgumentType(c Cursor, i uint32) Type_ {
 	return ret
 }
 
-// not supported : clang_Cursor_getTemplateArgumentUnsignedValue : return value : unsigned long long
+/*
+Retrieve the value of an Integral TemplateArgument (of a function  decl representing a template specialization) as an unsigned long long.
 
-// not supported : clang_Cursor_getTemplateArgumentValue : return value : long long
+It is undefined to call this function on a CXCursor that does not represent a FunctionDecl, StructDecl, ClassDecl or ClassTemplatePartialSpecialization or whose I'th template argument is not an integral value.
+
+For example, for the following declaration and specialization:   template <typename T, int kInt, bool kBool>   void foo() { ... }
+
+template <>   void foo<float, 2147483649, true>();
+
+If called with I = 1 or 2, 2147483649 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
+*/
+func Cursor_getTemplateArgumentUnsignedValue(c Cursor, i uint32) uint64 {
+	c_c := c
+	c_i := i
+
+	var retC uint64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+		unsafe.Pointer(&c_i),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getTemplateArgumentUnsignedValue,
+		ptr_clang_Cursor_getTemplateArgumentUnsignedValue,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTemplateArgumentUnsignedValue", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Retrieve the value of an Integral TemplateArgument (of a function  decl representing a template specialization) as a signed long long.
+
+It is undefined to call this function on a CXCursor that does not represent a FunctionDecl, StructDecl, ClassDecl or ClassTemplatePartialSpecialization whose I'th template argument is not an integral value.
+
+For example, for the following declaration and specialization:   template <typename T, int kInt, bool kBool>   void foo() { ... }
+
+template <>   void foo<float, -7, true>();
+
+If called with I = 1 or 2, -7 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
+*/
+func Cursor_getTemplateArgumentValue(c Cursor, i uint32) int64 {
+	c_c := c
+	c_i := i
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+		unsafe.Pointer(&c_i),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getTemplateArgumentValue,
+		ptr_clang_Cursor_getTemplateArgumentValue,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTemplateArgumentValue", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the translation unit that a cursor originated from.
 func Cursor_getTranslationUnit(p0 Cursor) TranslationUnit {
@@ -1816,7 +1907,28 @@ func EvalResult_getAsInt(e EvalResult) int32 {
 	return ret
 }
 
-// not supported : clang_EvalResult_getAsLongLong : return value : long long
+// Returns the evaluation result as a long long integer if the kind is Int. This prevents overflows that may happen if the result is returned with clang_EvalResult_getAsInt.
+func EvalResult_getAsLongLong(e EvalResult) int64 {
+	c_e := e
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getAsLongLong,
+		ptr_clang_EvalResult_getAsLongLong,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsLongLong", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the evaluation result as a constant string if the kind is other than Int or float. User must not free this pointer, instead call clang_EvalResult_dispose on the CXEvalResult returned by clang_Cursor_Evaluate.
 func EvalResult_getAsStr(e EvalResult) string {
@@ -1841,7 +1953,28 @@ func EvalResult_getAsStr(e EvalResult) string {
 	return ret
 }
 
-// not supported : clang_EvalResult_getAsUnsigned : return value : unsigned long long
+// Returns the evaluation result as an unsigned integer if the kind is Int and clang_EvalResult_isUnsignedInt is non-zero.
+func EvalResult_getAsUnsigned(e EvalResult) uint64 {
+	c_e := e
+
+	var retC uint64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_e),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getAsUnsigned,
+		ptr_clang_EvalResult_getAsUnsigned,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsUnsigned", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the kind of the evaluated result.
 func EvalResult_getKind(e EvalResult) EvalResultKind {
@@ -2454,7 +2587,32 @@ func TargetInfo_getTriple(info TargetInfo) String_ {
 	return ret
 }
 
-// not supported : clang_Type_getAlignOf : return value : long long
+/*
+Return the alignment of a type in bytes as per C++[expr.alignof]   standard.
+
+If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned. If the type declaration is not a constant size type,   CXTypeLayoutError_NotConstantSize is returned.
+*/
+func Type_getAlignOf(t Type_) int64 {
+	c_t := t
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Type_getAlignOf,
+		ptr_clang_Type_getAlignOf,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getAlignOf", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the ref-qualifier kind of a function or method.
@@ -2772,9 +2930,62 @@ func Type_getObjCTypeArg(t Type_, i uint32) Type_ {
 	return ret
 }
 
-// not supported : clang_Type_getOffsetOf : return value : long long
+/*
+Return the offset of a field named S in a record of type T in bits   as it would be returned by __offsetof__ as per C++11[18.2p4]
 
-// not supported : clang_Type_getSizeOf : return value : long long
+If the cursor is not a record field declaration, CXTypeLayoutError_Invalid   is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
+*/
+func Type_getOffsetOf(t Type_, s string) int64 {
+	c_t := t
+	c_s, free_c_s := libc.CString(s)
+	defer free_c_s()
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+		unsafe.Pointer(&c_s),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Type_getOffsetOf,
+		ptr_clang_Type_getOffsetOf,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getOffsetOf", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Return the size of a type in bytes as per C++[expr.sizeof] standard.
+
+If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned.
+*/
+func Type_getSizeOf(t Type_) int64 {
+	c_t := t
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Type_getSizeOf,
+		ptr_clang_Type_getSizeOf,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getSizeOf", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Returns the type template argument of a template class specialization at given index.
@@ -3091,7 +3302,28 @@ func CodeCompleteGetContainerUSR(results *CodeCompleteResults) String_ {
 	return ret
 }
 
-// not supported : clang_codeCompleteGetContexts : return value : unsigned long long
+// Determines what completions are appropriate for the context the given code completion.
+func CodeCompleteGetContexts(results *CodeCompleteResults) uint64 {
+	c_results := results
+
+	var retC uint64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetContexts,
+		ptr_clang_codeCompleteGetContexts,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetContexts", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve a diagnostic associated with the given code completion.
 func CodeCompleteGetDiagnostic(results *CodeCompleteResults, index uint32) Diagnostic {
@@ -4177,7 +4409,32 @@ func GetArrayElementType(t Type_) Type_ {
 	return ret
 }
 
-// not supported : clang_getArraySize : return value : long long
+/*
+Return the array size of a constant array.
+
+If a non-array type is passed in, -1 is returned.
+*/
+func GetArraySize(t Type_) int64 {
+	c_t := t
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getArraySize,
+		ptr_clang_getArraySize,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getArraySize", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve the spelling of a given CXBinaryOperatorKind.
 func GetBinaryOperatorKindSpelling(kind BinaryOperatorKind) String_ {
@@ -4202,7 +4459,24 @@ func GetBinaryOperatorKindSpelling(kind BinaryOperatorKind) String_ {
 	return ret
 }
 
-// not supported : clang_getBuildSessionTimestamp : return value : unsigned long long
+// Return the timestamp for use with Clang's -fbuild-session-timestamp= option.
+func GetBuildSessionTimestamp() uint64 {
+	var retC uint64
+	args := []unsafe.Pointer{}
+
+	err := ffi.CallFunction(
+		cif_clang_getBuildSessionTimestamp,
+		ptr_clang_getBuildSessionTimestamp,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getBuildSessionTimestamp", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the character data associated with the given string.
@@ -5739,9 +6013,59 @@ func GetElementType(t Type_) Type_ {
 	return ret
 }
 
-// not supported : clang_getEnumConstantDeclUnsignedValue : return value : unsigned long long
+/*
+Retrieve the integer value of an enum constant declaration as an unsigned  long long.
 
-// not supported : clang_getEnumConstantDeclValue : return value : long long
+If the cursor does not reference an enum constant declaration, ULLONG_MAX is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
+*/
+func GetEnumConstantDeclUnsignedValue(c Cursor) uint64 {
+	c_c := c
+
+	var retC uint64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getEnumConstantDeclUnsignedValue,
+		ptr_clang_getEnumConstantDeclUnsignedValue,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getEnumConstantDeclUnsignedValue", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Retrieve the integer value of an enum constant declaration as a signed  long long.
+
+If the cursor does not reference an enum constant declaration, LLONG_MIN is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
+*/
+func GetEnumConstantDeclValue(c Cursor) int64 {
+	c_c := c
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getEnumConstantDeclValue,
+		ptr_clang_getEnumConstantDeclValue,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getEnumConstantDeclValue", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the integer type of an enum declaration.
@@ -6302,7 +6626,32 @@ func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
 	return ret
 }
 
-// not supported : clang_getNumElements : return value : long long
+/*
+Return the number of elements of an array or vector type.
+
+If a type is passed in that is not an array or vector type, -1 is returned.
+*/
+func GetNumElements(t Type_) int64 {
+	c_t := t
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getNumElements,
+		ptr_clang_getNumElements,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumElements", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Determine the number of overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
 func GetNumOverloadedDecls(cursor Cursor) uint32 {
@@ -6327,7 +6676,34 @@ func GetNumOverloadedDecls(cursor Cursor) uint32 {
 	return ret
 }
 
-// not supported : clang_getOffsetOfBase : return value : long long
+/*
+Returns the offset in bits of a CX_CXXBaseSpecifier relative to the parent class.
+
+Returns a small negative number if the offset cannot be computed. See CXTypeLayoutError for error codes.
+*/
+func GetOffsetOfBase(parent Cursor, base Cursor) int64 {
+	c_parent := parent
+	c_base := base
+
+	var retC int64
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_parent),
+		unsafe.Pointer(&c_base),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getOffsetOfBase,
+		ptr_clang_getOffsetOfBase,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getOffsetOfBase", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve a cursor for one of the overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
 func GetOverloadedDecl(cursor Cursor, index uint32) Cursor {
