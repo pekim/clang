@@ -18,7 +18,12 @@ func GetCString(string_ String_) string {
 		unsafe.Pointer(&c_string_),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCString, ptr_clang_getCString, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCString,
+		ptr_clang_getCString,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCString", err))
 	}
@@ -34,7 +39,12 @@ func DisposeString(string_ String_) {
 		unsafe.Pointer(&c_string_),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeString, ptr_clang_disposeString, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeString,
+		ptr_clang_disposeString,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeString", err))
 	}
@@ -52,7 +62,12 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_create, ptr_clang_VirtualFileOverlay_create, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_VirtualFileOverlay_create,
+		ptr_clang_VirtualFileOverlay_create,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_create", err))
 	}
@@ -75,7 +90,12 @@ func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string
 		unsafe.Pointer(&c_realPath),
 	}
 
-	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_addFileMapping, ptr_clang_VirtualFileOverlay_addFileMapping, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_VirtualFileOverlay_addFileMapping,
+		ptr_clang_VirtualFileOverlay_addFileMapping,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_addFileMapping", err))
 	}
@@ -94,7 +114,12 @@ func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive 
 		unsafe.Pointer(&c_caseSensitive),
 	}
 
-	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_setCaseSensitivity, ptr_clang_VirtualFileOverlay_setCaseSensitivity, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_VirtualFileOverlay_setCaseSensitivity,
+		ptr_clang_VirtualFileOverlay_setCaseSensitivity,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_setCaseSensitivity", err))
 	}
@@ -114,7 +139,12 @@ func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_dispose, ptr_clang_VirtualFileOverlay_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_VirtualFileOverlay_dispose,
+		ptr_clang_VirtualFileOverlay_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_dispose", err))
 	}
@@ -128,7 +158,12 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_create, ptr_clang_ModuleMapDescriptor_create, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_ModuleMapDescriptor_create,
+		ptr_clang_ModuleMapDescriptor_create,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_create", err))
 	}
@@ -148,7 +183,12 @@ func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name str
 		unsafe.Pointer(&c_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_setFrameworkModuleName, ptr_clang_ModuleMapDescriptor_setFrameworkModuleName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_ModuleMapDescriptor_setFrameworkModuleName,
+		ptr_clang_ModuleMapDescriptor_setFrameworkModuleName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_setFrameworkModuleName", err))
 	}
@@ -168,7 +208,12 @@ func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) 
 		unsafe.Pointer(&c_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_setUmbrellaHeader, ptr_clang_ModuleMapDescriptor_setUmbrellaHeader, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_ModuleMapDescriptor_setUmbrellaHeader,
+		ptr_clang_ModuleMapDescriptor_setUmbrellaHeader,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_setUmbrellaHeader", err))
 	}
@@ -186,7 +231,12 @@ func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_ModuleMapDescriptor_dispose, ptr_clang_ModuleMapDescriptor_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_ModuleMapDescriptor_dispose,
+		ptr_clang_ModuleMapDescriptor_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_ModuleMapDescriptor_dispose", err))
 	}
@@ -200,7 +250,12 @@ func GetFileName(sFile File) String_ {
 		unsafe.Pointer(&c_sFile),
 	}
 
-	err := ffi.CallFunction(cif_clang_getFileName, ptr_clang_getFileName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getFileName,
+		ptr_clang_getFileName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileName", err))
 	}
@@ -223,7 +278,12 @@ func File_isEqual(file1 File, file2 File) int32 {
 		unsafe.Pointer(&c_file2),
 	}
 
-	err := ffi.CallFunction(cif_clang_File_isEqual, ptr_clang_File_isEqual, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_File_isEqual,
+		ptr_clang_File_isEqual,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_File_isEqual", err))
 	}
@@ -240,7 +300,12 @@ func File_tryGetRealPathName(file File) String_ {
 		unsafe.Pointer(&c_file),
 	}
 
-	err := ffi.CallFunction(cif_clang_File_tryGetRealPathName, ptr_clang_File_tryGetRealPathName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_File_tryGetRealPathName,
+		ptr_clang_File_tryGetRealPathName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_File_tryGetRealPathName", err))
 	}
@@ -253,7 +318,12 @@ func GetNullLocation() SourceLocation {
 	var retC SourceLocation
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_getNullLocation, ptr_clang_getNullLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNullLocation,
+		ptr_clang_getNullLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNullLocation", err))
 	}
@@ -272,7 +342,12 @@ func EqualLocations(loc1 SourceLocation, loc2 SourceLocation) uint32 {
 		unsafe.Pointer(&c_loc2),
 	}
 
-	err := ffi.CallFunction(cif_clang_equalLocations, ptr_clang_equalLocations, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_equalLocations,
+		ptr_clang_equalLocations,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_equalLocations", err))
 	}
@@ -291,7 +366,12 @@ func IsBeforeInTranslationUnit(loc1 SourceLocation, loc2 SourceLocation) uint32 
 		unsafe.Pointer(&c_loc2),
 	}
 
-	err := ffi.CallFunction(cif_clang_isBeforeInTranslationUnit, ptr_clang_isBeforeInTranslationUnit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isBeforeInTranslationUnit,
+		ptr_clang_isBeforeInTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isBeforeInTranslationUnit", err))
 	}
@@ -308,7 +388,12 @@ func Location_isInSystemHeader(location SourceLocation) int32 {
 		unsafe.Pointer(&c_location),
 	}
 
-	err := ffi.CallFunction(cif_clang_Location_isInSystemHeader, ptr_clang_Location_isInSystemHeader, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Location_isInSystemHeader,
+		ptr_clang_Location_isInSystemHeader,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Location_isInSystemHeader", err))
 	}
@@ -325,7 +410,12 @@ func Location_isFromMainFile(location SourceLocation) int32 {
 		unsafe.Pointer(&c_location),
 	}
 
-	err := ffi.CallFunction(cif_clang_Location_isFromMainFile, ptr_clang_Location_isFromMainFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Location_isFromMainFile,
+		ptr_clang_Location_isFromMainFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Location_isFromMainFile", err))
 	}
@@ -338,7 +428,12 @@ func GetNullRange() SourceRange {
 	var retC SourceRange
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_getNullRange, ptr_clang_getNullRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNullRange,
+		ptr_clang_getNullRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNullRange", err))
 	}
@@ -357,7 +452,12 @@ func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
 		unsafe.Pointer(&c_end),
 	}
 
-	err := ffi.CallFunction(cif_clang_getRange, ptr_clang_getRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getRange,
+		ptr_clang_getRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getRange", err))
 	}
@@ -376,7 +476,12 @@ func EqualRanges(range1 SourceRange, range2 SourceRange) uint32 {
 		unsafe.Pointer(&c_range2),
 	}
 
-	err := ffi.CallFunction(cif_clang_equalRanges, ptr_clang_equalRanges, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_equalRanges,
+		ptr_clang_equalRanges,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_equalRanges", err))
 	}
@@ -393,7 +498,12 @@ func Range_isNull(range_ SourceRange) int32 {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(cif_clang_Range_isNull, ptr_clang_Range_isNull, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Range_isNull,
+		ptr_clang_Range_isNull,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Range_isNull", err))
 	}
@@ -420,7 +530,12 @@ func GetRangeStart(range_ SourceRange) SourceLocation {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(cif_clang_getRangeStart, ptr_clang_getRangeStart, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getRangeStart,
+		ptr_clang_getRangeStart,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getRangeStart", err))
 	}
@@ -437,7 +552,12 @@ func GetRangeEnd(range_ SourceRange) SourceLocation {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(cif_clang_getRangeEnd, ptr_clang_getRangeEnd, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getRangeEnd,
+		ptr_clang_getRangeEnd,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getRangeEnd", err))
 	}
@@ -456,7 +576,12 @@ func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
 		unsafe.Pointer(&c_diags),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNumDiagnosticsInSet, ptr_clang_getNumDiagnosticsInSet, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNumDiagnosticsInSet,
+		ptr_clang_getNumDiagnosticsInSet,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnosticsInSet", err))
 	}
@@ -475,7 +600,12 @@ func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticInSet, ptr_clang_getDiagnosticInSet, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticInSet,
+		ptr_clang_getDiagnosticInSet,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticInSet", err))
 	}
@@ -493,7 +623,12 @@ func DisposeDiagnosticSet(diags DiagnosticSet) {
 		unsafe.Pointer(&c_diags),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeDiagnosticSet, ptr_clang_disposeDiagnosticSet, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeDiagnosticSet,
+		ptr_clang_disposeDiagnosticSet,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnosticSet", err))
 	}
@@ -507,7 +642,12 @@ func GetChildDiagnostics(d Diagnostic) DiagnosticSet {
 		unsafe.Pointer(&c_d),
 	}
 
-	err := ffi.CallFunction(cif_clang_getChildDiagnostics, ptr_clang_getChildDiagnostics, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getChildDiagnostics,
+		ptr_clang_getChildDiagnostics,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getChildDiagnostics", err))
 	}
@@ -523,7 +663,12 @@ func DisposeDiagnostic(diagnostic Diagnostic) {
 		unsafe.Pointer(&c_diagnostic),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeDiagnostic, ptr_clang_disposeDiagnostic, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeDiagnostic,
+		ptr_clang_disposeDiagnostic,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeDiagnostic", err))
 	}
@@ -539,7 +684,12 @@ func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_formatDiagnostic, ptr_clang_formatDiagnostic, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_formatDiagnostic,
+		ptr_clang_formatDiagnostic,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_formatDiagnostic", err))
 	}
@@ -552,7 +702,12 @@ func DefaultDiagnosticDisplayOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_defaultDiagnosticDisplayOptions, ptr_clang_defaultDiagnosticDisplayOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_defaultDiagnosticDisplayOptions,
+		ptr_clang_defaultDiagnosticDisplayOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultDiagnosticDisplayOptions", err))
 	}
@@ -569,7 +724,12 @@ func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticSeverity, ptr_clang_getDiagnosticSeverity, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticSeverity,
+		ptr_clang_getDiagnosticSeverity,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSeverity", err))
 	}
@@ -586,7 +746,12 @@ func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticLocation, ptr_clang_getDiagnosticLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticLocation,
+		ptr_clang_getDiagnosticLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticLocation", err))
 	}
@@ -603,7 +768,12 @@ func GetDiagnosticSpelling(p0 Diagnostic) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticSpelling, ptr_clang_getDiagnosticSpelling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticSpelling,
+		ptr_clang_getDiagnosticSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSpelling", err))
 	}
@@ -622,7 +792,12 @@ func GetDiagnosticCategory(p0 Diagnostic) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticCategory, ptr_clang_getDiagnosticCategory, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategory,
+		ptr_clang_getDiagnosticCategory,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategory", err))
 	}
@@ -639,7 +814,12 @@ func GetDiagnosticCategoryName(category uint32) String_ {
 		unsafe.Pointer(&c_category),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticCategoryName, ptr_clang_getDiagnosticCategoryName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategoryName,
+		ptr_clang_getDiagnosticCategoryName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryName", err))
 	}
@@ -656,7 +836,12 @@ func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticCategoryText, ptr_clang_getDiagnosticCategoryText, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticCategoryText,
+		ptr_clang_getDiagnosticCategoryText,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryText", err))
 	}
@@ -673,7 +858,12 @@ func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticNumRanges, ptr_clang_getDiagnosticNumRanges, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticNumRanges,
+		ptr_clang_getDiagnosticNumRanges,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumRanges", err))
 	}
@@ -692,7 +882,12 @@ func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticRange, ptr_clang_getDiagnosticRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticRange,
+		ptr_clang_getDiagnosticRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticRange", err))
 	}
@@ -709,7 +904,12 @@ func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
 		unsafe.Pointer(&c_diagnostic),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticNumFixIts, ptr_clang_getDiagnosticNumFixIts, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticNumFixIts,
+		ptr_clang_getDiagnosticNumFixIts,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticNumFixIts", err))
 	}
@@ -741,7 +941,12 @@ func CreateIndex(excludeDeclarationsFromPCH int32, displayDiagnostics int32) Ind
 		unsafe.Pointer(&c_displayDiagnostics),
 	}
 
-	err := ffi.CallFunction(cif_clang_createIndex, ptr_clang_createIndex, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_createIndex,
+		ptr_clang_createIndex,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_createIndex", err))
 	}
@@ -762,7 +967,12 @@ func DisposeIndex(index Index) {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeIndex, ptr_clang_disposeIndex, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeIndex,
+		ptr_clang_disposeIndex,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeIndex", err))
 	}
@@ -786,7 +996,12 @@ func Index_setGlobalOptions(p0 Index, options uint32) {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXIndex_setGlobalOptions, ptr_clang_CXIndex_setGlobalOptions, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_CXIndex_setGlobalOptions,
+		ptr_clang_CXIndex_setGlobalOptions,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_setGlobalOptions", err))
 	}
@@ -805,7 +1020,12 @@ func Index_getGlobalOptions(p0 Index) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXIndex_getGlobalOptions, ptr_clang_CXIndex_getGlobalOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXIndex_getGlobalOptions,
+		ptr_clang_CXIndex_getGlobalOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_getGlobalOptions", err))
 	}
@@ -831,7 +1051,12 @@ func Index_setInvocationEmissionPathOption(p0 Index, path string) {
 		unsafe.Pointer(&c_path),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXIndex_setInvocationEmissionPathOption, ptr_clang_CXIndex_setInvocationEmissionPathOption, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_CXIndex_setInvocationEmissionPathOption,
+		ptr_clang_CXIndex_setInvocationEmissionPathOption,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXIndex_setInvocationEmissionPathOption", err))
 	}
@@ -848,7 +1073,12 @@ func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
 		unsafe.Pointer(&c_file),
 	}
 
-	err := ffi.CallFunction(cif_clang_isFileMultipleIncludeGuarded, ptr_clang_isFileMultipleIncludeGuarded, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isFileMultipleIncludeGuarded,
+		ptr_clang_isFileMultipleIncludeGuarded,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isFileMultipleIncludeGuarded", err))
 	}
@@ -869,7 +1099,12 @@ func GetFile(tu TranslationUnit, file_name string) File {
 		unsafe.Pointer(&c_file_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_getFile, ptr_clang_getFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getFile,
+		ptr_clang_getFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFile", err))
 	}
@@ -895,7 +1130,12 @@ func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) Sour
 		unsafe.Pointer(&c_column),
 	}
 
-	err := ffi.CallFunction(cif_clang_getLocation, ptr_clang_getLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getLocation,
+		ptr_clang_getLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getLocation", err))
 	}
@@ -917,7 +1157,12 @@ func GetLocationForOffset(tu TranslationUnit, file File, offset uint32) SourceLo
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(cif_clang_getLocationForOffset, ptr_clang_getLocationForOffset, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getLocationForOffset,
+		ptr_clang_getLocationForOffset,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getLocationForOffset", err))
 	}
@@ -939,7 +1184,12 @@ func GetNumDiagnostics(unit TranslationUnit) uint32 {
 		unsafe.Pointer(&c_unit),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNumDiagnostics, ptr_clang_getNumDiagnostics, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNumDiagnostics,
+		ptr_clang_getNumDiagnostics,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumDiagnostics", err))
 	}
@@ -959,7 +1209,12 @@ func GetDiagnostic(unit TranslationUnit, index uint32) Diagnostic {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnostic, ptr_clang_getDiagnostic, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnostic,
+		ptr_clang_getDiagnostic,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnostic", err))
 	}
@@ -977,7 +1232,12 @@ func GetDiagnosticSetFromTU(unit TranslationUnit) DiagnosticSet {
 		unsafe.Pointer(&c_unit),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDiagnosticSetFromTU, ptr_clang_getDiagnosticSetFromTU, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticSetFromTU,
+		ptr_clang_getDiagnosticSetFromTU,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSetFromTU", err))
 	}
@@ -995,7 +1255,12 @@ func GetTranslationUnitSpelling(cTUnit TranslationUnit) String_ {
 		unsafe.Pointer(&c_cTUnit),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTranslationUnitSpelling, ptr_clang_getTranslationUnitSpelling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTranslationUnitSpelling,
+		ptr_clang_getTranslationUnitSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitSpelling", err))
 	}
@@ -1018,7 +1283,12 @@ func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
 		unsafe.Pointer(&c_ast_filename),
 	}
 
-	err := ffi.CallFunction(cif_clang_createTranslationUnit, ptr_clang_createTranslationUnit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_createTranslationUnit,
+		ptr_clang_createTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_createTranslationUnit", err))
 	}
@@ -1038,7 +1308,12 @@ func DefaultEditingTranslationUnitOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_defaultEditingTranslationUnitOptions, ptr_clang_defaultEditingTranslationUnitOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_defaultEditingTranslationUnitOptions,
+		ptr_clang_defaultEditingTranslationUnitOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultEditingTranslationUnitOptions", err))
 	}
@@ -1066,7 +1341,12 @@ func DefaultSaveOptions(tU TranslationUnit) uint32 {
 		unsafe.Pointer(&c_tU),
 	}
 
-	err := ffi.CallFunction(cif_clang_defaultSaveOptions, ptr_clang_defaultSaveOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_defaultSaveOptions,
+		ptr_clang_defaultSaveOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultSaveOptions", err))
 	}
@@ -1093,7 +1373,12 @@ func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) in
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_saveTranslationUnit, ptr_clang_saveTranslationUnit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_saveTranslationUnit,
+		ptr_clang_saveTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_saveTranslationUnit", err))
 	}
@@ -1115,7 +1400,12 @@ func SuspendTranslationUnit(p0 TranslationUnit) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_suspendTranslationUnit, ptr_clang_suspendTranslationUnit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_suspendTranslationUnit,
+		ptr_clang_suspendTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_suspendTranslationUnit", err))
 	}
@@ -1132,7 +1422,12 @@ func DisposeTranslationUnit(p0 TranslationUnit) {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeTranslationUnit, ptr_clang_disposeTranslationUnit, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeTranslationUnit,
+		ptr_clang_disposeTranslationUnit,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeTranslationUnit", err))
 	}
@@ -1151,7 +1446,12 @@ func DefaultReparseOptions(tU TranslationUnit) uint32 {
 		unsafe.Pointer(&c_tU),
 	}
 
-	err := ffi.CallFunction(cif_clang_defaultReparseOptions, ptr_clang_defaultReparseOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_defaultReparseOptions,
+		ptr_clang_defaultReparseOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultReparseOptions", err))
 	}
@@ -1173,7 +1473,12 @@ func GetCXTUResourceUsage(tU TranslationUnit) TUResourceUsage {
 		unsafe.Pointer(&c_tU),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCXTUResourceUsage, ptr_clang_getCXTUResourceUsage, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCXTUResourceUsage,
+		ptr_clang_getCXTUResourceUsage,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCXTUResourceUsage", err))
 	}
@@ -1189,7 +1494,12 @@ func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 		unsafe.Pointer(&c_usage),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeCXTUResourceUsage, ptr_clang_disposeCXTUResourceUsage, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeCXTUResourceUsage,
+		ptr_clang_disposeCXTUResourceUsage,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeCXTUResourceUsage", err))
 	}
@@ -1208,7 +1518,12 @@ func GetTranslationUnitTargetInfo(cTUnit TranslationUnit) TargetInfo {
 		unsafe.Pointer(&c_cTUnit),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTranslationUnitTargetInfo, ptr_clang_getTranslationUnitTargetInfo, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTranslationUnitTargetInfo,
+		ptr_clang_getTranslationUnitTargetInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitTargetInfo", err))
 	}
@@ -1225,7 +1540,12 @@ func TargetInfo_dispose(info TargetInfo) {
 		unsafe.Pointer(&c_info),
 	}
 
-	err := ffi.CallFunction(cif_clang_TargetInfo_dispose, ptr_clang_TargetInfo_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_TargetInfo_dispose,
+		ptr_clang_TargetInfo_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_dispose", err))
 	}
@@ -1244,7 +1564,12 @@ func TargetInfo_getTriple(info TargetInfo) String_ {
 		unsafe.Pointer(&c_info),
 	}
 
-	err := ffi.CallFunction(cif_clang_TargetInfo_getTriple, ptr_clang_TargetInfo_getTriple, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_TargetInfo_getTriple,
+		ptr_clang_TargetInfo_getTriple,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getTriple", err))
 	}
@@ -1266,7 +1591,12 @@ func TargetInfo_getPointerWidth(info TargetInfo) int32 {
 		unsafe.Pointer(&c_info),
 	}
 
-	err := ffi.CallFunction(cif_clang_TargetInfo_getPointerWidth, ptr_clang_TargetInfo_getPointerWidth, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_TargetInfo_getPointerWidth,
+		ptr_clang_TargetInfo_getPointerWidth,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getPointerWidth", err))
 	}
@@ -1280,7 +1610,12 @@ func GetNullCursor() Cursor {
 	var retC Cursor
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_getNullCursor, ptr_clang_getNullCursor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNullCursor,
+		ptr_clang_getNullCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNullCursor", err))
 	}
@@ -1302,7 +1637,12 @@ func GetTranslationUnitCursor(p0 TranslationUnit) Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTranslationUnitCursor, ptr_clang_getTranslationUnitCursor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTranslationUnitCursor,
+		ptr_clang_getTranslationUnitCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitCursor", err))
 	}
@@ -1322,7 +1662,12 @@ func EqualCursors(p0 Cursor, p1 Cursor) uint32 {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_equalCursors, ptr_clang_equalCursors, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_equalCursors,
+		ptr_clang_equalCursors,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_equalCursors", err))
 	}
@@ -1340,7 +1685,12 @@ func Cursor_isNull(cursor Cursor) int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isNull, ptr_clang_Cursor_isNull, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isNull,
+		ptr_clang_Cursor_isNull,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isNull", err))
 	}
@@ -1358,7 +1708,12 @@ func HashCursor(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_hashCursor, ptr_clang_hashCursor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_hashCursor,
+		ptr_clang_hashCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_hashCursor", err))
 	}
@@ -1376,7 +1731,12 @@ func GetCursorKind(p0 Cursor) CursorKind {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorKind, ptr_clang_getCursorKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorKind,
+		ptr_clang_getCursorKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorKind", err))
 	}
@@ -1400,7 +1760,12 @@ func IsInvalidDeclaration(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_isInvalidDeclaration, ptr_clang_isInvalidDeclaration, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isInvalidDeclaration,
+		ptr_clang_isInvalidDeclaration,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isInvalidDeclaration", err))
 	}
@@ -1426,7 +1791,12 @@ func Cursor_hasAttrs(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_hasAttrs, ptr_clang_Cursor_hasAttrs, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_hasAttrs,
+		ptr_clang_Cursor_hasAttrs,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_hasAttrs", err))
 	}
@@ -1452,7 +1822,12 @@ func GetCursorLinkage(cursor Cursor) LinkageKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorLinkage, ptr_clang_getCursorLinkage, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorLinkage,
+		ptr_clang_getCursorLinkage,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLinkage", err))
 	}
@@ -1474,7 +1849,12 @@ func GetCursorVisibility(cursor Cursor) VisibilityKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorVisibility, ptr_clang_getCursorVisibility, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorVisibility,
+		ptr_clang_getCursorVisibility,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorVisibility", err))
 	}
@@ -1492,7 +1872,12 @@ func GetCursorAvailability(cursor Cursor) AvailabilityKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorAvailability, ptr_clang_getCursorAvailability, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorAvailability,
+		ptr_clang_getCursorAvailability,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorAvailability", err))
 	}
@@ -1514,7 +1899,12 @@ func Cursor_getVarDeclInitializer(cursor Cursor) Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getVarDeclInitializer, ptr_clang_Cursor_getVarDeclInitializer, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getVarDeclInitializer,
+		ptr_clang_Cursor_getVarDeclInitializer,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getVarDeclInitializer", err))
 	}
@@ -1532,7 +1922,12 @@ func Cursor_hasVarDeclGlobalStorage(cursor Cursor) int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_hasVarDeclGlobalStorage, ptr_clang_Cursor_hasVarDeclGlobalStorage, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_hasVarDeclGlobalStorage,
+		ptr_clang_Cursor_hasVarDeclGlobalStorage,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_hasVarDeclGlobalStorage", err))
 	}
@@ -1550,7 +1945,12 @@ func Cursor_hasVarDeclExternalStorage(cursor Cursor) int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_hasVarDeclExternalStorage, ptr_clang_Cursor_hasVarDeclExternalStorage, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_hasVarDeclExternalStorage,
+		ptr_clang_Cursor_hasVarDeclExternalStorage,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_hasVarDeclExternalStorage", err))
 	}
@@ -1568,7 +1968,12 @@ func GetCursorLanguage(cursor Cursor) LanguageKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorLanguage, ptr_clang_getCursorLanguage, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorLanguage,
+		ptr_clang_getCursorLanguage,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLanguage", err))
 	}
@@ -1586,7 +1991,12 @@ func GetCursorTLSKind(cursor Cursor) TLSKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorTLSKind, ptr_clang_getCursorTLSKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorTLSKind,
+		ptr_clang_getCursorTLSKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorTLSKind", err))
 	}
@@ -1604,7 +2014,12 @@ func Cursor_getTranslationUnit(p0 Cursor) TranslationUnit {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getTranslationUnit, ptr_clang_Cursor_getTranslationUnit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getTranslationUnit,
+		ptr_clang_Cursor_getTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTranslationUnit", err))
 	}
@@ -1618,7 +2033,12 @@ func CreateCXCursorSet() CursorSet {
 	var retC CursorSet
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_createCXCursorSet, ptr_clang_createCXCursorSet, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_createCXCursorSet,
+		ptr_clang_createCXCursorSet,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_createCXCursorSet", err))
 	}
@@ -1635,7 +2055,12 @@ func DisposeCXCursorSet(cset CursorSet) {
 		unsafe.Pointer(&c_cset),
 	}
 
-	err := ffi.CallFunction(cif_clang_disposeCXCursorSet, ptr_clang_disposeCXCursorSet, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_disposeCXCursorSet,
+		ptr_clang_disposeCXCursorSet,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeCXCursorSet", err))
 	}
@@ -1652,7 +2077,12 @@ func CursorSet_contains(cset CursorSet, cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXCursorSet_contains, ptr_clang_CXCursorSet_contains, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXCursorSet_contains,
+		ptr_clang_CXCursorSet_contains,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXCursorSet_contains", err))
 	}
@@ -1672,7 +2102,12 @@ func CursorSet_insert(cset CursorSet, cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXCursorSet_insert, ptr_clang_CXCursorSet_insert, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXCursorSet_insert,
+		ptr_clang_CXCursorSet_insert,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXCursorSet_insert", err))
 	}
@@ -1700,7 +2135,12 @@ func GetCursorSemanticParent(cursor Cursor) Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorSemanticParent, ptr_clang_getCursorSemanticParent, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorSemanticParent,
+		ptr_clang_getCursorSemanticParent,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorSemanticParent", err))
 	}
@@ -1728,7 +2168,12 @@ func GetCursorLexicalParent(cursor Cursor) Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorLexicalParent, ptr_clang_getCursorLexicalParent, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorLexicalParent,
+		ptr_clang_getCursorLexicalParent,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLexicalParent", err))
 	}
@@ -1750,7 +2195,12 @@ func GetIncludedFile(cursor Cursor) File {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getIncludedFile, ptr_clang_getIncludedFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getIncludedFile,
+		ptr_clang_getIncludedFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getIncludedFile", err))
 	}
@@ -1774,7 +2224,12 @@ func GetCursor(p0 TranslationUnit, p1 SourceLocation) Cursor {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursor, ptr_clang_getCursor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursor,
+		ptr_clang_getCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursor", err))
 	}
@@ -1796,7 +2251,12 @@ func GetCursorLocation(p0 Cursor) SourceLocation {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorLocation, ptr_clang_getCursorLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorLocation,
+		ptr_clang_getCursorLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLocation", err))
 	}
@@ -1818,7 +2278,12 @@ func GetCursorExtent(p0 Cursor) SourceRange {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorExtent, ptr_clang_getCursorExtent, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorExtent,
+		ptr_clang_getCursorExtent,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorExtent", err))
 	}
@@ -1836,7 +2301,12 @@ func GetCursorType(c Cursor) Type_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorType, ptr_clang_getCursorType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorType,
+		ptr_clang_getCursorType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorType", err))
 	}
@@ -1858,7 +2328,12 @@ func GetTypeSpelling(cT Type_) String_ {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTypeSpelling, ptr_clang_getTypeSpelling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTypeSpelling,
+		ptr_clang_getTypeSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypeSpelling", err))
 	}
@@ -1880,7 +2355,12 @@ func GetTypedefDeclUnderlyingType(c Cursor) Type_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTypedefDeclUnderlyingType, ptr_clang_getTypedefDeclUnderlyingType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTypedefDeclUnderlyingType,
+		ptr_clang_getTypedefDeclUnderlyingType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypedefDeclUnderlyingType", err))
 	}
@@ -1902,7 +2382,12 @@ func GetEnumDeclIntegerType(c Cursor) Type_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getEnumDeclIntegerType, ptr_clang_getEnumDeclIntegerType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getEnumDeclIntegerType,
+		ptr_clang_getEnumDeclIntegerType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getEnumDeclIntegerType", err))
 	}
@@ -1924,7 +2409,12 @@ func Cursor_isBitField(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isBitField, ptr_clang_Cursor_isBitField, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isBitField,
+		ptr_clang_Cursor_isBitField,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isBitField", err))
 	}
@@ -1948,7 +2438,12 @@ func GetFieldDeclBitWidth(c Cursor) int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getFieldDeclBitWidth, ptr_clang_getFieldDeclBitWidth, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getFieldDeclBitWidth,
+		ptr_clang_getFieldDeclBitWidth,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFieldDeclBitWidth", err))
 	}
@@ -1970,7 +2465,12 @@ func Cursor_getNumArguments(c Cursor) int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getNumArguments, ptr_clang_Cursor_getNumArguments, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getNumArguments,
+		ptr_clang_Cursor_getNumArguments,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getNumArguments", err))
 	}
@@ -1994,7 +2494,12 @@ func Cursor_getArgument(c Cursor, i uint32) Cursor {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getArgument, ptr_clang_Cursor_getArgument, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getArgument,
+		ptr_clang_Cursor_getArgument,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getArgument", err))
 	}
@@ -2022,7 +2527,12 @@ func Cursor_getNumTemplateArguments(c Cursor) int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getNumTemplateArguments, ptr_clang_Cursor_getNumTemplateArguments, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getNumTemplateArguments,
+		ptr_clang_Cursor_getNumTemplateArguments,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getNumTemplateArguments", err))
 	}
@@ -2052,7 +2562,12 @@ func Cursor_getTemplateArgumentKind(c Cursor, i uint32) TemplateArgumentKind {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getTemplateArgumentKind, ptr_clang_Cursor_getTemplateArgumentKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getTemplateArgumentKind,
+		ptr_clang_Cursor_getTemplateArgumentKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTemplateArgumentKind", err))
 	}
@@ -2082,7 +2597,12 @@ func Cursor_getTemplateArgumentType(c Cursor, i uint32) Type_ {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getTemplateArgumentType, ptr_clang_Cursor_getTemplateArgumentType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getTemplateArgumentType,
+		ptr_clang_Cursor_getTemplateArgumentType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTemplateArgumentType", err))
 	}
@@ -2106,7 +2626,12 @@ func EqualTypes(a Type_, b Type_) uint32 {
 		unsafe.Pointer(&c_b),
 	}
 
-	err := ffi.CallFunction(cif_clang_equalTypes, ptr_clang_equalTypes, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_equalTypes,
+		ptr_clang_equalTypes,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_equalTypes", err))
 	}
@@ -2128,7 +2653,12 @@ func GetCanonicalType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCanonicalType, ptr_clang_getCanonicalType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCanonicalType,
+		ptr_clang_getCanonicalType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCanonicalType", err))
 	}
@@ -2146,7 +2676,12 @@ func IsConstQualifiedType(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_isConstQualifiedType, ptr_clang_isConstQualifiedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isConstQualifiedType,
+		ptr_clang_isConstQualifiedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isConstQualifiedType", err))
 	}
@@ -2164,7 +2699,12 @@ func Cursor_isMacroFunctionLike(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isMacroFunctionLike, ptr_clang_Cursor_isMacroFunctionLike, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isMacroFunctionLike,
+		ptr_clang_Cursor_isMacroFunctionLike,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isMacroFunctionLike", err))
 	}
@@ -2182,7 +2722,12 @@ func Cursor_isMacroBuiltin(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isMacroBuiltin, ptr_clang_Cursor_isMacroBuiltin, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isMacroBuiltin,
+		ptr_clang_Cursor_isMacroBuiltin,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isMacroBuiltin", err))
 	}
@@ -2200,7 +2745,12 @@ func Cursor_isFunctionInlined(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isFunctionInlined, ptr_clang_Cursor_isFunctionInlined, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isFunctionInlined,
+		ptr_clang_Cursor_isFunctionInlined,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isFunctionInlined", err))
 	}
@@ -2218,7 +2768,12 @@ func IsVolatileQualifiedType(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_isVolatileQualifiedType, ptr_clang_isVolatileQualifiedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isVolatileQualifiedType,
+		ptr_clang_isVolatileQualifiedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isVolatileQualifiedType", err))
 	}
@@ -2236,7 +2791,12 @@ func IsRestrictQualifiedType(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_isRestrictQualifiedType, ptr_clang_isRestrictQualifiedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isRestrictQualifiedType,
+		ptr_clang_isRestrictQualifiedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isRestrictQualifiedType", err))
 	}
@@ -2254,7 +2814,12 @@ func GetAddressSpace(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getAddressSpace, ptr_clang_getAddressSpace, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getAddressSpace,
+		ptr_clang_getAddressSpace,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getAddressSpace", err))
 	}
@@ -2272,7 +2837,12 @@ func GetTypedefName(cT Type_) String_ {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTypedefName, ptr_clang_getTypedefName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTypedefName,
+		ptr_clang_getTypedefName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypedefName", err))
 	}
@@ -2290,7 +2860,12 @@ func GetPointeeType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getPointeeType, ptr_clang_getPointeeType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getPointeeType,
+		ptr_clang_getPointeeType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getPointeeType", err))
 	}
@@ -2324,7 +2899,12 @@ func GetUnqualifiedType(cT Type_) Type_ {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(cif_clang_getUnqualifiedType, ptr_clang_getUnqualifiedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getUnqualifiedType,
+		ptr_clang_getUnqualifiedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getUnqualifiedType", err))
 	}
@@ -2348,7 +2928,12 @@ func GetNonReferenceType(cT Type_) Type_ {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNonReferenceType, ptr_clang_getNonReferenceType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNonReferenceType,
+		ptr_clang_getNonReferenceType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNonReferenceType", err))
 	}
@@ -2366,7 +2951,12 @@ func GetTypeDeclaration(t Type_) Cursor {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTypeDeclaration, ptr_clang_getTypeDeclaration, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTypeDeclaration,
+		ptr_clang_getTypeDeclaration,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypeDeclaration", err))
 	}
@@ -2384,7 +2974,12 @@ func GetDeclObjCTypeEncoding(c Cursor) String_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getDeclObjCTypeEncoding, ptr_clang_getDeclObjCTypeEncoding, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getDeclObjCTypeEncoding,
+		ptr_clang_getDeclObjCTypeEncoding,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDeclObjCTypeEncoding", err))
 	}
@@ -2402,7 +2997,12 @@ func Type_getObjCEncoding(type_ Type_) String_ {
 		unsafe.Pointer(&c_type_),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getObjCEncoding, ptr_clang_Type_getObjCEncoding, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getObjCEncoding,
+		ptr_clang_Type_getObjCEncoding,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getObjCEncoding", err))
 	}
@@ -2426,7 +3026,12 @@ func GetFunctionTypeCallingConv(t Type_) CallingConv {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getFunctionTypeCallingConv, ptr_clang_getFunctionTypeCallingConv, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getFunctionTypeCallingConv,
+		ptr_clang_getFunctionTypeCallingConv,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFunctionTypeCallingConv", err))
 	}
@@ -2448,7 +3053,12 @@ func GetResultType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getResultType, ptr_clang_getResultType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getResultType,
+		ptr_clang_getResultType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getResultType", err))
 	}
@@ -2470,7 +3080,12 @@ func GetExceptionSpecificationType(t Type_) int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getExceptionSpecificationType, ptr_clang_getExceptionSpecificationType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getExceptionSpecificationType,
+		ptr_clang_getExceptionSpecificationType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getExceptionSpecificationType", err))
 	}
@@ -2492,7 +3107,12 @@ func GetNumArgTypes(t Type_) int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNumArgTypes, ptr_clang_getNumArgTypes, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNumArgTypes,
+		ptr_clang_getNumArgTypes,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumArgTypes", err))
 	}
@@ -2516,7 +3136,12 @@ func GetArgType(t Type_, i uint32) Type_ {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_getArgType, ptr_clang_getArgType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getArgType,
+		ptr_clang_getArgType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getArgType", err))
 	}
@@ -2538,7 +3163,12 @@ func Type_getObjCObjectBaseType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getObjCObjectBaseType, ptr_clang_Type_getObjCObjectBaseType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getObjCObjectBaseType,
+		ptr_clang_Type_getObjCObjectBaseType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getObjCObjectBaseType", err))
 	}
@@ -2560,7 +3190,12 @@ func Type_getNumObjCProtocolRefs(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getNumObjCProtocolRefs, ptr_clang_Type_getNumObjCProtocolRefs, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getNumObjCProtocolRefs,
+		ptr_clang_Type_getNumObjCProtocolRefs,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNumObjCProtocolRefs", err))
 	}
@@ -2584,7 +3219,12 @@ func Type_getObjCProtocolDecl(t Type_, i uint32) Cursor {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getObjCProtocolDecl, ptr_clang_Type_getObjCProtocolDecl, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getObjCProtocolDecl,
+		ptr_clang_Type_getObjCProtocolDecl,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getObjCProtocolDecl", err))
 	}
@@ -2606,7 +3246,12 @@ func Type_getNumObjCTypeArgs(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getNumObjCTypeArgs, ptr_clang_Type_getNumObjCTypeArgs, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getNumObjCTypeArgs,
+		ptr_clang_Type_getNumObjCTypeArgs,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNumObjCTypeArgs", err))
 	}
@@ -2630,7 +3275,12 @@ func Type_getObjCTypeArg(t Type_, i uint32) Type_ {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getObjCTypeArg, ptr_clang_Type_getObjCTypeArg, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getObjCTypeArg,
+		ptr_clang_Type_getObjCTypeArg,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getObjCTypeArg", err))
 	}
@@ -2648,7 +3298,12 @@ func IsFunctionTypeVariadic(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_isFunctionTypeVariadic, ptr_clang_isFunctionTypeVariadic, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isFunctionTypeVariadic,
+		ptr_clang_isFunctionTypeVariadic,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isFunctionTypeVariadic", err))
 	}
@@ -2670,7 +3325,12 @@ func GetCursorResultType(c Cursor) Type_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorResultType, ptr_clang_getCursorResultType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorResultType,
+		ptr_clang_getCursorResultType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorResultType", err))
 	}
@@ -2692,7 +3352,12 @@ func GetCursorExceptionSpecificationType(c Cursor) int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorExceptionSpecificationType, ptr_clang_getCursorExceptionSpecificationType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorExceptionSpecificationType,
+		ptr_clang_getCursorExceptionSpecificationType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorExceptionSpecificationType", err))
 	}
@@ -2710,7 +3375,12 @@ func IsPODType(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_isPODType, ptr_clang_isPODType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isPODType,
+		ptr_clang_isPODType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isPODType", err))
 	}
@@ -2732,7 +3402,12 @@ func GetElementType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getElementType, ptr_clang_getElementType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getElementType,
+		ptr_clang_getElementType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getElementType", err))
 	}
@@ -2756,7 +3431,12 @@ func GetArrayElementType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_getArrayElementType, ptr_clang_getArrayElementType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getArrayElementType,
+		ptr_clang_getArrayElementType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getArrayElementType", err))
 	}
@@ -2780,7 +3460,12 @@ func Type_getNamedType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getNamedType, ptr_clang_Type_getNamedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getNamedType,
+		ptr_clang_Type_getNamedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNamedType", err))
 	}
@@ -2802,7 +3487,12 @@ func Type_isTransparentTagTypedef(t Type_) uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_isTransparentTagTypedef, ptr_clang_Type_isTransparentTagTypedef, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_isTransparentTagTypedef,
+		ptr_clang_Type_isTransparentTagTypedef,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_isTransparentTagTypedef", err))
 	}
@@ -2820,7 +3510,12 @@ func Type_getNullability(t Type_) TypeNullabilityKind {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getNullability, ptr_clang_Type_getNullability, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getNullability,
+		ptr_clang_Type_getNullability,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNullability", err))
 	}
@@ -2844,7 +3539,12 @@ func Type_getClassType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getClassType, ptr_clang_Type_getClassType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getClassType,
+		ptr_clang_Type_getClassType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getClassType", err))
 	}
@@ -2870,7 +3570,12 @@ func Type_getModifiedType(t Type_) Type_ {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getModifiedType, ptr_clang_Type_getModifiedType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getModifiedType,
+		ptr_clang_Type_getModifiedType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getModifiedType", err))
 	}
@@ -2892,7 +3597,12 @@ func Type_getValueType(cT Type_) Type_ {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getValueType, ptr_clang_Type_getValueType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getValueType,
+		ptr_clang_Type_getValueType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getValueType", err))
 	}
@@ -2912,7 +3622,12 @@ func Cursor_isAnonymous(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isAnonymous, ptr_clang_Cursor_isAnonymous, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isAnonymous,
+		ptr_clang_Cursor_isAnonymous,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isAnonymous", err))
 	}
@@ -2930,7 +3645,12 @@ func Cursor_isAnonymousRecordDecl(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isAnonymousRecordDecl, ptr_clang_Cursor_isAnonymousRecordDecl, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isAnonymousRecordDecl,
+		ptr_clang_Cursor_isAnonymousRecordDecl,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isAnonymousRecordDecl", err))
 	}
@@ -2948,7 +3668,12 @@ func Cursor_isInlineNamespace(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isInlineNamespace, ptr_clang_Cursor_isInlineNamespace, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isInlineNamespace,
+		ptr_clang_Cursor_isInlineNamespace,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isInlineNamespace", err))
 	}
@@ -2966,7 +3691,12 @@ func Type_getNumTemplateArguments(t Type_) int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getNumTemplateArguments, ptr_clang_Type_getNumTemplateArguments, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getNumTemplateArguments,
+		ptr_clang_Type_getNumTemplateArguments,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNumTemplateArguments", err))
 	}
@@ -2990,7 +3720,12 @@ func Type_getTemplateArgumentAsType(t Type_, i uint32) Type_ {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getTemplateArgumentAsType, ptr_clang_Type_getTemplateArgumentAsType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getTemplateArgumentAsType,
+		ptr_clang_Type_getTemplateArgumentAsType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getTemplateArgumentAsType", err))
 	}
@@ -3012,7 +3747,12 @@ func Type_getCXXRefQualifier(t Type_) RefQualifierKind {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_getCXXRefQualifier, ptr_clang_Type_getCXXRefQualifier, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_getCXXRefQualifier,
+		ptr_clang_Type_getCXXRefQualifier,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getCXXRefQualifier", err))
 	}
@@ -3030,7 +3770,12 @@ func IsVirtualBase(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_isVirtualBase, ptr_clang_isVirtualBase, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isVirtualBase,
+		ptr_clang_isVirtualBase,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isVirtualBase", err))
 	}
@@ -3054,7 +3799,12 @@ func GetCXXAccessSpecifier(p0 Cursor) CXXAccessSpecifier {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCXXAccessSpecifier, ptr_clang_getCXXAccessSpecifier, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCXXAccessSpecifier,
+		ptr_clang_getCXXAccessSpecifier,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCXXAccessSpecifier", err))
 	}
@@ -3071,7 +3821,12 @@ func Cursor_getBinaryOpcode(c Cursor) BinaryOperatorKind_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getBinaryOpcode, ptr_clang_Cursor_getBinaryOpcode, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getBinaryOpcode,
+		ptr_clang_Cursor_getBinaryOpcode,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getBinaryOpcode", err))
 	}
@@ -3095,7 +3850,12 @@ func Cursor_getStorageClass(p0 Cursor) StorageClass {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getStorageClass, ptr_clang_Cursor_getStorageClass, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getStorageClass,
+		ptr_clang_Cursor_getStorageClass,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getStorageClass", err))
 	}
@@ -3113,7 +3873,12 @@ func GetNumOverloadedDecls(cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNumOverloadedDecls, ptr_clang_getNumOverloadedDecls, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNumOverloadedDecls,
+		ptr_clang_getNumOverloadedDecls,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumOverloadedDecls", err))
 	}
@@ -3133,7 +3898,12 @@ func GetOverloadedDecl(cursor Cursor, index uint32) Cursor {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_getOverloadedDecl, ptr_clang_getOverloadedDecl, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getOverloadedDecl,
+		ptr_clang_getOverloadedDecl,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getOverloadedDecl", err))
 	}
@@ -3151,7 +3921,12 @@ func GetIBOutletCollectionType(p0 Cursor) Type_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getIBOutletCollectionType, ptr_clang_getIBOutletCollectionType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getIBOutletCollectionType,
+		ptr_clang_getIBOutletCollectionType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getIBOutletCollectionType", err))
 	}
@@ -3177,7 +3952,12 @@ func VisitChildren(parent Cursor, visitor CursorVisitor, client_data ClientData)
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(cif_clang_visitChildren, ptr_clang_visitChildren, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_visitChildren,
+		ptr_clang_visitChildren,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitChildren", err))
 	}
@@ -3197,7 +3977,12 @@ func VisitChildrenWithBlock(parent Cursor, block CursorVisitorBlock) uint32 {
 		unsafe.Pointer(&c_block),
 	}
 
-	err := ffi.CallFunction(cif_clang_visitChildrenWithBlock, ptr_clang_visitChildrenWithBlock, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_visitChildrenWithBlock,
+		ptr_clang_visitChildrenWithBlock,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitChildrenWithBlock", err))
 	}
@@ -3219,7 +4004,12 @@ func GetCursorUSR(p0 Cursor) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorUSR, ptr_clang_getCursorUSR, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorUSR,
+		ptr_clang_getCursorUSR,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorUSR", err))
 	}
@@ -3238,7 +4028,12 @@ func ConstructUSR_ObjCClass(class_name string) String_ {
 		unsafe.Pointer(&c_class_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCClass, ptr_clang_constructUSR_ObjCClass, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCClass,
+		ptr_clang_constructUSR_ObjCClass,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCClass", err))
 	}
@@ -3260,7 +4055,12 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) String_ 
 		unsafe.Pointer(&c_category_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCCategory, ptr_clang_constructUSR_ObjCCategory, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCCategory,
+		ptr_clang_constructUSR_ObjCCategory,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCCategory", err))
 	}
@@ -3279,7 +4079,12 @@ func ConstructUSR_ObjCProtocol(protocol_name string) String_ {
 		unsafe.Pointer(&c_protocol_name),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCProtocol, ptr_clang_constructUSR_ObjCProtocol, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCProtocol,
+		ptr_clang_constructUSR_ObjCProtocol,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProtocol", err))
 	}
@@ -3300,7 +4105,12 @@ func ConstructUSR_ObjCIvar(name string, classUSR String_) String_ {
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCIvar, ptr_clang_constructUSR_ObjCIvar, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCIvar,
+		ptr_clang_constructUSR_ObjCIvar,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCIvar", err))
 	}
@@ -3323,7 +4133,12 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR Stri
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCMethod, ptr_clang_constructUSR_ObjCMethod, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCMethod,
+		ptr_clang_constructUSR_ObjCMethod,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCMethod", err))
 	}
@@ -3344,7 +4159,12 @@ func ConstructUSR_ObjCProperty(property string, classUSR String_) String_ {
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(cif_clang_constructUSR_ObjCProperty, ptr_clang_constructUSR_ObjCProperty, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_constructUSR_ObjCProperty,
+		ptr_clang_constructUSR_ObjCProperty,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProperty", err))
 	}
@@ -3362,7 +4182,12 @@ func GetCursorSpelling(p0 Cursor) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorSpelling, ptr_clang_getCursorSpelling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorSpelling,
+		ptr_clang_getCursorSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorSpelling", err))
 	}
@@ -3384,7 +4209,12 @@ func Cursor_getSpellingNameRange(p0 Cursor, pieceIndex uint32, options uint32) S
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getSpellingNameRange, ptr_clang_Cursor_getSpellingNameRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getSpellingNameRange,
+		ptr_clang_Cursor_getSpellingNameRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getSpellingNameRange", err))
 	}
@@ -3410,7 +4240,12 @@ func GetCursorPrintingPolicy(p0 Cursor) PrintingPolicy {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorPrintingPolicy, ptr_clang_getCursorPrintingPolicy, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorPrintingPolicy,
+		ptr_clang_getCursorPrintingPolicy,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorPrintingPolicy", err))
 	}
@@ -3427,7 +4262,12 @@ func PrintingPolicy_dispose(policy PrintingPolicy) {
 		unsafe.Pointer(&c_policy),
 	}
 
-	err := ffi.CallFunction(cif_clang_PrintingPolicy_dispose, ptr_clang_PrintingPolicy_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_PrintingPolicy_dispose,
+		ptr_clang_PrintingPolicy_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_PrintingPolicy_dispose", err))
 	}
@@ -3444,7 +4284,12 @@ func GetCursorPrettyPrinted(cursor Cursor, policy PrintingPolicy) String_ {
 		unsafe.Pointer(&c_policy),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorPrettyPrinted, ptr_clang_getCursorPrettyPrinted, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorPrettyPrinted,
+		ptr_clang_getCursorPrettyPrinted,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorPrettyPrinted", err))
 	}
@@ -3468,7 +4313,12 @@ func GetTypePrettyPrinted(cT Type_, cxPolicy PrintingPolicy) String_ {
 		unsafe.Pointer(&c_cxPolicy),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTypePrettyPrinted, ptr_clang_getTypePrettyPrinted, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTypePrettyPrinted,
+		ptr_clang_getTypePrettyPrinted,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypePrettyPrinted", err))
 	}
@@ -3496,7 +4346,12 @@ func GetFullyQualifiedName(cT Type_, policy PrintingPolicy, withGlobalNsPrefix u
 		unsafe.Pointer(&c_withGlobalNsPrefix),
 	}
 
-	err := ffi.CallFunction(cif_clang_getFullyQualifiedName, ptr_clang_getFullyQualifiedName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getFullyQualifiedName,
+		ptr_clang_getFullyQualifiedName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFullyQualifiedName", err))
 	}
@@ -3518,7 +4373,12 @@ func GetCursorDisplayName(p0 Cursor) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorDisplayName, ptr_clang_getCursorDisplayName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorDisplayName,
+		ptr_clang_getCursorDisplayName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorDisplayName", err))
 	}
@@ -3540,7 +4400,12 @@ func GetCursorReferenced(p0 Cursor) Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorReferenced, ptr_clang_getCursorReferenced, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorReferenced,
+		ptr_clang_getCursorReferenced,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorReferenced", err))
 	}
@@ -3566,7 +4431,12 @@ func GetCursorDefinition(p0 Cursor) Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorDefinition, ptr_clang_getCursorDefinition, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorDefinition,
+		ptr_clang_getCursorDefinition,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorDefinition", err))
 	}
@@ -3584,7 +4454,12 @@ func IsCursorDefinition(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_isCursorDefinition, ptr_clang_isCursorDefinition, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_isCursorDefinition,
+		ptr_clang_isCursorDefinition,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_isCursorDefinition", err))
 	}
@@ -3608,7 +4483,12 @@ func GetCanonicalCursor(p0 Cursor) Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCanonicalCursor, ptr_clang_getCanonicalCursor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCanonicalCursor,
+		ptr_clang_getCanonicalCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCanonicalCursor", err))
 	}
@@ -3630,7 +4510,12 @@ func Cursor_getObjCSelectorIndex(p0 Cursor) int32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getObjCSelectorIndex, ptr_clang_Cursor_getObjCSelectorIndex, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCSelectorIndex,
+		ptr_clang_Cursor_getObjCSelectorIndex,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCSelectorIndex", err))
 	}
@@ -3654,7 +4539,12 @@ func Cursor_isDynamicCall(c Cursor) int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isDynamicCall, ptr_clang_Cursor_isDynamicCall, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isDynamicCall,
+		ptr_clang_Cursor_isDynamicCall,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isDynamicCall", err))
 	}
@@ -3672,7 +4562,12 @@ func Cursor_getReceiverType(c Cursor) Type_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getReceiverType, ptr_clang_Cursor_getReceiverType, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getReceiverType,
+		ptr_clang_Cursor_getReceiverType,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getReceiverType", err))
 	}
@@ -3692,7 +4587,12 @@ func Cursor_getObjCPropertyAttributes(c Cursor, reserved uint32) uint32 {
 		unsafe.Pointer(&c_reserved),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getObjCPropertyAttributes, ptr_clang_Cursor_getObjCPropertyAttributes, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCPropertyAttributes,
+		ptr_clang_Cursor_getObjCPropertyAttributes,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCPropertyAttributes", err))
 	}
@@ -3710,7 +4610,12 @@ func Cursor_getObjCPropertyGetterName(c Cursor) String_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getObjCPropertyGetterName, ptr_clang_Cursor_getObjCPropertyGetterName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCPropertyGetterName,
+		ptr_clang_Cursor_getObjCPropertyGetterName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCPropertyGetterName", err))
 	}
@@ -3728,7 +4633,12 @@ func Cursor_getObjCPropertySetterName(c Cursor) String_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getObjCPropertySetterName, ptr_clang_Cursor_getObjCPropertySetterName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCPropertySetterName,
+		ptr_clang_Cursor_getObjCPropertySetterName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCPropertySetterName", err))
 	}
@@ -3746,7 +4656,12 @@ func Cursor_getObjCDeclQualifiers(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getObjCDeclQualifiers, ptr_clang_Cursor_getObjCDeclQualifiers, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCDeclQualifiers,
+		ptr_clang_Cursor_getObjCDeclQualifiers,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCDeclQualifiers", err))
 	}
@@ -3764,7 +4679,12 @@ func Cursor_isObjCOptional(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isObjCOptional, ptr_clang_Cursor_isObjCOptional, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isObjCOptional,
+		ptr_clang_Cursor_isObjCOptional,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isObjCOptional", err))
 	}
@@ -3782,7 +4702,12 @@ func Cursor_isVariadic(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isVariadic, ptr_clang_Cursor_isVariadic, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isVariadic,
+		ptr_clang_Cursor_isVariadic,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isVariadic", err))
 	}
@@ -3802,7 +4727,12 @@ func Cursor_getCommentRange(c Cursor) SourceRange {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getCommentRange, ptr_clang_Cursor_getCommentRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getCommentRange,
+		ptr_clang_Cursor_getCommentRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getCommentRange", err))
 	}
@@ -3820,7 +4750,12 @@ func Cursor_getRawCommentText(c Cursor) String_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getRawCommentText, ptr_clang_Cursor_getRawCommentText, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getRawCommentText,
+		ptr_clang_Cursor_getRawCommentText,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getRawCommentText", err))
 	}
@@ -3842,7 +4777,12 @@ func Cursor_getBriefCommentText(c Cursor) String_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getBriefCommentText, ptr_clang_Cursor_getBriefCommentText, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getBriefCommentText,
+		ptr_clang_Cursor_getBriefCommentText,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getBriefCommentText", err))
 	}
@@ -3860,7 +4800,12 @@ func Cursor_getMangling(p0 Cursor) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getMangling, ptr_clang_Cursor_getMangling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getMangling,
+		ptr_clang_Cursor_getMangling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getMangling", err))
 	}
@@ -3888,7 +4833,12 @@ func Cursor_getGCCAssemblyTemplate(p0 Cursor) String_ {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getGCCAssemblyTemplate, ptr_clang_Cursor_getGCCAssemblyTemplate, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyTemplate,
+		ptr_clang_Cursor_getGCCAssemblyTemplate,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyTemplate", err))
 	}
@@ -3906,7 +4856,12 @@ func Cursor_isGCCAssemblyHasGoto(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isGCCAssemblyHasGoto, ptr_clang_Cursor_isGCCAssemblyHasGoto, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isGCCAssemblyHasGoto,
+		ptr_clang_Cursor_isGCCAssemblyHasGoto,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isGCCAssemblyHasGoto", err))
 	}
@@ -3924,7 +4879,12 @@ func Cursor_getGCCAssemblyNumOutputs(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getGCCAssemblyNumOutputs, ptr_clang_Cursor_getGCCAssemblyNumOutputs, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyNumOutputs,
+		ptr_clang_Cursor_getGCCAssemblyNumOutputs,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyNumOutputs", err))
 	}
@@ -3942,7 +4902,12 @@ func Cursor_getGCCAssemblyNumInputs(p0 Cursor) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getGCCAssemblyNumInputs, ptr_clang_Cursor_getGCCAssemblyNumInputs, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyNumInputs,
+		ptr_clang_Cursor_getGCCAssemblyNumInputs,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyNumInputs", err))
 	}
@@ -3964,7 +4929,12 @@ func Cursor_getGCCAssemblyNumClobbers(cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getGCCAssemblyNumClobbers, ptr_clang_Cursor_getGCCAssemblyNumClobbers, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyNumClobbers,
+		ptr_clang_Cursor_getGCCAssemblyNumClobbers,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyNumClobbers", err))
 	}
@@ -3988,7 +4958,12 @@ func Cursor_getGCCAssemblyClobber(cursor Cursor, index uint32) String_ {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getGCCAssemblyClobber, ptr_clang_Cursor_getGCCAssemblyClobber, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyClobber,
+		ptr_clang_Cursor_getGCCAssemblyClobber,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyClobber", err))
 	}
@@ -4006,7 +4981,12 @@ func Cursor_isGCCAssemblyVolatile(cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_isGCCAssemblyVolatile, ptr_clang_Cursor_isGCCAssemblyVolatile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isGCCAssemblyVolatile,
+		ptr_clang_Cursor_isGCCAssemblyVolatile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isGCCAssemblyVolatile", err))
 	}
@@ -4024,7 +5004,12 @@ func Cursor_getModule(c Cursor) Module {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_getModule, ptr_clang_Cursor_getModule, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getModule,
+		ptr_clang_Cursor_getModule,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getModule", err))
 	}
@@ -4044,7 +5029,12 @@ func GetModuleForFile(p0 TranslationUnit, p1 File) Module {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_getModuleForFile, ptr_clang_getModuleForFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getModuleForFile,
+		ptr_clang_getModuleForFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getModuleForFile", err))
 	}
@@ -4061,7 +5051,12 @@ func Module_getASTFile(module Module) File {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getASTFile, ptr_clang_Module_getASTFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getASTFile,
+		ptr_clang_Module_getASTFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getASTFile", err))
 	}
@@ -4078,7 +5073,12 @@ func Module_getParent(module Module) Module {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getParent, ptr_clang_Module_getParent, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getParent,
+		ptr_clang_Module_getParent,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getParent", err))
 	}
@@ -4095,7 +5095,12 @@ func Module_getName(module Module) String_ {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getName, ptr_clang_Module_getName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getName,
+		ptr_clang_Module_getName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getName", err))
 	}
@@ -4112,7 +5117,12 @@ func Module_getFullName(module Module) String_ {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getFullName, ptr_clang_Module_getFullName, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getFullName,
+		ptr_clang_Module_getFullName,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getFullName", err))
 	}
@@ -4129,7 +5139,12 @@ func Module_isSystem(module Module) int32 {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_isSystem, ptr_clang_Module_isSystem, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_isSystem,
+		ptr_clang_Module_isSystem,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_isSystem", err))
 	}
@@ -4148,7 +5163,12 @@ func Module_getNumTopLevelHeaders(p0 TranslationUnit, module Module) uint32 {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getNumTopLevelHeaders, ptr_clang_Module_getNumTopLevelHeaders, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getNumTopLevelHeaders,
+		ptr_clang_Module_getNumTopLevelHeaders,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getNumTopLevelHeaders", err))
 	}
@@ -4169,7 +5189,12 @@ func Module_getTopLevelHeader(p0 TranslationUnit, module Module, index uint32) F
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(cif_clang_Module_getTopLevelHeader, ptr_clang_Module_getTopLevelHeader, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Module_getTopLevelHeader,
+		ptr_clang_Module_getTopLevelHeader,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getTopLevelHeader", err))
 	}
@@ -4187,7 +5212,12 @@ func XConstructor_isConvertingConstructor(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXConstructor_isConvertingConstructor, ptr_clang_CXXConstructor_isConvertingConstructor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXConstructor_isConvertingConstructor,
+		ptr_clang_CXXConstructor_isConvertingConstructor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXConstructor_isConvertingConstructor", err))
 	}
@@ -4205,7 +5235,12 @@ func XConstructor_isCopyConstructor(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXConstructor_isCopyConstructor, ptr_clang_CXXConstructor_isCopyConstructor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXConstructor_isCopyConstructor,
+		ptr_clang_CXXConstructor_isCopyConstructor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXConstructor_isCopyConstructor", err))
 	}
@@ -4223,7 +5258,12 @@ func XConstructor_isDefaultConstructor(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXConstructor_isDefaultConstructor, ptr_clang_CXXConstructor_isDefaultConstructor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXConstructor_isDefaultConstructor,
+		ptr_clang_CXXConstructor_isDefaultConstructor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXConstructor_isDefaultConstructor", err))
 	}
@@ -4241,7 +5281,12 @@ func XConstructor_isMoveConstructor(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXConstructor_isMoveConstructor, ptr_clang_CXXConstructor_isMoveConstructor, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXConstructor_isMoveConstructor,
+		ptr_clang_CXXConstructor_isMoveConstructor,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXConstructor_isMoveConstructor", err))
 	}
@@ -4259,7 +5304,12 @@ func XField_isMutable(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXField_isMutable, ptr_clang_CXXField_isMutable, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXField_isMutable,
+		ptr_clang_CXXField_isMutable,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXField_isMutable", err))
 	}
@@ -4277,7 +5327,12 @@ func XMethod_isDefaulted(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isDefaulted, ptr_clang_CXXMethod_isDefaulted, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isDefaulted,
+		ptr_clang_CXXMethod_isDefaulted,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isDefaulted", err))
 	}
@@ -4295,7 +5350,12 @@ func XMethod_isDeleted(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isDeleted, ptr_clang_CXXMethod_isDeleted, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isDeleted,
+		ptr_clang_CXXMethod_isDeleted,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isDeleted", err))
 	}
@@ -4313,7 +5373,12 @@ func XMethod_isPureVirtual(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isPureVirtual, ptr_clang_CXXMethod_isPureVirtual, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isPureVirtual,
+		ptr_clang_CXXMethod_isPureVirtual,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isPureVirtual", err))
 	}
@@ -4331,7 +5396,12 @@ func XMethod_isStatic(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isStatic, ptr_clang_CXXMethod_isStatic, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isStatic,
+		ptr_clang_CXXMethod_isStatic,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isStatic", err))
 	}
@@ -4349,7 +5419,12 @@ func XMethod_isVirtual(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isVirtual, ptr_clang_CXXMethod_isVirtual, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isVirtual,
+		ptr_clang_CXXMethod_isVirtual,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isVirtual", err))
 	}
@@ -4381,7 +5456,12 @@ func XMethod_isCopyAssignmentOperator(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isCopyAssignmentOperator, ptr_clang_CXXMethod_isCopyAssignmentOperator, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isCopyAssignmentOperator,
+		ptr_clang_CXXMethod_isCopyAssignmentOperator,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isCopyAssignmentOperator", err))
 	}
@@ -4413,7 +5493,12 @@ func XMethod_isMoveAssignmentOperator(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isMoveAssignmentOperator, ptr_clang_CXXMethod_isMoveAssignmentOperator, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isMoveAssignmentOperator,
+		ptr_clang_CXXMethod_isMoveAssignmentOperator,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isMoveAssignmentOperator", err))
 	}
@@ -4455,7 +5540,12 @@ func XMethod_isExplicit(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isExplicit, ptr_clang_CXXMethod_isExplicit, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isExplicit,
+		ptr_clang_CXXMethod_isExplicit,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isExplicit", err))
 	}
@@ -4473,7 +5563,12 @@ func XRecord_isAbstract(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXRecord_isAbstract, ptr_clang_CXXRecord_isAbstract, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXRecord_isAbstract,
+		ptr_clang_CXXRecord_isAbstract,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXRecord_isAbstract", err))
 	}
@@ -4491,7 +5586,12 @@ func EnumDecl_isScoped(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_EnumDecl_isScoped, ptr_clang_EnumDecl_isScoped, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_EnumDecl_isScoped,
+		ptr_clang_EnumDecl_isScoped,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EnumDecl_isScoped", err))
 	}
@@ -4509,7 +5609,12 @@ func XMethod_isConst(c Cursor) uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_CXXMethod_isConst, ptr_clang_CXXMethod_isConst, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_CXXMethod_isConst,
+		ptr_clang_CXXMethod_isConst,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXMethod_isConst", err))
 	}
@@ -4531,7 +5636,12 @@ func GetTemplateCursorKind(c Cursor) CursorKind {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTemplateCursorKind, ptr_clang_getTemplateCursorKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTemplateCursorKind,
+		ptr_clang_getTemplateCursorKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTemplateCursorKind", err))
 	}
@@ -4555,7 +5665,12 @@ func GetSpecializedCursorTemplate(c Cursor) Cursor {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_getSpecializedCursorTemplate, ptr_clang_getSpecializedCursorTemplate, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getSpecializedCursorTemplate,
+		ptr_clang_getSpecializedCursorTemplate,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSpecializedCursorTemplate", err))
 	}
@@ -4577,7 +5692,12 @@ func GetCursorReferenceNameRange(c Cursor, nameFlags uint32, pieceIndex uint32) 
 		unsafe.Pointer(&c_pieceIndex),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorReferenceNameRange, ptr_clang_getCursorReferenceNameRange, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorReferenceNameRange,
+		ptr_clang_getCursorReferenceNameRange,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorReferenceNameRange", err))
 	}
@@ -4597,7 +5717,12 @@ func GetTokenKind(p0 Token) TokenKind {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTokenKind, ptr_clang_getTokenKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTokenKind,
+		ptr_clang_getTokenKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenKind", err))
 	}
@@ -4621,7 +5746,12 @@ func GetTokenSpelling(p0 TranslationUnit, p1 Token) String_ {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTokenSpelling, ptr_clang_getTokenSpelling, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTokenSpelling,
+		ptr_clang_getTokenSpelling,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenSpelling", err))
 	}
@@ -4641,7 +5771,12 @@ func GetTokenLocation(p0 TranslationUnit, p1 Token) SourceLocation {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTokenLocation, ptr_clang_getTokenLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTokenLocation,
+		ptr_clang_getTokenLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenLocation", err))
 	}
@@ -4661,7 +5796,12 @@ func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(cif_clang_getTokenExtent, ptr_clang_getTokenExtent, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getTokenExtent,
+		ptr_clang_getTokenExtent,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenExtent", err))
 	}
@@ -4683,7 +5823,12 @@ func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
 func EnableStackTraces() {
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_enableStackTraces, ptr_clang_enableStackTraces, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_enableStackTraces,
+		ptr_clang_enableStackTraces,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_enableStackTraces", err))
 	}
@@ -4702,7 +5847,12 @@ func GetCompletionChunkKind(completion_string CompletionString, chunk_number uin
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionChunkKind, ptr_clang_getCompletionChunkKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionChunkKind,
+		ptr_clang_getCompletionChunkKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkKind", err))
 	}
@@ -4722,7 +5872,12 @@ func GetCompletionChunkText(completion_string CompletionString, chunk_number uin
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionChunkText, ptr_clang_getCompletionChunkText, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionChunkText,
+		ptr_clang_getCompletionChunkText,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkText", err))
 	}
@@ -4742,7 +5897,12 @@ func GetCompletionChunkCompletionString(completion_string CompletionString, chun
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionChunkCompletionString, ptr_clang_getCompletionChunkCompletionString, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionChunkCompletionString,
+		ptr_clang_getCompletionChunkCompletionString,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkCompletionString", err))
 	}
@@ -4760,7 +5920,12 @@ func GetNumCompletionChunks(completion_string CompletionString) uint32 {
 		unsafe.Pointer(&c_completion_string),
 	}
 
-	err := ffi.CallFunction(cif_clang_getNumCompletionChunks, ptr_clang_getNumCompletionChunks, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getNumCompletionChunks,
+		ptr_clang_getNumCompletionChunks,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getNumCompletionChunks", err))
 	}
@@ -4782,7 +5947,12 @@ func GetCompletionPriority(completion_string CompletionString) uint32 {
 		unsafe.Pointer(&c_completion_string),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionPriority, ptr_clang_getCompletionPriority, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionPriority,
+		ptr_clang_getCompletionPriority,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionPriority", err))
 	}
@@ -4800,7 +5970,12 @@ func GetCompletionAvailability(completion_string CompletionString) AvailabilityK
 		unsafe.Pointer(&c_completion_string),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionAvailability, ptr_clang_getCompletionAvailability, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionAvailability,
+		ptr_clang_getCompletionAvailability,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionAvailability", err))
 	}
@@ -4818,7 +5993,12 @@ func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
 		unsafe.Pointer(&c_completion_string),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionNumAnnotations, ptr_clang_getCompletionNumAnnotations, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionNumAnnotations,
+		ptr_clang_getCompletionNumAnnotations,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionNumAnnotations", err))
 	}
@@ -4838,7 +6018,12 @@ func GetCompletionAnnotation(completion_string CompletionString, annotation_numb
 		unsafe.Pointer(&c_annotation_number),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionAnnotation, ptr_clang_getCompletionAnnotation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionAnnotation,
+		ptr_clang_getCompletionAnnotation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionAnnotation", err))
 	}
@@ -4858,7 +6043,12 @@ func GetCompletionBriefComment(completion_string CompletionString) String_ {
 		unsafe.Pointer(&c_completion_string),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCompletionBriefComment, ptr_clang_getCompletionBriefComment, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCompletionBriefComment,
+		ptr_clang_getCompletionBriefComment,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionBriefComment", err))
 	}
@@ -4876,7 +6066,12 @@ func GetCursorCompletionString(cursor Cursor) CompletionString {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorCompletionString, ptr_clang_getCursorCompletionString, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorCompletionString,
+		ptr_clang_getCursorCompletionString,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorCompletionString", err))
 	}
@@ -4894,7 +6089,12 @@ func DefaultCodeCompleteOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_defaultCodeCompleteOptions, ptr_clang_defaultCodeCompleteOptions, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_defaultCodeCompleteOptions,
+		ptr_clang_defaultCodeCompleteOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_defaultCodeCompleteOptions", err))
 	}
@@ -4926,7 +6126,12 @@ func GetClangVersion() String_ {
 	var retC String_
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(cif_clang_getClangVersion, ptr_clang_getClangVersion, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getClangVersion,
+		ptr_clang_getClangVersion,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getClangVersion", err))
 	}
@@ -4943,7 +6148,12 @@ func ToggleCrashRecovery(isEnabled uint32) {
 		unsafe.Pointer(&c_isEnabled),
 	}
 
-	err := ffi.CallFunction(cif_clang_toggleCrashRecovery, ptr_clang_toggleCrashRecovery, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_toggleCrashRecovery,
+		ptr_clang_toggleCrashRecovery,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_toggleCrashRecovery", err))
 	}
@@ -4961,7 +6171,12 @@ func GetInclusions(tu TranslationUnit, visitor InclusionVisitor, client_data Cli
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(cif_clang_getInclusions, ptr_clang_getInclusions, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_getInclusions,
+		ptr_clang_getInclusions,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getInclusions", err))
 	}
@@ -4976,7 +6191,12 @@ func Cursor_Evaluate(c Cursor) EvalResult {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(cif_clang_Cursor_Evaluate, ptr_clang_Cursor_Evaluate, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Cursor_Evaluate,
+		ptr_clang_Cursor_Evaluate,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_Evaluate", err))
 	}
@@ -4994,7 +6214,12 @@ func EvalResult_getKind(e EvalResult) EvalResultKind {
 		unsafe.Pointer(&c_e),
 	}
 
-	err := ffi.CallFunction(cif_clang_EvalResult_getKind, ptr_clang_EvalResult_getKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getKind,
+		ptr_clang_EvalResult_getKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getKind", err))
 	}
@@ -5012,7 +6237,12 @@ func EvalResult_getAsInt(e EvalResult) int32 {
 		unsafe.Pointer(&c_e),
 	}
 
-	err := ffi.CallFunction(cif_clang_EvalResult_getAsInt, ptr_clang_EvalResult_getAsInt, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getAsInt,
+		ptr_clang_EvalResult_getAsInt,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsInt", err))
 	}
@@ -5032,7 +6262,12 @@ func EvalResult_isUnsignedInt(e EvalResult) uint32 {
 		unsafe.Pointer(&c_e),
 	}
 
-	err := ffi.CallFunction(cif_clang_EvalResult_isUnsignedInt, ptr_clang_EvalResult_isUnsignedInt, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_isUnsignedInt,
+		ptr_clang_EvalResult_isUnsignedInt,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_isUnsignedInt", err))
 	}
@@ -5054,7 +6289,12 @@ func EvalResult_getAsStr(e EvalResult) string {
 		unsafe.Pointer(&c_e),
 	}
 
-	err := ffi.CallFunction(cif_clang_EvalResult_getAsStr, ptr_clang_EvalResult_getAsStr, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_getAsStr,
+		ptr_clang_EvalResult_getAsStr,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsStr", err))
 	}
@@ -5071,7 +6311,12 @@ func EvalResult_dispose(e EvalResult) {
 		unsafe.Pointer(&c_e),
 	}
 
-	err := ffi.CallFunction(cif_clang_EvalResult_dispose, ptr_clang_EvalResult_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_EvalResult_dispose,
+		ptr_clang_EvalResult_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_dispose", err))
 	}
@@ -5090,7 +6335,12 @@ func FindReferencesInFile(cursor Cursor, file File, visitor CursorAndRangeVisito
 		unsafe.Pointer(&c_visitor),
 	}
 
-	err := ffi.CallFunction(cif_clang_findReferencesInFile, ptr_clang_findReferencesInFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_findReferencesInFile,
+		ptr_clang_findReferencesInFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_findReferencesInFile", err))
 	}
@@ -5112,7 +6362,12 @@ func FindIncludesInFile(tU TranslationUnit, file File, visitor CursorAndRangeVis
 		unsafe.Pointer(&c_visitor),
 	}
 
-	err := ffi.CallFunction(cif_clang_findIncludesInFile, ptr_clang_findIncludesInFile, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_findIncludesInFile,
+		ptr_clang_findIncludesInFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_findIncludesInFile", err))
 	}
@@ -5133,7 +6388,12 @@ func FindReferencesInFileWithBlock(p0 Cursor, p1 File, p2 CursorAndRangeVisitorB
 		unsafe.Pointer(&c_p2),
 	}
 
-	err := ffi.CallFunction(cif_clang_findReferencesInFileWithBlock, ptr_clang_findReferencesInFileWithBlock, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_findReferencesInFileWithBlock,
+		ptr_clang_findReferencesInFileWithBlock,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_findReferencesInFileWithBlock", err))
 	}
@@ -5154,7 +6414,12 @@ func FindIncludesInFileWithBlock(p0 TranslationUnit, p1 File, p2 CursorAndRangeV
 		unsafe.Pointer(&c_p2),
 	}
 
-	err := ffi.CallFunction(cif_clang_findIncludesInFileWithBlock, ptr_clang_findIncludesInFileWithBlock, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_findIncludesInFileWithBlock,
+		ptr_clang_findIncludesInFileWithBlock,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_findIncludesInFileWithBlock", err))
 	}
@@ -5196,7 +6461,12 @@ func IndexAction_create(cIdx Index) IndexAction {
 		unsafe.Pointer(&c_cIdx),
 	}
 
-	err := ffi.CallFunction(cif_clang_IndexAction_create, ptr_clang_IndexAction_create, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_IndexAction_create,
+		ptr_clang_IndexAction_create,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_IndexAction_create", err))
 	}
@@ -5217,7 +6487,12 @@ func IndexAction_dispose(p0 IndexAction) {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_IndexAction_dispose, ptr_clang_IndexAction_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_IndexAction_dispose,
+		ptr_clang_IndexAction_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_IndexAction_dispose", err))
 	}
@@ -5240,7 +6515,12 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 		unsafe.Pointer(&c_loc),
 	}
 
-	err := ffi.CallFunction(cif_clang_indexLoc_getCXSourceLocation, ptr_clang_indexLoc_getCXSourceLocation, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_indexLoc_getCXSourceLocation,
+		ptr_clang_indexLoc_getCXSourceLocation,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexLoc_getCXSourceLocation", err))
 	}
@@ -5266,7 +6546,12 @@ func Type_visitFields(t Type_, visitor FieldVisitor, client_data ClientData) uin
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(cif_clang_Type_visitFields, ptr_clang_Type_visitFields, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_Type_visitFields,
+		ptr_clang_Type_visitFields,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_visitFields", err))
 	}
@@ -5292,7 +6577,12 @@ func VisitCXXBaseClasses(t Type_, visitor FieldVisitor, client_data ClientData) 
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(cif_clang_visitCXXBaseClasses, ptr_clang_visitCXXBaseClasses, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_visitCXXBaseClasses,
+		ptr_clang_visitCXXBaseClasses,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitCXXBaseClasses", err))
 	}
@@ -5318,7 +6608,12 @@ func VisitCXXMethods(t Type_, visitor FieldVisitor, client_data ClientData) uint
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(cif_clang_visitCXXMethods, ptr_clang_visitCXXMethods, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_visitCXXMethods,
+		ptr_clang_visitCXXMethods,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitCXXMethods", err))
 	}
@@ -5342,7 +6637,12 @@ func GetCursorBinaryOperatorKind(cursor Cursor) BinaryOperatorKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorBinaryOperatorKind, ptr_clang_getCursorBinaryOperatorKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorBinaryOperatorKind,
+		ptr_clang_getCursorBinaryOperatorKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorBinaryOperatorKind", err))
 	}
@@ -5366,7 +6666,12 @@ func GetCursorUnaryOperatorKind(cursor Cursor) UnaryOperatorKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(cif_clang_getCursorUnaryOperatorKind, ptr_clang_getCursorUnaryOperatorKind, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getCursorUnaryOperatorKind,
+		ptr_clang_getCursorUnaryOperatorKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorUnaryOperatorKind", err))
 	}
@@ -5384,7 +6689,12 @@ func GetRemappings(p0 string) Remapping {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_getRemappings, ptr_clang_getRemappings, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_getRemappings,
+		ptr_clang_getRemappings,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getRemappings", err))
 	}
@@ -5403,7 +6713,12 @@ func Remap_getNumFiles(p0 Remapping) uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_remap_getNumFiles, ptr_clang_remap_getNumFiles, unsafe.Pointer(&retC), args)
+	err := ffi.CallFunction(
+		cif_clang_remap_getNumFiles,
+		ptr_clang_remap_getNumFiles,
+		unsafe.Pointer(&retC),
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_getNumFiles", err))
 	}
@@ -5421,7 +6736,12 @@ func Remap_dispose(p0 Remapping) {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(cif_clang_remap_dispose, ptr_clang_remap_dispose, nil, args)
+	err := ffi.CallFunction(
+		cif_clang_remap_dispose,
+		ptr_clang_remap_dispose,
+		nil,
+		args,
+	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_dispose", err))
 	}
