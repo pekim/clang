@@ -716,7 +716,38 @@ func Cursor_getGCCAssemblyClobber(cursor Cursor, index uint32) String_ {
 	return ret
 }
 
-// not supported : clang_Cursor_getGCCAssemblyInput : param Constraint : CXString *
+/*
+Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to the Index-th input. This function returns 1 when the cursor points at a GCC inline assembly statement, `Index` is within bounds and both the `Constraint` and `Expr` are not NULL. Otherwise, this function returns 0 but leaves `Constraint` and `Expr` intact.
+
+Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
+*/
+func Cursor_getGCCAssemblyInput(cursor Cursor, index uint32, constraint *String_, expr *Cursor) uint32 {
+	c_cursor := cursor
+	c_index := index
+	c_constraint := constraint
+	c_expr := expr
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+		unsafe.Pointer(&c_index),
+		unsafe.Pointer(&c_constraint),
+		unsafe.Pointer(&c_expr),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyInput,
+		ptr_clang_Cursor_getGCCAssemblyInput,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyInput", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Given a CXCursor_GCCAsmStmt cursor, count the clobbers in it. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
 func Cursor_getGCCAssemblyNumClobbers(cursor Cursor) uint32 {
@@ -787,7 +818,38 @@ func Cursor_getGCCAssemblyNumOutputs(p0 Cursor) uint32 {
 	return ret
 }
 
-// not supported : clang_Cursor_getGCCAssemblyOutput : param Constraint : CXString *
+/*
+Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to the Index-th output. This function returns 1 when the cursor points at a GCC inline assembly statement, `Index` is within bounds and both the `Constraint` and `Expr` are not NULL. Otherwise, this function returns 0 but leaves `Constraint` and `Expr` intact.
+
+Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
+*/
+func Cursor_getGCCAssemblyOutput(cursor Cursor, index uint32, constraint *String_, expr *Cursor) uint32 {
+	c_cursor := cursor
+	c_index := index
+	c_constraint := constraint
+	c_expr := expr
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+		unsafe.Pointer(&c_index),
+		unsafe.Pointer(&c_constraint),
+		unsafe.Pointer(&c_expr),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getGCCAssemblyOutput,
+		ptr_clang_Cursor_getGCCAssemblyOutput,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyOutput", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Given a CXCursor_GCCAsmStmt cursor, return the assembly template string. As per LLVM IR Assembly Template language, template placeholders for inputs and outputs are either of the form $N where N is a decimal number as an index into the input-output specification, or ${N:M} where N is a decimal number also as an index into the input-output specification and M is the template argument modifier. The index N in both cases points into the the total inputs and outputs, or more specifically, into the list of outputs followed by the inputs, starting from index 0 as the first available template argument.
@@ -1436,7 +1498,7 @@ func Cursor_isDynamicCall(c Cursor) int32 {
 	return ret
 }
 
-// not supported : clang_Cursor_isExternalSymbol : param language : CXString *
+// not supported : clang_Cursor_isExternalSymbol : param isGenerated : unsigned int *
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
 func Cursor_isFunctionInlined(c Cursor) uint32 {
@@ -2884,21 +2946,138 @@ func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive 
 
 // not supported : clang_VirtualFileOverlay_writeToBuffer : param out_buffer_ptr : char **
 
-// not supported : clang_annotateTokens : param Tokens : CXToken *
+/*
+Annotate the given set of tokens by providing cursors for each token that can be mapped to a specific entity within the abstract syntax tree.
+
+This token-annotation routine is equivalent to invoking clang_getCursor() for the source locations of each of the tokens. The cursors provided are filtered, so that only those cursors that have a direct correspondence to the token are accepted. For example, given a function call f(x), clang_getCursor() would provide the following cursors:
+
+* when the cursor is over the 'f', a DeclRefExpr cursor referring to 'f'.   * when the cursor is over the '(' or the ')', a CallExpr referring to 'f'.   * when the cursor is over the 'x', a DeclRefExpr cursor referring to 'x'.
+
+Only the first and last of these cursors will occur within the annotate, since the tokens "f" and "x' directly refer to a function and a variable, respectively, but the parentheses are just a small part of the full syntax of the function call expression, which is not provided as an annotation.
+*/
+func AnnotateTokens(tU TranslationUnit, tokens *Token, numTokens uint32, cursors *Cursor) {
+	c_tU := tU
+	c_tokens := tokens
+	c_numTokens := numTokens
+	c_cursors := cursors
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tokens),
+		unsafe.Pointer(&c_numTokens),
+		unsafe.Pointer(&c_cursors),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_annotateTokens,
+		ptr_clang_annotateTokens,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_annotateTokens", err))
+	}
+}
 
 // not supported : clang_codeCompleteAt : return value : CXCodeCompleteResults *
 
-// not supported : clang_codeCompleteGetContainerKind : param Results : CXCodeCompleteResults *
+// not supported : clang_codeCompleteGetContainerKind : param IsIncomplete : unsigned int *
 
-// not supported : clang_codeCompleteGetContainerUSR : param Results : CXCodeCompleteResults *
+// Returns the USR for the container for the current code completion context. If there is not a container for the current context, this function will return the empty string.
+func CodeCompleteGetContainerUSR(results *CodeCompleteResults) String_ {
+	c_results := results
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetContainerUSR,
+		ptr_clang_codeCompleteGetContainerUSR,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetContainerUSR", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_codeCompleteGetContexts : return value : unsigned long long
 
-// not supported : clang_codeCompleteGetDiagnostic : param Results : CXCodeCompleteResults *
+// Retrieve a diagnostic associated with the given code completion.
+func CodeCompleteGetDiagnostic(results *CodeCompleteResults, index uint32) Diagnostic {
+	c_results := results
+	c_index := index
 
-// not supported : clang_codeCompleteGetNumDiagnostics : param Results : CXCodeCompleteResults *
+	var retC Diagnostic
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+		unsafe.Pointer(&c_index),
+	}
 
-// not supported : clang_codeCompleteGetObjCSelector : param Results : CXCodeCompleteResults *
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetDiagnostic,
+		ptr_clang_codeCompleteGetDiagnostic,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetDiagnostic", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the number of diagnostics produced prior to the location where code completion was performed.
+func CodeCompleteGetNumDiagnostics(results *CodeCompleteResults) uint32 {
+	c_results := results
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetNumDiagnostics,
+		ptr_clang_codeCompleteGetNumDiagnostics,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetNumDiagnostics", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Returns the currently-entered selector for an Objective-C message send, formatted like "initWithFoo:bar:". Only guaranteed to return a non-empty string for CXCompletionContext_ObjCInstanceMessage and CXCompletionContext_ObjCClassMessage.
+func CodeCompleteGetObjCSelector(results *CodeCompleteResults) String_ {
+	c_results := results
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetObjCSelector,
+		ptr_clang_codeCompleteGetObjCSelector,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetObjCSelector", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Construct a USR for a specified Objective-C category.
 func ConstructUSR_ObjCCategory(class_name string, category_name string) String_ {
@@ -3319,7 +3498,24 @@ func DisposeCXCursorSet(cset CursorSet) {
 	}
 }
 
-// not supported : clang_disposeCXPlatformAvailability : param availability : CXPlatformAvailability *
+// Free the memory associated with a CXPlatformAvailability structure.
+func DisposeCXPlatformAvailability(availability *PlatformAvailability) {
+	c_availability := availability
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_availability),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeCXPlatformAvailability,
+		ptr_clang_disposeCXPlatformAvailability,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeCXPlatformAvailability", err))
+	}
+}
 
 func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 	c_usage := usage
@@ -3339,7 +3535,24 @@ func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 	}
 }
 
-// not supported : clang_disposeCodeCompleteResults : param Results : CXCodeCompleteResults *
+// Free the given set of code-completion results.
+func DisposeCodeCompleteResults(results *CodeCompleteResults) {
+	c_results := results
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeCodeCompleteResults,
+		ptr_clang_disposeCodeCompleteResults,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeCodeCompleteResults", err))
+	}
+}
 
 // Destroy a diagnostic.
 func DisposeDiagnostic(diagnostic Diagnostic) {
@@ -3402,9 +3615,43 @@ func DisposeIndex(index Index) {
 	}
 }
 
-// not supported : clang_disposeOverriddenCursors : param overridden : CXCursor *
+// Free the set of overridden cursors returned by clang_getOverriddenCursors().
+func DisposeOverriddenCursors(overridden *Cursor) {
+	c_overridden := overridden
 
-// not supported : clang_disposeSourceRangeList : param ranges : CXSourceRangeList *
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_overridden),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeOverriddenCursors,
+		ptr_clang_disposeOverriddenCursors,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeOverriddenCursors", err))
+	}
+}
+
+// Destroy the given CXSourceRangeList.
+func DisposeSourceRangeList(ranges *SourceRangeList) {
+	c_ranges := ranges
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_ranges),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeSourceRangeList,
+		ptr_clang_disposeSourceRangeList,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeSourceRangeList", err))
+	}
+}
 
 // Free the given string.
 func DisposeString(string_ String_) {
@@ -3425,9 +3672,47 @@ func DisposeString(string_ String_) {
 	}
 }
 
-// not supported : clang_disposeStringSet : param set : CXStringSet *
+// Free the given string set.
+func DisposeStringSet(set *StringSet) {
+	c_set := set
 
-// not supported : clang_disposeTokens : param Tokens : CXToken *
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_set),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeStringSet,
+		ptr_clang_disposeStringSet,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeStringSet", err))
+	}
+}
+
+// Free the given set of tokens.
+func DisposeTokens(tU TranslationUnit, tokens *Token, numTokens uint32) {
+	c_tU := tU
+	c_tokens := tokens
+	c_numTokens := numTokens
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tokens),
+		unsafe.Pointer(&c_numTokens),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeTokens,
+		ptr_clang_disposeTokens,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeTokens", err))
+	}
+}
 
 // Destroy the specified CXTranslationUnit object.
 func DisposeTranslationUnit(p0 TranslationUnit) {
@@ -4134,7 +4419,44 @@ func GetCompletionChunkText(completion_string CompletionString, chunk_number uin
 	return ret
 }
 
-// not supported : clang_getCompletionFixIt : param results : CXCodeCompleteResults *
+/*
+Fix-its that *must* be applied before inserting the text for the corresponding completion.
+
+By default, clang_codeCompleteAt() only returns completions with empty fix-its. Extra completions with non-empty fix-its should be explicitly requested by setting CXCodeComplete_IncludeCompletionsWithFixIts.
+
+For the clients to be able to compute position of the cursor after applying fix-its, the following conditions are guaranteed to hold for replacement_range of the stored fix-its:  - Ranges in the fix-its are guaranteed to never contain the completion  point (or identifier under completion point, if any) inside them, except  at the start or at the end of the range.  - If a fix-it range starts or ends with completion point (or starts or  ends after the identifier under completion point), it will contain at  least one character. It allows to unambiguously recompute completion  point after applying the fix-it.
+
+The intuition is that provided fix-its change code around the identifier we complete, but are not allowed to touch the identifier itself or the completion point. One example of completions with corrections are the ones replacing '.' with '->' and vice versa:
+
+std::unique_ptr<std::vector<int>> vec_ptr; In 'vec_ptr.^', one of the completions is 'push_back', it requires replacing '.' with '->'. In 'vec_ptr->^', one of the completions is 'release', it requires replacing '->' with '.'.
+*/
+func GetCompletionFixIt(results *CodeCompleteResults, completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
+	c_results := results
+	c_completion_index := completion_index
+	c_fixit_index := fixit_index
+	c_replacement_range := replacement_range
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+		unsafe.Pointer(&c_completion_index),
+		unsafe.Pointer(&c_fixit_index),
+		unsafe.Pointer(&c_replacement_range),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getCompletionFixIt,
+		ptr_clang_getCompletionFixIt,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionFixIt", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve the number of annotations associated with the given completion string.
 func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
@@ -4159,7 +4481,34 @@ func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
 	return ret
 }
 
-// not supported : clang_getCompletionNumFixIts : param results : CXCodeCompleteResults *
+/*
+Retrieve the number of fix-its for the given completion index.
+
+Calling this makes sense only if CXCodeComplete_IncludeCompletionsWithFixIts option was set.
+*/
+func GetCompletionNumFixIts(results *CodeCompleteResults, completion_index uint32) uint32 {
+	c_results := results
+	c_completion_index := completion_index
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+		unsafe.Pointer(&c_completion_index),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getCompletionNumFixIts,
+		ptr_clang_getCompletionNumFixIts,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionNumFixIts", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getCompletionParent : param kind : enum CXCursorKind *
 
@@ -5001,7 +5350,36 @@ func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
 	return ret
 }
 
-// not supported : clang_getDiagnosticFixIt : param ReplacementRange : CXSourceRange *
+/*
+Retrieve the replacement information for a given fix-it.
+
+Fix-its are described in terms of a source range whose contents should be replaced by a string. This approach generalizes over three kinds of operations: removal of source code (the range covers the code to be removed and the replacement string is empty), replacement of source code (the range covers the code to be replaced and the replacement string provides the new code), and insertion (both the start and end of the range point at the insertion location, and the replacement string provides the text to insert).
+*/
+func GetDiagnosticFixIt(diagnostic Diagnostic, fixIt uint32, replacementRange *SourceRange) String_ {
+	c_diagnostic := diagnostic
+	c_fixIt := fixIt
+	c_replacementRange := replacementRange
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_fixIt),
+		unsafe.Pointer(&c_replacementRange),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticFixIt,
+		ptr_clang_getDiagnosticFixIt,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticFixIt", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve a diagnostic associated with the given CXDiagnosticSet.
 func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
@@ -5101,7 +5479,30 @@ func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
 	return ret
 }
 
-// not supported : clang_getDiagnosticOption : param Disable : CXString *
+// Retrieve the name of the command-line option that enabled this diagnostic.
+func GetDiagnosticOption(diag Diagnostic, disable *String_) String_ {
+	c_diag := diag
+	c_disable := disable
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_diag),
+		unsafe.Pointer(&c_disable),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getDiagnosticOption,
+		ptr_clang_getDiagnosticOption,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticOption", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve a source range associated with the diagnostic.
@@ -5372,7 +5773,30 @@ func GetFileName(sFile File) String_ {
 
 // not supported : clang_getFileTime : return value : time_t
 
-// not supported : clang_getFileUniqueID : param outID : CXFileUniqueID *
+// Retrieve the unique ID for the given file.
+func GetFileUniqueID(file File, outID *FileUniqueID) int32 {
+	c_file := file
+	c_outID := outID
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_outID),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getFileUniqueID,
+		ptr_clang_getFileUniqueID,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileUniqueID", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Get the fully qualified name for a type.
@@ -5845,7 +6269,7 @@ func GetPointeeType(t Type_) Type_ {
 	return ret
 }
 
-// not supported : clang_getPresumedLocation : param filename : CXString *
+// not supported : clang_getPresumedLocation : param line : unsigned int *
 
 // Retrieve a source range given the beginning and ending source locations.
 func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
@@ -6496,11 +6920,50 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 
 // not supported : clang_indexLoc_getFileLocation : param indexFile : CXIdxClientFile *
 
-// not supported : clang_indexSourceFile : param index_callbacks : IndexerCallbacks *
+// not supported : clang_indexSourceFile : param out_TU : CXTranslationUnit *
 
-// not supported : clang_indexSourceFileFullArgv : param index_callbacks : IndexerCallbacks *
+// not supported : clang_indexSourceFileFullArgv : param out_TU : CXTranslationUnit *
 
-// not supported : clang_indexTranslationUnit : param index_callbacks : IndexerCallbacks *
+/*
+Index the given translation unit via callbacks implemented through #IndexerCallbacks.
+
+The order of callback invocations is not guaranteed to be the same as when indexing a source file. The high level order will be:
+
+-Preprocessor callbacks invocations   -Declaration/reference callbacks invocations   -Diagnostic callback invocations
+
+The parameters are the same as #clang_indexSourceFile.
+*/
+func IndexTranslationUnit(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, p5 TranslationUnit) int32 {
+	c_p0 := p0
+	c_client_data := client_data
+	c_index_callbacks := index_callbacks
+	c_index_callbacks_size := index_callbacks_size
+	c_index_options := index_options
+	c_p5 := p5
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_client_data),
+		unsafe.Pointer(&c_index_callbacks),
+		unsafe.Pointer(&c_index_callbacks_size),
+		unsafe.Pointer(&c_index_options),
+		unsafe.Pointer(&c_p5),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_indexTranslationUnit,
+		ptr_clang_indexTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_index_getCXXClassDeclInfo : return value : const CXIdxCXXClassDeclInfo *
 
@@ -7059,7 +7522,29 @@ func Remap_dispose(p0 Remapping) {
 	}
 }
 
-// not supported : clang_remap_getFilenames : param p2 : CXString *
+func Remap_getFilenames(p0 Remapping, p1 uint32, p2 *String_, p3 *String_) {
+	c_p0 := p0
+	c_p1 := p1
+	c_p2 := p2
+	c_p3 := p3
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+		unsafe.Pointer(&c_p2),
+		unsafe.Pointer(&c_p3),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_remap_getFilenames,
+		ptr_clang_remap_getFilenames,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_getFilenames", err))
+	}
+}
 
 func Remap_getNumFiles(p0 Remapping) uint32 {
 	c_p0 := p0
@@ -7153,7 +7638,26 @@ func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) in
 	return ret
 }
 
-// not supported : clang_sortCodeCompletionResults : param Results : CXCompletionResult *
+// Sort the code-completion results in case-insensitive alphabetical order.
+func SortCodeCompletionResults(results *CompletionResult, numResults uint32) {
+	c_results := results
+	c_numResults := numResults
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+		unsafe.Pointer(&c_numResults),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_sortCodeCompletionResults,
+		ptr_clang_sortCodeCompletionResults,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_sortCodeCompletionResults", err))
+	}
+}
 
 /*
 Suspend a translation unit in order to free memory associated with it.
