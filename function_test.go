@@ -23,3 +23,12 @@ func TestFunctionScalarArgsPointerTypeReturn(t *testing.T) {
 	index := CreateIndex(0, 0)
 	assert.NotNil(t, index)
 }
+
+func TestFunctionStringSliceArg(t *testing.T) {
+	index := CreateIndex(0, 0)
+	assert.NotNil(t, index)
+
+	tu := CreateTranslationUnitFromSourceFile(index, "test-data/test.h",
+		[]string{"qaz", "qwerty"}, nil)
+	assert.NotNil(t, tu)
+}

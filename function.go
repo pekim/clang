@@ -3139,7 +3139,51 @@ func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
 
 // not supported : clang_createTranslationUnit2 : param out_TU : CXTranslationUnit *
 
-// not supported : clang_createTranslationUnitFromSourceFile : param clang_command_line_args : const char *const *
+/*
+Return the CXTranslationUnit for a given source file and the provided command line arguments one would pass to the compiler.
+
+Note: The 'source_filename' argument is optional.  If the caller provides a NULL pointer, the name of the source file is expected to reside in the specified command line arguments.
+
+Note: When encountered in 'clang_command_line_args', the following options are ignored:
+
+'-c'   '-emit-ast'   '-fsyntax-only'   '-o <output file>'  (both '-o' and '<output file>' are ignored)
+*/
+func CreateTranslationUnitFromSourceFile(cIdx Index, source_filename string, clang_command_line_args []string, unsaved_files []UnsavedFile) TranslationUnit {
+	c_cIdx := cIdx
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_num_clang_command_line_args := len(clang_command_line_args)
+	c_clang_command_line_args, free_c_clang_command_line_args := libc.CStrings(clang_command_line_args)
+	defer free_c_clang_command_line_args()
+	c_num_unsaved_files := len(unsaved_files)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+
+	var retC TranslationUnit
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_num_clang_command_line_args),
+		unsafe.Pointer(&c_clang_command_line_args),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_unsaved_files),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_createTranslationUnitFromSourceFile,
+		ptr_clang_createTranslationUnitFromSourceFile,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createTranslationUnitFromSourceFile", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns a default set of code-completion options that can be passed toclang_codeCompleteAt().
 func DefaultCodeCompleteOptions() uint32 {
@@ -6953,11 +6997,49 @@ func IsVolatileQualifiedType(t Type_) uint32 {
 
 // not supported : clang_loadDiagnostics : param error : enum CXLoadDiag_Error *
 
-// not supported : clang_parseTranslationUnit : param command_line_args : const char *const *
+// Same as clang_parseTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
+func ParseTranslationUnit(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) TranslationUnit {
+	c_cIdx := cIdx
+	c_source_filename, free_c_source_filename := libc.CString(source_filename)
+	defer free_c_source_filename()
+	c_command_line_args, free_c_command_line_args := libc.CStrings(command_line_args)
+	defer free_c_command_line_args()
+	c_num_command_line_args := len(command_line_args)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_options := options
 
-// not supported : clang_parseTranslationUnit2 : param command_line_args : const char *const *
+	var retC TranslationUnit
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_source_filename),
+		unsafe.Pointer(&c_command_line_args),
+		unsafe.Pointer(&c_num_command_line_args),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_options),
+	}
 
-// not supported : clang_parseTranslationUnit2FullArgv : param command_line_args : const char *const *
+	err := ffi.CallFunction(
+		cif_clang_parseTranslationUnit,
+		ptr_clang_parseTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_parseTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_parseTranslationUnit2 : param out_TU : CXTranslationUnit *
+
+// not supported : clang_parseTranslationUnit2FullArgv : param out_TU : CXTranslationUnit *
 
 func Remap_dispose(p0 Remapping) {
 	c_p0 := p0
@@ -7001,7 +7083,43 @@ func Remap_getNumFiles(p0 Remapping) uint32 {
 	return ret
 }
 
-// not supported : clang_reparseTranslationUnit : param unsaved_files : struct CXUnsavedFile *
+/*
+Reparse the source files that produced this translation unit.
+
+This routine can be used to re-parse the source files that originally created the given translation unit, for example because those source files have changed (either on disk or as passed via unsaved_files). The source code will be reparsed with the same command-line options as it was originally parsed.
+
+Reparsing a translation unit invalidates all cursors and source locations that refer into that translation unit. This makes reparsing a translation unit semantically equivalent to destroying the translation unit and then creating a new translation unit with the same command-line arguments. However, it may be more efficient to reparse a translation unit using this routine.
+*/
+func ReparseTranslationUnit(tU TranslationUnit, unsaved_files []UnsavedFile, options uint32) int32 {
+	c_tU := tU
+	c_num_unsaved_files := len(unsaved_files)
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_options := options
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_reparseTranslationUnit,
+		ptr_clang_reparseTranslationUnit,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_reparseTranslationUnit", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Saves a translation unit into a serialized representation of that translation unit on disk.

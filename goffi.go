@@ -133,6 +133,7 @@ var cif_clang_constructUSR_ObjCProtocol = &types.CallInterface{}
 var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_createIndex = &types.CallInterface{}
 var cif_clang_createTranslationUnit = &types.CallInterface{}
+var cif_clang_createTranslationUnitFromSourceFile = &types.CallInterface{}
 var cif_clang_defaultCodeCompleteOptions = &types.CallInterface{}
 var cif_clang_defaultDiagnosticDisplayOptions = &types.CallInterface{}
 var cif_clang_defaultEditingTranslationUnitOptions = &types.CallInterface{}
@@ -283,8 +284,10 @@ var cif_clang_isTranslationUnit = &types.CallInterface{}
 var cif_clang_isUnexposed = &types.CallInterface{}
 var cif_clang_isVirtualBase = &types.CallInterface{}
 var cif_clang_isVolatileQualifiedType = &types.CallInterface{}
+var cif_clang_parseTranslationUnit = &types.CallInterface{}
 var cif_clang_remap_dispose = &types.CallInterface{}
 var cif_clang_remap_getNumFiles = &types.CallInterface{}
+var cif_clang_reparseTranslationUnit = &types.CallInterface{}
 var cif_clang_saveTranslationUnit = &types.CallInterface{}
 var cif_clang_suspendTranslationUnit = &types.CallInterface{}
 var cif_clang_toggleCrashRecovery = &types.CallInterface{}
@@ -416,6 +419,7 @@ var ptr_clang_constructUSR_ObjCProtocol unsafe.Pointer
 var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_createIndex unsafe.Pointer
 var ptr_clang_createTranslationUnit unsafe.Pointer
+var ptr_clang_createTranslationUnitFromSourceFile unsafe.Pointer
 var ptr_clang_defaultCodeCompleteOptions unsafe.Pointer
 var ptr_clang_defaultDiagnosticDisplayOptions unsafe.Pointer
 var ptr_clang_defaultEditingTranslationUnitOptions unsafe.Pointer
@@ -566,8 +570,10 @@ var ptr_clang_isTranslationUnit unsafe.Pointer
 var ptr_clang_isUnexposed unsafe.Pointer
 var ptr_clang_isVirtualBase unsafe.Pointer
 var ptr_clang_isVolatileQualifiedType unsafe.Pointer
+var ptr_clang_parseTranslationUnit unsafe.Pointer
 var ptr_clang_remap_dispose unsafe.Pointer
 var ptr_clang_remap_getNumFiles unsafe.Pointer
+var ptr_clang_reparseTranslationUnit unsafe.Pointer
 var ptr_clang_saveTranslationUnit unsafe.Pointer
 var ptr_clang_suspendTranslationUnit unsafe.Pointer
 var ptr_clang_toggleCrashRecovery unsafe.Pointer
@@ -1967,6 +1973,22 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createTranslationUnit, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_createTranslationUnitFromSourceFile, err = ffi.GetSymbol(library, "clang_createTranslationUnitFromSourceFile")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.SInt32TypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.UInt32TypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_createTranslationUnitFromSourceFile, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -3649,6 +3671,23 @@ func init() {
 	}
 
 	{
+		ptr_clang_parseTranslationUnit, err = ffi.GetSymbol(library, "clang_parseTranslationUnit")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.SInt32TypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.UInt32TypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_parseTranslationUnit, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_remap_dispose, err = ffi.GetSymbol(library, "clang_remap_dispose")
 		if err == nil {
 			returnType := types.VoidTypeDescriptor
@@ -3667,6 +3706,20 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_remap_getNumFiles, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_reparseTranslationUnit, err = ffi.GetSymbol(library, "clang_reparseTranslationUnit")
+		if err == nil {
+			returnType := types.SInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.UInt32TypeDescriptor,
+				types.PointerTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_reparseTranslationUnit, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

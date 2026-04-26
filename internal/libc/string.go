@@ -48,3 +48,19 @@ func GoString(cStr unsafe.Pointer) string {
 	copy(goBytes, str)
 	return string(goBytes)
 }
+
+func CStrings(goStrings []string) (unsafe.Pointer, func()) {
+	cStrings := make([]unsafe.Pointer, len(goStrings)+1)
+	freeFuncs := make([]func(), len(goStrings))
+	for i, str := range goStrings {
+		cString, free := CString(str)
+		cStrings[i] = cString
+		freeFuncs[i] = free
+	}
+
+	return unsafe.Pointer(&cStrings[0]), func() {
+		for _, free := range freeFuncs {
+			free()
+		}
+	}
+}
