@@ -2,108 +2,6 @@
 
 package clang
 
-// Describes the severity of a particular diagnostic.
-type DiagnosticSeverity uint32
-
-const (
-	// A diagnostic that has been suppressed, e.g., by a command-line option.
-	Diagnostic_Ignored DiagnosticSeverity = 0
-	// This diagnostic is a note that should be attached to the previous (non-note) diagnostic.
-	Diagnostic_Note DiagnosticSeverity = 1
-	// This diagnostic indicates suspicious code that may not be wrong.
-	Diagnostic_Warning DiagnosticSeverity = 2
-	// This diagnostic indicates that the code is ill-formed.
-	Diagnostic_Error DiagnosticSeverity = 3
-	// This diagnostic indicates that the code is ill-formed such that future parser recovery is unlikely to produce useful results.
-	Diagnostic_Fatal DiagnosticSeverity = 4
-)
-
-// Describes the kind of error that occurred (if any) in a call to clang_loadDiagnostics.
-type LoadDiag_Error uint32
-
-const (
-	// Indicates that no error occurred.
-	LoadDiag_None LoadDiag_Error = 0
-	// Indicates that an unknown error occurred while attempting to deserialize diagnostics.
-	LoadDiag_Unknown LoadDiag_Error = 1
-	// Indicates that the file containing the serialized diagnostics could not be opened.
-	LoadDiag_CannotLoad LoadDiag_Error = 2
-	// Indicates that the serialized diagnostics file is invalid or corrupt.
-	LoadDiag_InvalidFile LoadDiag_Error = 3
-)
-
-/*
-Options to control the display of diagnostics.
-
-The values in this enum are meant to be combined to customize the behavior of clang_formatDiagnostic().
-*/
-type DiagnosticDisplayOptions uint32
-
-const (
-	/*
-	   Display the source-location information where the diagnostic was located.
-
-	   When set, diagnostics will be prefixed by the file, line, and (optionally) column to which the diagnostic refers. For example,
-
-	   This option corresponds to the clang flag -fshow-source-location.
-	*/
-	Diagnostic_DisplaySourceLocation DiagnosticDisplayOptions = 1
-	/*
-	   If displaying the source-location information of the diagnostic, also include the column number.
-
-	   This option corresponds to the clang flag -fshow-column.
-	*/
-	Diagnostic_DisplayColumn DiagnosticDisplayOptions = 2
-	/*
-	   If displaying the source-location information of the diagnostic, also include information about source ranges in a machine-parsable format.
-
-	   This option corresponds to the clang flag -fdiagnostics-print-source-range-info.
-	*/
-	Diagnostic_DisplaySourceRanges DiagnosticDisplayOptions = 4
-	/*
-	   Display the option name associated with this diagnostic, if any.
-
-	   The option name displayed (e.g., -Wconversion) will be placed in brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-option.
-	*/
-	Diagnostic_DisplayOption DiagnosticDisplayOptions = 8
-	/*
-	   Display the category number associated with this diagnostic, if any.
-
-	   The category number is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=id.
-	*/
-	Diagnostic_DisplayCategoryId DiagnosticDisplayOptions = 16
-	/*
-	   Display the category name associated with this diagnostic, if any.
-
-	   The category name is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=name.
-	*/
-	Diagnostic_DisplayCategoryName DiagnosticDisplayOptions = 32
-)
-
-/*
-Error codes returned by libclang routines.
-
-Zero (CXError_Success) is the only error code indicating success.  Other error codes, including not yet assigned non-zero values, indicate errors.
-*/
-type ErrorCode uint32
-
-const (
-	// No error.
-	Error_Success ErrorCode = 0
-	/*
-	   A generic error code, no further details are available.
-
-	   Errors of this kind can get their own specific error codes in future libclang versions.
-	*/
-	Error_Failure ErrorCode = 1
-	// libclang crashed while performing the requested operation.
-	Error_Crashed ErrorCode = 2
-	// The function detected that the arguments violate the function contract.
-	Error_InvalidArguments ErrorCode = 3
-	// An AST deserialization error has occurred.
-	Error_ASTReadError ErrorCode = 4
-)
-
 // Describes the availability of a particular entity, which indicates whether the use of this entity will result in a warning or error due to it being deprecated or unavailable.
 type AvailabilityKind uint32
 
@@ -118,34 +16,139 @@ const (
 	Availability_NotAccessible AvailabilityKind = 3
 )
 
-/*
-Describes the exception specification of a cursor.
-
-A negative value indicates that the cursor is not a function declaration.
-*/
-type Cursor_ExceptionSpecificationKind uint32
+// Describes the kind of binary operators.
+type BinaryOperatorKind uint32
 
 const (
-	// The cursor has no exception specification.
-	Cursor_ExceptionSpecificationKind_None Cursor_ExceptionSpecificationKind = 0
-	// The cursor has exception specification throw()
-	Cursor_ExceptionSpecificationKind_DynamicNone Cursor_ExceptionSpecificationKind = 1
-	// The cursor has exception specification throw(T1, T2)
-	Cursor_ExceptionSpecificationKind_Dynamic Cursor_ExceptionSpecificationKind = 2
-	// The cursor has exception specification throw(...).
-	Cursor_ExceptionSpecificationKind_MSAny Cursor_ExceptionSpecificationKind = 3
-	// The cursor has exception specification basic noexcept.
-	Cursor_ExceptionSpecificationKind_BasicNoexcept Cursor_ExceptionSpecificationKind = 4
-	// The cursor has exception specification computed noexcept.
-	Cursor_ExceptionSpecificationKind_ComputedNoexcept Cursor_ExceptionSpecificationKind = 5
-	// The exception specification has not yet been evaluated.
-	Cursor_ExceptionSpecificationKind_Unevaluated Cursor_ExceptionSpecificationKind = 6
-	// The exception specification has not yet been instantiated.
-	Cursor_ExceptionSpecificationKind_Uninstantiated Cursor_ExceptionSpecificationKind = 7
-	// The exception specification has not been parsed yet.
-	Cursor_ExceptionSpecificationKind_Unparsed Cursor_ExceptionSpecificationKind = 8
-	// The cursor has a __declspec(nothrow) exception specification.
-	Cursor_ExceptionSpecificationKind_NoThrow Cursor_ExceptionSpecificationKind = 9
+	// This value describes cursors which are not binary operators.
+	BinaryOperator_Invalid BinaryOperatorKind = 0
+	// C++ Pointer - to - member operator.
+	BinaryOperator_PtrMemD BinaryOperatorKind = 1
+	// C++ Pointer - to - member operator.
+	BinaryOperator_PtrMemI BinaryOperatorKind = 2
+	// Multiplication operator.
+	BinaryOperator_Mul BinaryOperatorKind = 3
+	// Division operator.
+	BinaryOperator_Div BinaryOperatorKind = 4
+	// Remainder operator.
+	BinaryOperator_Rem BinaryOperatorKind = 5
+	// Addition operator.
+	BinaryOperator_Add BinaryOperatorKind = 6
+	// Subtraction operator.
+	BinaryOperator_Sub BinaryOperatorKind = 7
+	// Bitwise shift left operator.
+	BinaryOperator_Shl BinaryOperatorKind = 8
+	// Bitwise shift right operator.
+	BinaryOperator_Shr BinaryOperatorKind = 9
+	// C++ three-way comparison (spaceship) operator.
+	BinaryOperator_Cmp BinaryOperatorKind = 10
+	// Less than operator.
+	BinaryOperator_LT BinaryOperatorKind = 11
+	// Greater than operator.
+	BinaryOperator_GT BinaryOperatorKind = 12
+	// Less or equal operator.
+	BinaryOperator_LE BinaryOperatorKind = 13
+	// Greater or equal operator.
+	BinaryOperator_GE BinaryOperatorKind = 14
+	// Equal operator.
+	BinaryOperator_EQ BinaryOperatorKind = 15
+	// Not equal operator.
+	BinaryOperator_NE BinaryOperatorKind = 16
+	// Bitwise AND operator.
+	BinaryOperator_And BinaryOperatorKind = 17
+	// Bitwise XOR operator.
+	BinaryOperator_Xor BinaryOperatorKind = 18
+	// Bitwise OR operator.
+	BinaryOperator_Or BinaryOperatorKind = 19
+	// Logical AND operator.
+	BinaryOperator_LAnd BinaryOperatorKind = 20
+	// Logical OR operator.
+	BinaryOperator_LOr BinaryOperatorKind = 21
+	// Assignment operator.
+	BinaryOperator_Assign BinaryOperatorKind = 22
+	// Multiplication assignment operator.
+	BinaryOperator_MulAssign BinaryOperatorKind = 23
+	// Division assignment operator.
+	BinaryOperator_DivAssign BinaryOperatorKind = 24
+	// Remainder assignment operator.
+	BinaryOperator_RemAssign BinaryOperatorKind = 25
+	// Addition assignment operator.
+	BinaryOperator_AddAssign BinaryOperatorKind = 26
+	// Subtraction assignment operator.
+	BinaryOperator_SubAssign BinaryOperatorKind = 27
+	// Bitwise shift left assignment operator.
+	BinaryOperator_ShlAssign BinaryOperatorKind = 28
+	// Bitwise shift right assignment operator.
+	BinaryOperator_ShrAssign BinaryOperatorKind = 29
+	// Bitwise AND assignment operator.
+	BinaryOperator_AndAssign BinaryOperatorKind = 30
+	// Bitwise XOR assignment operator.
+	BinaryOperator_XorAssign BinaryOperatorKind = 31
+	// Bitwise OR assignment operator.
+	BinaryOperator_OrAssign BinaryOperatorKind = 32
+	// Comma operator.
+	BinaryOperator_Comma BinaryOperatorKind = 33
+	// Comma operator.
+	BinaryOperator_Last BinaryOperatorKind = 33
+)
+
+// Describes the calling convention of a function type
+type CallingConv uint32
+
+const (
+	CallingConv_Default            CallingConv = 0
+	CallingConv_C                  CallingConv = 1
+	CallingConv_X86StdCall         CallingConv = 2
+	CallingConv_X86FastCall        CallingConv = 3
+	CallingConv_X86ThisCall        CallingConv = 4
+	CallingConv_X86Pascal          CallingConv = 5
+	CallingConv_AAPCS              CallingConv = 6
+	CallingConv_AAPCS_VFP          CallingConv = 7
+	CallingConv_X86RegCall         CallingConv = 8
+	CallingConv_IntelOclBicc       CallingConv = 9
+	CallingConv_Win64              CallingConv = 10
+	CallingConv_X86_64Win64        CallingConv = 10
+	CallingConv_X86_64SysV         CallingConv = 11
+	CallingConv_X86VectorCall      CallingConv = 12
+	CallingConv_Swift              CallingConv = 13
+	CallingConv_PreserveMost       CallingConv = 14
+	CallingConv_PreserveAll        CallingConv = 15
+	CallingConv_AArch64VectorCall  CallingConv = 16
+	CallingConv_SwiftAsync         CallingConv = 17
+	CallingConv_AArch64SVEPCS      CallingConv = 18
+	CallingConv_M68kRTD            CallingConv = 19
+	CallingConv_PreserveNone       CallingConv = 20
+	CallingConv_RISCVVectorCall    CallingConv = 21
+	CallingConv_RISCVVLSCall_32    CallingConv = 22
+	CallingConv_RISCVVLSCall_64    CallingConv = 23
+	CallingConv_RISCVVLSCall_128   CallingConv = 24
+	CallingConv_RISCVVLSCall_256   CallingConv = 25
+	CallingConv_RISCVVLSCall_512   CallingConv = 26
+	CallingConv_RISCVVLSCall_1024  CallingConv = 27
+	CallingConv_RISCVVLSCall_2048  CallingConv = 28
+	CallingConv_RISCVVLSCall_4096  CallingConv = 29
+	CallingConv_RISCVVLSCall_8192  CallingConv = 30
+	CallingConv_RISCVVLSCall_16384 CallingConv = 31
+	CallingConv_RISCVVLSCall_32768 CallingConv = 32
+	CallingConv_RISCVVLSCall_65536 CallingConv = 33
+	CallingConv_Invalid            CallingConv = 100
+	CallingConv_Unexposed          CallingConv = 200
+)
+
+/*
+Describes how the traversal of the children of a particular cursor should proceed after visiting a particular child cursor.
+
+A value of this enumeration type should be returned by each CXCursorVisitor to indicate how clang_visitChildren() proceed.
+*/
+type ChildVisitResult uint32
+
+const (
+	// Terminates the cursor traversal.
+	ChildVisit_Break ChildVisitResult = 0
+	// Continues the cursor traversal with the next sibling of the cursor just visited, without visiting its children.
+	ChildVisit_Continue ChildVisitResult = 1
+	// Recursively traverse the children of this cursor, using the same visitor and client data.
+	ChildVisit_Recurse ChildVisitResult = 2
 )
 
 type Choice uint32
@@ -159,179 +162,170 @@ const (
 	Choice_Disabled Choice = 2
 )
 
-type GlobalOptFlags uint32
+/*
+Flags that can be passed to clang_codeCompleteAt() to modify its behavior.
+
+The enumerators in this enumeration can be bitwise-OR'd together to provide multiple options to clang_codeCompleteAt().
+*/
+type CodeComplete_Flags uint32
 
 const (
-	// Used to indicate that no special CXIndex options are needed.
-	GlobalOpt_None GlobalOptFlags = 0
-	/*
-	   Used to indicate that threads that libclang creates for indexing purposes should use background priority.
-
-	   Affects #clang_indexSourceFile, #clang_indexTranslationUnit, #clang_parseTranslationUnit, #clang_saveTranslationUnit.
-	*/
-	GlobalOpt_ThreadBackgroundPriorityForIndexing GlobalOptFlags = 1
-	/*
-	   Used to indicate that threads that libclang creates for editing purposes should use background priority.
-
-	   Affects #clang_reparseTranslationUnit, #clang_codeCompleteAt, #clang_annotateTokens
-	*/
-	GlobalOpt_ThreadBackgroundPriorityForEditing GlobalOptFlags = 2
-	// Used to indicate that all threads that libclang creates should use background priority.
-	GlobalOpt_ThreadBackgroundPriorityForAll GlobalOptFlags = 3
+	// Whether to include macros within the set of code completions returned.
+	CodeComplete_IncludeMacros CodeComplete_Flags = 1
+	// Whether to include code patterns for language constructs within the set of code completions, e.g., for loops.
+	CodeComplete_IncludeCodePatterns CodeComplete_Flags = 2
+	// Whether to include brief documentation within the set of code completions returned.
+	CodeComplete_IncludeBriefComments CodeComplete_Flags = 4
+	// Whether to speed up completion by omitting top- or namespace-level entities defined in the preamble. There's no guarantee any particular entity is omitted. This may be useful if the headers are indexed externally.
+	CodeComplete_SkipPreamble CodeComplete_Flags = 8
+	// Whether to include completions with small fix-its, e.g. change '.' to '->' on member access, etc.
+	CodeComplete_IncludeCompletionsWithFixIts CodeComplete_Flags = 16
 )
 
 /*
-Flags that control the creation of translation units.
+Describes a single piece of text within a code-completion string.
 
-The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when constructing the translation unit.
+Each "chunk" within a code-completion string (CXCompletionString) is either a piece of text with a specific "kind" that describes how that text should be interpreted by the client or is another completion string.
 */
-type TranslationUnit_Flags uint32
+type CompletionChunkKind uint32
 
 const (
-	// Used to indicate that no special translation-unit options are needed.
-	TranslationUnit_None TranslationUnit_Flags = 0
 	/*
-	   Used to indicate that the parser should construct a "detailed" preprocessing record, including all macro definitions and instantiations.
+	   A code-completion string that describes "optional" text that could be a part of the template (but is not required).
 
-	   Constructing a detailed preprocessing record requires more memory and time to parse, since the information contained in the record is usually not retained. However, it can be useful for applications that require more detailed information about the behavior of the preprocessor.
+	   The Optional chunk is the only kind of chunk that has a code-completion string for its representation, which is accessible via clang_getCompletionChunkCompletionString(). The code-completion string describes an additional part of the template that is completely optional. For example, optional chunks can be used to describe the placeholders for arguments that match up with defaulted function parameters, e.g. given:
+
+	   The code-completion string for this function would contain:   - a TypedText chunk for "f".   - a LeftParen chunk for "(".   - a Placeholder chunk for "int x"   - an Optional chunk containing the remaining defaulted arguments, e.g.,       - a Comma chunk for ","       - a Placeholder chunk for "float y"       - an Optional chunk containing the last defaulted argument:           - a Comma chunk for ","           - a Placeholder chunk for "double z"   - a RightParen chunk for ")"
+
+	   There are many ways to handle Optional chunks. Two simple approaches are:   - Completely ignore optional chunks, in which case the template for the     function "f" would only include the first parameter ("int x").   - Fully expand all optional chunks, in which case the template for the     function "f" would have all of the parameters.
 	*/
-	TranslationUnit_DetailedPreprocessingRecord TranslationUnit_Flags = 1
+	CompletionChunk_Optional CompletionChunkKind = 0
 	/*
-	   Used to indicate that the translation unit is incomplete.
+	   Text that a user would be expected to type to get this code-completion result.
 
-	   When a translation unit is considered "incomplete", semantic analysis that is typically performed at the end of the translation unit will be suppressed. For example, this suppresses the completion of tentative declarations in C and of instantiation of implicitly-instantiation function templates in C++. This option is typically used when parsing a header with the intent of producing a precompiled header.
+	   There will be exactly one "typed text" chunk in a semantic string, which will typically provide the spelling of a keyword or the name of a declaration that could be used at the current code point. Clients are expected to filter the code-completion results based on the text in this chunk.
 	*/
-	TranslationUnit_Incomplete TranslationUnit_Flags = 2
+	CompletionChunk_TypedText CompletionChunkKind = 1
 	/*
-	   Used to indicate that the translation unit should be built with an implicit precompiled header for the preamble.
+	   Text that should be inserted as part of a code-completion result.
 
-	   An implicit precompiled header is used as an optimization when a particular translation unit is likely to be reparsed many times when the sources aren't changing that often. In this case, an implicit precompiled header will be built containing all of the initial includes at the top of the main file (what we refer to as the "preamble" of the file). In subsequent parses, if the preamble or the files in it have not changed, clang_reparseTranslationUnit() will re-use the implicit precompiled header to improve parsing performance.
+	   A "text" chunk represents text that is part of the template to be inserted into user code should this particular code-completion result be selected.
 	*/
-	TranslationUnit_PrecompiledPreamble TranslationUnit_Flags = 4
+	CompletionChunk_Text CompletionChunkKind = 2
 	/*
-	   Used to indicate that the translation unit should cache some code-completion results with each reparse of the source file.
+	   Placeholder text that should be replaced by the user.
 
-	   Caching of code-completion results is a performance optimization that introduces some overhead to reparsing but improves the performance of code-completion operations.
+	   A "placeholder" chunk marks a place where the user should insert text into the code-completion template. For example, placeholders might mark the function parameters for a function declaration, to indicate that the user should provide arguments for each of those parameters. The actual text in a placeholder is a suggestion for the text to display before the user replaces the placeholder with real code.
 	*/
-	TranslationUnit_CacheCompletionResults TranslationUnit_Flags = 8
+	CompletionChunk_Placeholder CompletionChunkKind = 3
 	/*
-	   Used to indicate that the translation unit will be serialized with clang_saveTranslationUnit.
+	   Informative text that should be displayed but never inserted as part of the template.
 
-	   This option is typically used when parsing a header with the intent of producing a precompiled header.
+	   An "informative" chunk contains annotations that can be displayed to help the user decide whether a particular code-completion result is the right option, but which is not part of the actual template to be inserted by code completion.
 	*/
-	TranslationUnit_ForSerialization TranslationUnit_Flags = 16
+	CompletionChunk_Informative CompletionChunkKind = 4
 	/*
-	   DEPRECATED: Enabled chained precompiled preambles in C++.
+	   Text that describes the current parameter when code-completion is referring to function call, message send, or template specialization.
 
-	   Note: this is a *temporary* option that is available only while we are testing C++ precompiled preamble support. It is deprecated.
+	   A "current parameter" chunk occurs when code-completion is providing information about a parameter corresponding to the argument at the code-completion point. For example, given a function
+
+	   and the source code add(, where the code-completion point is after the "(", the code-completion string will contain a "current parameter" chunk for "int x", indicating that the current argument will initialize that parameter. After typing further, to add(17, (where the code-completion point is after the ","), the code-completion string will contain a "current parameter" chunk to "int y".
 	*/
-	TranslationUnit_CXXChainedPCH TranslationUnit_Flags = 32
+	CompletionChunk_CurrentParameter CompletionChunkKind = 5
+	// A left parenthesis ('('), used to initiate a function call or signal the beginning of a function parameter list.
+	CompletionChunk_LeftParen CompletionChunkKind = 6
+	// A right parenthesis (')'), used to finish a function call or signal the end of a function parameter list.
+	CompletionChunk_RightParen CompletionChunkKind = 7
+	// A left bracket ('[').
+	CompletionChunk_LeftBracket CompletionChunkKind = 8
+	// A right bracket (']').
+	CompletionChunk_RightBracket CompletionChunkKind = 9
+	// A left brace ('{').
+	CompletionChunk_LeftBrace CompletionChunkKind = 10
+	// A right brace ('}').
+	CompletionChunk_RightBrace CompletionChunkKind = 11
+	// A left angle bracket ('<').
+	CompletionChunk_LeftAngle CompletionChunkKind = 12
+	// A right angle bracket ('>').
+	CompletionChunk_RightAngle CompletionChunkKind = 13
+	// A comma separator (',').
+	CompletionChunk_Comma CompletionChunkKind = 14
 	/*
-	   Used to indicate that function/method bodies should be skipped while parsing.
+	   Text that specifies the result type of a given result.
 
-	   This option can be used to search for declarations/definitions while ignoring the usages.
+	   This special kind of informative chunk is not meant to be inserted into the text buffer. Rather, it is meant to illustrate the type that an expression using the given completion string would have.
 	*/
-	TranslationUnit_SkipFunctionBodies TranslationUnit_Flags = 64
-	// Used to indicate that brief documentation comments should be included into the set of code completions returned from this translation unit.
-	TranslationUnit_IncludeBriefCommentsInCodeCompletion TranslationUnit_Flags = 128
-	// Used to indicate that the precompiled preamble should be created on the first parse. Otherwise it will be created on the first reparse. This trades runtime on the first parse (serializing the preamble takes time) for reduced runtime on the second parse (can now reuse the preamble).
-	TranslationUnit_CreatePreambleOnFirstParse TranslationUnit_Flags = 256
-	/*
-	   Do not stop processing when fatal errors are encountered.
-
-	   When fatal errors are encountered while parsing a translation unit, semantic analysis is typically stopped early when compiling code. A common source for fatal errors are unresolvable include files. For the purposes of an IDE, this is undesirable behavior and as much information as possible should be reported. Use this flag to enable this behavior.
-	*/
-	TranslationUnit_KeepGoing TranslationUnit_Flags = 512
-	// Sets the preprocessor in a mode for parsing a single file only.
-	TranslationUnit_SingleFileParse TranslationUnit_Flags = 1024
-	/*
-	   Used in combination with CXTranslationUnit_SkipFunctionBodies to constrain the skipping of function bodies to the preamble.
-
-	   The function bodies of the main file are not skipped.
-	*/
-	TranslationUnit_LimitSkipFunctionBodiesToPreamble TranslationUnit_Flags = 2048
-	// Used to indicate that attributed types should be included in CXType.
-	TranslationUnit_IncludeAttributedTypes TranslationUnit_Flags = 4096
-	// Used to indicate that implicit attributes should be visited.
-	TranslationUnit_VisitImplicitAttributes TranslationUnit_Flags = 8192
-	/*
-	   Used to indicate that non-errors from included files should be ignored.
-
-	   If set, clang_getDiagnosticSetFromTU() will not report e.g. warnings from included files anymore. This speeds up clang_getDiagnosticSetFromTU() for the case where these warnings are not of interest, as for an IDE for example, which typically shows only the diagnostics in the main file.
-	*/
-	TranslationUnit_IgnoreNonErrorsFromIncludedFiles TranslationUnit_Flags = 16384
-	// Tells the preprocessor not to skip excluded conditional blocks.
-	TranslationUnit_RetainExcludedConditionalBlocks TranslationUnit_Flags = 32768
+	CompletionChunk_ResultType CompletionChunkKind = 15
+	// A colon (':').
+	CompletionChunk_Colon CompletionChunkKind = 16
+	// A semicolon (';').
+	CompletionChunk_SemiColon CompletionChunkKind = 17
+	// An '=' sign.
+	CompletionChunk_Equal CompletionChunkKind = 18
+	// Horizontal space (' ').
+	CompletionChunk_HorizontalSpace CompletionChunkKind = 19
+	// Vertical space ('\n'), after which it is generally a good idea to perform indentation.
+	CompletionChunk_VerticalSpace CompletionChunkKind = 20
 )
 
 /*
-Flags that control how translation units are saved.
+Bits that represent the context under which completion is occurring.
 
-The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when saving the translation unit.
+The enumerators in this enumeration may be bitwise-OR'd together if multiple contexts are occurring simultaneously.
 */
-type SaveTranslationUnit_Flags uint32
+type CompletionContext uint32
 
 const (
-	// Used to indicate that no special saving options are needed.
-	SaveTranslationUnit_None SaveTranslationUnit_Flags = 0
-)
-
-// Describes the kind of error that occurred (if any) in a call to clang_saveTranslationUnit().
-type SaveError uint32
-
-const (
-	// Indicates that no error occurred while saving a translation unit.
-	SaveError_None SaveError = 0
-	/*
-	   Indicates that an unknown error occurred while attempting to save the file.
-
-	   This error typically indicates that file I/O failed when attempting to write the file.
-	*/
-	SaveError_Unknown SaveError = 1
-	/*
-	   Indicates that errors during translation prevented this attempt to save the translation unit.
-
-	   Errors that prevent the translation unit from being saved can be extracted using clang_getNumDiagnostics() and clang_getDiagnostic().
-	*/
-	SaveError_TranslationErrors SaveError = 2
-	// Indicates that the translation unit to be saved was somehow invalid (e.g., NULL).
-	SaveError_InvalidTU SaveError = 3
-)
-
-/*
-Flags that control the reparsing of translation units.
-
-The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when reparsing the translation unit.
-*/
-type Reparse_Flags uint32
-
-const (
-	// Used to indicate that no special reparsing options are needed.
-	Reparse_None Reparse_Flags = 0
-)
-
-// Categorizes how memory is being used by a translation unit.
-type TUResourceUsageKind uint32
-
-const (
-	TUResourceUsage_AST                                TUResourceUsageKind = 1
-	TUResourceUsage_Identifiers                        TUResourceUsageKind = 2
-	TUResourceUsage_Selectors                          TUResourceUsageKind = 3
-	TUResourceUsage_GlobalCompletionResults            TUResourceUsageKind = 4
-	TUResourceUsage_SourceManagerContentCache          TUResourceUsageKind = 5
-	TUResourceUsage_AST_SideTables                     TUResourceUsageKind = 6
-	TUResourceUsage_SourceManager_Membuffer_Malloc     TUResourceUsageKind = 7
-	TUResourceUsage_SourceManager_Membuffer_MMap       TUResourceUsageKind = 8
-	TUResourceUsage_ExternalASTSource_Membuffer_Malloc TUResourceUsageKind = 9
-	TUResourceUsage_ExternalASTSource_Membuffer_MMap   TUResourceUsageKind = 10
-	TUResourceUsage_Preprocessor                       TUResourceUsageKind = 11
-	TUResourceUsage_PreprocessingRecord                TUResourceUsageKind = 12
-	TUResourceUsage_SourceManager_DataStructures       TUResourceUsageKind = 13
-	TUResourceUsage_Preprocessor_HeaderSearch          TUResourceUsageKind = 14
-	TUResourceUsage_MEMORY_IN_BYTES_BEGIN              TUResourceUsageKind = 1
-	TUResourceUsage_MEMORY_IN_BYTES_END                TUResourceUsageKind = 14
-	TUResourceUsage_First                              TUResourceUsageKind = 1
-	TUResourceUsage_Last                               TUResourceUsageKind = 14
+	// The context for completions is unexposed, as only Clang results should be included. (This is equivalent to having no context bits set.)
+	CompletionContext_Unexposed CompletionContext = 0
+	// Completions for any possible type should be included in the results.
+	CompletionContext_AnyType CompletionContext = 1
+	// Completions for any possible value (variables, function calls, etc.) should be included in the results.
+	CompletionContext_AnyValue CompletionContext = 2
+	// Completions for values that resolve to an Objective-C object should be included in the results.
+	CompletionContext_ObjCObjectValue CompletionContext = 4
+	// Completions for values that resolve to an Objective-C selector should be included in the results.
+	CompletionContext_ObjCSelectorValue CompletionContext = 8
+	// Completions for values that resolve to a C++ class type should be included in the results.
+	CompletionContext_CXXClassTypeValue CompletionContext = 16
+	// Completions for fields of the member being accessed using the dot operator should be included in the results.
+	CompletionContext_DotMemberAccess CompletionContext = 32
+	// Completions for fields of the member being accessed using the arrow operator should be included in the results.
+	CompletionContext_ArrowMemberAccess CompletionContext = 64
+	// Completions for properties of the Objective-C object being accessed using the dot operator should be included in the results.
+	CompletionContext_ObjCPropertyAccess CompletionContext = 128
+	// Completions for enum tags should be included in the results.
+	CompletionContext_EnumTag CompletionContext = 256
+	// Completions for union tags should be included in the results.
+	CompletionContext_UnionTag CompletionContext = 512
+	// Completions for struct tags should be included in the results.
+	CompletionContext_StructTag CompletionContext = 1024
+	// Completions for C++ class names should be included in the results.
+	CompletionContext_ClassTag CompletionContext = 2048
+	// Completions for C++ namespaces and namespace aliases should be included in the results.
+	CompletionContext_Namespace CompletionContext = 4096
+	// Completions for C++ nested name specifiers should be included in the results.
+	CompletionContext_NestedNameSpecifier CompletionContext = 8192
+	// Completions for Objective-C interfaces (classes) should be included in the results.
+	CompletionContext_ObjCInterface CompletionContext = 16384
+	// Completions for Objective-C protocols should be included in the results.
+	CompletionContext_ObjCProtocol CompletionContext = 32768
+	// Completions for Objective-C categories should be included in the results.
+	CompletionContext_ObjCCategory CompletionContext = 65536
+	// Completions for Objective-C instance messages should be included in the results.
+	CompletionContext_ObjCInstanceMessage CompletionContext = 131072
+	// Completions for Objective-C class messages should be included in the results.
+	CompletionContext_ObjCClassMessage CompletionContext = 262144
+	// Completions for Objective-C selector names should be included in the results.
+	CompletionContext_ObjCSelectorName CompletionContext = 524288
+	// Completions for preprocessor macro names should be included in the results.
+	CompletionContext_MacroName CompletionContext = 1048576
+	// Natural language completions should be included in the results.
+	CompletionContext_NaturalLanguage CompletionContext = 2097152
+	// #include file completions should be included in the results.
+	CompletionContext_IncludedFile CompletionContext = 4194304
+	// The current context is unknown, so set all contexts.
+	CompletionContext_Unknown CompletionContext = 8388607
 )
 
 // Describes the kind of entity that a cursor refers to.
@@ -1039,6 +1033,274 @@ const (
 	Cursor_OverloadCandidate CursorKind = 700
 )
 
+/*
+Describes the exception specification of a cursor.
+
+A negative value indicates that the cursor is not a function declaration.
+*/
+type Cursor_ExceptionSpecificationKind uint32
+
+const (
+	// The cursor has no exception specification.
+	Cursor_ExceptionSpecificationKind_None Cursor_ExceptionSpecificationKind = 0
+	// The cursor has exception specification throw()
+	Cursor_ExceptionSpecificationKind_DynamicNone Cursor_ExceptionSpecificationKind = 1
+	// The cursor has exception specification throw(T1, T2)
+	Cursor_ExceptionSpecificationKind_Dynamic Cursor_ExceptionSpecificationKind = 2
+	// The cursor has exception specification throw(...).
+	Cursor_ExceptionSpecificationKind_MSAny Cursor_ExceptionSpecificationKind = 3
+	// The cursor has exception specification basic noexcept.
+	Cursor_ExceptionSpecificationKind_BasicNoexcept Cursor_ExceptionSpecificationKind = 4
+	// The cursor has exception specification computed noexcept.
+	Cursor_ExceptionSpecificationKind_ComputedNoexcept Cursor_ExceptionSpecificationKind = 5
+	// The exception specification has not yet been evaluated.
+	Cursor_ExceptionSpecificationKind_Unevaluated Cursor_ExceptionSpecificationKind = 6
+	// The exception specification has not yet been instantiated.
+	Cursor_ExceptionSpecificationKind_Uninstantiated Cursor_ExceptionSpecificationKind = 7
+	// The exception specification has not been parsed yet.
+	Cursor_ExceptionSpecificationKind_Unparsed Cursor_ExceptionSpecificationKind = 8
+	// The cursor has a __declspec(nothrow) exception specification.
+	Cursor_ExceptionSpecificationKind_NoThrow Cursor_ExceptionSpecificationKind = 9
+)
+
+/*
+Options to control the display of diagnostics.
+
+The values in this enum are meant to be combined to customize the behavior of clang_formatDiagnostic().
+*/
+type DiagnosticDisplayOptions uint32
+
+const (
+	/*
+	   Display the source-location information where the diagnostic was located.
+
+	   When set, diagnostics will be prefixed by the file, line, and (optionally) column to which the diagnostic refers. For example,
+
+	   This option corresponds to the clang flag -fshow-source-location.
+	*/
+	Diagnostic_DisplaySourceLocation DiagnosticDisplayOptions = 1
+	/*
+	   If displaying the source-location information of the diagnostic, also include the column number.
+
+	   This option corresponds to the clang flag -fshow-column.
+	*/
+	Diagnostic_DisplayColumn DiagnosticDisplayOptions = 2
+	/*
+	   If displaying the source-location information of the diagnostic, also include information about source ranges in a machine-parsable format.
+
+	   This option corresponds to the clang flag -fdiagnostics-print-source-range-info.
+	*/
+	Diagnostic_DisplaySourceRanges DiagnosticDisplayOptions = 4
+	/*
+	   Display the option name associated with this diagnostic, if any.
+
+	   The option name displayed (e.g., -Wconversion) will be placed in brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-option.
+	*/
+	Diagnostic_DisplayOption DiagnosticDisplayOptions = 8
+	/*
+	   Display the category number associated with this diagnostic, if any.
+
+	   The category number is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=id.
+	*/
+	Diagnostic_DisplayCategoryId DiagnosticDisplayOptions = 16
+	/*
+	   Display the category name associated with this diagnostic, if any.
+
+	   The category name is displayed within brackets after the diagnostic text. This option corresponds to the clang flag -fdiagnostics-show-category=name.
+	*/
+	Diagnostic_DisplayCategoryName DiagnosticDisplayOptions = 32
+)
+
+// Describes the severity of a particular diagnostic.
+type DiagnosticSeverity uint32
+
+const (
+	// A diagnostic that has been suppressed, e.g., by a command-line option.
+	Diagnostic_Ignored DiagnosticSeverity = 0
+	// This diagnostic is a note that should be attached to the previous (non-note) diagnostic.
+	Diagnostic_Note DiagnosticSeverity = 1
+	// This diagnostic indicates suspicious code that may not be wrong.
+	Diagnostic_Warning DiagnosticSeverity = 2
+	// This diagnostic indicates that the code is ill-formed.
+	Diagnostic_Error DiagnosticSeverity = 3
+	// This diagnostic indicates that the code is ill-formed such that future parser recovery is unlikely to produce useful results.
+	Diagnostic_Fatal DiagnosticSeverity = 4
+)
+
+/*
+Error codes returned by libclang routines.
+
+Zero (CXError_Success) is the only error code indicating success.  Other error codes, including not yet assigned non-zero values, indicate errors.
+*/
+type ErrorCode uint32
+
+const (
+	// No error.
+	Error_Success ErrorCode = 0
+	/*
+	   A generic error code, no further details are available.
+
+	   Errors of this kind can get their own specific error codes in future libclang versions.
+	*/
+	Error_Failure ErrorCode = 1
+	// libclang crashed while performing the requested operation.
+	Error_Crashed ErrorCode = 2
+	// The function detected that the arguments violate the function contract.
+	Error_InvalidArguments ErrorCode = 3
+	// An AST deserialization error has occurred.
+	Error_ASTReadError ErrorCode = 4
+)
+
+type EvalResultKind uint32
+
+const (
+	Eval_Int            EvalResultKind = 1
+	Eval_Float          EvalResultKind = 2
+	Eval_ObjCStrLiteral EvalResultKind = 3
+	Eval_StrLiteral     EvalResultKind = 4
+	Eval_CFStr          EvalResultKind = 5
+	Eval_Other          EvalResultKind = 6
+	Eval_UnExposed      EvalResultKind = 0
+)
+
+type GlobalOptFlags uint32
+
+const (
+	// Used to indicate that no special CXIndex options are needed.
+	GlobalOpt_None GlobalOptFlags = 0
+	/*
+	   Used to indicate that threads that libclang creates for indexing purposes should use background priority.
+
+	   Affects #clang_indexSourceFile, #clang_indexTranslationUnit, #clang_parseTranslationUnit, #clang_saveTranslationUnit.
+	*/
+	GlobalOpt_ThreadBackgroundPriorityForIndexing GlobalOptFlags = 1
+	/*
+	   Used to indicate that threads that libclang creates for editing purposes should use background priority.
+
+	   Affects #clang_reparseTranslationUnit, #clang_codeCompleteAt, #clang_annotateTokens
+	*/
+	GlobalOpt_ThreadBackgroundPriorityForEditing GlobalOptFlags = 2
+	// Used to indicate that all threads that libclang creates should use background priority.
+	GlobalOpt_ThreadBackgroundPriorityForAll GlobalOptFlags = 3
+)
+
+type IdxAttrKind uint32
+
+const (
+	IdxAttr_Unexposed          IdxAttrKind = 0
+	IdxAttr_IBAction           IdxAttrKind = 1
+	IdxAttr_IBOutlet           IdxAttrKind = 2
+	IdxAttr_IBOutletCollection IdxAttrKind = 3
+)
+
+type IdxDeclInfoFlags uint32
+
+const (
+	IdxDeclFlag_Skipped IdxDeclInfoFlags = 1
+)
+
+// Extra C++ template information for an entity. This can apply to: CXIdxEntity_Function CXIdxEntity_CXXClass CXIdxEntity_CXXStaticMethod CXIdxEntity_CXXInstanceMethod CXIdxEntity_CXXConstructor CXIdxEntity_CXXConversionFunction CXIdxEntity_CXXTypeAlias
+type IdxEntityCXXTemplateKind uint32
+
+const (
+	IdxEntity_NonTemplate                   IdxEntityCXXTemplateKind = 0
+	IdxEntity_Template                      IdxEntityCXXTemplateKind = 1
+	IdxEntity_TemplatePartialSpecialization IdxEntityCXXTemplateKind = 2
+	IdxEntity_TemplateSpecialization        IdxEntityCXXTemplateKind = 3
+)
+
+type IdxEntityKind uint32
+
+const (
+	IdxEntity_Unexposed             IdxEntityKind = 0
+	IdxEntity_Typedef               IdxEntityKind = 1
+	IdxEntity_Function              IdxEntityKind = 2
+	IdxEntity_Variable              IdxEntityKind = 3
+	IdxEntity_Field                 IdxEntityKind = 4
+	IdxEntity_EnumConstant          IdxEntityKind = 5
+	IdxEntity_ObjCClass             IdxEntityKind = 6
+	IdxEntity_ObjCProtocol          IdxEntityKind = 7
+	IdxEntity_ObjCCategory          IdxEntityKind = 8
+	IdxEntity_ObjCInstanceMethod    IdxEntityKind = 9
+	IdxEntity_ObjCClassMethod       IdxEntityKind = 10
+	IdxEntity_ObjCProperty          IdxEntityKind = 11
+	IdxEntity_ObjCIvar              IdxEntityKind = 12
+	IdxEntity_Enum                  IdxEntityKind = 13
+	IdxEntity_Struct                IdxEntityKind = 14
+	IdxEntity_Union                 IdxEntityKind = 15
+	IdxEntity_CXXClass              IdxEntityKind = 16
+	IdxEntity_CXXNamespace          IdxEntityKind = 17
+	IdxEntity_CXXNamespaceAlias     IdxEntityKind = 18
+	IdxEntity_CXXStaticVariable     IdxEntityKind = 19
+	IdxEntity_CXXStaticMethod       IdxEntityKind = 20
+	IdxEntity_CXXInstanceMethod     IdxEntityKind = 21
+	IdxEntity_CXXConstructor        IdxEntityKind = 22
+	IdxEntity_CXXDestructor         IdxEntityKind = 23
+	IdxEntity_CXXConversionFunction IdxEntityKind = 24
+	IdxEntity_CXXTypeAlias          IdxEntityKind = 25
+	IdxEntity_CXXInterface          IdxEntityKind = 26
+	IdxEntity_CXXConcept            IdxEntityKind = 27
+)
+
+type IdxEntityLanguage uint32
+
+const (
+	IdxEntityLang_None  IdxEntityLanguage = 0
+	IdxEntityLang_C     IdxEntityLanguage = 1
+	IdxEntityLang_ObjC  IdxEntityLanguage = 2
+	IdxEntityLang_CXX   IdxEntityLanguage = 3
+	IdxEntityLang_Swift IdxEntityLanguage = 4
+)
+
+/*
+Data for IndexerCallbacks#indexEntityReference.
+
+This may be deprecated in a future version as this duplicates the CXSymbolRole_Implicit bit in CXSymbolRole.
+*/
+type IdxEntityRefKind uint32
+
+const (
+	// The entity is referenced directly in user's code.
+	IdxEntityRef_Direct IdxEntityRefKind = 1
+	// An implicit reference, e.g. a reference of an Objective-C method via the dot syntax.
+	IdxEntityRef_Implicit IdxEntityRefKind = 2
+)
+
+type IdxObjCContainerKind uint32
+
+const (
+	IdxObjCContainer_ForwardRef     IdxObjCContainerKind = 0
+	IdxObjCContainer_Interface      IdxObjCContainerKind = 1
+	IdxObjCContainer_Implementation IdxObjCContainerKind = 2
+)
+
+type IndexOptFlags uint32
+
+const (
+	// Used to indicate that no special indexing options are needed.
+	IndexOpt_None IndexOptFlags = 0
+	// Used to indicate that IndexerCallbacks#indexEntityReference should be invoked for only one reference of an entity per source file that does not also include a declaration/definition of the entity.
+	IndexOpt_SuppressRedundantRefs IndexOptFlags = 1
+	// Function-local symbols should be indexed. If this is not set function-local symbols will be ignored.
+	IndexOpt_IndexFunctionLocalSymbols IndexOptFlags = 2
+	// Implicit function/class template instantiations should be indexed. If this is not set, implicit instantiations will be ignored.
+	IndexOpt_IndexImplicitTemplateInstantiations IndexOptFlags = 4
+	// Suppress all compiler warnings when parsing for indexing.
+	IndexOpt_SuppressWarnings IndexOptFlags = 8
+	// Skip a function/method body that was already parsed during an indexing session associated with a CXIndexAction object. Bodies in system headers are always skipped.
+	IndexOpt_SkipParsedBodiesInSession IndexOptFlags = 16
+)
+
+// Describe the "language" of the entity referred to by a cursor.
+type LanguageKind uint32
+
+const (
+	Language_Invalid   LanguageKind = 0
+	Language_C         LanguageKind = 1
+	Language_ObjC      LanguageKind = 2
+	Language_CPlusPlus LanguageKind = 3
+)
+
 // Describe the linkage of the entity referred to by a cursor.
 type LinkageKind uint32
 
@@ -1055,27 +1317,191 @@ const (
 	Linkage_External LinkageKind = 4
 )
 
-type VisibilityKind uint32
+// Describes the kind of error that occurred (if any) in a call to clang_loadDiagnostics.
+type LoadDiag_Error uint32
 
 const (
-	// This value indicates that no visibility information is available for a provided CXCursor.
-	Visibility_Invalid VisibilityKind = 0
-	// Symbol not seen by the linker.
-	Visibility_Hidden VisibilityKind = 1
-	// Symbol seen by the linker but resolves to a symbol inside this object.
-	Visibility_Protected VisibilityKind = 2
-	// Symbol seen by the linker and acts like a normal symbol.
-	Visibility_Default VisibilityKind = 3
+	// Indicates that no error occurred.
+	LoadDiag_None LoadDiag_Error = 0
+	// Indicates that an unknown error occurred while attempting to deserialize diagnostics.
+	LoadDiag_Unknown LoadDiag_Error = 1
+	// Indicates that the file containing the serialized diagnostics could not be opened.
+	LoadDiag_CannotLoad LoadDiag_Error = 2
+	// Indicates that the serialized diagnostics file is invalid or corrupt.
+	LoadDiag_InvalidFile LoadDiag_Error = 3
 )
 
-// Describe the "language" of the entity referred to by a cursor.
-type LanguageKind uint32
+type NameRefFlags uint32
 
 const (
-	Language_Invalid   LanguageKind = 0
-	Language_C         LanguageKind = 1
-	Language_ObjC      LanguageKind = 2
-	Language_CPlusPlus LanguageKind = 3
+	// Include the nested-name-specifier, e.g. Foo:: in x.Foo::y, in the range.
+	NameRange_WantQualifier NameRefFlags = 1
+	// Include the explicit template arguments, e.g. <int> in x.f<int>, in the range.
+	NameRange_WantTemplateArgs NameRefFlags = 2
+	/*
+	   If the name is non-contiguous, return the full spanning range.
+
+	   Non-contiguous names occur in Objective-C when a selector with two or more parameters is used, or in C++ when using an operator:
+	*/
+	NameRange_WantSinglePiece NameRefFlags = 4
+)
+
+// 'Qualifiers' written next to the return and parameter types in Objective-C method declarations.
+type ObjCDeclQualifierKind uint32
+
+const (
+	ObjCDeclQualifier_None   ObjCDeclQualifierKind = 0
+	ObjCDeclQualifier_In     ObjCDeclQualifierKind = 1
+	ObjCDeclQualifier_Inout  ObjCDeclQualifierKind = 2
+	ObjCDeclQualifier_Out    ObjCDeclQualifierKind = 4
+	ObjCDeclQualifier_Bycopy ObjCDeclQualifierKind = 8
+	ObjCDeclQualifier_Byref  ObjCDeclQualifierKind = 16
+	ObjCDeclQualifier_Oneway ObjCDeclQualifierKind = 32
+)
+
+// Property attributes for a CXCursor_ObjCPropertyDecl.
+type ObjCPropertyAttrKind uint32
+
+const (
+	ObjCPropertyAttr_noattr            ObjCPropertyAttrKind = 0
+	ObjCPropertyAttr_readonly          ObjCPropertyAttrKind = 1
+	ObjCPropertyAttr_getter            ObjCPropertyAttrKind = 2
+	ObjCPropertyAttr_assign            ObjCPropertyAttrKind = 4
+	ObjCPropertyAttr_readwrite         ObjCPropertyAttrKind = 8
+	ObjCPropertyAttr_retain            ObjCPropertyAttrKind = 16
+	ObjCPropertyAttr_copy              ObjCPropertyAttrKind = 32
+	ObjCPropertyAttr_nonatomic         ObjCPropertyAttrKind = 64
+	ObjCPropertyAttr_setter            ObjCPropertyAttrKind = 128
+	ObjCPropertyAttr_atomic            ObjCPropertyAttrKind = 256
+	ObjCPropertyAttr_weak              ObjCPropertyAttrKind = 512
+	ObjCPropertyAttr_strong            ObjCPropertyAttrKind = 1024
+	ObjCPropertyAttr_unsafe_unretained ObjCPropertyAttrKind = 2048
+	ObjCPropertyAttr_class             ObjCPropertyAttrKind = 4096
+)
+
+/*
+Properties for the printing policy.
+
+See clang::PrintingPolicy for more information.
+*/
+type PrintingPolicyProperty uint32
+
+const (
+	PrintingPolicy_Indentation                           PrintingPolicyProperty = 0
+	PrintingPolicy_SuppressSpecifiers                    PrintingPolicyProperty = 1
+	PrintingPolicy_SuppressTagKeyword                    PrintingPolicyProperty = 2
+	PrintingPolicy_IncludeTagDefinition                  PrintingPolicyProperty = 3
+	PrintingPolicy_SuppressScope                         PrintingPolicyProperty = 4
+	PrintingPolicy_SuppressUnwrittenScope                PrintingPolicyProperty = 5
+	PrintingPolicy_SuppressInitializers                  PrintingPolicyProperty = 6
+	PrintingPolicy_ConstantArraySizeAsWritten            PrintingPolicyProperty = 7
+	PrintingPolicy_AnonymousTagLocations                 PrintingPolicyProperty = 8
+	PrintingPolicy_SuppressStrongLifetime                PrintingPolicyProperty = 9
+	PrintingPolicy_SuppressLifetimeQualifiers            PrintingPolicyProperty = 10
+	PrintingPolicy_SuppressTemplateArgsInCXXConstructors PrintingPolicyProperty = 11
+	PrintingPolicy_Bool                                  PrintingPolicyProperty = 12
+	PrintingPolicy_Restrict                              PrintingPolicyProperty = 13
+	PrintingPolicy_Alignof                               PrintingPolicyProperty = 14
+	PrintingPolicy_UnderscoreAlignof                     PrintingPolicyProperty = 15
+	PrintingPolicy_UseVoidForZeroParams                  PrintingPolicyProperty = 16
+	PrintingPolicy_TerseOutput                           PrintingPolicyProperty = 17
+	PrintingPolicy_PolishForDeclaration                  PrintingPolicyProperty = 18
+	PrintingPolicy_Half                                  PrintingPolicyProperty = 19
+	PrintingPolicy_MSWChar                               PrintingPolicyProperty = 20
+	PrintingPolicy_IncludeNewlines                       PrintingPolicyProperty = 21
+	PrintingPolicy_MSVCFormatting                        PrintingPolicyProperty = 22
+	PrintingPolicy_ConstantsAsWritten                    PrintingPolicyProperty = 23
+	PrintingPolicy_SuppressImplicitBase                  PrintingPolicyProperty = 24
+	PrintingPolicy_FullyQualifiedName                    PrintingPolicyProperty = 25
+	PrintingPolicy_LastProperty                          PrintingPolicyProperty = 25
+)
+
+type RefQualifierKind uint32
+
+const (
+	// No ref-qualifier was provided.
+	RefQualifier_None RefQualifierKind = 0
+	// An lvalue ref-qualifier was provided (&).
+	RefQualifier_LValue RefQualifierKind = 1
+	// An rvalue ref-qualifier was provided (&&).
+	RefQualifier_RValue RefQualifierKind = 2
+)
+
+/*
+Flags that control the reparsing of translation units.
+
+The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when reparsing the translation unit.
+*/
+type Reparse_Flags uint32
+
+const (
+	// Used to indicate that no special reparsing options are needed.
+	Reparse_None Reparse_Flags = 0
+)
+
+type Result uint32
+
+const (
+	// Function returned successfully.
+	Result_Success Result = 0
+	// One of the parameters was invalid for the function.
+	Result_Invalid Result = 1
+	// The function was terminated by a callback (e.g. it returned CXVisit_Break)
+	Result_VisitBreak Result = 2
+)
+
+// Describes the kind of error that occurred (if any) in a call to clang_saveTranslationUnit().
+type SaveError uint32
+
+const (
+	// Indicates that no error occurred while saving a translation unit.
+	SaveError_None SaveError = 0
+	/*
+	   Indicates that an unknown error occurred while attempting to save the file.
+
+	   This error typically indicates that file I/O failed when attempting to write the file.
+	*/
+	SaveError_Unknown SaveError = 1
+	/*
+	   Indicates that errors during translation prevented this attempt to save the translation unit.
+
+	   Errors that prevent the translation unit from being saved can be extracted using clang_getNumDiagnostics() and clang_getDiagnostic().
+	*/
+	SaveError_TranslationErrors SaveError = 2
+	// Indicates that the translation unit to be saved was somehow invalid (e.g., NULL).
+	SaveError_InvalidTU SaveError = 3
+)
+
+/*
+Flags that control how translation units are saved.
+
+The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when saving the translation unit.
+*/
+type SaveTranslationUnit_Flags uint32
+
+const (
+	// Used to indicate that no special saving options are needed.
+	SaveTranslationUnit_None SaveTranslationUnit_Flags = 0
+)
+
+/*
+Roles that are attributed to symbol occurrences.
+
+Internal: this currently mirrors low 9 bits of clang::index::SymbolRole with higher bits zeroed. These high bits may be exposed in the future.
+*/
+type SymbolRole uint32
+
+const (
+	SymbolRole_None        SymbolRole = 0
+	SymbolRole_Declaration SymbolRole = 1
+	SymbolRole_Definition  SymbolRole = 2
+	SymbolRole_Reference   SymbolRole = 4
+	SymbolRole_Read        SymbolRole = 8
+	SymbolRole_Write       SymbolRole = 16
+	SymbolRole_Call        SymbolRole = 32
+	SymbolRole_Dynamic     SymbolRole = 64
+	SymbolRole_AddressOf   SymbolRole = 128
+	SymbolRole_Implicit    SymbolRole = 256
 )
 
 // Describe the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
@@ -1085,6 +1511,150 @@ const (
 	TLS_None    TLSKind = 0
 	TLS_Dynamic TLSKind = 1
 	TLS_Static  TLSKind = 2
+)
+
+// Categorizes how memory is being used by a translation unit.
+type TUResourceUsageKind uint32
+
+const (
+	TUResourceUsage_AST                                TUResourceUsageKind = 1
+	TUResourceUsage_Identifiers                        TUResourceUsageKind = 2
+	TUResourceUsage_Selectors                          TUResourceUsageKind = 3
+	TUResourceUsage_GlobalCompletionResults            TUResourceUsageKind = 4
+	TUResourceUsage_SourceManagerContentCache          TUResourceUsageKind = 5
+	TUResourceUsage_AST_SideTables                     TUResourceUsageKind = 6
+	TUResourceUsage_SourceManager_Membuffer_Malloc     TUResourceUsageKind = 7
+	TUResourceUsage_SourceManager_Membuffer_MMap       TUResourceUsageKind = 8
+	TUResourceUsage_ExternalASTSource_Membuffer_Malloc TUResourceUsageKind = 9
+	TUResourceUsage_ExternalASTSource_Membuffer_MMap   TUResourceUsageKind = 10
+	TUResourceUsage_Preprocessor                       TUResourceUsageKind = 11
+	TUResourceUsage_PreprocessingRecord                TUResourceUsageKind = 12
+	TUResourceUsage_SourceManager_DataStructures       TUResourceUsageKind = 13
+	TUResourceUsage_Preprocessor_HeaderSearch          TUResourceUsageKind = 14
+	TUResourceUsage_MEMORY_IN_BYTES_BEGIN              TUResourceUsageKind = 1
+	TUResourceUsage_MEMORY_IN_BYTES_END                TUResourceUsageKind = 14
+	TUResourceUsage_First                              TUResourceUsageKind = 1
+	TUResourceUsage_Last                               TUResourceUsageKind = 14
+)
+
+/*
+Describes the kind of a template argument.
+
+See the definition of llvm::clang::TemplateArgument::ArgKind for full element descriptions.
+*/
+type TemplateArgumentKind uint32
+
+const (
+	TemplateArgumentKind_Null              TemplateArgumentKind = 0
+	TemplateArgumentKind_Type              TemplateArgumentKind = 1
+	TemplateArgumentKind_Declaration       TemplateArgumentKind = 2
+	TemplateArgumentKind_NullPtr           TemplateArgumentKind = 3
+	TemplateArgumentKind_Integral          TemplateArgumentKind = 4
+	TemplateArgumentKind_Template          TemplateArgumentKind = 5
+	TemplateArgumentKind_TemplateExpansion TemplateArgumentKind = 6
+	TemplateArgumentKind_Expression        TemplateArgumentKind = 7
+	TemplateArgumentKind_Pack              TemplateArgumentKind = 8
+	TemplateArgumentKind_Invalid           TemplateArgumentKind = 9
+)
+
+// Describes a kind of token.
+type TokenKind uint32
+
+const (
+	// A token that contains some kind of punctuation.
+	Token_Punctuation TokenKind = 0
+	// A language keyword.
+	Token_Keyword TokenKind = 1
+	// An identifier (that is not a keyword).
+	Token_Identifier TokenKind = 2
+	// A numeric, string, or character literal.
+	Token_Literal TokenKind = 3
+	// A comment.
+	Token_Comment TokenKind = 4
+)
+
+/*
+Flags that control the creation of translation units.
+
+The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when constructing the translation unit.
+*/
+type TranslationUnit_Flags uint32
+
+const (
+	// Used to indicate that no special translation-unit options are needed.
+	TranslationUnit_None TranslationUnit_Flags = 0
+	/*
+	   Used to indicate that the parser should construct a "detailed" preprocessing record, including all macro definitions and instantiations.
+
+	   Constructing a detailed preprocessing record requires more memory and time to parse, since the information contained in the record is usually not retained. However, it can be useful for applications that require more detailed information about the behavior of the preprocessor.
+	*/
+	TranslationUnit_DetailedPreprocessingRecord TranslationUnit_Flags = 1
+	/*
+	   Used to indicate that the translation unit is incomplete.
+
+	   When a translation unit is considered "incomplete", semantic analysis that is typically performed at the end of the translation unit will be suppressed. For example, this suppresses the completion of tentative declarations in C and of instantiation of implicitly-instantiation function templates in C++. This option is typically used when parsing a header with the intent of producing a precompiled header.
+	*/
+	TranslationUnit_Incomplete TranslationUnit_Flags = 2
+	/*
+	   Used to indicate that the translation unit should be built with an implicit precompiled header for the preamble.
+
+	   An implicit precompiled header is used as an optimization when a particular translation unit is likely to be reparsed many times when the sources aren't changing that often. In this case, an implicit precompiled header will be built containing all of the initial includes at the top of the main file (what we refer to as the "preamble" of the file). In subsequent parses, if the preamble or the files in it have not changed, clang_reparseTranslationUnit() will re-use the implicit precompiled header to improve parsing performance.
+	*/
+	TranslationUnit_PrecompiledPreamble TranslationUnit_Flags = 4
+	/*
+	   Used to indicate that the translation unit should cache some code-completion results with each reparse of the source file.
+
+	   Caching of code-completion results is a performance optimization that introduces some overhead to reparsing but improves the performance of code-completion operations.
+	*/
+	TranslationUnit_CacheCompletionResults TranslationUnit_Flags = 8
+	/*
+	   Used to indicate that the translation unit will be serialized with clang_saveTranslationUnit.
+
+	   This option is typically used when parsing a header with the intent of producing a precompiled header.
+	*/
+	TranslationUnit_ForSerialization TranslationUnit_Flags = 16
+	/*
+	   DEPRECATED: Enabled chained precompiled preambles in C++.
+
+	   Note: this is a *temporary* option that is available only while we are testing C++ precompiled preamble support. It is deprecated.
+	*/
+	TranslationUnit_CXXChainedPCH TranslationUnit_Flags = 32
+	/*
+	   Used to indicate that function/method bodies should be skipped while parsing.
+
+	   This option can be used to search for declarations/definitions while ignoring the usages.
+	*/
+	TranslationUnit_SkipFunctionBodies TranslationUnit_Flags = 64
+	// Used to indicate that brief documentation comments should be included into the set of code completions returned from this translation unit.
+	TranslationUnit_IncludeBriefCommentsInCodeCompletion TranslationUnit_Flags = 128
+	// Used to indicate that the precompiled preamble should be created on the first parse. Otherwise it will be created on the first reparse. This trades runtime on the first parse (serializing the preamble takes time) for reduced runtime on the second parse (can now reuse the preamble).
+	TranslationUnit_CreatePreambleOnFirstParse TranslationUnit_Flags = 256
+	/*
+	   Do not stop processing when fatal errors are encountered.
+
+	   When fatal errors are encountered while parsing a translation unit, semantic analysis is typically stopped early when compiling code. A common source for fatal errors are unresolvable include files. For the purposes of an IDE, this is undesirable behavior and as much information as possible should be reported. Use this flag to enable this behavior.
+	*/
+	TranslationUnit_KeepGoing TranslationUnit_Flags = 512
+	// Sets the preprocessor in a mode for parsing a single file only.
+	TranslationUnit_SingleFileParse TranslationUnit_Flags = 1024
+	/*
+	   Used in combination with CXTranslationUnit_SkipFunctionBodies to constrain the skipping of function bodies to the preamble.
+
+	   The function bodies of the main file are not skipped.
+	*/
+	TranslationUnit_LimitSkipFunctionBodiesToPreamble TranslationUnit_Flags = 2048
+	// Used to indicate that attributed types should be included in CXType.
+	TranslationUnit_IncludeAttributedTypes TranslationUnit_Flags = 4096
+	// Used to indicate that implicit attributes should be visited.
+	TranslationUnit_VisitImplicitAttributes TranslationUnit_Flags = 8192
+	/*
+	   Used to indicate that non-errors from included files should be ignored.
+
+	   If set, clang_getDiagnosticSetFromTU() will not report e.g. warnings from included files anymore. This speeds up clang_getDiagnosticSetFromTU() for the case where these warnings are not of interest, as for an IDE for example, which typically shows only the diagnostics in the main file.
+	*/
+	TranslationUnit_IgnoreNonErrorsFromIncludedFiles TranslationUnit_Flags = 16384
+	// Tells the preprocessor not to skip excluded conditional blocks.
+	TranslationUnit_RetainExcludedConditionalBlocks TranslationUnit_Flags = 32768
 )
 
 // Describes the kind of type
@@ -1619,84 +2189,6 @@ const (
 	Type_HLSLInlineSpirv TypeKind = 181
 )
 
-// Describes the calling convention of a function type
-type CallingConv uint32
-
-const (
-	CallingConv_Default            CallingConv = 0
-	CallingConv_C                  CallingConv = 1
-	CallingConv_X86StdCall         CallingConv = 2
-	CallingConv_X86FastCall        CallingConv = 3
-	CallingConv_X86ThisCall        CallingConv = 4
-	CallingConv_X86Pascal          CallingConv = 5
-	CallingConv_AAPCS              CallingConv = 6
-	CallingConv_AAPCS_VFP          CallingConv = 7
-	CallingConv_X86RegCall         CallingConv = 8
-	CallingConv_IntelOclBicc       CallingConv = 9
-	CallingConv_Win64              CallingConv = 10
-	CallingConv_X86_64Win64        CallingConv = 10
-	CallingConv_X86_64SysV         CallingConv = 11
-	CallingConv_X86VectorCall      CallingConv = 12
-	CallingConv_Swift              CallingConv = 13
-	CallingConv_PreserveMost       CallingConv = 14
-	CallingConv_PreserveAll        CallingConv = 15
-	CallingConv_AArch64VectorCall  CallingConv = 16
-	CallingConv_SwiftAsync         CallingConv = 17
-	CallingConv_AArch64SVEPCS      CallingConv = 18
-	CallingConv_M68kRTD            CallingConv = 19
-	CallingConv_PreserveNone       CallingConv = 20
-	CallingConv_RISCVVectorCall    CallingConv = 21
-	CallingConv_RISCVVLSCall_32    CallingConv = 22
-	CallingConv_RISCVVLSCall_64    CallingConv = 23
-	CallingConv_RISCVVLSCall_128   CallingConv = 24
-	CallingConv_RISCVVLSCall_256   CallingConv = 25
-	CallingConv_RISCVVLSCall_512   CallingConv = 26
-	CallingConv_RISCVVLSCall_1024  CallingConv = 27
-	CallingConv_RISCVVLSCall_2048  CallingConv = 28
-	CallingConv_RISCVVLSCall_4096  CallingConv = 29
-	CallingConv_RISCVVLSCall_8192  CallingConv = 30
-	CallingConv_RISCVVLSCall_16384 CallingConv = 31
-	CallingConv_RISCVVLSCall_32768 CallingConv = 32
-	CallingConv_RISCVVLSCall_65536 CallingConv = 33
-	CallingConv_Invalid            CallingConv = 100
-	CallingConv_Unexposed          CallingConv = 200
-)
-
-/*
-Describes the kind of a template argument.
-
-See the definition of llvm::clang::TemplateArgument::ArgKind for full element descriptions.
-*/
-type TemplateArgumentKind uint32
-
-const (
-	TemplateArgumentKind_Null              TemplateArgumentKind = 0
-	TemplateArgumentKind_Type              TemplateArgumentKind = 1
-	TemplateArgumentKind_Declaration       TemplateArgumentKind = 2
-	TemplateArgumentKind_NullPtr           TemplateArgumentKind = 3
-	TemplateArgumentKind_Integral          TemplateArgumentKind = 4
-	TemplateArgumentKind_Template          TemplateArgumentKind = 5
-	TemplateArgumentKind_TemplateExpansion TemplateArgumentKind = 6
-	TemplateArgumentKind_Expression        TemplateArgumentKind = 7
-	TemplateArgumentKind_Pack              TemplateArgumentKind = 8
-	TemplateArgumentKind_Invalid           TemplateArgumentKind = 9
-)
-
-type TypeNullabilityKind uint32
-
-const (
-	// Values of this type can never be null.
-	TypeNullability_NonNull TypeNullabilityKind = 0
-	// Values of this type can be null.
-	TypeNullability_Nullable TypeNullabilityKind = 1
-	// Whether values of this type can be null is (explicitly) unspecified. This captures a (fairly rare) case where we can't conclude anything about the nullability of the type even though it has been considered.
-	TypeNullability_Unspecified TypeNullabilityKind = 2
-	// Nullability is not applicable to this type.
-	TypeNullability_Invalid TypeNullabilityKind = 3
-	// Generally behaves like Nullable, except when used in a block parameter that was imported into a swift async method. There, swift will assume that the parameter can get null even if no error occurred. _Nullable parameters are assumed to only get null on error.
-	TypeNullability_NullableResult TypeNullabilityKind = 4
-)
-
 /*
 List the possible error codes for clang_Type_getSizeOf,   clang_Type_getAlignOf, clang_Type_getOffsetOf,   clang_Cursor_getOffsetOf, and clang_getOffsetOfBase.
 
@@ -1719,39 +2211,78 @@ const (
 	TypeLayoutError_Undeduced TypeLayoutError = -6
 )
 
-type RefQualifierKind uint32
+type TypeNullabilityKind uint32
 
 const (
-	// No ref-qualifier was provided.
-	RefQualifier_None RefQualifierKind = 0
-	// An lvalue ref-qualifier was provided (&).
-	RefQualifier_LValue RefQualifierKind = 1
-	// An rvalue ref-qualifier was provided (&&).
-	RefQualifier_RValue RefQualifierKind = 2
+	// Values of this type can never be null.
+	TypeNullability_NonNull TypeNullabilityKind = 0
+	// Values of this type can be null.
+	TypeNullability_Nullable TypeNullabilityKind = 1
+	// Whether values of this type can be null is (explicitly) unspecified. This captures a (fairly rare) case where we can't conclude anything about the nullability of the type even though it has been considered.
+	TypeNullability_Unspecified TypeNullabilityKind = 2
+	// Nullability is not applicable to this type.
+	TypeNullability_Invalid TypeNullabilityKind = 3
+	// Generally behaves like Nullable, except when used in a block parameter that was imported into a swift async method. There, swift will assume that the parameter can get null even if no error occurred. _Nullable parameters are assumed to only get null on error.
+	TypeNullability_NullableResult TypeNullabilityKind = 4
 )
 
-// Represents the C++ access control level to a base class for a cursor with kind CX_CXXBaseSpecifier.
-type CXXAccessSpecifier uint32
+// Describes the kind of unary operators.
+type UnaryOperatorKind uint32
 
 const (
-	CXXInvalidAccessSpecifier CXXAccessSpecifier = 0
-	CXXPublic                 CXXAccessSpecifier = 1
-	CXXProtected              CXXAccessSpecifier = 2
-	CXXPrivate                CXXAccessSpecifier = 3
+	// This value describes cursors which are not unary operators.
+	UnaryOperator_Invalid UnaryOperatorKind = 0
+	// Postfix increment operator.
+	UnaryOperator_PostInc UnaryOperatorKind = 1
+	// Postfix decrement operator.
+	UnaryOperator_PostDec UnaryOperatorKind = 2
+	// Prefix increment operator.
+	UnaryOperator_PreInc UnaryOperatorKind = 3
+	// Prefix decrement operator.
+	UnaryOperator_PreDec UnaryOperatorKind = 4
+	// Address of operator.
+	UnaryOperator_AddrOf UnaryOperatorKind = 5
+	// Dereference operator.
+	UnaryOperator_Deref UnaryOperatorKind = 6
+	// Plus operator.
+	UnaryOperator_Plus UnaryOperatorKind = 7
+	// Minus operator.
+	UnaryOperator_Minus UnaryOperatorKind = 8
+	// Not operator.
+	UnaryOperator_Not UnaryOperatorKind = 9
+	// LNot operator.
+	UnaryOperator_LNot UnaryOperatorKind = 10
+	// "__real expr" operator.
+	UnaryOperator_Real UnaryOperatorKind = 11
+	// "__imag expr" operator.
+	UnaryOperator_Imag UnaryOperatorKind = 12
+	// __extension__ marker operator.
+	UnaryOperator_Extension UnaryOperatorKind = 13
+	// C++ co_await operator.
+	UnaryOperator_Coawait UnaryOperatorKind = 14
+	// C++ co_await operator.
+	UnaryOperator_Last UnaryOperatorKind = 14
 )
 
-// Represents the storage classes as declared in the source. CX_SC_Invalid was added for the case that the passed cursor in not a declaration.
-type StorageClass uint32
+type VisibilityKind uint32
 
 const (
-	SC_Invalid              StorageClass = 0
-	SC_None                 StorageClass = 1
-	SC_Extern               StorageClass = 2
-	SC_Static               StorageClass = 3
-	SC_PrivateExtern        StorageClass = 4
-	SC_OpenCLWorkGroupLocal StorageClass = 5
-	SC_Auto                 StorageClass = 6
-	SC_Register             StorageClass = 7
+	// This value indicates that no visibility information is available for a provided CXCursor.
+	Visibility_Invalid VisibilityKind = 0
+	// Symbol not seen by the linker.
+	Visibility_Hidden VisibilityKind = 1
+	// Symbol seen by the linker but resolves to a symbol inside this object.
+	Visibility_Protected VisibilityKind = 2
+	// Symbol seen by the linker and acts like a normal symbol.
+	Visibility_Default VisibilityKind = 3
+)
+
+// @{
+type VisitorResult uint32
+
+const (
+	Visit_Break    VisitorResult = 0
+	Visit_Continue VisitorResult = 1
 )
 
 // Represents a specific kind of binary operator which can appear at a cursor.
@@ -1795,557 +2326,26 @@ const (
 	BO_LAST      BinaryOperatorKind_ = 33
 )
 
-/*
-Describes how the traversal of the children of a particular cursor should proceed after visiting a particular child cursor.
-
-A value of this enumeration type should be returned by each CXCursorVisitor to indicate how clang_visitChildren() proceed.
-*/
-type ChildVisitResult uint32
+// Represents the C++ access control level to a base class for a cursor with kind CX_CXXBaseSpecifier.
+type CXXAccessSpecifier uint32
 
 const (
-	// Terminates the cursor traversal.
-	ChildVisit_Break ChildVisitResult = 0
-	// Continues the cursor traversal with the next sibling of the cursor just visited, without visiting its children.
-	ChildVisit_Continue ChildVisitResult = 1
-	// Recursively traverse the children of this cursor, using the same visitor and client data.
-	ChildVisit_Recurse ChildVisitResult = 2
+	CXXInvalidAccessSpecifier CXXAccessSpecifier = 0
+	CXXPublic                 CXXAccessSpecifier = 1
+	CXXProtected              CXXAccessSpecifier = 2
+	CXXPrivate                CXXAccessSpecifier = 3
 )
 
-/*
-Properties for the printing policy.
-
-See clang::PrintingPolicy for more information.
-*/
-type PrintingPolicyProperty uint32
+// Represents the storage classes as declared in the source. CX_SC_Invalid was added for the case that the passed cursor in not a declaration.
+type StorageClass uint32
 
 const (
-	PrintingPolicy_Indentation                           PrintingPolicyProperty = 0
-	PrintingPolicy_SuppressSpecifiers                    PrintingPolicyProperty = 1
-	PrintingPolicy_SuppressTagKeyword                    PrintingPolicyProperty = 2
-	PrintingPolicy_IncludeTagDefinition                  PrintingPolicyProperty = 3
-	PrintingPolicy_SuppressScope                         PrintingPolicyProperty = 4
-	PrintingPolicy_SuppressUnwrittenScope                PrintingPolicyProperty = 5
-	PrintingPolicy_SuppressInitializers                  PrintingPolicyProperty = 6
-	PrintingPolicy_ConstantArraySizeAsWritten            PrintingPolicyProperty = 7
-	PrintingPolicy_AnonymousTagLocations                 PrintingPolicyProperty = 8
-	PrintingPolicy_SuppressStrongLifetime                PrintingPolicyProperty = 9
-	PrintingPolicy_SuppressLifetimeQualifiers            PrintingPolicyProperty = 10
-	PrintingPolicy_SuppressTemplateArgsInCXXConstructors PrintingPolicyProperty = 11
-	PrintingPolicy_Bool                                  PrintingPolicyProperty = 12
-	PrintingPolicy_Restrict                              PrintingPolicyProperty = 13
-	PrintingPolicy_Alignof                               PrintingPolicyProperty = 14
-	PrintingPolicy_UnderscoreAlignof                     PrintingPolicyProperty = 15
-	PrintingPolicy_UseVoidForZeroParams                  PrintingPolicyProperty = 16
-	PrintingPolicy_TerseOutput                           PrintingPolicyProperty = 17
-	PrintingPolicy_PolishForDeclaration                  PrintingPolicyProperty = 18
-	PrintingPolicy_Half                                  PrintingPolicyProperty = 19
-	PrintingPolicy_MSWChar                               PrintingPolicyProperty = 20
-	PrintingPolicy_IncludeNewlines                       PrintingPolicyProperty = 21
-	PrintingPolicy_MSVCFormatting                        PrintingPolicyProperty = 22
-	PrintingPolicy_ConstantsAsWritten                    PrintingPolicyProperty = 23
-	PrintingPolicy_SuppressImplicitBase                  PrintingPolicyProperty = 24
-	PrintingPolicy_FullyQualifiedName                    PrintingPolicyProperty = 25
-	PrintingPolicy_LastProperty                          PrintingPolicyProperty = 25
-)
-
-// Property attributes for a CXCursor_ObjCPropertyDecl.
-type ObjCPropertyAttrKind uint32
-
-const (
-	ObjCPropertyAttr_noattr            ObjCPropertyAttrKind = 0
-	ObjCPropertyAttr_readonly          ObjCPropertyAttrKind = 1
-	ObjCPropertyAttr_getter            ObjCPropertyAttrKind = 2
-	ObjCPropertyAttr_assign            ObjCPropertyAttrKind = 4
-	ObjCPropertyAttr_readwrite         ObjCPropertyAttrKind = 8
-	ObjCPropertyAttr_retain            ObjCPropertyAttrKind = 16
-	ObjCPropertyAttr_copy              ObjCPropertyAttrKind = 32
-	ObjCPropertyAttr_nonatomic         ObjCPropertyAttrKind = 64
-	ObjCPropertyAttr_setter            ObjCPropertyAttrKind = 128
-	ObjCPropertyAttr_atomic            ObjCPropertyAttrKind = 256
-	ObjCPropertyAttr_weak              ObjCPropertyAttrKind = 512
-	ObjCPropertyAttr_strong            ObjCPropertyAttrKind = 1024
-	ObjCPropertyAttr_unsafe_unretained ObjCPropertyAttrKind = 2048
-	ObjCPropertyAttr_class             ObjCPropertyAttrKind = 4096
-)
-
-// 'Qualifiers' written next to the return and parameter types in Objective-C method declarations.
-type ObjCDeclQualifierKind uint32
-
-const (
-	ObjCDeclQualifier_None   ObjCDeclQualifierKind = 0
-	ObjCDeclQualifier_In     ObjCDeclQualifierKind = 1
-	ObjCDeclQualifier_Inout  ObjCDeclQualifierKind = 2
-	ObjCDeclQualifier_Out    ObjCDeclQualifierKind = 4
-	ObjCDeclQualifier_Bycopy ObjCDeclQualifierKind = 8
-	ObjCDeclQualifier_Byref  ObjCDeclQualifierKind = 16
-	ObjCDeclQualifier_Oneway ObjCDeclQualifierKind = 32
-)
-
-type NameRefFlags uint32
-
-const (
-	// Include the nested-name-specifier, e.g. Foo:: in x.Foo::y, in the range.
-	NameRange_WantQualifier NameRefFlags = 1
-	// Include the explicit template arguments, e.g. <int> in x.f<int>, in the range.
-	NameRange_WantTemplateArgs NameRefFlags = 2
-	/*
-	   If the name is non-contiguous, return the full spanning range.
-
-	   Non-contiguous names occur in Objective-C when a selector with two or more parameters is used, or in C++ when using an operator:
-	*/
-	NameRange_WantSinglePiece NameRefFlags = 4
-)
-
-// Describes a kind of token.
-type TokenKind uint32
-
-const (
-	// A token that contains some kind of punctuation.
-	Token_Punctuation TokenKind = 0
-	// A language keyword.
-	Token_Keyword TokenKind = 1
-	// An identifier (that is not a keyword).
-	Token_Identifier TokenKind = 2
-	// A numeric, string, or character literal.
-	Token_Literal TokenKind = 3
-	// A comment.
-	Token_Comment TokenKind = 4
-)
-
-/*
-Describes a single piece of text within a code-completion string.
-
-Each "chunk" within a code-completion string (CXCompletionString) is either a piece of text with a specific "kind" that describes how that text should be interpreted by the client or is another completion string.
-*/
-type CompletionChunkKind uint32
-
-const (
-	/*
-	   A code-completion string that describes "optional" text that could be a part of the template (but is not required).
-
-	   The Optional chunk is the only kind of chunk that has a code-completion string for its representation, which is accessible via clang_getCompletionChunkCompletionString(). The code-completion string describes an additional part of the template that is completely optional. For example, optional chunks can be used to describe the placeholders for arguments that match up with defaulted function parameters, e.g. given:
-
-	   The code-completion string for this function would contain:   - a TypedText chunk for "f".   - a LeftParen chunk for "(".   - a Placeholder chunk for "int x"   - an Optional chunk containing the remaining defaulted arguments, e.g.,       - a Comma chunk for ","       - a Placeholder chunk for "float y"       - an Optional chunk containing the last defaulted argument:           - a Comma chunk for ","           - a Placeholder chunk for "double z"   - a RightParen chunk for ")"
-
-	   There are many ways to handle Optional chunks. Two simple approaches are:   - Completely ignore optional chunks, in which case the template for the     function "f" would only include the first parameter ("int x").   - Fully expand all optional chunks, in which case the template for the     function "f" would have all of the parameters.
-	*/
-	CompletionChunk_Optional CompletionChunkKind = 0
-	/*
-	   Text that a user would be expected to type to get this code-completion result.
-
-	   There will be exactly one "typed text" chunk in a semantic string, which will typically provide the spelling of a keyword or the name of a declaration that could be used at the current code point. Clients are expected to filter the code-completion results based on the text in this chunk.
-	*/
-	CompletionChunk_TypedText CompletionChunkKind = 1
-	/*
-	   Text that should be inserted as part of a code-completion result.
-
-	   A "text" chunk represents text that is part of the template to be inserted into user code should this particular code-completion result be selected.
-	*/
-	CompletionChunk_Text CompletionChunkKind = 2
-	/*
-	   Placeholder text that should be replaced by the user.
-
-	   A "placeholder" chunk marks a place where the user should insert text into the code-completion template. For example, placeholders might mark the function parameters for a function declaration, to indicate that the user should provide arguments for each of those parameters. The actual text in a placeholder is a suggestion for the text to display before the user replaces the placeholder with real code.
-	*/
-	CompletionChunk_Placeholder CompletionChunkKind = 3
-	/*
-	   Informative text that should be displayed but never inserted as part of the template.
-
-	   An "informative" chunk contains annotations that can be displayed to help the user decide whether a particular code-completion result is the right option, but which is not part of the actual template to be inserted by code completion.
-	*/
-	CompletionChunk_Informative CompletionChunkKind = 4
-	/*
-	   Text that describes the current parameter when code-completion is referring to function call, message send, or template specialization.
-
-	   A "current parameter" chunk occurs when code-completion is providing information about a parameter corresponding to the argument at the code-completion point. For example, given a function
-
-	   and the source code add(, where the code-completion point is after the "(", the code-completion string will contain a "current parameter" chunk for "int x", indicating that the current argument will initialize that parameter. After typing further, to add(17, (where the code-completion point is after the ","), the code-completion string will contain a "current parameter" chunk to "int y".
-	*/
-	CompletionChunk_CurrentParameter CompletionChunkKind = 5
-	// A left parenthesis ('('), used to initiate a function call or signal the beginning of a function parameter list.
-	CompletionChunk_LeftParen CompletionChunkKind = 6
-	// A right parenthesis (')'), used to finish a function call or signal the end of a function parameter list.
-	CompletionChunk_RightParen CompletionChunkKind = 7
-	// A left bracket ('[').
-	CompletionChunk_LeftBracket CompletionChunkKind = 8
-	// A right bracket (']').
-	CompletionChunk_RightBracket CompletionChunkKind = 9
-	// A left brace ('{').
-	CompletionChunk_LeftBrace CompletionChunkKind = 10
-	// A right brace ('}').
-	CompletionChunk_RightBrace CompletionChunkKind = 11
-	// A left angle bracket ('<').
-	CompletionChunk_LeftAngle CompletionChunkKind = 12
-	// A right angle bracket ('>').
-	CompletionChunk_RightAngle CompletionChunkKind = 13
-	// A comma separator (',').
-	CompletionChunk_Comma CompletionChunkKind = 14
-	/*
-	   Text that specifies the result type of a given result.
-
-	   This special kind of informative chunk is not meant to be inserted into the text buffer. Rather, it is meant to illustrate the type that an expression using the given completion string would have.
-	*/
-	CompletionChunk_ResultType CompletionChunkKind = 15
-	// A colon (':').
-	CompletionChunk_Colon CompletionChunkKind = 16
-	// A semicolon (';').
-	CompletionChunk_SemiColon CompletionChunkKind = 17
-	// An '=' sign.
-	CompletionChunk_Equal CompletionChunkKind = 18
-	// Horizontal space (' ').
-	CompletionChunk_HorizontalSpace CompletionChunkKind = 19
-	// Vertical space ('\n'), after which it is generally a good idea to perform indentation.
-	CompletionChunk_VerticalSpace CompletionChunkKind = 20
-)
-
-/*
-Flags that can be passed to clang_codeCompleteAt() to modify its behavior.
-
-The enumerators in this enumeration can be bitwise-OR'd together to provide multiple options to clang_codeCompleteAt().
-*/
-type CodeComplete_Flags uint32
-
-const (
-	// Whether to include macros within the set of code completions returned.
-	CodeComplete_IncludeMacros CodeComplete_Flags = 1
-	// Whether to include code patterns for language constructs within the set of code completions, e.g., for loops.
-	CodeComplete_IncludeCodePatterns CodeComplete_Flags = 2
-	// Whether to include brief documentation within the set of code completions returned.
-	CodeComplete_IncludeBriefComments CodeComplete_Flags = 4
-	// Whether to speed up completion by omitting top- or namespace-level entities defined in the preamble. There's no guarantee any particular entity is omitted. This may be useful if the headers are indexed externally.
-	CodeComplete_SkipPreamble CodeComplete_Flags = 8
-	// Whether to include completions with small fix-its, e.g. change '.' to '->' on member access, etc.
-	CodeComplete_IncludeCompletionsWithFixIts CodeComplete_Flags = 16
-)
-
-/*
-Bits that represent the context under which completion is occurring.
-
-The enumerators in this enumeration may be bitwise-OR'd together if multiple contexts are occurring simultaneously.
-*/
-type CompletionContext uint32
-
-const (
-	// The context for completions is unexposed, as only Clang results should be included. (This is equivalent to having no context bits set.)
-	CompletionContext_Unexposed CompletionContext = 0
-	// Completions for any possible type should be included in the results.
-	CompletionContext_AnyType CompletionContext = 1
-	// Completions for any possible value (variables, function calls, etc.) should be included in the results.
-	CompletionContext_AnyValue CompletionContext = 2
-	// Completions for values that resolve to an Objective-C object should be included in the results.
-	CompletionContext_ObjCObjectValue CompletionContext = 4
-	// Completions for values that resolve to an Objective-C selector should be included in the results.
-	CompletionContext_ObjCSelectorValue CompletionContext = 8
-	// Completions for values that resolve to a C++ class type should be included in the results.
-	CompletionContext_CXXClassTypeValue CompletionContext = 16
-	// Completions for fields of the member being accessed using the dot operator should be included in the results.
-	CompletionContext_DotMemberAccess CompletionContext = 32
-	// Completions for fields of the member being accessed using the arrow operator should be included in the results.
-	CompletionContext_ArrowMemberAccess CompletionContext = 64
-	// Completions for properties of the Objective-C object being accessed using the dot operator should be included in the results.
-	CompletionContext_ObjCPropertyAccess CompletionContext = 128
-	// Completions for enum tags should be included in the results.
-	CompletionContext_EnumTag CompletionContext = 256
-	// Completions for union tags should be included in the results.
-	CompletionContext_UnionTag CompletionContext = 512
-	// Completions for struct tags should be included in the results.
-	CompletionContext_StructTag CompletionContext = 1024
-	// Completions for C++ class names should be included in the results.
-	CompletionContext_ClassTag CompletionContext = 2048
-	// Completions for C++ namespaces and namespace aliases should be included in the results.
-	CompletionContext_Namespace CompletionContext = 4096
-	// Completions for C++ nested name specifiers should be included in the results.
-	CompletionContext_NestedNameSpecifier CompletionContext = 8192
-	// Completions for Objective-C interfaces (classes) should be included in the results.
-	CompletionContext_ObjCInterface CompletionContext = 16384
-	// Completions for Objective-C protocols should be included in the results.
-	CompletionContext_ObjCProtocol CompletionContext = 32768
-	// Completions for Objective-C categories should be included in the results.
-	CompletionContext_ObjCCategory CompletionContext = 65536
-	// Completions for Objective-C instance messages should be included in the results.
-	CompletionContext_ObjCInstanceMessage CompletionContext = 131072
-	// Completions for Objective-C class messages should be included in the results.
-	CompletionContext_ObjCClassMessage CompletionContext = 262144
-	// Completions for Objective-C selector names should be included in the results.
-	CompletionContext_ObjCSelectorName CompletionContext = 524288
-	// Completions for preprocessor macro names should be included in the results.
-	CompletionContext_MacroName CompletionContext = 1048576
-	// Natural language completions should be included in the results.
-	CompletionContext_NaturalLanguage CompletionContext = 2097152
-	// #include file completions should be included in the results.
-	CompletionContext_IncludedFile CompletionContext = 4194304
-	// The current context is unknown, so set all contexts.
-	CompletionContext_Unknown CompletionContext = 8388607
-)
-
-type EvalResultKind uint32
-
-const (
-	Eval_Int            EvalResultKind = 1
-	Eval_Float          EvalResultKind = 2
-	Eval_ObjCStrLiteral EvalResultKind = 3
-	Eval_StrLiteral     EvalResultKind = 4
-	Eval_CFStr          EvalResultKind = 5
-	Eval_Other          EvalResultKind = 6
-	Eval_UnExposed      EvalResultKind = 0
-)
-
-// @{
-type VisitorResult uint32
-
-const (
-	Visit_Break    VisitorResult = 0
-	Visit_Continue VisitorResult = 1
-)
-
-type Result uint32
-
-const (
-	// Function returned successfully.
-	Result_Success Result = 0
-	// One of the parameters was invalid for the function.
-	Result_Invalid Result = 1
-	// The function was terminated by a callback (e.g. it returned CXVisit_Break)
-	Result_VisitBreak Result = 2
-)
-
-type IdxEntityKind uint32
-
-const (
-	IdxEntity_Unexposed             IdxEntityKind = 0
-	IdxEntity_Typedef               IdxEntityKind = 1
-	IdxEntity_Function              IdxEntityKind = 2
-	IdxEntity_Variable              IdxEntityKind = 3
-	IdxEntity_Field                 IdxEntityKind = 4
-	IdxEntity_EnumConstant          IdxEntityKind = 5
-	IdxEntity_ObjCClass             IdxEntityKind = 6
-	IdxEntity_ObjCProtocol          IdxEntityKind = 7
-	IdxEntity_ObjCCategory          IdxEntityKind = 8
-	IdxEntity_ObjCInstanceMethod    IdxEntityKind = 9
-	IdxEntity_ObjCClassMethod       IdxEntityKind = 10
-	IdxEntity_ObjCProperty          IdxEntityKind = 11
-	IdxEntity_ObjCIvar              IdxEntityKind = 12
-	IdxEntity_Enum                  IdxEntityKind = 13
-	IdxEntity_Struct                IdxEntityKind = 14
-	IdxEntity_Union                 IdxEntityKind = 15
-	IdxEntity_CXXClass              IdxEntityKind = 16
-	IdxEntity_CXXNamespace          IdxEntityKind = 17
-	IdxEntity_CXXNamespaceAlias     IdxEntityKind = 18
-	IdxEntity_CXXStaticVariable     IdxEntityKind = 19
-	IdxEntity_CXXStaticMethod       IdxEntityKind = 20
-	IdxEntity_CXXInstanceMethod     IdxEntityKind = 21
-	IdxEntity_CXXConstructor        IdxEntityKind = 22
-	IdxEntity_CXXDestructor         IdxEntityKind = 23
-	IdxEntity_CXXConversionFunction IdxEntityKind = 24
-	IdxEntity_CXXTypeAlias          IdxEntityKind = 25
-	IdxEntity_CXXInterface          IdxEntityKind = 26
-	IdxEntity_CXXConcept            IdxEntityKind = 27
-)
-
-type IdxEntityLanguage uint32
-
-const (
-	IdxEntityLang_None  IdxEntityLanguage = 0
-	IdxEntityLang_C     IdxEntityLanguage = 1
-	IdxEntityLang_ObjC  IdxEntityLanguage = 2
-	IdxEntityLang_CXX   IdxEntityLanguage = 3
-	IdxEntityLang_Swift IdxEntityLanguage = 4
-)
-
-// Extra C++ template information for an entity. This can apply to: CXIdxEntity_Function CXIdxEntity_CXXClass CXIdxEntity_CXXStaticMethod CXIdxEntity_CXXInstanceMethod CXIdxEntity_CXXConstructor CXIdxEntity_CXXConversionFunction CXIdxEntity_CXXTypeAlias
-type IdxEntityCXXTemplateKind uint32
-
-const (
-	IdxEntity_NonTemplate                   IdxEntityCXXTemplateKind = 0
-	IdxEntity_Template                      IdxEntityCXXTemplateKind = 1
-	IdxEntity_TemplatePartialSpecialization IdxEntityCXXTemplateKind = 2
-	IdxEntity_TemplateSpecialization        IdxEntityCXXTemplateKind = 3
-)
-
-type IdxAttrKind uint32
-
-const (
-	IdxAttr_Unexposed          IdxAttrKind = 0
-	IdxAttr_IBAction           IdxAttrKind = 1
-	IdxAttr_IBOutlet           IdxAttrKind = 2
-	IdxAttr_IBOutletCollection IdxAttrKind = 3
-)
-
-type IdxDeclInfoFlags uint32
-
-const (
-	IdxDeclFlag_Skipped IdxDeclInfoFlags = 1
-)
-
-type IdxObjCContainerKind uint32
-
-const (
-	IdxObjCContainer_ForwardRef     IdxObjCContainerKind = 0
-	IdxObjCContainer_Interface      IdxObjCContainerKind = 1
-	IdxObjCContainer_Implementation IdxObjCContainerKind = 2
-)
-
-/*
-Data for IndexerCallbacks#indexEntityReference.
-
-This may be deprecated in a future version as this duplicates the CXSymbolRole_Implicit bit in CXSymbolRole.
-*/
-type IdxEntityRefKind uint32
-
-const (
-	// The entity is referenced directly in user's code.
-	IdxEntityRef_Direct IdxEntityRefKind = 1
-	// An implicit reference, e.g. a reference of an Objective-C method via the dot syntax.
-	IdxEntityRef_Implicit IdxEntityRefKind = 2
-)
-
-/*
-Roles that are attributed to symbol occurrences.
-
-Internal: this currently mirrors low 9 bits of clang::index::SymbolRole with higher bits zeroed. These high bits may be exposed in the future.
-*/
-type SymbolRole uint32
-
-const (
-	SymbolRole_None        SymbolRole = 0
-	SymbolRole_Declaration SymbolRole = 1
-	SymbolRole_Definition  SymbolRole = 2
-	SymbolRole_Reference   SymbolRole = 4
-	SymbolRole_Read        SymbolRole = 8
-	SymbolRole_Write       SymbolRole = 16
-	SymbolRole_Call        SymbolRole = 32
-	SymbolRole_Dynamic     SymbolRole = 64
-	SymbolRole_AddressOf   SymbolRole = 128
-	SymbolRole_Implicit    SymbolRole = 256
-)
-
-type IndexOptFlags uint32
-
-const (
-	// Used to indicate that no special indexing options are needed.
-	IndexOpt_None IndexOptFlags = 0
-	// Used to indicate that IndexerCallbacks#indexEntityReference should be invoked for only one reference of an entity per source file that does not also include a declaration/definition of the entity.
-	IndexOpt_SuppressRedundantRefs IndexOptFlags = 1
-	// Function-local symbols should be indexed. If this is not set function-local symbols will be ignored.
-	IndexOpt_IndexFunctionLocalSymbols IndexOptFlags = 2
-	// Implicit function/class template instantiations should be indexed. If this is not set, implicit instantiations will be ignored.
-	IndexOpt_IndexImplicitTemplateInstantiations IndexOptFlags = 4
-	// Suppress all compiler warnings when parsing for indexing.
-	IndexOpt_SuppressWarnings IndexOptFlags = 8
-	// Skip a function/method body that was already parsed during an indexing session associated with a CXIndexAction object. Bodies in system headers are always skipped.
-	IndexOpt_SkipParsedBodiesInSession IndexOptFlags = 16
-)
-
-// Describes the kind of binary operators.
-type BinaryOperatorKind uint32
-
-const (
-	// This value describes cursors which are not binary operators.
-	BinaryOperator_Invalid BinaryOperatorKind = 0
-	// C++ Pointer - to - member operator.
-	BinaryOperator_PtrMemD BinaryOperatorKind = 1
-	// C++ Pointer - to - member operator.
-	BinaryOperator_PtrMemI BinaryOperatorKind = 2
-	// Multiplication operator.
-	BinaryOperator_Mul BinaryOperatorKind = 3
-	// Division operator.
-	BinaryOperator_Div BinaryOperatorKind = 4
-	// Remainder operator.
-	BinaryOperator_Rem BinaryOperatorKind = 5
-	// Addition operator.
-	BinaryOperator_Add BinaryOperatorKind = 6
-	// Subtraction operator.
-	BinaryOperator_Sub BinaryOperatorKind = 7
-	// Bitwise shift left operator.
-	BinaryOperator_Shl BinaryOperatorKind = 8
-	// Bitwise shift right operator.
-	BinaryOperator_Shr BinaryOperatorKind = 9
-	// C++ three-way comparison (spaceship) operator.
-	BinaryOperator_Cmp BinaryOperatorKind = 10
-	// Less than operator.
-	BinaryOperator_LT BinaryOperatorKind = 11
-	// Greater than operator.
-	BinaryOperator_GT BinaryOperatorKind = 12
-	// Less or equal operator.
-	BinaryOperator_LE BinaryOperatorKind = 13
-	// Greater or equal operator.
-	BinaryOperator_GE BinaryOperatorKind = 14
-	// Equal operator.
-	BinaryOperator_EQ BinaryOperatorKind = 15
-	// Not equal operator.
-	BinaryOperator_NE BinaryOperatorKind = 16
-	// Bitwise AND operator.
-	BinaryOperator_And BinaryOperatorKind = 17
-	// Bitwise XOR operator.
-	BinaryOperator_Xor BinaryOperatorKind = 18
-	// Bitwise OR operator.
-	BinaryOperator_Or BinaryOperatorKind = 19
-	// Logical AND operator.
-	BinaryOperator_LAnd BinaryOperatorKind = 20
-	// Logical OR operator.
-	BinaryOperator_LOr BinaryOperatorKind = 21
-	// Assignment operator.
-	BinaryOperator_Assign BinaryOperatorKind = 22
-	// Multiplication assignment operator.
-	BinaryOperator_MulAssign BinaryOperatorKind = 23
-	// Division assignment operator.
-	BinaryOperator_DivAssign BinaryOperatorKind = 24
-	// Remainder assignment operator.
-	BinaryOperator_RemAssign BinaryOperatorKind = 25
-	// Addition assignment operator.
-	BinaryOperator_AddAssign BinaryOperatorKind = 26
-	// Subtraction assignment operator.
-	BinaryOperator_SubAssign BinaryOperatorKind = 27
-	// Bitwise shift left assignment operator.
-	BinaryOperator_ShlAssign BinaryOperatorKind = 28
-	// Bitwise shift right assignment operator.
-	BinaryOperator_ShrAssign BinaryOperatorKind = 29
-	// Bitwise AND assignment operator.
-	BinaryOperator_AndAssign BinaryOperatorKind = 30
-	// Bitwise XOR assignment operator.
-	BinaryOperator_XorAssign BinaryOperatorKind = 31
-	// Bitwise OR assignment operator.
-	BinaryOperator_OrAssign BinaryOperatorKind = 32
-	// Comma operator.
-	BinaryOperator_Comma BinaryOperatorKind = 33
-	// Comma operator.
-	BinaryOperator_Last BinaryOperatorKind = 33
-)
-
-// Describes the kind of unary operators.
-type UnaryOperatorKind uint32
-
-const (
-	// This value describes cursors which are not unary operators.
-	UnaryOperator_Invalid UnaryOperatorKind = 0
-	// Postfix increment operator.
-	UnaryOperator_PostInc UnaryOperatorKind = 1
-	// Postfix decrement operator.
-	UnaryOperator_PostDec UnaryOperatorKind = 2
-	// Prefix increment operator.
-	UnaryOperator_PreInc UnaryOperatorKind = 3
-	// Prefix decrement operator.
-	UnaryOperator_PreDec UnaryOperatorKind = 4
-	// Address of operator.
-	UnaryOperator_AddrOf UnaryOperatorKind = 5
-	// Dereference operator.
-	UnaryOperator_Deref UnaryOperatorKind = 6
-	// Plus operator.
-	UnaryOperator_Plus UnaryOperatorKind = 7
-	// Minus operator.
-	UnaryOperator_Minus UnaryOperatorKind = 8
-	// Not operator.
-	UnaryOperator_Not UnaryOperatorKind = 9
-	// LNot operator.
-	UnaryOperator_LNot UnaryOperatorKind = 10
-	// "__real expr" operator.
-	UnaryOperator_Real UnaryOperatorKind = 11
-	// "__imag expr" operator.
-	UnaryOperator_Imag UnaryOperatorKind = 12
-	// __extension__ marker operator.
-	UnaryOperator_Extension UnaryOperatorKind = 13
-	// C++ co_await operator.
-	UnaryOperator_Coawait UnaryOperatorKind = 14
-	// C++ co_await operator.
-	UnaryOperator_Last UnaryOperatorKind = 14
+	SC_Invalid              StorageClass = 0
+	SC_None                 StorageClass = 1
+	SC_Extern               StorageClass = 2
+	SC_Static               StorageClass = 3
+	SC_PrivateExtern        StorageClass = 4
+	SC_OpenCLWorkGroupLocal StorageClass = 5
+	SC_Auto                 StorageClass = 6
+	SC_Register             StorageClass = 7
 )
