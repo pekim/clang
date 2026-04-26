@@ -662,7 +662,28 @@ func Cursor_getBriefCommentText(c Cursor) String_ {
 	return ret
 }
 
-// not supported : clang_Cursor_getCXXManglings : return value : CXStringSet *
+// Retrieve the CXStrings representing the mangled symbols of the C++ constructor or destructor at the cursor.
+func Cursor_getCXXManglings(p0 Cursor) *StringSet {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getCXXManglings,
+		ptr_clang_Cursor_getCXXManglings,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getCXXManglings", err))
+	}
+
+	ret := (*StringSet)(retC)
+	return ret
+}
 
 // Given a cursor that represents a declaration, return the associated comment's source range.  The range may include multiple consecutive comments with whitespace in between.
 func Cursor_getCommentRange(c Cursor) SourceRange {
@@ -1009,7 +1030,28 @@ func Cursor_getObjCDeclQualifiers(c Cursor) uint32 {
 	return ret
 }
 
-// not supported : clang_Cursor_getObjCManglings : return value : CXStringSet *
+// Retrieve the CXStrings representing the mangled symbols of the ObjC class interface or implementation at the cursor.
+func Cursor_getObjCManglings(p0 Cursor) *StringSet {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getObjCManglings,
+		ptr_clang_Cursor_getObjCManglings,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCManglings", err))
+	}
+
+	ret := (*StringSet)(retC)
+	return ret
+}
 
 // Given a cursor that represents a property declaration, return the associated property attributes. The bits are formed from CXObjCPropertyAttrKind.
 func Cursor_getObjCPropertyAttributes(c Cursor, reserved uint32) uint32 {
@@ -2979,7 +3021,50 @@ func AnnotateTokens(tU TranslationUnit, tokens *Token, numTokens uint32, cursors
 	}
 }
 
-// not supported : clang_codeCompleteAt : return value : CXCodeCompleteResults *
+/*
+Perform code completion at a given location in a translation unit.
+
+This function performs code completion at a particular file, line, and column within source code, providing results that suggest potential code snippets based on the context of the completion. The basic model for code completion is that Clang will parse a complete source file, performing syntax checking up to the location where code-completion has been requested. At that point, a special code-completion token is passed to the parser, which recognizes this token and determines, based on the current location in the C/Objective-C/C++ grammar and the state of semantic analysis, what completions to provide. These completions are returned via a new CXCodeCompleteResults structure.
+
+Code completion itself is meant to be triggered by the client when the user types punctuation characters or whitespace, at which point the code-completion location will coincide with the cursor. For example, if p is a pointer, code-completion might be triggered after the "-" and then after the ">" in p->. When the code-completion location is after the ">", the completion results will provide, e.g., the members of the struct that "p" points to. The client is responsible for placing the cursor at the beginning of the token currently being typed, then filtering the results based on the contents of the token. For example, when code-completing for the expression p->get, the client should provide the location just after the ">" (e.g., pointing at the "g") to this code-completion hook. Then, the client can filter the results based on the current token text ("get"), only showing those results that start with "get". The intent of this interface is to separate the relatively high-latency acquisition of code-completion results from the filtering of results on a per-character basis, which must have a lower latency.
+*/
+func CodeCompleteAt(tU TranslationUnit, complete_filename string, complete_line uint32, complete_column uint32, unsaved_files []UnsavedFile, options uint32) *CodeCompleteResults {
+	c_tU := tU
+	c_complete_filename, free_c_complete_filename := libc.CString(complete_filename)
+	defer free_c_complete_filename()
+	c_complete_line := complete_line
+	c_complete_column := complete_column
+	var c_unsaved_files unsafe.Pointer
+	if len(unsaved_files) > 0 {
+		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
+	}
+	c_num_unsaved_files := len(unsaved_files)
+	c_options := options
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_complete_filename),
+		unsafe.Pointer(&c_complete_line),
+		unsafe.Pointer(&c_complete_column),
+		unsafe.Pointer(&c_unsaved_files),
+		unsafe.Pointer(&c_num_unsaved_files),
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteAt,
+		ptr_clang_codeCompleteAt,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteAt", err))
+	}
+
+	ret := (*CodeCompleteResults)(retC)
+	return ret
+}
 
 // not supported : clang_codeCompleteGetContainerKind : param IsIncomplete : unsigned int *
 
@@ -4009,7 +4094,32 @@ func GetAddressSpace(t Type_) uint32 {
 	return ret
 }
 
-// not supported : clang_getAllSkippedRanges : return value : CXSourceRangeList *
+/*
+Retrieve all ranges from all files that were skipped by the preprocessor.
+
+The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
+*/
+func GetAllSkippedRanges(tu TranslationUnit) *SourceRangeList {
+	c_tu := tu
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getAllSkippedRanges,
+		ptr_clang_getAllSkippedRanges,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getAllSkippedRanges", err))
+	}
+
+	ret := (*SourceRangeList)(retC)
+	return ret
+}
 
 /*
 Retrieve the type of a parameter of a function type.
@@ -6394,7 +6504,34 @@ func GetResultType(t Type_) Type_ {
 	return ret
 }
 
-// not supported : clang_getSkippedRanges : return value : CXSourceRangeList *
+/*
+Retrieve all ranges that were skipped by the preprocessor.
+
+The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
+*/
+func GetSkippedRanges(tu TranslationUnit, file File) *SourceRangeList {
+	c_tu := tu
+	c_file := file
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_file),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getSkippedRanges,
+		ptr_clang_getSkippedRanges,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSkippedRanges", err))
+	}
+
+	ret := (*SourceRangeList)(retC)
+	return ret
+}
 
 /*
 Given a cursor that may represent a specialization or instantiation of a template, retrieve the cursor that represents the template that it specializes or from which it was instantiated.
@@ -6477,7 +6614,30 @@ func GetTemplateCursorKind(c Cursor) CursorKind {
 	return ret
 }
 
-// not supported : clang_getToken : return value : CXToken *
+// Get the raw lexical token starting with the given location.
+func GetToken(tU TranslationUnit, location SourceLocation) *Token {
+	c_tU := tU
+	c_location := location
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_location),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getToken,
+		ptr_clang_getToken,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getToken", err))
+	}
+
+	ret := (*Token)(retC)
+	return ret
+}
 
 // Retrieve a source range that covers the given token.
 func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
