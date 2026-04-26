@@ -45,11 +45,28 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 	return ret
 }
 
-// not supported : clang_VirtualFileOverlay_addFileMapping : return value : enum CXErrorCode
+// not supported : clang_VirtualFileOverlay_addFileMapping : param virtualPath : const char *
 
-// not supported : clang_VirtualFileOverlay_setCaseSensitivity : return value : enum CXErrorCode
+func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive int32) ErrorCode {
+	c_p0 := p0
+	c_caseSensitive := caseSensitive
 
-// not supported : clang_VirtualFileOverlay_writeToBuffer : return value : enum CXErrorCode
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_caseSensitive),
+	}
+
+	err := ffi.CallFunction(cif_clang_VirtualFileOverlay_setCaseSensitivity, ptr_clang_VirtualFileOverlay_setCaseSensitivity, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VirtualFileOverlay_setCaseSensitivity", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// not supported : clang_VirtualFileOverlay_writeToBuffer : param out_buffer_ptr : char **
 
 // not supported : clang_free : param buffer : void *
 
@@ -83,11 +100,11 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 	return ret
 }
 
-// not supported : clang_ModuleMapDescriptor_setFrameworkModuleName : return value : enum CXErrorCode
+// not supported : clang_ModuleMapDescriptor_setFrameworkModuleName : param name : const char *
 
-// not supported : clang_ModuleMapDescriptor_setUmbrellaHeader : return value : enum CXErrorCode
+// not supported : clang_ModuleMapDescriptor_setUmbrellaHeader : param name : const char *
 
-// not supported : clang_ModuleMapDescriptor_writeToBuffer : return value : enum CXErrorCode
+// not supported : clang_ModuleMapDescriptor_writeToBuffer : param out_buffer_ptr : char **
 
 func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
 	c_p0 := p0
@@ -471,7 +488,22 @@ func DefaultDiagnosticDisplayOptions() uint32 {
 	return ret
 }
 
-// not supported : clang_getDiagnosticSeverity : return value : enum CXDiagnosticSeverity
+func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
+	c_p0 := p0
+
+	var retC DiagnosticSeverity
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getDiagnosticSeverity, ptr_clang_getDiagnosticSeverity, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSeverity", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
 	c_p0 := p0
@@ -863,7 +895,7 @@ func GetTranslationUnitSpelling(cTUnit TranslationUnit) String_ {
 
 // not supported : clang_createTranslationUnit : param ast_filename : const char *
 
-// not supported : clang_createTranslationUnit2 : return value : enum CXErrorCode
+// not supported : clang_createTranslationUnit2 : param ast_filename : const char *
 
 /*
 Returns the set of flags that is suitable for parsing a translation unit that is being edited.
@@ -885,9 +917,9 @@ func DefaultEditingTranslationUnitOptions() uint32 {
 
 // not supported : clang_parseTranslationUnit : param source_filename : const char *
 
-// not supported : clang_parseTranslationUnit2 : return value : enum CXErrorCode
+// not supported : clang_parseTranslationUnit2 : param source_filename : const char *
 
-// not supported : clang_parseTranslationUnit2FullArgv : return value : enum CXErrorCode
+// not supported : clang_parseTranslationUnit2FullArgv : param source_filename : const char *
 
 /*
 Returns the set of flags that is suitable for saving a translation unit.
@@ -1178,7 +1210,23 @@ func HashCursor(p0 Cursor) uint32 {
 	return ret
 }
 
-// not supported : clang_getCursorKind : return value : enum CXCursorKind
+// Retrieve the kind of the given cursor.
+func GetCursorKind(p0 Cursor) CursorKind {
+	c_p0 := p0
+
+	var retC CursorKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorKind, ptr_clang_getCursorKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_isDeclaration : param p0 : enum CXCursorKind
 
@@ -1238,11 +1286,63 @@ func Cursor_hasAttrs(c Cursor) uint32 {
 
 // not supported : clang_isUnexposed : param p0 : enum CXCursorKind
 
-// not supported : clang_getCursorLinkage : return value : enum CXLinkageKind
+// Determine the linkage of the entity referred to by a given cursor.
+func GetCursorLinkage(cursor Cursor) LinkageKind {
+	c_cursor := cursor
 
-// not supported : clang_getCursorVisibility : return value : enum CXVisibilityKind
+	var retC LinkageKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
 
-// not supported : clang_getCursorAvailability : return value : enum CXAvailabilityKind
+	err := ffi.CallFunction(cif_clang_getCursorLinkage, ptr_clang_getCursorLinkage, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLinkage", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+Describe the visibility of the entity referred to by a cursor.
+
+This returns the default visibility if not explicitly specified by a visibility attribute. The default visibility may be changed by commandline arguments.
+*/
+func GetCursorVisibility(cursor Cursor) VisibilityKind {
+	c_cursor := cursor
+
+	var retC VisibilityKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorVisibility, ptr_clang_getCursorVisibility, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorVisibility", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the availability of the entity that this cursor refers to, taking the current target platform into account.
+func GetCursorAvailability(cursor Cursor) AvailabilityKind {
+	c_cursor := cursor
+
+	var retC AvailabilityKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorAvailability, ptr_clang_getCursorAvailability, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorAvailability", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getCursorPlatformAvailability : param always_deprecated : int *
 
@@ -1302,9 +1402,41 @@ func Cursor_hasVarDeclExternalStorage(cursor Cursor) int32 {
 	return ret
 }
 
-// not supported : clang_getCursorLanguage : return value : enum CXLanguageKind
+// Determine the "language" of the entity referred to by a given cursor.
+func GetCursorLanguage(cursor Cursor) LanguageKind {
+	c_cursor := cursor
 
-// not supported : clang_getCursorTLSKind : return value : enum CXTLSKind
+	var retC LanguageKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorLanguage, ptr_clang_getCursorLanguage, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorLanguage", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Determine the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
+func GetCursorTLSKind(cursor Cursor) TLSKind {
+	c_cursor := cursor
+
+	var retC TLSKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorTLSKind, ptr_clang_getCursorTLSKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorTLSKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the translation unit that a cursor originated from.
 func Cursor_getTranslationUnit(p0 Cursor) TranslationUnit {
@@ -1742,7 +1874,35 @@ func Cursor_getNumTemplateArguments(c Cursor) int32 {
 	return ret
 }
 
-// not supported : clang_Cursor_getTemplateArgumentKind : return value : enum CXTemplateArgumentKind
+/*
+Retrieve the kind of the I'th template argument of the CXCursor C.
+
+If the argument CXCursor does not represent a FunctionDecl, StructDecl, or ClassTemplatePartialSpecialization, an invalid template argument kind is returned.
+
+For example, for the following declaration and specialization:   template <typename T, int kInt, bool kBool>   void foo() { ... }
+
+template <>   void foo<float, -7, true>();
+
+For I = 0, 1, and 2, Type, Integral, and Integral will be returned, respectively.
+*/
+func Cursor_getTemplateArgumentKind(c Cursor, i uint32) TemplateArgumentKind {
+	c_c := c
+	c_i := i
+
+	var retC TemplateArgumentKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+		unsafe.Pointer(&c_i),
+	}
+
+	err := ffi.CallFunction(cif_clang_Cursor_getTemplateArgumentKind, ptr_clang_Cursor_getTemplateArgumentKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getTemplateArgumentKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve a CXType representing the type of a TemplateArgument of a  function decl representing a template specialization.
@@ -2096,7 +2256,27 @@ func Type_getObjCEncoding(type_ Type_) String_ {
 
 // not supported : clang_getTypeKindSpelling : param K : enum CXTypeKind
 
-// not supported : clang_getFunctionTypeCallingConv : return value : enum CXCallingConv
+/*
+Retrieve the calling convention associated with a function type.
+
+If a non-function type is passed in, CXCallingConv_Invalid is returned.
+*/
+func GetFunctionTypeCallingConv(t Type_) CallingConv {
+	c_t := t
+
+	var retC CallingConv
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(cif_clang_getFunctionTypeCallingConv, ptr_clang_getFunctionTypeCallingConv, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFunctionTypeCallingConv", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Retrieve the return type associated with a function type.
@@ -2474,7 +2654,23 @@ func Type_isTransparentTagTypedef(t Type_) uint32 {
 	return ret
 }
 
-// not supported : clang_Type_getNullability : return value : enum CXTypeNullabilityKind
+// Retrieve the nullability kind of a pointer type.
+func Type_getNullability(t Type_) TypeNullabilityKind {
+	c_t := t
+
+	var retC TypeNullabilityKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(cif_clang_Type_getNullability, ptr_clang_Type_getNullability, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getNullability", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_Type_getAlignOf : return value : long long
 
@@ -2646,7 +2842,27 @@ func Type_getTemplateArgumentAsType(t Type_, i uint32) Type_ {
 	return ret
 }
 
-// not supported : clang_Type_getCXXRefQualifier : return value : enum CXRefQualifierKind
+/*
+Retrieve the ref-qualifier kind of a function or method.
+
+The ref-qualifier is returned for C++ functions or methods. For other types or non-C++ declarations, CXRefQualifier_None is returned.
+*/
+func Type_getCXXRefQualifier(t Type_) RefQualifierKind {
+	c_t := t
+
+	var retC RefQualifierKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_t),
+	}
+
+	err := ffi.CallFunction(cif_clang_Type_getCXXRefQualifier, ptr_clang_Type_getCXXRefQualifier, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getCXXRefQualifier", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns 1 if the base class specified by the cursor with kind   CX_CXXBaseSpecifier is virtual.
 func IsVirtualBase(p0 Cursor) uint32 {
@@ -2668,13 +2884,68 @@ func IsVirtualBase(p0 Cursor) uint32 {
 
 // not supported : clang_getOffsetOfBase : return value : long long
 
-// not supported : clang_getCXXAccessSpecifier : return value : enum CX_CXXAccessSpecifier
+/*
+Returns the access control level for the referenced object.
 
-// not supported : clang_Cursor_getBinaryOpcode : return value : enum CX_BinaryOperatorKind
+If the cursor refers to a C++ declaration, its access control level within its parent scope is returned. Otherwise, if the cursor refers to a base specifier or access specifier, the specifier itself is returned.
+*/
+func GetCXXAccessSpecifier(p0 Cursor) CXXAccessSpecifier {
+	c_p0 := p0
+
+	var retC CXXAccessSpecifier
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCXXAccessSpecifier, ptr_clang_getCXXAccessSpecifier, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCXXAccessSpecifier", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Cursor_getBinaryOpcode(c Cursor) BinaryOperatorKind_ {
+	c_c := c
+
+	var retC BinaryOperatorKind_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(cif_clang_Cursor_getBinaryOpcode, ptr_clang_Cursor_getBinaryOpcode, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getBinaryOpcode", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_Cursor_getBinaryOpcodeStr : param Op : enum CX_BinaryOperatorKind
 
-// not supported : clang_Cursor_getStorageClass : return value : enum CX_StorageClass
+/*
+Returns the storage class for a function or variable declaration.
+
+If the passed in Cursor is not a function or variable declaration, CX_SC_Invalid is returned else the storage class.
+*/
+func Cursor_getStorageClass(p0 Cursor) StorageClass {
+	c_p0 := p0
+
+	var retC StorageClass
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(cif_clang_Cursor_getStorageClass, ptr_clang_Cursor_getStorageClass, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getStorageClass", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Determine the number of overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
 func GetNumOverloadedDecls(cursor Cursor) uint32 {
@@ -3977,7 +4248,27 @@ func XMethod_isConst(c Cursor) uint32 {
 	return ret
 }
 
-// not supported : clang_getTemplateCursorKind : return value : enum CXCursorKind
+/*
+Given a cursor that represents a template, determine the cursor kind of the specializations would be generated by instantiating the template.
+
+This routine can be used to determine what flavor of function template, class template, or class template partial specialization is stored in the cursor. For example, it can describe whether a class template cursor is declared with "struct", "class" or "union".
+*/
+func GetTemplateCursorKind(c Cursor) CursorKind {
+	c_c := c
+
+	var retC CursorKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(cif_clang_getTemplateCursorKind, ptr_clang_getTemplateCursorKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTemplateCursorKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 /*
 Given a cursor that may represent a specialization or instantiation of a template, retrieve the cursor that represents the template that it specializes or from which it was instantiated.
@@ -4130,7 +4421,25 @@ func EnableStackTraces() {
 
 // not supported : clang_executeOnThread : param fn : void (*)(void *)
 
-// not supported : clang_getCompletionChunkKind : return value : enum CXCompletionChunkKind
+// Determine the kind of a particular chunk within a completion string.
+func GetCompletionChunkKind(completion_string CompletionString, chunk_number uint32) CompletionChunkKind {
+	c_completion_string := completion_string
+	c_chunk_number := chunk_number
+
+	var retC CompletionChunkKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_chunk_number),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionChunkKind, ptr_clang_getCompletionChunkKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve the text associated with a particular chunk within a completion string.
 func GetCompletionChunkText(completion_string CompletionString, chunk_number uint32) String_ {
@@ -4212,7 +4521,23 @@ func GetCompletionPriority(completion_string CompletionString) uint32 {
 	return ret
 }
 
-// not supported : clang_getCompletionAvailability : return value : enum CXAvailabilityKind
+// Determine the availability of the entity that this code-completion string refers to.
+func GetCompletionAvailability(completion_string CompletionString) AvailabilityKind {
+	c_completion_string := completion_string
+
+	var retC AvailabilityKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_completion_string),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCompletionAvailability, ptr_clang_getCompletionAvailability, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionAvailability", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Retrieve the number of annotations associated with the given completion string.
 func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
@@ -4320,7 +4645,7 @@ func DefaultCodeCompleteOptions() uint32 {
 
 // not supported : clang_codeCompleteGetContexts : return value : unsigned long long
 
-// not supported : clang_codeCompleteGetContainerKind : return value : enum CXCursorKind
+// not supported : clang_codeCompleteGetContainerKind : param Results : CXCodeCompleteResults *
 
 // not supported : clang_codeCompleteGetContainerUSR : param Results : CXCodeCompleteResults *
 
@@ -4718,11 +5043,51 @@ func VisitCXXMethods(t Type_, visitor FieldVisitor, client_data ClientData) uint
 
 // not supported : clang_getBinaryOperatorKindSpelling : param kind : enum CXBinaryOperatorKind
 
-// not supported : clang_getCursorBinaryOperatorKind : return value : enum CXBinaryOperatorKind
+/*
+Retrieve the binary operator kind of this cursor.
+
+If this cursor is not a binary operator then returns Invalid.
+*/
+func GetCursorBinaryOperatorKind(cursor Cursor) BinaryOperatorKind {
+	c_cursor := cursor
+
+	var retC BinaryOperatorKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorBinaryOperatorKind, ptr_clang_getCursorBinaryOperatorKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorBinaryOperatorKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getUnaryOperatorKindSpelling : param kind : enum CXUnaryOperatorKind
 
-// not supported : clang_getCursorUnaryOperatorKind : return value : enum CXUnaryOperatorKind
+/*
+Retrieve the unary operator kind of this cursor.
+
+If this cursor is not a unary operator then returns Invalid.
+*/
+func GetCursorUnaryOperatorKind(cursor Cursor) UnaryOperatorKind {
+	c_cursor := cursor
+
+	var retC UnaryOperatorKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(cif_clang_getCursorUnaryOperatorKind, ptr_clang_getCursorUnaryOperatorKind, unsafe.Pointer(&retC), args)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorUnaryOperatorKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // not supported : clang_getRemappings : param p0 : const char *
 

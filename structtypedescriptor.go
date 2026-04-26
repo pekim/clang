@@ -151,11 +151,7 @@ var tUResourceUsageEntryTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		types.UInt64TypeDescriptor,
 	},
 	Size: unsafe.Sizeof(TUResourceUsageEntry{}),
@@ -176,11 +172,7 @@ var cursorTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		types.SInt32TypeDescriptor,
 		{
 			Alignment: 0,
@@ -216,11 +208,7 @@ var type_TypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		{
 			Alignment: 0,
 			Kind:      types.UInt8Type,
@@ -248,11 +236,7 @@ var completionResultTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 0,
 	Kind:      types.StructType,
 	Members: []*types.TypeDescriptor{
-		{
-			Alignment: 0,
-			Kind:      types.UInt8Type,
-			Size:      4,
-		},
+		types.UInt32TypeDescriptor,
 		types.PointerTypeDescriptor,
 	},
 	Size: unsafe.Sizeof(CompletionResult{}),

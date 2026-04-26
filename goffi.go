@@ -12,6 +12,7 @@ import (
 
 var cif_clang_disposeString = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_create = &types.CallInterface{}
+var cif_clang_VirtualFileOverlay_setCaseSensitivity = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_dispose = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_create = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_dispose = &types.CallInterface{}
@@ -36,6 +37,7 @@ var cif_clang_getChildDiagnostics = &types.CallInterface{}
 var cif_clang_disposeDiagnostic = &types.CallInterface{}
 var cif_clang_formatDiagnostic = &types.CallInterface{}
 var cif_clang_defaultDiagnosticDisplayOptions = &types.CallInterface{}
+var cif_clang_getDiagnosticSeverity = &types.CallInterface{}
 var cif_clang_getDiagnosticLocation = &types.CallInterface{}
 var cif_clang_getDiagnosticSpelling = &types.CallInterface{}
 var cif_clang_getDiagnosticCategory = &types.CallInterface{}
@@ -71,11 +73,17 @@ var cif_clang_getTranslationUnitCursor = &types.CallInterface{}
 var cif_clang_equalCursors = &types.CallInterface{}
 var cif_clang_Cursor_isNull = &types.CallInterface{}
 var cif_clang_hashCursor = &types.CallInterface{}
+var cif_clang_getCursorKind = &types.CallInterface{}
 var cif_clang_isInvalidDeclaration = &types.CallInterface{}
 var cif_clang_Cursor_hasAttrs = &types.CallInterface{}
+var cif_clang_getCursorLinkage = &types.CallInterface{}
+var cif_clang_getCursorVisibility = &types.CallInterface{}
+var cif_clang_getCursorAvailability = &types.CallInterface{}
 var cif_clang_Cursor_getVarDeclInitializer = &types.CallInterface{}
 var cif_clang_Cursor_hasVarDeclGlobalStorage = &types.CallInterface{}
 var cif_clang_Cursor_hasVarDeclExternalStorage = &types.CallInterface{}
+var cif_clang_getCursorLanguage = &types.CallInterface{}
+var cif_clang_getCursorTLSKind = &types.CallInterface{}
 var cif_clang_Cursor_getTranslationUnit = &types.CallInterface{}
 var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_disposeCXCursorSet = &types.CallInterface{}
@@ -96,6 +104,7 @@ var cif_clang_getFieldDeclBitWidth = &types.CallInterface{}
 var cif_clang_Cursor_getNumArguments = &types.CallInterface{}
 var cif_clang_Cursor_getArgument = &types.CallInterface{}
 var cif_clang_Cursor_getNumTemplateArguments = &types.CallInterface{}
+var cif_clang_Cursor_getTemplateArgumentKind = &types.CallInterface{}
 var cif_clang_Cursor_getTemplateArgumentType = &types.CallInterface{}
 var cif_clang_equalTypes = &types.CallInterface{}
 var cif_clang_getCanonicalType = &types.CallInterface{}
@@ -113,6 +122,7 @@ var cif_clang_getNonReferenceType = &types.CallInterface{}
 var cif_clang_getTypeDeclaration = &types.CallInterface{}
 var cif_clang_getDeclObjCTypeEncoding = &types.CallInterface{}
 var cif_clang_Type_getObjCEncoding = &types.CallInterface{}
+var cif_clang_getFunctionTypeCallingConv = &types.CallInterface{}
 var cif_clang_getResultType = &types.CallInterface{}
 var cif_clang_getExceptionSpecificationType = &types.CallInterface{}
 var cif_clang_getNumArgTypes = &types.CallInterface{}
@@ -130,6 +140,7 @@ var cif_clang_getElementType = &types.CallInterface{}
 var cif_clang_getArrayElementType = &types.CallInterface{}
 var cif_clang_Type_getNamedType = &types.CallInterface{}
 var cif_clang_Type_isTransparentTagTypedef = &types.CallInterface{}
+var cif_clang_Type_getNullability = &types.CallInterface{}
 var cif_clang_Type_getClassType = &types.CallInterface{}
 var cif_clang_Type_getModifiedType = &types.CallInterface{}
 var cif_clang_Type_getValueType = &types.CallInterface{}
@@ -138,7 +149,11 @@ var cif_clang_Cursor_isAnonymousRecordDecl = &types.CallInterface{}
 var cif_clang_Cursor_isInlineNamespace = &types.CallInterface{}
 var cif_clang_Type_getNumTemplateArguments = &types.CallInterface{}
 var cif_clang_Type_getTemplateArgumentAsType = &types.CallInterface{}
+var cif_clang_Type_getCXXRefQualifier = &types.CallInterface{}
 var cif_clang_isVirtualBase = &types.CallInterface{}
+var cif_clang_getCXXAccessSpecifier = &types.CallInterface{}
+var cif_clang_Cursor_getBinaryOpcode = &types.CallInterface{}
+var cif_clang_Cursor_getStorageClass = &types.CallInterface{}
 var cif_clang_getNumOverloadedDecls = &types.CallInterface{}
 var cif_clang_getOverloadedDecl = &types.CallInterface{}
 var cif_clang_getIBOutletCollectionType = &types.CallInterface{}
@@ -202,6 +217,7 @@ var cif_clang_CXXMethod_isExplicit = &types.CallInterface{}
 var cif_clang_CXXRecord_isAbstract = &types.CallInterface{}
 var cif_clang_EnumDecl_isScoped = &types.CallInterface{}
 var cif_clang_CXXMethod_isConst = &types.CallInterface{}
+var cif_clang_getTemplateCursorKind = &types.CallInterface{}
 var cif_clang_getSpecializedCursorTemplate = &types.CallInterface{}
 var cif_clang_getCursorReferenceNameRange = &types.CallInterface{}
 var cif_clang_getTokenKind = &types.CallInterface{}
@@ -209,10 +225,12 @@ var cif_clang_getTokenSpelling = &types.CallInterface{}
 var cif_clang_getTokenLocation = &types.CallInterface{}
 var cif_clang_getTokenExtent = &types.CallInterface{}
 var cif_clang_enableStackTraces = &types.CallInterface{}
+var cif_clang_getCompletionChunkKind = &types.CallInterface{}
 var cif_clang_getCompletionChunkText = &types.CallInterface{}
 var cif_clang_getCompletionChunkCompletionString = &types.CallInterface{}
 var cif_clang_getNumCompletionChunks = &types.CallInterface{}
 var cif_clang_getCompletionPriority = &types.CallInterface{}
+var cif_clang_getCompletionAvailability = &types.CallInterface{}
 var cif_clang_getCompletionNumAnnotations = &types.CallInterface{}
 var cif_clang_getCompletionAnnotation = &types.CallInterface{}
 var cif_clang_getCompletionBriefComment = &types.CallInterface{}
@@ -236,11 +254,14 @@ var cif_clang_indexLoc_getCXSourceLocation = &types.CallInterface{}
 var cif_clang_Type_visitFields = &types.CallInterface{}
 var cif_clang_visitCXXBaseClasses = &types.CallInterface{}
 var cif_clang_visitCXXMethods = &types.CallInterface{}
+var cif_clang_getCursorBinaryOperatorKind = &types.CallInterface{}
+var cif_clang_getCursorUnaryOperatorKind = &types.CallInterface{}
 var cif_clang_remap_getNumFiles = &types.CallInterface{}
 var cif_clang_remap_dispose = &types.CallInterface{}
 
 var ptr_clang_disposeString unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_create unsafe.Pointer
+var ptr_clang_VirtualFileOverlay_setCaseSensitivity unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_dispose unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_create unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_dispose unsafe.Pointer
@@ -265,6 +286,7 @@ var ptr_clang_getChildDiagnostics unsafe.Pointer
 var ptr_clang_disposeDiagnostic unsafe.Pointer
 var ptr_clang_formatDiagnostic unsafe.Pointer
 var ptr_clang_defaultDiagnosticDisplayOptions unsafe.Pointer
+var ptr_clang_getDiagnosticSeverity unsafe.Pointer
 var ptr_clang_getDiagnosticLocation unsafe.Pointer
 var ptr_clang_getDiagnosticSpelling unsafe.Pointer
 var ptr_clang_getDiagnosticCategory unsafe.Pointer
@@ -300,11 +322,17 @@ var ptr_clang_getTranslationUnitCursor unsafe.Pointer
 var ptr_clang_equalCursors unsafe.Pointer
 var ptr_clang_Cursor_isNull unsafe.Pointer
 var ptr_clang_hashCursor unsafe.Pointer
+var ptr_clang_getCursorKind unsafe.Pointer
 var ptr_clang_isInvalidDeclaration unsafe.Pointer
 var ptr_clang_Cursor_hasAttrs unsafe.Pointer
+var ptr_clang_getCursorLinkage unsafe.Pointer
+var ptr_clang_getCursorVisibility unsafe.Pointer
+var ptr_clang_getCursorAvailability unsafe.Pointer
 var ptr_clang_Cursor_getVarDeclInitializer unsafe.Pointer
 var ptr_clang_Cursor_hasVarDeclGlobalStorage unsafe.Pointer
 var ptr_clang_Cursor_hasVarDeclExternalStorage unsafe.Pointer
+var ptr_clang_getCursorLanguage unsafe.Pointer
+var ptr_clang_getCursorTLSKind unsafe.Pointer
 var ptr_clang_Cursor_getTranslationUnit unsafe.Pointer
 var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_disposeCXCursorSet unsafe.Pointer
@@ -325,6 +353,7 @@ var ptr_clang_getFieldDeclBitWidth unsafe.Pointer
 var ptr_clang_Cursor_getNumArguments unsafe.Pointer
 var ptr_clang_Cursor_getArgument unsafe.Pointer
 var ptr_clang_Cursor_getNumTemplateArguments unsafe.Pointer
+var ptr_clang_Cursor_getTemplateArgumentKind unsafe.Pointer
 var ptr_clang_Cursor_getTemplateArgumentType unsafe.Pointer
 var ptr_clang_equalTypes unsafe.Pointer
 var ptr_clang_getCanonicalType unsafe.Pointer
@@ -342,6 +371,7 @@ var ptr_clang_getNonReferenceType unsafe.Pointer
 var ptr_clang_getTypeDeclaration unsafe.Pointer
 var ptr_clang_getDeclObjCTypeEncoding unsafe.Pointer
 var ptr_clang_Type_getObjCEncoding unsafe.Pointer
+var ptr_clang_getFunctionTypeCallingConv unsafe.Pointer
 var ptr_clang_getResultType unsafe.Pointer
 var ptr_clang_getExceptionSpecificationType unsafe.Pointer
 var ptr_clang_getNumArgTypes unsafe.Pointer
@@ -359,6 +389,7 @@ var ptr_clang_getElementType unsafe.Pointer
 var ptr_clang_getArrayElementType unsafe.Pointer
 var ptr_clang_Type_getNamedType unsafe.Pointer
 var ptr_clang_Type_isTransparentTagTypedef unsafe.Pointer
+var ptr_clang_Type_getNullability unsafe.Pointer
 var ptr_clang_Type_getClassType unsafe.Pointer
 var ptr_clang_Type_getModifiedType unsafe.Pointer
 var ptr_clang_Type_getValueType unsafe.Pointer
@@ -367,7 +398,11 @@ var ptr_clang_Cursor_isAnonymousRecordDecl unsafe.Pointer
 var ptr_clang_Cursor_isInlineNamespace unsafe.Pointer
 var ptr_clang_Type_getNumTemplateArguments unsafe.Pointer
 var ptr_clang_Type_getTemplateArgumentAsType unsafe.Pointer
+var ptr_clang_Type_getCXXRefQualifier unsafe.Pointer
 var ptr_clang_isVirtualBase unsafe.Pointer
+var ptr_clang_getCXXAccessSpecifier unsafe.Pointer
+var ptr_clang_Cursor_getBinaryOpcode unsafe.Pointer
+var ptr_clang_Cursor_getStorageClass unsafe.Pointer
 var ptr_clang_getNumOverloadedDecls unsafe.Pointer
 var ptr_clang_getOverloadedDecl unsafe.Pointer
 var ptr_clang_getIBOutletCollectionType unsafe.Pointer
@@ -431,6 +466,7 @@ var ptr_clang_CXXMethod_isExplicit unsafe.Pointer
 var ptr_clang_CXXRecord_isAbstract unsafe.Pointer
 var ptr_clang_EnumDecl_isScoped unsafe.Pointer
 var ptr_clang_CXXMethod_isConst unsafe.Pointer
+var ptr_clang_getTemplateCursorKind unsafe.Pointer
 var ptr_clang_getSpecializedCursorTemplate unsafe.Pointer
 var ptr_clang_getCursorReferenceNameRange unsafe.Pointer
 var ptr_clang_getTokenKind unsafe.Pointer
@@ -438,10 +474,12 @@ var ptr_clang_getTokenSpelling unsafe.Pointer
 var ptr_clang_getTokenLocation unsafe.Pointer
 var ptr_clang_getTokenExtent unsafe.Pointer
 var ptr_clang_enableStackTraces unsafe.Pointer
+var ptr_clang_getCompletionChunkKind unsafe.Pointer
 var ptr_clang_getCompletionChunkText unsafe.Pointer
 var ptr_clang_getCompletionChunkCompletionString unsafe.Pointer
 var ptr_clang_getNumCompletionChunks unsafe.Pointer
 var ptr_clang_getCompletionPriority unsafe.Pointer
+var ptr_clang_getCompletionAvailability unsafe.Pointer
 var ptr_clang_getCompletionNumAnnotations unsafe.Pointer
 var ptr_clang_getCompletionAnnotation unsafe.Pointer
 var ptr_clang_getCompletionBriefComment unsafe.Pointer
@@ -465,6 +503,8 @@ var ptr_clang_indexLoc_getCXSourceLocation unsafe.Pointer
 var ptr_clang_Type_visitFields unsafe.Pointer
 var ptr_clang_visitCXXBaseClasses unsafe.Pointer
 var ptr_clang_visitCXXMethods unsafe.Pointer
+var ptr_clang_getCursorBinaryOperatorKind unsafe.Pointer
+var ptr_clang_getCursorUnaryOperatorKind unsafe.Pointer
 var ptr_clang_remap_getNumFiles unsafe.Pointer
 var ptr_clang_remap_dispose unsafe.Pointer
 
@@ -495,6 +535,18 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_create, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_VirtualFileOverlay_setCaseSensitivity, err = ffi.GetSymbol(library, "clang_VirtualFileOverlay_setCaseSensitivity")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.SInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_setCaseSensitivity, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -760,6 +812,17 @@ func init() {
 			returnType := types.UInt32TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_defaultDiagnosticDisplayOptions, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getDiagnosticSeverity, err = ffi.GetSymbol(library, "clang_getDiagnosticSeverity")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticSeverity, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1156,6 +1219,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_getCursorKind, err = ffi.GetSymbol(library, "clang_getCursorKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_isInvalidDeclaration, err = ffi.GetSymbol(library, "clang_isInvalidDeclaration")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -1174,6 +1248,39 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_hasAttrs, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorLinkage, err = ffi.GetSymbol(library, "clang_getCursorLinkage")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorLinkage, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorVisibility, err = ffi.GetSymbol(library, "clang_getCursorVisibility")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorVisibility, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorAvailability, err = ffi.GetSymbol(library, "clang_getCursorAvailability")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorAvailability, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1207,6 +1314,28 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_hasVarDeclExternalStorage, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorLanguage, err = ffi.GetSymbol(library, "clang_getCursorLanguage")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorLanguage, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorTLSKind, err = ffi.GetSymbol(library, "clang_getCursorTLSKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorTLSKind, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1433,6 +1562,18 @@ func init() {
 	}
 
 	{
+		ptr_clang_Cursor_getTemplateArgumentKind, err = ffi.GetSymbol(library, "clang_Cursor_getTemplateArgumentKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_Cursor_getTemplateArgumentType, err = ffi.GetSymbol(library, "clang_Cursor_getTemplateArgumentType")
 		if err == nil {
 			returnType := type_TypeDescriptor
@@ -1618,6 +1759,17 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCEncoding, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getFunctionTypeCallingConv, err = ffi.GetSymbol(library, "clang_getFunctionTypeCallingConv")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getFunctionTypeCallingConv, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -1812,6 +1964,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_Type_getNullability, err = ffi.GetSymbol(library, "clang_Type_getNullability")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Type_getNullability, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_Type_getClassType, err = ffi.GetSymbol(library, "clang_Type_getClassType")
 		if err == nil {
 			returnType := type_TypeDescriptor
@@ -1901,6 +2064,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_Type_getCXXRefQualifier, err = ffi.GetSymbol(library, "clang_Type_getCXXRefQualifier")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				type_TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Type_getCXXRefQualifier, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_isVirtualBase, err = ffi.GetSymbol(library, "clang_isVirtualBase")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -1908,6 +2082,39 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isVirtualBase, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCXXAccessSpecifier, err = ffi.GetSymbol(library, "clang_getCXXAccessSpecifier")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCXXAccessSpecifier, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Cursor_getBinaryOpcode, err = ffi.GetSymbol(library, "clang_Cursor_getBinaryOpcode")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getBinaryOpcode, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_Cursor_getStorageClass, err = ffi.GetSymbol(library, "clang_Cursor_getStorageClass")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getStorageClass, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -2621,6 +2828,17 @@ func init() {
 	}
 
 	{
+		ptr_clang_getTemplateCursorKind, err = ffi.GetSymbol(library, "clang_getTemplateCursorKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getTemplateCursorKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getSpecializedCursorTemplate, err = ffi.GetSymbol(library, "clang_getSpecializedCursorTemplate")
 		if err == nil {
 			returnType := cursorTypeDescriptor
@@ -2701,6 +2919,18 @@ func init() {
 	}
 
 	{
+		ptr_clang_getCompletionChunkKind, err = ffi.GetSymbol(library, "clang_getCompletionChunkKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCompletionChunkKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_getCompletionChunkText, err = ffi.GetSymbol(library, "clang_getCompletionChunkText")
 		if err == nil {
 			returnType := string_TypeDescriptor
@@ -2743,6 +2973,17 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionPriority, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCompletionAvailability, err = ffi.GetSymbol(library, "clang_getCompletionAvailability")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCompletionAvailability, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -3009,6 +3250,28 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_visitCXXMethods, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorBinaryOperatorKind, err = ffi.GetSymbol(library, "clang_getCursorBinaryOperatorKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorBinaryOperatorKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_getCursorUnaryOperatorKind, err = ffi.GetSymbol(library, "clang_getCursorUnaryOperatorKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getCursorUnaryOperatorKind, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

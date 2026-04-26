@@ -255,7 +255,7 @@ func (s *IndexOptions) SetInvocationEmissionPath(str string) (free func()) {
 type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 
-	Kind   [4]byte // enum CXTUResourceUsageKind
+	Kind   TUResourceUsageKind
 	_      [4]byte
 	Amount uint64
 }
@@ -280,7 +280,7 @@ Cursors can be produced in two specific ways. clang_getTranslationUnitCursor() p
 type Cursor struct {
 	_ structs.HostLayout
 
-	Kind  [4]byte // enum CXCursorKind
+	Kind  CursorKind
 	Xdata int32
 	Data  [24]byte // const void *[3]
 }
@@ -315,7 +315,7 @@ type CursorSetImpl struct {
 type Type_ struct {
 	_ structs.HostLayout
 
-	Kind [4]byte // enum CXTypeKind
+	Kind TypeKind
 	_    [4]byte
 	Data [16]byte // void *[2]
 }
@@ -337,7 +337,7 @@ type CompletionResult struct {
 
 	   The cursor kind will be a macro, keyword, or a declaration (one of the *Decl cursor kinds), describing the entity that the completion is referring to.
 	*/
-	CursorKind [4]byte // enum CXCursorKind
+	CursorKind CursorKind
 	_          [4]byte
 	// The code-completion string that describes how to insert this code-completion result into the editing buffer.
 	CompletionString [8]byte // CXCompletionString
