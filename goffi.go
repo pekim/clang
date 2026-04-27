@@ -366,7 +366,6 @@ var cif_clang_suspendTranslationUnit = &types.CallInterface{}
 var cif_clang_toggleCrashRecovery = &types.CallInterface{}
 var cif_clang_visitCXXBaseClasses = &types.CallInterface{}
 var cif_clang_visitCXXMethods = &types.CallInterface{}
-var cif_clang_visitChildren = &types.CallInterface{}
 var cif_clang_visitChildrenWithBlock = &types.CallInterface{}
 
 var ptr_clang_CXCursorSet_contains unsafe.Pointer
@@ -724,7 +723,6 @@ var ptr_clang_suspendTranslationUnit unsafe.Pointer
 var ptr_clang_toggleCrashRecovery unsafe.Pointer
 var ptr_clang_visitCXXBaseClasses unsafe.Pointer
 var ptr_clang_visitCXXMethods unsafe.Pointer
-var ptr_clang_visitChildren unsafe.Pointer
 var ptr_clang_visitChildrenWithBlock unsafe.Pointer
 
 /*
@@ -737,6 +735,11 @@ func Init() error {
 	})
 
 	var err error
+
+	err = initManual(library)
+	if err != nil {
+		return err
+	}
 
 	{
 		ptr_clang_CXCursorSet_contains, err = ffi.GetSymbol(library, "clang_CXCursorSet_contains")
@@ -5901,22 +5904,6 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_visitCXXMethods, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitCXXMethods", err)
-			}
-		}
-	}
-
-	{
-		ptr_clang_visitChildren, err = ffi.GetSymbol(library, "clang_visitChildren")
-		if err == nil {
-			returnType := types.UInt32TypeDescriptor
-			argTypes := []*types.TypeDescriptor{
-				cursorTypeDescriptor,
-				types.PointerTypeDescriptor,
-				types.PointerTypeDescriptor,
-			}
-			err = ffi.PrepareCallInterface(cif_clang_visitChildren, types.DefaultCall, returnType, argTypes)
-			if err != nil {
-				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitChildren", err)
 			}
 		}
 	}

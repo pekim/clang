@@ -1,6 +1,7 @@
 package clang
 
 import (
+	"path"
 	"strings"
 	"testing"
 
@@ -31,10 +32,17 @@ func TestFunctionScalarArgsPointerTypeReturn(t *testing.T) {
 func TestFunctionStringSliceArg(t *testing.T) {
 	assert.NoError(t, Init())
 
-	index := CreateIndex(0, 0)
+	index := CreateIndex(0, 1)
 	assert.NotNil(t, index)
 
-	tu := CreateTranslationUnitFromSourceFile(index, "test-data/test.h",
-		[]string{"qaz", "qwerty"}, nil)
+	resourcesDir := clangResourceDir()
+	parseArgs := []string{
+		"-I", path.Join(resourcesDir, "include"),
+		"-x", "c-header",
+	}
+
+	tu := CreateTranslationUnitFromSourceFile(index, "test-data/test.h", parseArgs, nil)
 	assert.NotNil(t, tu)
+	cursor := GetTranslationUnitCursor(tu)
+	assert.Equal(t, Cursor_TranslationUnit, GetCursorKind(cursor))
 }
