@@ -3676,7 +3676,34 @@ func CreateIndex(excludeDeclarationsFromPCH int32, displayDiagnostics int32) Ind
 	return ret
 }
 
-// not supported : clang_createIndexWithOptions : param options : const CXIndexOptions *
+/*
+Provides a shared context for creating translation units.
+
+Call this function instead of clang_createIndex() if you need to configure the additional options in CXIndexOptions.
+
+For example:
+*/
+func CreateIndexWithOptions(options *IndexOptions) Index {
+	c_options := options
+
+	var retC Index
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_options),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_createIndexWithOptions,
+		ptr_clang_createIndexWithOptions,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createIndexWithOptions", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Same as clang_createTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
 func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
@@ -7944,23 +7971,205 @@ func IndexTranslationUnit(p0 IndexAction, client_data ClientData, index_callback
 	return ret
 }
 
-// not supported : clang_index_getCXXClassDeclInfo : return value : const CXIdxCXXClassDeclInfo *
+func Index_getCXXClassDeclInfo(p0 *IdxDeclInfo) *IdxCXXClassDeclInfo {
+	c_p0 := p0
 
-// not supported : clang_index_getClientContainer : param p0 : const CXIdxContainerInfo *
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
 
-// not supported : clang_index_getClientEntity : param p0 : const CXIdxEntityInfo *
+	err := ffi.CallFunction(
+		cif_clang_index_getCXXClassDeclInfo,
+		ptr_clang_index_getCXXClassDeclInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getCXXClassDeclInfo", err))
+	}
 
-// not supported : clang_index_getIBOutletCollectionAttrInfo : return value : const CXIdxIBOutletCollectionAttrInfo *
+	ret := (*IdxCXXClassDeclInfo)(retC)
+	return ret
+}
 
-// not supported : clang_index_getObjCCategoryDeclInfo : return value : const CXIdxObjCCategoryDeclInfo *
+// For retrieving a custom CXIdxClientContainer attached to a container.
+func Index_getClientContainer(p0 *IdxContainerInfo) IdxClientContainer {
+	c_p0 := p0
 
-// not supported : clang_index_getObjCContainerDeclInfo : return value : const CXIdxObjCContainerDeclInfo *
+	var retC IdxClientContainer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
 
-// not supported : clang_index_getObjCInterfaceDeclInfo : return value : const CXIdxObjCInterfaceDeclInfo *
+	err := ffi.CallFunction(
+		cif_clang_index_getClientContainer,
+		ptr_clang_index_getClientContainer,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getClientContainer", err))
+	}
 
-// not supported : clang_index_getObjCPropertyDeclInfo : return value : const CXIdxObjCPropertyDeclInfo *
+	ret := retC
+	return ret
+}
 
-// not supported : clang_index_getObjCProtocolRefListInfo : return value : const CXIdxObjCProtocolRefListInfo *
+// For retrieving a custom CXIdxClientEntity attached to an entity.
+func Index_getClientEntity(p0 *IdxEntityInfo) IdxClientEntity {
+	c_p0 := p0
+
+	var retC IdxClientEntity
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getClientEntity,
+		ptr_clang_index_getClientEntity,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getClientEntity", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func Index_getIBOutletCollectionAttrInfo(p0 *IdxAttrInfo) *IdxIBOutletCollectionAttrInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getIBOutletCollectionAttrInfo,
+		ptr_clang_index_getIBOutletCollectionAttrInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getIBOutletCollectionAttrInfo", err))
+	}
+
+	ret := (*IdxIBOutletCollectionAttrInfo)(retC)
+	return ret
+}
+
+func Index_getObjCCategoryDeclInfo(p0 *IdxDeclInfo) *IdxObjCCategoryDeclInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getObjCCategoryDeclInfo,
+		ptr_clang_index_getObjCCategoryDeclInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getObjCCategoryDeclInfo", err))
+	}
+
+	ret := (*IdxObjCCategoryDeclInfo)(retC)
+	return ret
+}
+
+func Index_getObjCContainerDeclInfo(p0 *IdxDeclInfo) *IdxObjCContainerDeclInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getObjCContainerDeclInfo,
+		ptr_clang_index_getObjCContainerDeclInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getObjCContainerDeclInfo", err))
+	}
+
+	ret := (*IdxObjCContainerDeclInfo)(retC)
+	return ret
+}
+
+func Index_getObjCInterfaceDeclInfo(p0 *IdxDeclInfo) *IdxObjCInterfaceDeclInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getObjCInterfaceDeclInfo,
+		ptr_clang_index_getObjCInterfaceDeclInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getObjCInterfaceDeclInfo", err))
+	}
+
+	ret := (*IdxObjCInterfaceDeclInfo)(retC)
+	return ret
+}
+
+func Index_getObjCPropertyDeclInfo(p0 *IdxDeclInfo) *IdxObjCPropertyDeclInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getObjCPropertyDeclInfo,
+		ptr_clang_index_getObjCPropertyDeclInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getObjCPropertyDeclInfo", err))
+	}
+
+	ret := (*IdxObjCPropertyDeclInfo)(retC)
+	return ret
+}
+
+func Index_getObjCProtocolRefListInfo(p0 *IdxDeclInfo) *IdxObjCProtocolRefListInfo {
+	c_p0 := p0
+
+	var retC unsafe.Pointer
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_getObjCProtocolRefListInfo,
+		ptr_clang_index_getObjCProtocolRefListInfo,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_getObjCProtocolRefListInfo", err))
+	}
+
+	ret := (*IdxObjCProtocolRefListInfo)(retC)
+	return ret
+}
 
 func Index_isEntityObjCContainerKind(p0 IdxEntityKind) int32 {
 	c_p0 := p0
@@ -7984,9 +8193,47 @@ func Index_isEntityObjCContainerKind(p0 IdxEntityKind) int32 {
 	return ret
 }
 
-// not supported : clang_index_setClientContainer : param p0 : const CXIdxContainerInfo *
+// For setting a custom CXIdxClientContainer attached to a container.
+func Index_setClientContainer(p0 *IdxContainerInfo, p1 IdxClientContainer) {
+	c_p0 := p0
+	c_p1 := p1
 
-// not supported : clang_index_setClientEntity : param p0 : const CXIdxEntityInfo *
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_setClientContainer,
+		ptr_clang_index_setClientContainer,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_setClientContainer", err))
+	}
+}
+
+// For setting a custom CXIdxClientEntity attached to an entity.
+func Index_setClientEntity(p0 *IdxEntityInfo, p1 IdxClientEntity) {
+	c_p0 := p0
+	c_p1 := p1
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p1),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_index_setClientEntity,
+		ptr_clang_index_setClientEntity,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_index_setClientEntity", err))
+	}
+}
 
 // Determine whether the given cursor kind represents an attribute.
 func IsAttribute(p0 CursorKind) uint32 {

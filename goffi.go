@@ -154,6 +154,7 @@ var cif_clang_constructUSR_ObjCProperty = &types.CallInterface{}
 var cif_clang_constructUSR_ObjCProtocol = &types.CallInterface{}
 var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_createIndex = &types.CallInterface{}
+var cif_clang_createIndexWithOptions = &types.CallInterface{}
 var cif_clang_createTranslationUnit = &types.CallInterface{}
 var cif_clang_createTranslationUnit2 = &types.CallInterface{}
 var cif_clang_createTranslationUnitFromSourceFile = &types.CallInterface{}
@@ -318,7 +319,18 @@ var cif_clang_indexLoc_getFileLocation = &types.CallInterface{}
 var cif_clang_indexSourceFile = &types.CallInterface{}
 var cif_clang_indexSourceFileFullArgv = &types.CallInterface{}
 var cif_clang_indexTranslationUnit = &types.CallInterface{}
+var cif_clang_index_getCXXClassDeclInfo = &types.CallInterface{}
+var cif_clang_index_getClientContainer = &types.CallInterface{}
+var cif_clang_index_getClientEntity = &types.CallInterface{}
+var cif_clang_index_getIBOutletCollectionAttrInfo = &types.CallInterface{}
+var cif_clang_index_getObjCCategoryDeclInfo = &types.CallInterface{}
+var cif_clang_index_getObjCContainerDeclInfo = &types.CallInterface{}
+var cif_clang_index_getObjCInterfaceDeclInfo = &types.CallInterface{}
+var cif_clang_index_getObjCPropertyDeclInfo = &types.CallInterface{}
+var cif_clang_index_getObjCProtocolRefListInfo = &types.CallInterface{}
 var cif_clang_index_isEntityObjCContainerKind = &types.CallInterface{}
+var cif_clang_index_setClientContainer = &types.CallInterface{}
+var cif_clang_index_setClientEntity = &types.CallInterface{}
 var cif_clang_isAttribute = &types.CallInterface{}
 var cif_clang_isBeforeInTranslationUnit = &types.CallInterface{}
 var cif_clang_isConstQualifiedType = &types.CallInterface{}
@@ -499,6 +511,7 @@ var ptr_clang_constructUSR_ObjCProperty unsafe.Pointer
 var ptr_clang_constructUSR_ObjCProtocol unsafe.Pointer
 var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_createIndex unsafe.Pointer
+var ptr_clang_createIndexWithOptions unsafe.Pointer
 var ptr_clang_createTranslationUnit unsafe.Pointer
 var ptr_clang_createTranslationUnit2 unsafe.Pointer
 var ptr_clang_createTranslationUnitFromSourceFile unsafe.Pointer
@@ -663,7 +676,18 @@ var ptr_clang_indexLoc_getFileLocation unsafe.Pointer
 var ptr_clang_indexSourceFile unsafe.Pointer
 var ptr_clang_indexSourceFileFullArgv unsafe.Pointer
 var ptr_clang_indexTranslationUnit unsafe.Pointer
+var ptr_clang_index_getCXXClassDeclInfo unsafe.Pointer
+var ptr_clang_index_getClientContainer unsafe.Pointer
+var ptr_clang_index_getClientEntity unsafe.Pointer
+var ptr_clang_index_getIBOutletCollectionAttrInfo unsafe.Pointer
+var ptr_clang_index_getObjCCategoryDeclInfo unsafe.Pointer
+var ptr_clang_index_getObjCContainerDeclInfo unsafe.Pointer
+var ptr_clang_index_getObjCInterfaceDeclInfo unsafe.Pointer
+var ptr_clang_index_getObjCPropertyDeclInfo unsafe.Pointer
+var ptr_clang_index_getObjCProtocolRefListInfo unsafe.Pointer
 var ptr_clang_index_isEntityObjCContainerKind unsafe.Pointer
+var ptr_clang_index_setClientContainer unsafe.Pointer
+var ptr_clang_index_setClientEntity unsafe.Pointer
 var ptr_clang_isAttribute unsafe.Pointer
 var ptr_clang_isBeforeInTranslationUnit unsafe.Pointer
 var ptr_clang_isConstQualifiedType unsafe.Pointer
@@ -2344,6 +2368,17 @@ func init() {
 				types.SInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createIndex, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_createIndexWithOptions, err = ffi.GetSymbol(library, "clang_createIndexWithOptions")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_createIndexWithOptions, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
@@ -4255,6 +4290,105 @@ func init() {
 	}
 
 	{
+		ptr_clang_index_getCXXClassDeclInfo, err = ffi.GetSymbol(library, "clang_index_getCXXClassDeclInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getCXXClassDeclInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getClientContainer, err = ffi.GetSymbol(library, "clang_index_getClientContainer")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getClientContainer, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getClientEntity, err = ffi.GetSymbol(library, "clang_index_getClientEntity")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getClientEntity, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getIBOutletCollectionAttrInfo, err = ffi.GetSymbol(library, "clang_index_getIBOutletCollectionAttrInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getIBOutletCollectionAttrInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getObjCCategoryDeclInfo, err = ffi.GetSymbol(library, "clang_index_getObjCCategoryDeclInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getObjCCategoryDeclInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getObjCContainerDeclInfo, err = ffi.GetSymbol(library, "clang_index_getObjCContainerDeclInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getObjCContainerDeclInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getObjCInterfaceDeclInfo, err = ffi.GetSymbol(library, "clang_index_getObjCInterfaceDeclInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getObjCInterfaceDeclInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getObjCPropertyDeclInfo, err = ffi.GetSymbol(library, "clang_index_getObjCPropertyDeclInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getObjCPropertyDeclInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_getObjCProtocolRefListInfo, err = ffi.GetSymbol(library, "clang_index_getObjCProtocolRefListInfo")
+		if err == nil {
+			returnType := types.PointerTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_getObjCProtocolRefListInfo, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
 		ptr_clang_index_isEntityObjCContainerKind, err = ffi.GetSymbol(library, "clang_index_isEntityObjCContainerKind")
 		if err == nil {
 			returnType := types.SInt32TypeDescriptor
@@ -4262,6 +4396,30 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_isEntityObjCContainerKind, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_setClientContainer, err = ffi.GetSymbol(library, "clang_index_setClientContainer")
+		if err == nil {
+			returnType := types.VoidTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_setClientContainer, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_index_setClientEntity, err = ffi.GetSymbol(library, "clang_index_setClientEntity")
+		if err == nil {
+			returnType := types.VoidTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_index_setClientEntity, types.DefaultCall, returnType, argTypes)
 		}
 	}
 
