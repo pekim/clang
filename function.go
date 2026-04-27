@@ -1631,7 +1631,34 @@ func Cursor_isDynamicCall(c Cursor) int32 {
 	return ret
 }
 
-// not supported : clang_Cursor_isExternalSymbol : param isGenerated : unsigned int *
+// Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
+func Cursor_isExternalSymbol(c Cursor, language *String_, definedIn *String_, isGenerated *uint32) uint32 {
+	c_c := c
+	c_language := language
+	c_definedIn := definedIn
+	c_isGenerated := isGenerated
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+		unsafe.Pointer(&c_language),
+		unsafe.Pointer(&c_definedIn),
+		unsafe.Pointer(&c_isGenerated),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_isExternalSymbol,
+		ptr_clang_Cursor_isExternalSymbol,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_isExternalSymbol", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
 func Cursor_isFunctionInlined(c Cursor) uint32 {
@@ -3298,7 +3325,30 @@ func CodeCompleteAt(tU TranslationUnit, complete_filename string, complete_line 
 	return ret
 }
 
-// not supported : clang_codeCompleteGetContainerKind : param IsIncomplete : unsigned int *
+// Returns the cursor kind for the container for the current code completion context. The container is only guaranteed to be set for contexts where a container exists (i.e. member accesses or Objective-C message sends); if there is not a container, this function will return CXCursor_InvalidCode.
+func CodeCompleteGetContainerKind(results *CodeCompleteResults, isIncomplete *uint32) CursorKind {
+	c_results := results
+	c_isIncomplete := isIncomplete
+
+	var retC CursorKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_results),
+		unsafe.Pointer(&c_isIncomplete),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_codeCompleteGetContainerKind,
+		ptr_clang_codeCompleteGetContainerKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetContainerKind", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Returns the USR for the container for the current code completion context. If there is not a container for the current context, this function will return the empty string.
 func CodeCompleteGetContainerUSR(results *CodeCompleteResults) String_ {
@@ -5367,7 +5417,44 @@ func GetCursorLocation(p0 Cursor) SourceLocation {
 	return ret
 }
 
-// not supported : clang_getCursorPlatformAvailability : param always_deprecated : int *
+/*
+Determine the availability of the entity that this cursor refers to on any platforms for which availability information is known.
+
+Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
+*/
+func GetCursorPlatformAvailability(cursor Cursor, always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
+	c_cursor := cursor
+	c_always_deprecated := always_deprecated
+	c_deprecated_message := deprecated_message
+	c_always_unavailable := always_unavailable
+	c_unavailable_message := unavailable_message
+	c_availability := availability
+	c_availability_size := availability_size
+
+	var retC int32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+		unsafe.Pointer(&c_always_deprecated),
+		unsafe.Pointer(&c_deprecated_message),
+		unsafe.Pointer(&c_always_unavailable),
+		unsafe.Pointer(&c_unavailable_message),
+		unsafe.Pointer(&c_availability),
+		unsafe.Pointer(&c_availability_size),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getCursorPlatformAvailability,
+		ptr_clang_getCursorPlatformAvailability,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorPlatformAvailability", err))
+	}
+
+	ret := retC
+	return ret
+}
 
 // Pretty print declarations.
 func GetCursorPrettyPrinted(cursor Cursor, policy PrintingPolicy) String_ {
@@ -6195,7 +6282,36 @@ func GetExceptionSpecificationType(t Type_) int32 {
 	return ret
 }
 
-// not supported : clang_getExpansionLocation : param line : unsigned int *
+/*
+Retrieve the file, line, column, and offset represented by the given source location.
+
+If the location refers into a macro expansion, retrieves the location of the macro expansion.
+*/
+func GetExpansionLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+	c_location := location
+	c_file := file
+	c_line := line
+	c_column := column
+	c_offset := offset
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_location),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getExpansionLocation,
+		ptr_clang_getExpansionLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getExpansionLocation", err))
+	}
+}
 
 /*
 Retrieve the bit width of a bit-field declaration as an integer.
@@ -6254,7 +6370,36 @@ func GetFile(tu TranslationUnit, file_name string) File {
 
 // not supported : clang_getFileContents : param size : size_t *
 
-// not supported : clang_getFileLocation : param line : unsigned int *
+/*
+Retrieve the file, line, column, and offset represented by the given source location.
+
+If the location refers into a macro expansion, return where the macro was expanded or where the macro argument was written, if the location points at a macro argument.
+*/
+func GetFileLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+	c_location := location
+	c_file := file
+	c_line := line
+	c_column := column
+	c_offset := offset
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_location),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getFileLocation,
+		ptr_clang_getFileLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileLocation", err))
+	}
+}
 
 // Retrieve the complete file and path name of the given file.
 func GetFileName(sFile File) String_ {
@@ -6435,7 +6580,36 @@ func GetInclusions(tu TranslationUnit, visitor InclusionVisitor, client_data Cli
 	}
 }
 
-// not supported : clang_getInstantiationLocation : param line : unsigned int *
+/*
+Legacy API to retrieve the file, line, column, and offset represented by the given source location.
+
+This interface has been replaced by the newer interface #clang_getExpansionLocation(). See that interface's documentation for details.
+*/
+func GetInstantiationLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+	c_location := location
+	c_file := file
+	c_line := line
+	c_column := column
+	c_offset := offset
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_location),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getInstantiationLocation,
+		ptr_clang_getInstantiationLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getInstantiationLocation", err))
+	}
+}
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
 func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) SourceLocation {
@@ -6829,7 +7003,42 @@ func GetPointeeType(t Type_) Type_ {
 	return ret
 }
 
-// not supported : clang_getPresumedLocation : param line : unsigned int *
+/*
+Retrieve the file, line and column represented by the given source location, as specified in a # line directive.
+
+Example: given the following source code in a file somefile.c
+
+the location information returned by this function would be
+
+File: dummy.c Line: 124 Column: 12
+
+whereas clang_getExpansionLocation would have returned
+
+File: somefile.c Line: 3 Column: 12
+*/
+func GetPresumedLocation(location SourceLocation, filename *String_, line *uint32, column *uint32) {
+	c_location := location
+	c_filename := filename
+	c_line := line
+	c_column := column
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_location),
+		unsafe.Pointer(&c_filename),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getPresumedLocation,
+		ptr_clang_getPresumedLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getPresumedLocation", err))
+	}
+}
 
 // Retrieve a source range given the beginning and ending source locations.
 func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
@@ -7012,7 +7221,36 @@ func GetSpecializedCursorTemplate(c Cursor) Cursor {
 	return ret
 }
 
-// not supported : clang_getSpellingLocation : param line : unsigned int *
+/*
+Retrieve the file, line, column, and offset represented by the given source location.
+
+If the location refers into a macro instantiation, return where the location was originally spelled in the source file.
+*/
+func GetSpellingLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+	c_location := location
+	c_file := file
+	c_line := line
+	c_column := column
+	c_offset := offset
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_location),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getSpellingLocation,
+		ptr_clang_getSpellingLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSpellingLocation", err))
+	}
+}
 
 // Returns the human-readable null-terminated C string that represents  the name of the memory category.  This string should never be freed.
 func GetTUResourceUsageName(kind TUResourceUsageKind) string {
@@ -7528,7 +7766,38 @@ func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
 	return ret
 }
 
-// not supported : clang_indexLoc_getFileLocation : param line : unsigned int *
+/*
+Retrieve the CXIdxFile, file, line, column, and offset represented by the given CXIdxLoc.
+
+If the location refers into a macro expansion, retrieves the location of the macro expansion and if it refers into a macro argument retrieves the location of the argument.
+*/
+func IndexLoc_getFileLocation(loc IdxLoc, indexFile *IdxClientFile, file *File, line *uint32, column *uint32, offset *uint32) {
+	c_loc := loc
+	c_indexFile := indexFile
+	c_file := file
+	c_line := line
+	c_column := column
+	c_offset := offset
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_loc),
+		unsafe.Pointer(&c_indexFile),
+		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_line),
+		unsafe.Pointer(&c_column),
+		unsafe.Pointer(&c_offset),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_indexLoc_getFileLocation,
+		ptr_clang_indexLoc_getFileLocation,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexLoc_getFileLocation", err))
+	}
+}
 
 /*
 Index the given source file and the translation unit corresponding to that file via callbacks implemented through #IndexerCallbacks.
