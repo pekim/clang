@@ -3,6 +3,7 @@
 package clang
 
 import (
+	"fmt"
 	"unsafe"
 
 	ffi "github.com/go-webgpu/goffi/ffi"
@@ -726,7 +727,10 @@ var ptr_clang_visitCXXMethods unsafe.Pointer
 var ptr_clang_visitChildren unsafe.Pointer
 var ptr_clang_visitChildrenWithBlock unsafe.Pointer
 
-func init() {
+/*
+Init initialises the library, and must be called before any other clang function is called.
+*/
+func Init() error {
 	library := lib.LoadLibrary(lib.LibraryPaths{
 		Darwin: "libclang.dylib",
 		Linux:  "libclang.so",
@@ -743,6 +747,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXCursorSet_contains, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXCursorSet_contains", err)
+			}
 		}
 	}
 
@@ -755,6 +762,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXCursorSet_insert, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXCursorSet_insert", err)
+			}
 		}
 	}
 
@@ -766,6 +776,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXIndex_getGlobalOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXIndex_getGlobalOptions", err)
+			}
 		}
 	}
 
@@ -778,6 +791,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXIndex_setGlobalOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXIndex_setGlobalOptions", err)
+			}
 		}
 	}
 
@@ -790,6 +806,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXIndex_setInvocationEmissionPathOption, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXIndex_setInvocationEmissionPathOption", err)
+			}
 		}
 	}
 
@@ -801,6 +820,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXConstructor_isConvertingConstructor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXConstructor_isConvertingConstructor", err)
+			}
 		}
 	}
 
@@ -812,6 +834,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXConstructor_isCopyConstructor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXConstructor_isCopyConstructor", err)
+			}
 		}
 	}
 
@@ -823,6 +848,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXConstructor_isDefaultConstructor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXConstructor_isDefaultConstructor", err)
+			}
 		}
 	}
 
@@ -834,6 +862,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXConstructor_isMoveConstructor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXConstructor_isMoveConstructor", err)
+			}
 		}
 	}
 
@@ -845,6 +876,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXField_isMutable, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXField_isMutable", err)
+			}
 		}
 	}
 
@@ -856,6 +890,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isConst, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isConst", err)
+			}
 		}
 	}
 
@@ -867,6 +904,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isCopyAssignmentOperator, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isCopyAssignmentOperator", err)
+			}
 		}
 	}
 
@@ -878,6 +918,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isDefaulted, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isDefaulted", err)
+			}
 		}
 	}
 
@@ -889,6 +932,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isDeleted, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isDeleted", err)
+			}
 		}
 	}
 
@@ -900,6 +946,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isExplicit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isExplicit", err)
+			}
 		}
 	}
 
@@ -911,6 +960,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isMoveAssignmentOperator, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isMoveAssignmentOperator", err)
+			}
 		}
 	}
 
@@ -922,6 +974,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isPureVirtual, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isPureVirtual", err)
+			}
 		}
 	}
 
@@ -933,6 +988,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isStatic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isStatic", err)
+			}
 		}
 	}
 
@@ -944,6 +1002,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXMethod_isVirtual, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXMethod_isVirtual", err)
+			}
 		}
 	}
 
@@ -955,6 +1016,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_CXXRecord_isAbstract, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXRecord_isAbstract", err)
+			}
 		}
 	}
 
@@ -966,6 +1030,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_Evaluate, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_Evaluate", err)
+			}
 		}
 	}
 
@@ -978,6 +1045,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getArgument, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getArgument", err)
+			}
 		}
 	}
 
@@ -989,6 +1059,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getBinaryOpcode, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getBinaryOpcode", err)
+			}
 		}
 	}
 
@@ -1000,6 +1073,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getBinaryOpcodeStr, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getBinaryOpcodeStr", err)
+			}
 		}
 	}
 
@@ -1011,6 +1087,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getBriefCommentText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getBriefCommentText", err)
+			}
 		}
 	}
 
@@ -1022,6 +1101,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getCXXManglings, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getCXXManglings", err)
+			}
 		}
 	}
 
@@ -1033,6 +1115,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getCommentRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getCommentRange", err)
+			}
 		}
 	}
 
@@ -1045,6 +1130,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyClobber, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyClobber", err)
+			}
 		}
 	}
 
@@ -1059,6 +1147,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyInput, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyInput", err)
+			}
 		}
 	}
 
@@ -1070,6 +1161,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyNumClobbers, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyNumClobbers", err)
+			}
 		}
 	}
 
@@ -1081,6 +1175,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyNumInputs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyNumInputs", err)
+			}
 		}
 	}
 
@@ -1092,6 +1189,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyNumOutputs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyNumOutputs", err)
+			}
 		}
 	}
 
@@ -1106,6 +1206,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyOutput, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyOutput", err)
+			}
 		}
 	}
 
@@ -1117,6 +1220,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getGCCAssemblyTemplate, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getGCCAssemblyTemplate", err)
+			}
 		}
 	}
 
@@ -1128,6 +1234,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getMangling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getMangling", err)
+			}
 		}
 	}
 
@@ -1139,6 +1248,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getModule, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getModule", err)
+			}
 		}
 	}
 
@@ -1150,6 +1262,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getNumArguments, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getNumArguments", err)
+			}
 		}
 	}
 
@@ -1161,6 +1276,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getNumTemplateArguments, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getNumTemplateArguments", err)
+			}
 		}
 	}
 
@@ -1172,6 +1290,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCDeclQualifiers, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCDeclQualifiers", err)
+			}
 		}
 	}
 
@@ -1183,6 +1304,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCManglings, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCManglings", err)
+			}
 		}
 	}
 
@@ -1195,6 +1319,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCPropertyAttributes, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCPropertyAttributes", err)
+			}
 		}
 	}
 
@@ -1206,6 +1333,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCPropertyGetterName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCPropertyGetterName", err)
+			}
 		}
 	}
 
@@ -1217,6 +1347,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCPropertySetterName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCPropertySetterName", err)
+			}
 		}
 	}
 
@@ -1228,6 +1361,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getObjCSelectorIndex, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getObjCSelectorIndex", err)
+			}
 		}
 	}
 
@@ -1239,6 +1375,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getOffsetOfField, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getOffsetOfField", err)
+			}
 		}
 	}
 
@@ -1250,6 +1389,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getRawCommentText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getRawCommentText", err)
+			}
 		}
 	}
 
@@ -1261,6 +1403,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getReceiverType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getReceiverType", err)
+			}
 		}
 	}
 
@@ -1274,6 +1419,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getSpellingNameRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getSpellingNameRange", err)
+			}
 		}
 	}
 
@@ -1285,6 +1433,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getStorageClass, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getStorageClass", err)
+			}
 		}
 	}
 
@@ -1297,6 +1448,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getTemplateArgumentKind", err)
+			}
 		}
 	}
 
@@ -1309,6 +1463,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getTemplateArgumentType", err)
+			}
 		}
 	}
 
@@ -1321,6 +1478,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentUnsignedValue, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getTemplateArgumentUnsignedValue", err)
+			}
 		}
 	}
 
@@ -1333,6 +1493,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTemplateArgumentValue, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getTemplateArgumentValue", err)
+			}
 		}
 	}
 
@@ -1344,6 +1507,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getTranslationUnit", err)
+			}
 		}
 	}
 
@@ -1355,6 +1521,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getVarDeclInitializer, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getVarDeclInitializer", err)
+			}
 		}
 	}
 
@@ -1366,6 +1535,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_hasAttrs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_hasAttrs", err)
+			}
 		}
 	}
 
@@ -1377,6 +1549,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_hasVarDeclExternalStorage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_hasVarDeclExternalStorage", err)
+			}
 		}
 	}
 
@@ -1388,6 +1563,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_hasVarDeclGlobalStorage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_hasVarDeclGlobalStorage", err)
+			}
 		}
 	}
 
@@ -1399,6 +1577,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isAnonymous, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isAnonymous", err)
+			}
 		}
 	}
 
@@ -1410,6 +1591,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isAnonymousRecordDecl, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isAnonymousRecordDecl", err)
+			}
 		}
 	}
 
@@ -1421,6 +1605,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isBitField, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isBitField", err)
+			}
 		}
 	}
 
@@ -1432,6 +1619,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isDynamicCall, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isDynamicCall", err)
+			}
 		}
 	}
 
@@ -1446,6 +1636,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isExternalSymbol, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isExternalSymbol", err)
+			}
 		}
 	}
 
@@ -1457,6 +1650,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isFunctionInlined, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isFunctionInlined", err)
+			}
 		}
 	}
 
@@ -1468,6 +1664,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isGCCAssemblyHasGoto, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isGCCAssemblyHasGoto", err)
+			}
 		}
 	}
 
@@ -1479,6 +1678,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isGCCAssemblyVolatile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isGCCAssemblyVolatile", err)
+			}
 		}
 	}
 
@@ -1490,6 +1692,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isInlineNamespace, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isInlineNamespace", err)
+			}
 		}
 	}
 
@@ -1501,6 +1706,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isMacroBuiltin, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isMacroBuiltin", err)
+			}
 		}
 	}
 
@@ -1512,6 +1720,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isMacroFunctionLike, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isMacroFunctionLike", err)
+			}
 		}
 	}
 
@@ -1523,6 +1734,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isNull, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isNull", err)
+			}
 		}
 	}
 
@@ -1534,6 +1748,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isObjCOptional, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isObjCOptional", err)
+			}
 		}
 	}
 
@@ -1545,6 +1762,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_isVariadic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_isVariadic", err)
+			}
 		}
 	}
 
@@ -1556,6 +1776,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EnumDecl_isScoped, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EnumDecl_isScoped", err)
+			}
 		}
 	}
 
@@ -1567,6 +1790,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_dispose", err)
+			}
 		}
 	}
 
@@ -1578,6 +1804,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsDouble, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getAsDouble", err)
+			}
 		}
 	}
 
@@ -1589,6 +1818,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsInt, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getAsInt", err)
+			}
 		}
 	}
 
@@ -1600,6 +1832,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsLongLong, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getAsLongLong", err)
+			}
 		}
 	}
 
@@ -1611,6 +1846,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsStr, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getAsStr", err)
+			}
 		}
 	}
 
@@ -1622,6 +1860,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getAsUnsigned, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getAsUnsigned", err)
+			}
 		}
 	}
 
@@ -1633,6 +1874,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_getKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_getKind", err)
+			}
 		}
 	}
 
@@ -1644,6 +1888,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_EvalResult_isUnsignedInt, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_EvalResult_isUnsignedInt", err)
+			}
 		}
 	}
 
@@ -1656,6 +1903,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_File_isEqual, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_File_isEqual", err)
+			}
 		}
 	}
 
@@ -1667,6 +1917,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_File_tryGetRealPathName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_File_tryGetRealPathName", err)
+			}
 		}
 	}
 
@@ -1678,6 +1931,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_IndexAction_create, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_IndexAction_create", err)
+			}
 		}
 	}
 
@@ -1689,6 +1945,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_IndexAction_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_IndexAction_dispose", err)
+			}
 		}
 	}
 
@@ -1700,6 +1959,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Location_isFromMainFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Location_isFromMainFile", err)
+			}
 		}
 	}
 
@@ -1711,6 +1973,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Location_isInSystemHeader, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Location_isInSystemHeader", err)
+			}
 		}
 	}
 
@@ -1722,6 +1987,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_ModuleMapDescriptor_create, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ModuleMapDescriptor_create", err)
+			}
 		}
 	}
 
@@ -1733,6 +2001,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_ModuleMapDescriptor_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ModuleMapDescriptor_dispose", err)
+			}
 		}
 	}
 
@@ -1745,6 +2016,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_ModuleMapDescriptor_setFrameworkModuleName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ModuleMapDescriptor_setFrameworkModuleName", err)
+			}
 		}
 	}
 
@@ -1757,6 +2031,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_ModuleMapDescriptor_setUmbrellaHeader, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ModuleMapDescriptor_setUmbrellaHeader", err)
+			}
 		}
 	}
 
@@ -1768,6 +2045,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getASTFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getASTFile", err)
+			}
 		}
 	}
 
@@ -1779,6 +2059,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getFullName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getFullName", err)
+			}
 		}
 	}
 
@@ -1790,6 +2073,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getName", err)
+			}
 		}
 	}
 
@@ -1802,6 +2088,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getNumTopLevelHeaders, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getNumTopLevelHeaders", err)
+			}
 		}
 	}
 
@@ -1813,6 +2102,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getParent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getParent", err)
+			}
 		}
 	}
 
@@ -1826,6 +2118,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_getTopLevelHeader, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_getTopLevelHeader", err)
+			}
 		}
 	}
 
@@ -1837,6 +2132,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Module_isSystem, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Module_isSystem", err)
+			}
 		}
 	}
 
@@ -1848,6 +2146,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_PrintingPolicy_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_PrintingPolicy_dispose", err)
+			}
 		}
 	}
 
@@ -1860,6 +2161,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_PrintingPolicy_getProperty, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_PrintingPolicy_getProperty", err)
+			}
 		}
 	}
 
@@ -1873,6 +2177,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_PrintingPolicy_setProperty, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_PrintingPolicy_setProperty", err)
+			}
 		}
 	}
 
@@ -1884,6 +2191,9 @@ func init() {
 				sourceRangeTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Range_isNull, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Range_isNull", err)
+			}
 		}
 	}
 
@@ -1895,6 +2205,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_TargetInfo_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TargetInfo_dispose", err)
+			}
 		}
 	}
 
@@ -1906,6 +2219,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_TargetInfo_getPointerWidth, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TargetInfo_getPointerWidth", err)
+			}
 		}
 	}
 
@@ -1917,6 +2233,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_TargetInfo_getTriple, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TargetInfo_getTriple", err)
+			}
 		}
 	}
 
@@ -1928,6 +2247,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getAlignOf, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getAlignOf", err)
+			}
 		}
 	}
 
@@ -1939,6 +2261,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getCXXRefQualifier, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getCXXRefQualifier", err)
+			}
 		}
 	}
 
@@ -1950,6 +2275,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getClassType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getClassType", err)
+			}
 		}
 	}
 
@@ -1961,6 +2289,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getModifiedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getModifiedType", err)
+			}
 		}
 	}
 
@@ -1972,6 +2303,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getNamedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getNamedType", err)
+			}
 		}
 	}
 
@@ -1983,6 +2317,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getNullability, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getNullability", err)
+			}
 		}
 	}
 
@@ -1994,6 +2331,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getNumObjCProtocolRefs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getNumObjCProtocolRefs", err)
+			}
 		}
 	}
 
@@ -2005,6 +2345,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getNumObjCTypeArgs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getNumObjCTypeArgs", err)
+			}
 		}
 	}
 
@@ -2016,6 +2359,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getNumTemplateArguments, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getNumTemplateArguments", err)
+			}
 		}
 	}
 
@@ -2027,6 +2373,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCEncoding, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getObjCEncoding", err)
+			}
 		}
 	}
 
@@ -2038,6 +2387,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCObjectBaseType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getObjCObjectBaseType", err)
+			}
 		}
 	}
 
@@ -2050,6 +2402,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCProtocolDecl, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getObjCProtocolDecl", err)
+			}
 		}
 	}
 
@@ -2062,6 +2417,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getObjCTypeArg, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getObjCTypeArg", err)
+			}
 		}
 	}
 
@@ -2074,6 +2432,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getOffsetOf, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getOffsetOf", err)
+			}
 		}
 	}
 
@@ -2085,6 +2446,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getSizeOf, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getSizeOf", err)
+			}
 		}
 	}
 
@@ -2097,6 +2461,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getTemplateArgumentAsType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getTemplateArgumentAsType", err)
+			}
 		}
 	}
 
@@ -2108,6 +2475,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_getValueType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_getValueType", err)
+			}
 		}
 	}
 
@@ -2119,6 +2489,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_isTransparentTagTypedef, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_isTransparentTagTypedef", err)
+			}
 		}
 	}
 
@@ -2132,6 +2505,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_Type_visitFields, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Type_visitFields", err)
+			}
 		}
 	}
 
@@ -2145,6 +2521,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_addFileMapping, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VirtualFileOverlay_addFileMapping", err)
+			}
 		}
 	}
 
@@ -2156,6 +2535,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_create, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VirtualFileOverlay_create", err)
+			}
 		}
 	}
 
@@ -2167,6 +2549,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VirtualFileOverlay_dispose", err)
+			}
 		}
 	}
 
@@ -2179,6 +2564,9 @@ func init() {
 				types.SInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_VirtualFileOverlay_setCaseSensitivity, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VirtualFileOverlay_setCaseSensitivity", err)
+			}
 		}
 	}
 
@@ -2193,6 +2581,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_annotateTokens, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_annotateTokens", err)
+			}
 		}
 	}
 
@@ -2210,6 +2601,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteAt, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteAt", err)
+			}
 		}
 	}
 
@@ -2222,6 +2616,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetContainerKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetContainerKind", err)
+			}
 		}
 	}
 
@@ -2233,6 +2630,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetContainerUSR, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetContainerUSR", err)
+			}
 		}
 	}
 
@@ -2244,6 +2644,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetContexts, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetContexts", err)
+			}
 		}
 	}
 
@@ -2256,6 +2659,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetDiagnostic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetDiagnostic", err)
+			}
 		}
 	}
 
@@ -2267,6 +2673,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetNumDiagnostics, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetNumDiagnostics", err)
+			}
 		}
 	}
 
@@ -2278,6 +2687,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_codeCompleteGetObjCSelector, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_codeCompleteGetObjCSelector", err)
+			}
 		}
 	}
 
@@ -2290,6 +2702,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCCategory, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCCategory", err)
+			}
 		}
 	}
 
@@ -2301,6 +2716,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCClass, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCClass", err)
+			}
 		}
 	}
 
@@ -2313,6 +2731,9 @@ func init() {
 				string_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCIvar, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCIvar", err)
+			}
 		}
 	}
 
@@ -2326,6 +2747,9 @@ func init() {
 				string_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCMethod, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCMethod", err)
+			}
 		}
 	}
 
@@ -2338,6 +2762,9 @@ func init() {
 				string_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCProperty, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCProperty", err)
+			}
 		}
 	}
 
@@ -2349,6 +2776,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_constructUSR_ObjCProtocol, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_constructUSR_ObjCProtocol", err)
+			}
 		}
 	}
 
@@ -2358,6 +2788,9 @@ func init() {
 			returnType := types.PointerTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_createCXCursorSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createCXCursorSet", err)
+			}
 		}
 	}
 
@@ -2370,6 +2803,9 @@ func init() {
 				types.SInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createIndex, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createIndex", err)
+			}
 		}
 	}
 
@@ -2381,6 +2817,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createIndexWithOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createIndexWithOptions", err)
+			}
 		}
 	}
 
@@ -2393,6 +2832,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createTranslationUnit", err)
+			}
 		}
 	}
 
@@ -2406,6 +2848,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createTranslationUnit2, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createTranslationUnit2", err)
+			}
 		}
 	}
 
@@ -2422,6 +2867,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_createTranslationUnitFromSourceFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createTranslationUnitFromSourceFile", err)
+			}
 		}
 	}
 
@@ -2431,6 +2879,9 @@ func init() {
 			returnType := types.UInt32TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_defaultCodeCompleteOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultCodeCompleteOptions", err)
+			}
 		}
 	}
 
@@ -2440,6 +2891,9 @@ func init() {
 			returnType := types.UInt32TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_defaultDiagnosticDisplayOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultDiagnosticDisplayOptions", err)
+			}
 		}
 	}
 
@@ -2449,6 +2903,9 @@ func init() {
 			returnType := types.UInt32TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_defaultEditingTranslationUnitOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultEditingTranslationUnitOptions", err)
+			}
 		}
 	}
 
@@ -2460,6 +2917,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_defaultReparseOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultReparseOptions", err)
+			}
 		}
 	}
 
@@ -2471,6 +2931,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_defaultSaveOptions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultSaveOptions", err)
+			}
 		}
 	}
 
@@ -2482,6 +2945,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeCXCursorSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeCXCursorSet", err)
+			}
 		}
 	}
 
@@ -2493,6 +2959,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeCXPlatformAvailability, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeCXPlatformAvailability", err)
+			}
 		}
 	}
 
@@ -2504,6 +2973,9 @@ func init() {
 				tUResourceUsageTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeCXTUResourceUsage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeCXTUResourceUsage", err)
+			}
 		}
 	}
 
@@ -2515,6 +2987,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeCodeCompleteResults, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeCodeCompleteResults", err)
+			}
 		}
 	}
 
@@ -2526,6 +3001,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeDiagnostic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeDiagnostic", err)
+			}
 		}
 	}
 
@@ -2537,6 +3015,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeDiagnosticSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeDiagnosticSet", err)
+			}
 		}
 	}
 
@@ -2548,6 +3029,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeIndex, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeIndex", err)
+			}
 		}
 	}
 
@@ -2559,6 +3043,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeOverriddenCursors, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeOverriddenCursors", err)
+			}
 		}
 	}
 
@@ -2570,6 +3057,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeSourceRangeList, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeSourceRangeList", err)
+			}
 		}
 	}
 
@@ -2581,6 +3071,9 @@ func init() {
 				string_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeString, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeString", err)
+			}
 		}
 	}
 
@@ -2592,6 +3085,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeStringSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeStringSet", err)
+			}
 		}
 	}
 
@@ -2605,6 +3101,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeTokens, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeTokens", err)
+			}
 		}
 	}
 
@@ -2616,6 +3115,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_disposeTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeTranslationUnit", err)
+			}
 		}
 	}
 
@@ -2625,6 +3127,9 @@ func init() {
 			returnType := types.VoidTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_enableStackTraces, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_enableStackTraces", err)
+			}
 		}
 	}
 
@@ -2637,6 +3142,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_equalCursors, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_equalCursors", err)
+			}
 		}
 	}
 
@@ -2649,6 +3157,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_equalLocations, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_equalLocations", err)
+			}
 		}
 	}
 
@@ -2661,6 +3172,9 @@ func init() {
 				sourceRangeTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_equalRanges, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_equalRanges", err)
+			}
 		}
 	}
 
@@ -2673,6 +3187,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_equalTypes, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_equalTypes", err)
+			}
 		}
 	}
 
@@ -2686,6 +3203,9 @@ func init() {
 				cursorAndRangeVisitorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_findIncludesInFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_findIncludesInFile", err)
+			}
 		}
 	}
 
@@ -2699,6 +3219,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_findIncludesInFileWithBlock, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_findIncludesInFileWithBlock", err)
+			}
 		}
 	}
 
@@ -2712,6 +3235,9 @@ func init() {
 				cursorAndRangeVisitorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_findReferencesInFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_findReferencesInFile", err)
+			}
 		}
 	}
 
@@ -2725,6 +3251,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_findReferencesInFileWithBlock, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_findReferencesInFileWithBlock", err)
+			}
 		}
 	}
 
@@ -2737,6 +3266,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_formatDiagnostic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_formatDiagnostic", err)
+			}
 		}
 	}
 
@@ -2748,6 +3280,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_free, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_free", err)
+			}
 		}
 	}
 
@@ -2759,6 +3294,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getAddressSpace, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getAddressSpace", err)
+			}
 		}
 	}
 
@@ -2770,6 +3308,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getAllSkippedRanges, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getAllSkippedRanges", err)
+			}
 		}
 	}
 
@@ -2782,6 +3323,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getArgType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getArgType", err)
+			}
 		}
 	}
 
@@ -2793,6 +3337,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getArrayElementType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getArrayElementType", err)
+			}
 		}
 	}
 
@@ -2804,6 +3351,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getArraySize, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getArraySize", err)
+			}
 		}
 	}
 
@@ -2815,6 +3365,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getBinaryOperatorKindSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getBinaryOperatorKindSpelling", err)
+			}
 		}
 	}
 
@@ -2824,6 +3377,9 @@ func init() {
 			returnType := types.UInt64TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getBuildSessionTimestamp, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getBuildSessionTimestamp", err)
+			}
 		}
 	}
 
@@ -2835,6 +3391,9 @@ func init() {
 				string_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCString, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCString", err)
+			}
 		}
 	}
 
@@ -2846,6 +3405,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCXTUResourceUsage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCXTUResourceUsage", err)
+			}
 		}
 	}
 
@@ -2857,6 +3419,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCXXAccessSpecifier, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCXXAccessSpecifier", err)
+			}
 		}
 	}
 
@@ -2868,6 +3433,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCanonicalCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCanonicalCursor", err)
+			}
 		}
 	}
 
@@ -2879,6 +3447,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCanonicalType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCanonicalType", err)
+			}
 		}
 	}
 
@@ -2890,6 +3461,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getChildDiagnostics, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getChildDiagnostics", err)
+			}
 		}
 	}
 
@@ -2899,6 +3473,9 @@ func init() {
 			returnType := string_TypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getClangVersion, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getClangVersion", err)
+			}
 		}
 	}
 
@@ -2911,6 +3488,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionAnnotation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionAnnotation", err)
+			}
 		}
 	}
 
@@ -2922,6 +3502,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionAvailability, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionAvailability", err)
+			}
 		}
 	}
 
@@ -2933,6 +3516,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionBriefComment, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionBriefComment", err)
+			}
 		}
 	}
 
@@ -2945,6 +3531,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionChunkCompletionString, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionChunkCompletionString", err)
+			}
 		}
 	}
 
@@ -2957,6 +3546,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionChunkKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionChunkKind", err)
+			}
 		}
 	}
 
@@ -2969,6 +3561,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionChunkText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionChunkText", err)
+			}
 		}
 	}
 
@@ -2983,6 +3578,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionFixIt, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionFixIt", err)
+			}
 		}
 	}
 
@@ -2994,6 +3592,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionNumAnnotations, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionNumAnnotations", err)
+			}
 		}
 	}
 
@@ -3006,6 +3607,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionNumFixIts, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionNumFixIts", err)
+			}
 		}
 	}
 
@@ -3018,6 +3622,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionParent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionParent", err)
+			}
 		}
 	}
 
@@ -3029,6 +3636,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCompletionPriority, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCompletionPriority", err)
+			}
 		}
 	}
 
@@ -3041,6 +3651,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursor", err)
+			}
 		}
 	}
 
@@ -3052,6 +3665,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorAvailability, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorAvailability", err)
+			}
 		}
 	}
 
@@ -3063,6 +3679,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorBinaryOperatorKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorBinaryOperatorKind", err)
+			}
 		}
 	}
 
@@ -3074,6 +3693,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorCompletionString, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorCompletionString", err)
+			}
 		}
 	}
 
@@ -3085,6 +3707,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorDefinition, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorDefinition", err)
+			}
 		}
 	}
 
@@ -3096,6 +3721,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorDisplayName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorDisplayName", err)
+			}
 		}
 	}
 
@@ -3107,6 +3735,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorExceptionSpecificationType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorExceptionSpecificationType", err)
+			}
 		}
 	}
 
@@ -3118,6 +3749,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorExtent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorExtent", err)
+			}
 		}
 	}
 
@@ -3129,6 +3763,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorKind", err)
+			}
 		}
 	}
 
@@ -3140,6 +3777,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorKindSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorKindSpelling", err)
+			}
 		}
 	}
 
@@ -3151,6 +3791,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorLanguage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorLanguage", err)
+			}
 		}
 	}
 
@@ -3162,6 +3805,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorLexicalParent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorLexicalParent", err)
+			}
 		}
 	}
 
@@ -3173,6 +3819,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorLinkage, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorLinkage", err)
+			}
 		}
 	}
 
@@ -3184,6 +3833,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorLocation", err)
+			}
 		}
 	}
 
@@ -3201,6 +3853,9 @@ func init() {
 				types.SInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorPlatformAvailability, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorPlatformAvailability", err)
+			}
 		}
 	}
 
@@ -3213,6 +3868,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorPrettyPrinted, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorPrettyPrinted", err)
+			}
 		}
 	}
 
@@ -3224,6 +3882,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorPrintingPolicy, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorPrintingPolicy", err)
+			}
 		}
 	}
 
@@ -3237,6 +3898,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorReferenceNameRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorReferenceNameRange", err)
+			}
 		}
 	}
 
@@ -3248,6 +3912,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorReferenced, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorReferenced", err)
+			}
 		}
 	}
 
@@ -3259,6 +3926,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorResultType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorResultType", err)
+			}
 		}
 	}
 
@@ -3270,6 +3940,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorSemanticParent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorSemanticParent", err)
+			}
 		}
 	}
 
@@ -3281,6 +3954,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorSpelling", err)
+			}
 		}
 	}
 
@@ -3292,6 +3968,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorTLSKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorTLSKind", err)
+			}
 		}
 	}
 
@@ -3303,6 +3982,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorType", err)
+			}
 		}
 	}
 
@@ -3314,6 +3996,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorUSR, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorUSR", err)
+			}
 		}
 	}
 
@@ -3325,6 +4010,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorUnaryOperatorKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorUnaryOperatorKind", err)
+			}
 		}
 	}
 
@@ -3336,6 +4024,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getCursorVisibility, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getCursorVisibility", err)
+			}
 		}
 	}
 
@@ -3347,6 +4038,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDeclObjCTypeEncoding, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDeclObjCTypeEncoding", err)
+			}
 		}
 	}
 
@@ -3359,6 +4053,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnostic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnostic", err)
+			}
 		}
 	}
 
@@ -3370,6 +4067,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticCategory, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticCategory", err)
+			}
 		}
 	}
 
@@ -3381,6 +4081,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticCategoryName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticCategoryName", err)
+			}
 		}
 	}
 
@@ -3392,6 +4095,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticCategoryText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticCategoryText", err)
+			}
 		}
 	}
 
@@ -3405,6 +4111,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticFixIt, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticFixIt", err)
+			}
 		}
 	}
 
@@ -3417,6 +4126,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticInSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticInSet", err)
+			}
 		}
 	}
 
@@ -3428,6 +4140,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticLocation", err)
+			}
 		}
 	}
 
@@ -3439,6 +4154,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticNumFixIts, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticNumFixIts", err)
+			}
 		}
 	}
 
@@ -3450,6 +4168,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticNumRanges, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticNumRanges", err)
+			}
 		}
 	}
 
@@ -3462,6 +4183,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticOption, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticOption", err)
+			}
 		}
 	}
 
@@ -3474,6 +4198,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticRange", err)
+			}
 		}
 	}
 
@@ -3485,6 +4212,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticSetFromTU, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticSetFromTU", err)
+			}
 		}
 	}
 
@@ -3496,6 +4226,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticSeverity, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticSeverity", err)
+			}
 		}
 	}
 
@@ -3507,6 +4240,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getDiagnosticSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getDiagnosticSpelling", err)
+			}
 		}
 	}
 
@@ -3518,6 +4254,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getElementType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getElementType", err)
+			}
 		}
 	}
 
@@ -3529,6 +4268,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getEnumConstantDeclUnsignedValue, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getEnumConstantDeclUnsignedValue", err)
+			}
 		}
 	}
 
@@ -3540,6 +4282,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getEnumConstantDeclValue, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getEnumConstantDeclValue", err)
+			}
 		}
 	}
 
@@ -3551,6 +4296,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getEnumDeclIntegerType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getEnumDeclIntegerType", err)
+			}
 		}
 	}
 
@@ -3562,6 +4310,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getExceptionSpecificationType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getExceptionSpecificationType", err)
+			}
 		}
 	}
 
@@ -3577,6 +4328,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getExpansionLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getExpansionLocation", err)
+			}
 		}
 	}
 
@@ -3588,6 +4342,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFieldDeclBitWidth, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFieldDeclBitWidth", err)
+			}
 		}
 	}
 
@@ -3600,6 +4357,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFile", err)
+			}
 		}
 	}
 
@@ -3615,6 +4375,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFileLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFileLocation", err)
+			}
 		}
 	}
 
@@ -3626,6 +4389,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFileName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFileName", err)
+			}
 		}
 	}
 
@@ -3638,6 +4404,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFileUniqueID, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFileUniqueID", err)
+			}
 		}
 	}
 
@@ -3651,6 +4420,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFullyQualifiedName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFullyQualifiedName", err)
+			}
 		}
 	}
 
@@ -3662,6 +4434,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getFunctionTypeCallingConv, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getFunctionTypeCallingConv", err)
+			}
 		}
 	}
 
@@ -3673,6 +4448,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getIBOutletCollectionType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getIBOutletCollectionType", err)
+			}
 		}
 	}
 
@@ -3684,6 +4462,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getIncludedFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getIncludedFile", err)
+			}
 		}
 	}
 
@@ -3697,6 +4478,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getInclusions, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getInclusions", err)
+			}
 		}
 	}
 
@@ -3712,6 +4496,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getInstantiationLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getInstantiationLocation", err)
+			}
 		}
 	}
 
@@ -3726,6 +4513,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getLocation", err)
+			}
 		}
 	}
 
@@ -3739,6 +4529,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getLocationForOffset, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getLocationForOffset", err)
+			}
 		}
 	}
 
@@ -3751,6 +4544,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getModuleForFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getModuleForFile", err)
+			}
 		}
 	}
 
@@ -3762,6 +4558,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNonReferenceType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNonReferenceType", err)
+			}
 		}
 	}
 
@@ -3771,6 +4570,9 @@ func init() {
 			returnType := cursorTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getNullCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNullCursor", err)
+			}
 		}
 	}
 
@@ -3780,6 +4582,9 @@ func init() {
 			returnType := sourceLocationTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getNullLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNullLocation", err)
+			}
 		}
 	}
 
@@ -3789,6 +4594,9 @@ func init() {
 			returnType := sourceRangeTypeDescriptor
 			argTypes := []*types.TypeDescriptor{}
 			err = ffi.PrepareCallInterface(cif_clang_getNullRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNullRange", err)
+			}
 		}
 	}
 
@@ -3800,6 +4608,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumArgTypes, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumArgTypes", err)
+			}
 		}
 	}
 
@@ -3811,6 +4622,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumCompletionChunks, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumCompletionChunks", err)
+			}
 		}
 	}
 
@@ -3822,6 +4636,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumDiagnostics, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumDiagnostics", err)
+			}
 		}
 	}
 
@@ -3833,6 +4650,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumDiagnosticsInSet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumDiagnosticsInSet", err)
+			}
 		}
 	}
 
@@ -3844,6 +4664,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumElements, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumElements", err)
+			}
 		}
 	}
 
@@ -3855,6 +4678,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getNumOverloadedDecls, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getNumOverloadedDecls", err)
+			}
 		}
 	}
 
@@ -3867,6 +4693,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getOffsetOfBase, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getOffsetOfBase", err)
+			}
 		}
 	}
 
@@ -3879,6 +4708,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getOverloadedDecl, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getOverloadedDecl", err)
+			}
 		}
 	}
 
@@ -3890,6 +4722,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getPointeeType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getPointeeType", err)
+			}
 		}
 	}
 
@@ -3904,6 +4739,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getPresumedLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getPresumedLocation", err)
+			}
 		}
 	}
 
@@ -3916,6 +4754,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getRange, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getRange", err)
+			}
 		}
 	}
 
@@ -3927,6 +4768,9 @@ func init() {
 				sourceRangeTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getRangeEnd, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getRangeEnd", err)
+			}
 		}
 	}
 
@@ -3938,6 +4782,9 @@ func init() {
 				sourceRangeTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getRangeStart, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getRangeStart", err)
+			}
 		}
 	}
 
@@ -3949,6 +4796,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getRemappings, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getRemappings", err)
+			}
 		}
 	}
 
@@ -3960,6 +4810,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getResultType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getResultType", err)
+			}
 		}
 	}
 
@@ -3972,6 +4825,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getSkippedRanges, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSkippedRanges", err)
+			}
 		}
 	}
 
@@ -3983,6 +4839,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getSpecializedCursorTemplate, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSpecializedCursorTemplate", err)
+			}
 		}
 	}
 
@@ -3998,6 +4857,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getSpellingLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSpellingLocation", err)
+			}
 		}
 	}
 
@@ -4009,6 +4871,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTUResourceUsageName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTUResourceUsageName", err)
+			}
 		}
 	}
 
@@ -4020,6 +4885,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTemplateCursorKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTemplateCursorKind", err)
+			}
 		}
 	}
 
@@ -4032,6 +4900,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getToken, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getToken", err)
+			}
 		}
 	}
 
@@ -4044,6 +4915,9 @@ func init() {
 				tokenTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTokenExtent, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTokenExtent", err)
+			}
 		}
 	}
 
@@ -4055,6 +4929,9 @@ func init() {
 				tokenTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTokenKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTokenKind", err)
+			}
 		}
 	}
 
@@ -4067,6 +4944,9 @@ func init() {
 				tokenTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTokenLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTokenLocation", err)
+			}
 		}
 	}
 
@@ -4079,6 +4959,9 @@ func init() {
 				tokenTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTokenSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTokenSpelling", err)
+			}
 		}
 	}
 
@@ -4090,6 +4973,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTranslationUnitCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTranslationUnitCursor", err)
+			}
 		}
 	}
 
@@ -4101,6 +4987,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTranslationUnitSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTranslationUnitSpelling", err)
+			}
 		}
 	}
 
@@ -4112,6 +5001,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTranslationUnitTargetInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTranslationUnitTargetInfo", err)
+			}
 		}
 	}
 
@@ -4123,6 +5015,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypeDeclaration, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypeDeclaration", err)
+			}
 		}
 	}
 
@@ -4134,6 +5029,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypeKindSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypeKindSpelling", err)
+			}
 		}
 	}
 
@@ -4146,6 +5044,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypePrettyPrinted, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypePrettyPrinted", err)
+			}
 		}
 	}
 
@@ -4157,6 +5058,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypeSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypeSpelling", err)
+			}
 		}
 	}
 
@@ -4168,6 +5072,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypedefDeclUnderlyingType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypedefDeclUnderlyingType", err)
+			}
 		}
 	}
 
@@ -4179,6 +5086,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getTypedefName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getTypedefName", err)
+			}
 		}
 	}
 
@@ -4190,6 +5100,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getUnaryOperatorKindSpelling, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getUnaryOperatorKindSpelling", err)
+			}
 		}
 	}
 
@@ -4201,6 +5114,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_getUnqualifiedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getUnqualifiedType", err)
+			}
 		}
 	}
 
@@ -4212,6 +5128,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_hashCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_hashCursor", err)
+			}
 		}
 	}
 
@@ -4223,6 +5142,9 @@ func init() {
 				idxLocTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_indexLoc_getCXSourceLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_indexLoc_getCXSourceLocation", err)
+			}
 		}
 	}
 
@@ -4239,6 +5161,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_indexLoc_getFileLocation, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_indexLoc_getFileLocation", err)
+			}
 		}
 	}
 
@@ -4261,6 +5186,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_indexSourceFile, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_indexSourceFile", err)
+			}
 		}
 	}
 
@@ -4283,6 +5211,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_indexSourceFileFullArgv, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_indexSourceFileFullArgv", err)
+			}
 		}
 	}
 
@@ -4299,6 +5230,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_indexTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_indexTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4310,6 +5244,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getCXXClassDeclInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getCXXClassDeclInfo", err)
+			}
 		}
 	}
 
@@ -4321,6 +5258,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getClientContainer, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getClientContainer", err)
+			}
 		}
 	}
 
@@ -4332,6 +5272,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getClientEntity, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getClientEntity", err)
+			}
 		}
 	}
 
@@ -4343,6 +5286,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getIBOutletCollectionAttrInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getIBOutletCollectionAttrInfo", err)
+			}
 		}
 	}
 
@@ -4354,6 +5300,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getObjCCategoryDeclInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getObjCCategoryDeclInfo", err)
+			}
 		}
 	}
 
@@ -4365,6 +5314,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getObjCContainerDeclInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getObjCContainerDeclInfo", err)
+			}
 		}
 	}
 
@@ -4376,6 +5328,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getObjCInterfaceDeclInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getObjCInterfaceDeclInfo", err)
+			}
 		}
 	}
 
@@ -4387,6 +5342,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getObjCPropertyDeclInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getObjCPropertyDeclInfo", err)
+			}
 		}
 	}
 
@@ -4398,6 +5356,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_getObjCProtocolRefListInfo, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_getObjCProtocolRefListInfo", err)
+			}
 		}
 	}
 
@@ -4409,6 +5370,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_isEntityObjCContainerKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_isEntityObjCContainerKind", err)
+			}
 		}
 	}
 
@@ -4421,6 +5385,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_setClientContainer, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_setClientContainer", err)
+			}
 		}
 	}
 
@@ -4433,6 +5400,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_index_setClientEntity, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_index_setClientEntity", err)
+			}
 		}
 	}
 
@@ -4444,6 +5414,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isAttribute, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isAttribute", err)
+			}
 		}
 	}
 
@@ -4456,6 +5429,9 @@ func init() {
 				sourceLocationTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isBeforeInTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isBeforeInTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4467,6 +5443,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isConstQualifiedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isConstQualifiedType", err)
+			}
 		}
 	}
 
@@ -4478,6 +5457,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isCursorDefinition, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isCursorDefinition", err)
+			}
 		}
 	}
 
@@ -4489,6 +5471,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isDeclaration, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isDeclaration", err)
+			}
 		}
 	}
 
@@ -4500,6 +5485,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isExpression, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isExpression", err)
+			}
 		}
 	}
 
@@ -4512,6 +5500,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isFileMultipleIncludeGuarded, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isFileMultipleIncludeGuarded", err)
+			}
 		}
 	}
 
@@ -4523,6 +5514,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isFunctionTypeVariadic, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isFunctionTypeVariadic", err)
+			}
 		}
 	}
 
@@ -4534,6 +5528,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isInvalid, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isInvalid", err)
+			}
 		}
 	}
 
@@ -4545,6 +5542,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isInvalidDeclaration, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isInvalidDeclaration", err)
+			}
 		}
 	}
 
@@ -4556,6 +5556,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isPODType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isPODType", err)
+			}
 		}
 	}
 
@@ -4567,6 +5570,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isPreprocessing, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isPreprocessing", err)
+			}
 		}
 	}
 
@@ -4578,6 +5584,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isReference, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isReference", err)
+			}
 		}
 	}
 
@@ -4589,6 +5598,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isRestrictQualifiedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isRestrictQualifiedType", err)
+			}
 		}
 	}
 
@@ -4600,6 +5612,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isStatement, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isStatement", err)
+			}
 		}
 	}
 
@@ -4611,6 +5626,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4622,6 +5640,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isUnexposed, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isUnexposed", err)
+			}
 		}
 	}
 
@@ -4633,6 +5654,9 @@ func init() {
 				cursorTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isVirtualBase, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isVirtualBase", err)
+			}
 		}
 	}
 
@@ -4644,6 +5668,9 @@ func init() {
 				type_TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_isVolatileQualifiedType, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_isVolatileQualifiedType", err)
+			}
 		}
 	}
 
@@ -4657,6 +5684,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_loadDiagnostics, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_loadDiagnostics", err)
+			}
 		}
 	}
 
@@ -4674,6 +5704,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_parseTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_parseTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4692,6 +5725,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_parseTranslationUnit2, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_parseTranslationUnit2", err)
+			}
 		}
 	}
 
@@ -4710,6 +5746,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_parseTranslationUnit2FullArgv, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_parseTranslationUnit2FullArgv", err)
+			}
 		}
 	}
 
@@ -4721,6 +5760,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_remap_dispose, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_remap_dispose", err)
+			}
 		}
 	}
 
@@ -4735,6 +5777,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_remap_getFilenames, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_remap_getFilenames", err)
+			}
 		}
 	}
 
@@ -4746,6 +5791,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_remap_getNumFiles, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_remap_getNumFiles", err)
+			}
 		}
 	}
 
@@ -4760,6 +5808,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_reparseTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_reparseTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4773,6 +5824,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_saveTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_saveTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4785,6 +5839,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_sortCodeCompletionResults, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_sortCodeCompletionResults", err)
+			}
 		}
 	}
 
@@ -4796,6 +5853,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_suspendTranslationUnit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_suspendTranslationUnit", err)
+			}
 		}
 	}
 
@@ -4807,6 +5867,9 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_toggleCrashRecovery, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_toggleCrashRecovery", err)
+			}
 		}
 	}
 
@@ -4820,6 +5883,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_visitCXXBaseClasses, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitCXXBaseClasses", err)
+			}
 		}
 	}
 
@@ -4833,6 +5899,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_visitCXXMethods, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitCXXMethods", err)
+			}
 		}
 	}
 
@@ -4846,6 +5915,9 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_visitChildren, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitChildren", err)
+			}
 		}
 	}
 
@@ -4858,7 +5930,11 @@ func init() {
 				types.PointerTypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_visitChildrenWithBlock, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_visitChildrenWithBlock", err)
+			}
 		}
 	}
 
+	return nil
 }
