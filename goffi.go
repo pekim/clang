@@ -186,6 +186,7 @@ var cif_clang_findIncludesInFileWithBlock = &types.CallInterface{}
 var cif_clang_findReferencesInFile = &types.CallInterface{}
 var cif_clang_findReferencesInFileWithBlock = &types.CallInterface{}
 var cif_clang_formatDiagnostic = &types.CallInterface{}
+var cif_clang_free = &types.CallInterface{}
 var cif_clang_getAddressSpace = &types.CallInterface{}
 var cif_clang_getAllSkippedRanges = &types.CallInterface{}
 var cif_clang_getArgType = &types.CallInterface{}
@@ -543,6 +544,7 @@ var ptr_clang_findIncludesInFileWithBlock unsafe.Pointer
 var ptr_clang_findReferencesInFile unsafe.Pointer
 var ptr_clang_findReferencesInFileWithBlock unsafe.Pointer
 var ptr_clang_formatDiagnostic unsafe.Pointer
+var ptr_clang_free unsafe.Pointer
 var ptr_clang_getAddressSpace unsafe.Pointer
 var ptr_clang_getAllSkippedRanges unsafe.Pointer
 var ptr_clang_getArgType unsafe.Pointer
@@ -2735,6 +2737,17 @@ func init() {
 				types.UInt32TypeDescriptor,
 			}
 			err = ffi.PrepareCallInterface(cif_clang_formatDiagnostic, types.DefaultCall, returnType, argTypes)
+		}
+	}
+
+	{
+		ptr_clang_free, err = ffi.GetSymbol(library, "clang_free")
+		if err == nil {
+			returnType := types.VoidTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_free, types.DefaultCall, returnType, argTypes)
 		}
 	}
 

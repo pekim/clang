@@ -4425,7 +4425,24 @@ func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
 	return ret
 }
 
-// not supported : clang_free : param buffer : void *
+// free memory allocated by libclang, such as the buffer returned by CXVirtualFileOverlay() or clang_ModuleMapDescriptor_writeToBuffer().
+func Free(buffer unsafe.Pointer) {
+	c_buffer := buffer
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_buffer),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_free,
+		ptr_clang_free,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_free", err))
+	}
+}
 
 // Returns the address space of the given type.
 func GetAddressSpace(t Type_) uint32 {
