@@ -47,19 +47,27 @@ func TestVisitChildren(t *testing.T) {
 	errorCode := ParseTranslationUnit2(index, "test-data/test.h", parseArgs, nil,
 		// errorCode := ParseTranslationUnit2(index, "../clang-go-generate/clang-c/Index.h", parseArgs, nil,
 		uint32(TranslationUnit_SkipFunctionBodies|TranslationUnit_DetailedPreprocessingRecord),
-		// 	0,
 		&tu,
 	)
 	assert.Equal(t, Error_Success, errorCode)
 
 	tuCursor := GetTranslationUnitCursor(tu)
-	fmt.Println("cursor spelling", GetCString(GetCursorSpelling(tuCursor)))
-	tuKind := GetCursorKind(tuCursor)
-	fmt.Println(tuKind)
-	// fmt.Println("cursor kind spelling", GetCString(GetCursorKindSpelling(tuKind)))
-	ok := VisitChildren(tuCursor, func() ChildVisitResult {
-		fmt.Println("!!")
+	cd := ClientData(uintptr(42))
+	ok := VisitChildren(tuCursor, func(cursor Cursor, _parent Cursor, client_data ClientData) ChildVisitResult {
+		// fmt.Println(
+		// 	GetCString(GetCursorKindSpelling(GetCursorKind(cursor))),
+		// 	GetCString(GetCursorSpelling(cursor)),
+		// 	client_data,
+		// )
+
+		kind := GetCursorKind(cursor)
+		if kind == Cursor_FunctionDecl {
+			assert.Equal(t, "some_function", GetCString(GetCursorSpelling(cursor)))
+		}
+		assert.True(t, kind == Cursor_MacroDefinition || kind == Cursor_FunctionDecl)
+		assert.Equal(t, client_data, cd)
+
 		return ChildVisit_Continue
-	}, nil)
+	}, cd)
 	assert.Zero(t, ok)
 }
