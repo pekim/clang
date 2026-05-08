@@ -16,13 +16,13 @@ The traversal may be recursive, if the visitor returns CXChildVisit_Recurse.
 The traversal may also be ended prematurely, if the visitor returns CXChildVisit_Break.
 */
 func VisitChildren(parent Cursor, visitor func(
-	cursor Cursor, parent Cursor, client_data ClientData,
-) ChildVisitResult, client_data ClientData) uint32 {
+	cursor Cursor, parent Cursor,
+) ChildVisitResult) uint32 {
 	c_parent := parent
-	c_visitor := ffi.NewCallback(func(cursor Cursor, parent Cursor, client_data unsafe.Pointer) ChildVisitResult {
-		return visitor(cursor, parent, ClientData(client_data))
+	c_visitor := ffi.NewCallback(func(cursor Cursor, parent Cursor, _client_data unsafe.Pointer) ChildVisitResult {
+		return visitor(cursor, parent)
 	})
-	c_client_data := client_data
+	var c_client_data ClientData
 
 	var retC uint32
 	args := []unsafe.Pointer{
