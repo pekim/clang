@@ -155,7 +155,7 @@ Gets the general options associated with a CXIndex.
 
 This function allows to obtain the final option values used by libclang after specifying the option policies via CXChoice enumerators.
 */
-func (p0 Index) Index_getGlobalOptions() uint32 {
+func (p0 Index) GlobalOptions() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -629,7 +629,7 @@ func (c Cursor) XRecord_isAbstract() uint32 {
 	return ret
 }
 
-func (comment Comment) Comment_getChild(childIdx uint32) Comment {
+func (comment Comment) Child(childIdx uint32) Comment {
 	c_comment := comment
 	c_childIdx := childIdx
 
@@ -653,7 +653,7 @@ func (comment Comment) Comment_getChild(childIdx uint32) Comment {
 	return ret
 }
 
-func (comment Comment) Comment_getKind() CommentKind {
+func (comment Comment) Kind() CommentKind {
 	c_comment := comment
 
 	var retC CommentKind
@@ -675,7 +675,7 @@ func (comment Comment) Comment_getKind() CommentKind {
 	return ret
 }
 
-func (comment Comment) Comment_getNumChildren() uint32 {
+func (comment Comment) NumChildren() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -752,7 +752,7 @@ Retrieve the argument cursor of a function or method.
 
 The argument cursor can be determined for calls as well as for declarations of functions or methods. For other cursors and for invalid indices, an invalid cursor is returned.
 */
-func (c Cursor) Cursor_getArgument(i uint32) Cursor {
+func (c Cursor) Argument(i uint32) Cursor {
 	c_c := c
 	c_i := i
 
@@ -776,7 +776,7 @@ func (c Cursor) Cursor_getArgument(i uint32) Cursor {
 	return ret
 }
 
-func (c Cursor) Cursor_getBinaryOpcode() BinaryOperatorKind_ {
+func (c Cursor) BinaryOpcode() BinaryOperatorKind_ {
 	c_c := c
 
 	var retC BinaryOperatorKind_
@@ -825,7 +825,7 @@ Given a cursor that represents a documentable entity (e.g., declaration), return
 
 first paragraph.
 */
-func (c Cursor) Cursor_getBriefCommentText() string {
+func (c Cursor) BriefCommentText() string {
 	c_c := c
 
 	var retC String
@@ -848,7 +848,7 @@ func (c Cursor) Cursor_getBriefCommentText() string {
 }
 
 // Retrieve the CXStrings representing the mangled symbols of the C++ constructor or destructor at the cursor.
-func (p0 Cursor) Cursor_getCXXManglings() *StringSet {
+func (p0 Cursor) CXXManglings() *StringSet {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -871,7 +871,7 @@ func (p0 Cursor) Cursor_getCXXManglings() *StringSet {
 }
 
 // Given a cursor that represents a declaration, return the associated comment's source range.  The range may include multiple consecutive comments with whitespace in between.
-func (c Cursor) Cursor_getCommentRange() SourceRange {
+func (c Cursor) CommentRange() SourceRange {
 	c_c := c
 
 	var retC SourceRange
@@ -898,7 +898,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the Index-th clobber of it. This functio
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) string {
+func (cursor Cursor) GCCAssemblyClobber(index uint32) string {
 	c_cursor := cursor
 	c_index := index
 
@@ -927,7 +927,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyInput(index uint32, constraint *String, expr *Cursor) uint32 {
+func (cursor Cursor) GCCAssemblyInput(index uint32, constraint *String, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -956,7 +956,7 @@ func (cursor Cursor) Cursor_getGCCAssemblyInput(index uint32, constraint *String
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the clobbers in it. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func (cursor Cursor) Cursor_getGCCAssemblyNumClobbers() uint32 {
+func (cursor Cursor) GCCAssemblyNumClobbers() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -979,7 +979,7 @@ func (cursor Cursor) Cursor_getGCCAssemblyNumClobbers() uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the number of inputs. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func (p0 Cursor) Cursor_getGCCAssemblyNumInputs() uint32 {
+func (p0 Cursor) GCCAssemblyNumInputs() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -1002,7 +1002,7 @@ func (p0 Cursor) Cursor_getGCCAssemblyNumInputs() uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the number of outputs. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func (p0 Cursor) Cursor_getGCCAssemblyNumOutputs() uint32 {
+func (p0 Cursor) GCCAssemblyNumOutputs() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -1029,7 +1029,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyOutput(index uint32, constraint *String, expr *Cursor) uint32 {
+func (cursor Cursor) GCCAssemblyOutput(index uint32, constraint *String, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -1064,7 +1064,7 @@ This function also returns a valid empty string if the cursor does not point at 
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func (p0 Cursor) Cursor_getGCCAssemblyTemplate() string {
+func (p0 Cursor) GCCAssemblyTemplate() string {
 	c_p0 := p0
 
 	var retC String
@@ -1087,7 +1087,7 @@ func (p0 Cursor) Cursor_getGCCAssemblyTemplate() string {
 }
 
 // Retrieve the CXString representing the mangled name of the cursor.
-func (p0 Cursor) Cursor_getMangling() string {
+func (p0 Cursor) Mangling() string {
 	c_p0 := p0
 
 	var retC String
@@ -1110,7 +1110,7 @@ func (p0 Cursor) Cursor_getMangling() string {
 }
 
 // Given a CXCursor_ModuleImportDecl cursor, return the associated module.
-func (c Cursor) Cursor_getModule() Module {
+func (c Cursor) Module() Module {
 	c_c := c
 
 	var retC Module
@@ -1137,7 +1137,7 @@ Retrieve the number of non-variadic arguments associated with a given cursor.
 
 The number of arguments can be determined for calls as well as for declarations of functions or methods. For other cursors -1 is returned.
 */
-func (c Cursor) Cursor_getNumArguments() int32 {
+func (c Cursor) NumArguments() int32 {
 	c_c := c
 
 	var retC int32
@@ -1170,7 +1170,7 @@ template <>   void foo<float, -7, true>();
 
 The value 3 would be returned from this call.
 */
-func (c Cursor) Cursor_getNumTemplateArguments() int32 {
+func (c Cursor) NumTemplateArguments() int32 {
 	c_c := c
 
 	var retC int32
@@ -1193,7 +1193,7 @@ func (c Cursor) Cursor_getNumTemplateArguments() int32 {
 }
 
 // Given a cursor that represents an Objective-C method or parameter declaration, return the associated Objective-C qualifiers for the return type or the parameter respectively. The bits are formed from CXObjCDeclQualifierKind.
-func (c Cursor) Cursor_getObjCDeclQualifiers() uint32 {
+func (c Cursor) ObjCDeclQualifiers() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1216,7 +1216,7 @@ func (c Cursor) Cursor_getObjCDeclQualifiers() uint32 {
 }
 
 // Retrieve the CXStrings representing the mangled symbols of the ObjC class interface or implementation at the cursor.
-func (p0 Cursor) Cursor_getObjCManglings() *StringSet {
+func (p0 Cursor) ObjCManglings() *StringSet {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -1239,7 +1239,7 @@ func (p0 Cursor) Cursor_getObjCManglings() *StringSet {
 }
 
 // Given a cursor that represents a property declaration, return the associated property attributes. The bits are formed from CXObjCPropertyAttrKind.
-func (c Cursor) Cursor_getObjCPropertyAttributes(reserved uint32) uint32 {
+func (c Cursor) ObjCPropertyAttributes(reserved uint32) uint32 {
 	c_c := c
 	c_reserved := reserved
 
@@ -1264,7 +1264,7 @@ func (c Cursor) Cursor_getObjCPropertyAttributes(reserved uint32) uint32 {
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the getter.
-func (c Cursor) Cursor_getObjCPropertyGetterName() string {
+func (c Cursor) ObjCPropertyGetterName() string {
 	c_c := c
 
 	var retC String
@@ -1287,7 +1287,7 @@ func (c Cursor) Cursor_getObjCPropertyGetterName() string {
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the setter, if any.
-func (c Cursor) Cursor_getObjCPropertySetterName() string {
+func (c Cursor) ObjCPropertySetterName() string {
 	c_c := c
 
 	var retC String
@@ -1314,7 +1314,7 @@ If the cursor points to a selector identifier in an Objective-C method or messag
 
 After getting a cursor with #clang_getCursor, this can be called to determine if the location points to a selector identifier.
 */
-func (p0 Cursor) Cursor_getObjCSelectorIndex() int32 {
+func (p0 Cursor) ObjCSelectorIndex() int32 {
 	c_p0 := p0
 
 	var retC int32
@@ -1341,7 +1341,7 @@ Return the offset of the field represented by the Cursor.
 
 If the cursor is not a field declaration, -1 is returned. If the cursor semantic parent is not a record field declaration,   CXTypeLayoutError_Invalid is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
 */
-func (c Cursor) Cursor_getOffsetOfField() int64 {
+func (c Cursor) OffsetOfField() int64 {
 	c_c := c
 
 	var retC int64
@@ -1364,7 +1364,7 @@ func (c Cursor) Cursor_getOffsetOfField() int64 {
 }
 
 // Given a cursor that represents a documentable entity (e.g., declaration), return the associated parsed comment as a CXComment_FullComment AST node.
-func (c Cursor) Cursor_getParsedComment() Comment {
+func (c Cursor) ParsedComment() Comment {
 	c_c := c
 
 	var retC Comment
@@ -1387,7 +1387,7 @@ func (c Cursor) Cursor_getParsedComment() Comment {
 }
 
 // Given a cursor that represents a declaration, return the associated comment text, including comment markers.
-func (c Cursor) Cursor_getRawCommentText() string {
+func (c Cursor) RawCommentText() string {
 	c_c := c
 
 	var retC String
@@ -1410,7 +1410,7 @@ func (c Cursor) Cursor_getRawCommentText() string {
 }
 
 // Given a cursor pointing to an Objective-C message or property reference, or C++ method call, returns the CXType of the receiver.
-func (c Cursor) Cursor_getReceiverType() Type {
+func (c Cursor) ReceiverType() Type {
 	c_c := c
 
 	var retC Type
@@ -1433,7 +1433,7 @@ func (c Cursor) Cursor_getReceiverType() Type {
 }
 
 // Retrieve a range for a piece that forms the cursors spelling name. Most of the times there is only one range for the complete spelling but for Objective-C methods and Objective-C message expressions, there are multiple pieces for each selector identifier.
-func (p0 Cursor) Cursor_getSpellingNameRange(pieceIndex uint32, options uint32) SourceRange {
+func (p0 Cursor) SpellingNameRange(pieceIndex uint32, options uint32) SourceRange {
 	c_p0 := p0
 	c_pieceIndex := pieceIndex
 	c_options := options
@@ -1464,7 +1464,7 @@ Returns the storage class for a function or variable declaration.
 
 If the passed in Cursor is not a function or variable declaration, CX_SC_Invalid is returned else the storage class.
 */
-func (p0 Cursor) Cursor_getStorageClass() StorageClass {
+func (p0 Cursor) StorageClass() StorageClass {
 	c_p0 := p0
 
 	var retC StorageClass
@@ -1497,7 +1497,7 @@ template <>   void foo<float, -7, true>();
 
 For I = 0, 1, and 2, Type, Integral, and Integral will be returned, respectively.
 */
-func (c Cursor) Cursor_getTemplateArgumentKind(i uint32) TemplateArgumentKind {
+func (c Cursor) TemplateArgumentKind(i uint32) TemplateArgumentKind {
 	c_c := c
 	c_i := i
 
@@ -1532,7 +1532,7 @@ template <>   void foo<float, -7, true>();
 
 If called with I = 0, "float", will be returned. Invalid types will be returned for I == 1 or 2.
 */
-func (c Cursor) Cursor_getTemplateArgumentType(i uint32) Type {
+func (c Cursor) TemplateArgumentType(i uint32) Type {
 	c_c := c
 	c_i := i
 
@@ -1567,7 +1567,7 @@ template <>   void foo<float, 2147483649, true>();
 
 If called with I = 1 or 2, 2147483649 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
 */
-func (c Cursor) Cursor_getTemplateArgumentUnsignedValue(i uint32) uint64 {
+func (c Cursor) TemplateArgumentUnsignedValue(i uint32) uint64 {
 	c_c := c
 	c_i := i
 
@@ -1602,7 +1602,7 @@ template <>   void foo<float, -7, true>();
 
 If called with I = 1 or 2, -7 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
 */
-func (c Cursor) Cursor_getTemplateArgumentValue(i uint32) int64 {
+func (c Cursor) TemplateArgumentValue(i uint32) int64 {
 	c_c := c
 	c_i := i
 
@@ -1627,7 +1627,7 @@ func (c Cursor) Cursor_getTemplateArgumentValue(i uint32) int64 {
 }
 
 // Returns the translation unit that a cursor originated from.
-func (p0 Cursor) Cursor_getTranslationUnit() TranslationUnit {
+func (p0 Cursor) TranslationUnit() TranslationUnit {
 	c_p0 := p0
 
 	var retC TranslationUnit
@@ -1650,7 +1650,7 @@ func (p0 Cursor) Cursor_getTranslationUnit() TranslationUnit {
 }
 
 // If cursor refers to a variable declaration and it has initializer returns cursor referring to the initializer otherwise return null cursor.
-func (cursor Cursor) Cursor_getVarDeclInitializer() Cursor {
+func (cursor Cursor) VarDeclInitializer() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -2118,7 +2118,7 @@ func (e EvalResult) EvalResult_dispose() {
 }
 
 // Returns the evaluation result as double if the kind is double.
-func (e EvalResult) EvalResult_getAsDouble() float64 {
+func (e EvalResult) AsDouble() float64 {
 	c_e := e
 
 	var retC float64
@@ -2141,7 +2141,7 @@ func (e EvalResult) EvalResult_getAsDouble() float64 {
 }
 
 // Returns the evaluation result as integer if the kind is Int.
-func (e EvalResult) EvalResult_getAsInt() int32 {
+func (e EvalResult) AsInt() int32 {
 	c_e := e
 
 	var retC int32
@@ -2164,7 +2164,7 @@ func (e EvalResult) EvalResult_getAsInt() int32 {
 }
 
 // Returns the evaluation result as a long long integer if the kind is Int. This prevents overflows that may happen if the result is returned with clang_EvalResult_getAsInt.
-func (e EvalResult) EvalResult_getAsLongLong() int64 {
+func (e EvalResult) AsLongLong() int64 {
 	c_e := e
 
 	var retC int64
@@ -2187,7 +2187,7 @@ func (e EvalResult) EvalResult_getAsLongLong() int64 {
 }
 
 // Returns the evaluation result as a constant string if the kind is other than Int or float. User must not free this pointer, instead call clang_EvalResult_dispose on the CXEvalResult returned by clang_Cursor_Evaluate.
-func (e EvalResult) EvalResult_getAsStr() string {
+func (e EvalResult) AsStr() string {
 	c_e := e
 
 	var retC unsafe.Pointer
@@ -2210,7 +2210,7 @@ func (e EvalResult) EvalResult_getAsStr() string {
 }
 
 // Returns the evaluation result as an unsigned integer if the kind is Int and clang_EvalResult_isUnsignedInt is non-zero.
-func (e EvalResult) EvalResult_getAsUnsigned() uint64 {
+func (e EvalResult) AsUnsigned() uint64 {
 	c_e := e
 
 	var retC uint64
@@ -2233,7 +2233,7 @@ func (e EvalResult) EvalResult_getAsUnsigned() uint64 {
 }
 
 // Returns the kind of the evaluated result.
-func (e EvalResult) EvalResult_getKind() EvalResultKind {
+func (e EvalResult) Kind() EvalResultKind {
 	c_e := e
 
 	var retC EvalResultKind
@@ -2829,7 +2829,7 @@ func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setUmbrellaHeader(name string)
 
 // not supported : clang_ModuleMapDescriptor_writeToBuffer : param out_buffer_ptr : char **
 
-func (module Module) Module_getASTFile() File {
+func (module Module) ASTFile() File {
 	c_module := module
 
 	var retC File
@@ -2851,7 +2851,7 @@ func (module Module) Module_getASTFile() File {
 	return ret
 }
 
-func (module Module) Module_getFullName() string {
+func (module Module) FullName() string {
 	c_module := module
 
 	var retC String
@@ -2873,7 +2873,7 @@ func (module Module) Module_getFullName() string {
 	return ret
 }
 
-func (module Module) Module_getName() string {
+func (module Module) Name() string {
 	c_module := module
 
 	var retC String
@@ -2919,7 +2919,7 @@ func (p0 TranslationUnit) Module_getNumTopLevelHeaders(module Module) uint32 {
 	return ret
 }
 
-func (module Module) Module_getParent() Module {
+func (module Module) Parent() Module {
 	c_module := module
 
 	var retC Module
@@ -3119,7 +3119,7 @@ func (policy PrintingPolicy) PrintingPolicy_dispose() {
 }
 
 // Get a property value for the given printing policy.
-func (policy PrintingPolicy) PrintingPolicy_getProperty(property PrintingPolicyProperty) uint32 {
+func (policy PrintingPolicy) Property(property PrintingPolicyProperty) uint32 {
 	c_policy := policy
 	c_property := property
 
@@ -3315,7 +3315,7 @@ Get the pointer width of the target in bits.
 
 Returns -1 in case of error.
 */
-func (info TargetInfo) TargetInfo_getPointerWidth() int32 {
+func (info TargetInfo) PointerWidth() int32 {
 	c_info := info
 
 	var retC int32
@@ -3342,7 +3342,7 @@ Get the normalized target triple as a string.
 
 Returns the empty string in case of any error.
 */
-func (info TargetInfo) TargetInfo_getTriple() string {
+func (info TargetInfo) Triple() string {
 	c_info := info
 
 	var retC String
@@ -3391,7 +3391,7 @@ Return the alignment of a type in bytes as per C++[expr.alignof]   standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned. If the type declaration is not a constant size type,   CXTypeLayoutError_NotConstantSize is returned.
 */
-func (t Type) Type_getAlignOf() int64 {
+func (t Type) AlignOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -3418,7 +3418,7 @@ Retrieve the ref-qualifier kind of a function or method.
 
 The ref-qualifier is returned for C++ functions or methods. For other types or non-C++ declarations, CXRefQualifier_None is returned.
 */
-func (t Type) Type_getCXXRefQualifier() RefQualifierKind {
+func (t Type) CXXRefQualifier() RefQualifierKind {
 	c_t := t
 
 	var retC RefQualifierKind
@@ -3445,7 +3445,7 @@ Return the class type of an member pointer type.
 
 If a non-member-pointer type is passed in, an invalid type is returned.
 */
-func (t Type) Type_getClassType() Type {
+func (t Type) ClassType() Type {
 	c_t := t
 
 	var retC Type
@@ -3472,7 +3472,7 @@ Return the type that was modified by this attributed type.
 
 If the type is not an attributed type, an invalid type is returned.
 */
-func (t Type) Type_getModifiedType() Type {
+func (t Type) ModifiedType() Type {
 	c_t := t
 
 	var retC Type
@@ -3499,7 +3499,7 @@ Retrieve the type named by the qualified-id.
 
 If a non-elaborated type is passed in, an invalid type is returned.
 */
-func (t Type) Type_getNamedType() Type {
+func (t Type) NamedType() Type {
 	c_t := t
 
 	var retC Type
@@ -3522,7 +3522,7 @@ func (t Type) Type_getNamedType() Type {
 }
 
 // Retrieve the nullability kind of a pointer type.
-func (t Type) Type_getNullability() TypeNullabilityKind {
+func (t Type) Nullability() TypeNullabilityKind {
 	c_t := t
 
 	var retC TypeNullabilityKind
@@ -3549,7 +3549,7 @@ Retrieve the number of protocol references associated with an ObjC object/id.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func (t Type) Type_getNumObjCProtocolRefs() uint32 {
+func (t Type) NumObjCProtocolRefs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3576,7 +3576,7 @@ Retrieve the number of type arguments associated with an ObjC object.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func (t Type) Type_getNumObjCTypeArgs() uint32 {
+func (t Type) NumObjCTypeArgs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3599,7 +3599,7 @@ func (t Type) Type_getNumObjCTypeArgs() uint32 {
 }
 
 // Returns the number of template arguments for given template specialization, or -1 if type T is not a template specialization.
-func (t Type) Type_getNumTemplateArguments() int32 {
+func (t Type) NumTemplateArguments() int32 {
 	c_t := t
 
 	var retC int32
@@ -3622,7 +3622,7 @@ func (t Type) Type_getNumTemplateArguments() int32 {
 }
 
 // Returns the Objective-C type encoding for the specified CXType.
-func (type_ Type) Type_getObjCEncoding() string {
+func (type_ Type) ObjCEncoding() string {
 	c_type_ := type_
 
 	var retC String
@@ -3649,7 +3649,7 @@ Retrieves the base type of the ObjCObjectType.
 
 If the type is not an ObjC object, an invalid type is returned.
 */
-func (t Type) Type_getObjCObjectBaseType() Type {
+func (t Type) ObjCObjectBaseType() Type {
 	c_t := t
 
 	var retC Type
@@ -3676,7 +3676,7 @@ Retrieve the decl for a protocol reference for an ObjC object/id.
 
 If the type is not an ObjC object or there are not enough protocol references, an invalid cursor is returned.
 */
-func (t Type) Type_getObjCProtocolDecl(i uint32) Cursor {
+func (t Type) ObjCProtocolDecl(i uint32) Cursor {
 	c_t := t
 	c_i := i
 
@@ -3705,7 +3705,7 @@ Retrieve a type argument associated with an ObjC object.
 
 If the type is not an ObjC or the index is not valid, an invalid type is returned.
 */
-func (t Type) Type_getObjCTypeArg(i uint32) Type {
+func (t Type) ObjCTypeArg(i uint32) Type {
 	c_t := t
 	c_i := i
 
@@ -3734,7 +3734,7 @@ Return the offset of a field named S in a record of type T in bits   as it would
 
 If the cursor is not a record field declaration, CXTypeLayoutError_Invalid   is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
 */
-func (t Type) Type_getOffsetOf(s string) int64 {
+func (t Type) OffsetOf(s string) int64 {
 	c_t := t
 	c_s, free_c_s := libc.CString(s)
 	defer free_c_s()
@@ -3764,7 +3764,7 @@ Return the size of a type in bytes as per C++[expr.sizeof] standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned.
 */
-func (t Type) Type_getSizeOf() int64 {
+func (t Type) SizeOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -3791,7 +3791,7 @@ Returns the type template argument of a template class specialization at given i
 
 This function only returns template type arguments and does not handle template template arguments or variadic packs.
 */
-func (t Type) Type_getTemplateArgumentAsType(i uint32) Type {
+func (t Type) TemplateArgumentAsType(i uint32) Type {
 	c_t := t
 	c_i := i
 
@@ -3820,7 +3820,7 @@ Gets the type contained by this atomic type.
 
 If a non-atomic type is passed in, an invalid type is returned.
 */
-func (cT Type) Type_getValueType() Type {
+func (cT Type) ValueType() Type {
 	c_cT := cT
 
 	var retC Type
