@@ -2,10 +2,8 @@ module github.com/pekim/clang
 
 go 1.26.2
 
-replace github.com/go-webgpu/goffi => ../goffi
-
 require (
-	github.com/go-webgpu/goffi v0.5.1-0.20260506113910-6330e63bc2f7
+	github.com/go-webgpu/goffi v0.5.1-0.20260509131027-513b756c6574
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f
 )
