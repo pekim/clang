@@ -1997,7 +1997,7 @@ func EvalResult_getAsStr(e EvalResult) string {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_EvalResult_getAsStr", err))
 	}
 
-	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
+	ret := libc.GoString(retC)
 	return ret
 }
 
@@ -4642,7 +4642,7 @@ func GetCString(string_ String_) string {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCString", err))
 	}
 
-	ret := libc.GoString(*((*unsafe.Pointer)(&retC)))
+	ret := libc.GoString(retC)
 	return ret
 }
 
@@ -7315,7 +7315,7 @@ func GetTUResourceUsageName(kind TUResourceUsageKind) string {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTUResourceUsageName", err))
 	}
 
-	ret := libc.GoString(*((*unsafe.Pointer)(retC)))
+	ret := libc.GoString(retC)
 	return ret
 }
 
