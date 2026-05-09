@@ -386,7 +386,7 @@ var string_TypeDescriptor = &types.TypeDescriptor{
 		types.PointerTypeDescriptor,
 		types.UInt32TypeDescriptor,
 	},
-	Size: unsafe.Sizeof(String_{}),
+	Size: unsafe.Sizeof(String{}),
 }
 
 var stringSetTypeDescriptor = &types.TypeDescriptor{
@@ -459,7 +459,7 @@ var type_TypeDescriptor = &types.TypeDescriptor{
 			Size:      16,
 		},
 	},
-	Size: unsafe.Sizeof(Type_{}),
+	Size: unsafe.Sizeof(Type{}),
 }
 
 var unsavedFileTypeDescriptor = &types.TypeDescriptor{

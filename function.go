@@ -14,7 +14,7 @@ func (comment Comment) BlockCommandComment_getArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_argIdx),
@@ -37,7 +37,7 @@ func (comment Comment) BlockCommandComment_getArgText(argIdx uint32) string {
 func (comment Comment) BlockCommandComment_getCommandName() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -801,7 +801,7 @@ func (c Cursor) Cursor_getBinaryOpcode() BinaryOperatorKind_ {
 func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() string {
 	c_op := op
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_op),
 	}
@@ -828,7 +828,7 @@ first paragraph.
 func (c Cursor) Cursor_getBriefCommentText() string {
 	c_c := c
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -902,7 +902,7 @@ func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) string {
 	c_cursor := cursor
 	c_index := index
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 		unsafe.Pointer(&c_index),
@@ -927,7 +927,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyInput(index uint32, constraint *String_, expr *Cursor) uint32 {
+func (cursor Cursor) Cursor_getGCCAssemblyInput(index uint32, constraint *String, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -1029,7 +1029,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyOutput(index uint32, constraint *String_, expr *Cursor) uint32 {
+func (cursor Cursor) Cursor_getGCCAssemblyOutput(index uint32, constraint *String, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -1067,7 +1067,7 @@ Users are responsible for releasing the allocation of returned string via clang_
 func (p0 Cursor) Cursor_getGCCAssemblyTemplate() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -1090,7 +1090,7 @@ func (p0 Cursor) Cursor_getGCCAssemblyTemplate() string {
 func (p0 Cursor) Cursor_getMangling() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -1267,7 +1267,7 @@ func (c Cursor) Cursor_getObjCPropertyAttributes(reserved uint32) uint32 {
 func (c Cursor) Cursor_getObjCPropertyGetterName() string {
 	c_c := c
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1290,7 +1290,7 @@ func (c Cursor) Cursor_getObjCPropertyGetterName() string {
 func (c Cursor) Cursor_getObjCPropertySetterName() string {
 	c_c := c
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1390,7 +1390,7 @@ func (c Cursor) Cursor_getParsedComment() Comment {
 func (c Cursor) Cursor_getRawCommentText() string {
 	c_c := c
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1410,10 +1410,10 @@ func (c Cursor) Cursor_getRawCommentText() string {
 }
 
 // Given a cursor pointing to an Objective-C message or property reference, or C++ method call, returns the CXType of the receiver.
-func (c Cursor) Cursor_getReceiverType() Type_ {
+func (c Cursor) Cursor_getReceiverType() Type {
 	c_c := c
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1532,11 +1532,11 @@ template <>   void foo<float, -7, true>();
 
 If called with I = 0, "float", will be returned. Invalid types will be returned for I == 1 or 2.
 */
-func (c Cursor) Cursor_getTemplateArgumentType(i uint32) Type_ {
+func (c Cursor) Cursor_getTemplateArgumentType(i uint32) Type {
 	c_c := c
 	c_i := i
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 		unsafe.Pointer(&c_i),
@@ -1840,7 +1840,7 @@ func (c Cursor) Cursor_isDynamicCall() int32 {
 }
 
 // Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
-func (c Cursor) Cursor_isExternalSymbol(language *String_, definedIn *String_, isGenerated *uint32) uint32 {
+func (c Cursor) Cursor_isExternalSymbol(language *String, definedIn *String, isGenerated *uint32) uint32 {
 	c_c := c
 	c_language := language
 	c_definedIn := definedIn
@@ -2311,7 +2311,7 @@ An empty string may be returned. Use clang_getFileName() in that case.
 func (file File) File_tryGetRealPathName() string {
 	c_file := file
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_file.ptr),
 	}
@@ -2344,7 +2344,7 @@ Template parameter documentation is rendered as a <dl> list with parameters sort
 func (comment Comment) FullComment_getAsHTML() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2371,7 +2371,7 @@ A Relax NG schema for the XML can be found in comment-xml-schema.rng file inside
 func (comment Comment) FullComment_getAsXML() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2416,7 +2416,7 @@ func (comment Comment) HTMLStartTag_getAttrName(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_attrIdx),
@@ -2440,7 +2440,7 @@ func (comment Comment) HTMLStartTag_getAttrValue(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_attrIdx),
@@ -2486,7 +2486,7 @@ func (comment Comment) HTMLStartTag_getNumAttrs() uint32 {
 func (comment Comment) HTMLTagComment_getAsString() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2508,7 +2508,7 @@ func (comment Comment) HTMLTagComment_getAsString() string {
 func (comment Comment) HTMLTagComment_getTagName() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2577,7 +2577,7 @@ func (comment Comment) InlineCommandComment_getArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_argIdx),
@@ -2600,7 +2600,7 @@ func (comment Comment) InlineCommandComment_getArgText(argIdx uint32) string {
 func (comment Comment) InlineCommandComment_getCommandName() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2854,7 +2854,7 @@ func (module Module) Module_getASTFile() File {
 func (module Module) Module_getFullName() string {
 	c_module := module
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_module.ptr),
 	}
@@ -2876,7 +2876,7 @@ func (module Module) Module_getFullName() string {
 func (module Module) Module_getName() string {
 	c_module := module
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_module.ptr),
 	}
@@ -3036,7 +3036,7 @@ func (comment Comment) ParamCommandComment_getParamIndex() uint32 {
 func (comment Comment) ParamCommandComment_getParamName() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3250,7 +3250,7 @@ func (comment Comment) TParamCommandComment_getIndex(depth uint32) uint32 {
 func (comment Comment) TParamCommandComment_getParamName() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3345,7 +3345,7 @@ Returns the empty string in case of any error.
 func (info TargetInfo) TargetInfo_getTriple() string {
 	c_info := info
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_info.ptr),
 	}
@@ -3367,7 +3367,7 @@ func (info TargetInfo) TargetInfo_getTriple() string {
 func (comment Comment) TextComment_getText() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3391,7 +3391,7 @@ Return the alignment of a type in bytes as per C++[expr.alignof]   standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned. If the type declaration is not a constant size type,   CXTypeLayoutError_NotConstantSize is returned.
 */
-func (t Type_) Type_getAlignOf() int64 {
+func (t Type) Type_getAlignOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -3418,7 +3418,7 @@ Retrieve the ref-qualifier kind of a function or method.
 
 The ref-qualifier is returned for C++ functions or methods. For other types or non-C++ declarations, CXRefQualifier_None is returned.
 */
-func (t Type_) Type_getCXXRefQualifier() RefQualifierKind {
+func (t Type) Type_getCXXRefQualifier() RefQualifierKind {
 	c_t := t
 
 	var retC RefQualifierKind
@@ -3445,10 +3445,10 @@ Return the class type of an member pointer type.
 
 If a non-member-pointer type is passed in, an invalid type is returned.
 */
-func (t Type_) Type_getClassType() Type_ {
+func (t Type) Type_getClassType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -3472,10 +3472,10 @@ Return the type that was modified by this attributed type.
 
 If the type is not an attributed type, an invalid type is returned.
 */
-func (t Type_) Type_getModifiedType() Type_ {
+func (t Type) Type_getModifiedType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -3499,10 +3499,10 @@ Retrieve the type named by the qualified-id.
 
 If a non-elaborated type is passed in, an invalid type is returned.
 */
-func (t Type_) Type_getNamedType() Type_ {
+func (t Type) Type_getNamedType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -3522,7 +3522,7 @@ func (t Type_) Type_getNamedType() Type_ {
 }
 
 // Retrieve the nullability kind of a pointer type.
-func (t Type_) Type_getNullability() TypeNullabilityKind {
+func (t Type) Type_getNullability() TypeNullabilityKind {
 	c_t := t
 
 	var retC TypeNullabilityKind
@@ -3549,7 +3549,7 @@ Retrieve the number of protocol references associated with an ObjC object/id.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func (t Type_) Type_getNumObjCProtocolRefs() uint32 {
+func (t Type) Type_getNumObjCProtocolRefs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3576,7 +3576,7 @@ Retrieve the number of type arguments associated with an ObjC object.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func (t Type_) Type_getNumObjCTypeArgs() uint32 {
+func (t Type) Type_getNumObjCTypeArgs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3599,7 +3599,7 @@ func (t Type_) Type_getNumObjCTypeArgs() uint32 {
 }
 
 // Returns the number of template arguments for given template specialization, or -1 if type T is not a template specialization.
-func (t Type_) Type_getNumTemplateArguments() int32 {
+func (t Type) Type_getNumTemplateArguments() int32 {
 	c_t := t
 
 	var retC int32
@@ -3622,10 +3622,10 @@ func (t Type_) Type_getNumTemplateArguments() int32 {
 }
 
 // Returns the Objective-C type encoding for the specified CXType.
-func (type_ Type_) Type_getObjCEncoding() string {
+func (type_ Type) Type_getObjCEncoding() string {
 	c_type_ := type_
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_type_),
 	}
@@ -3649,10 +3649,10 @@ Retrieves the base type of the ObjCObjectType.
 
 If the type is not an ObjC object, an invalid type is returned.
 */
-func (t Type_) Type_getObjCObjectBaseType() Type_ {
+func (t Type) Type_getObjCObjectBaseType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -3676,7 +3676,7 @@ Retrieve the decl for a protocol reference for an ObjC object/id.
 
 If the type is not an ObjC object or there are not enough protocol references, an invalid cursor is returned.
 */
-func (t Type_) Type_getObjCProtocolDecl(i uint32) Cursor {
+func (t Type) Type_getObjCProtocolDecl(i uint32) Cursor {
 	c_t := t
 	c_i := i
 
@@ -3705,11 +3705,11 @@ Retrieve a type argument associated with an ObjC object.
 
 If the type is not an ObjC or the index is not valid, an invalid type is returned.
 */
-func (t Type_) Type_getObjCTypeArg(i uint32) Type_ {
+func (t Type) Type_getObjCTypeArg(i uint32) Type {
 	c_t := t
 	c_i := i
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 		unsafe.Pointer(&c_i),
@@ -3734,7 +3734,7 @@ Return the offset of a field named S in a record of type T in bits   as it would
 
 If the cursor is not a record field declaration, CXTypeLayoutError_Invalid   is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
 */
-func (t Type_) Type_getOffsetOf(s string) int64 {
+func (t Type) Type_getOffsetOf(s string) int64 {
 	c_t := t
 	c_s, free_c_s := libc.CString(s)
 	defer free_c_s()
@@ -3764,7 +3764,7 @@ Return the size of a type in bytes as per C++[expr.sizeof] standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned.
 */
-func (t Type_) Type_getSizeOf() int64 {
+func (t Type) Type_getSizeOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -3791,11 +3791,11 @@ Returns the type template argument of a template class specialization at given i
 
 This function only returns template type arguments and does not handle template template arguments or variadic packs.
 */
-func (t Type_) Type_getTemplateArgumentAsType(i uint32) Type_ {
+func (t Type) Type_getTemplateArgumentAsType(i uint32) Type {
 	c_t := t
 	c_i := i
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 		unsafe.Pointer(&c_i),
@@ -3820,10 +3820,10 @@ Gets the type contained by this atomic type.
 
 If a non-atomic type is passed in, an invalid type is returned.
 */
-func (cT Type_) Type_getValueType() Type_ {
+func (cT Type) Type_getValueType() Type {
 	c_cT := cT
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -3847,7 +3847,7 @@ Determine if a typedef is 'transparent' tag.
 
 A typedef is considered 'transparent' if it shares a name and spelling location with its underlying tag type, as is the case with the NS_ENUM macro.
 */
-func (t Type_) Type_isTransparentTagTypedef() uint32 {
+func (t Type) Type_isTransparentTagTypedef() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3874,7 +3874,7 @@ Visit the fields of a particular type.
 
 This function visits all the direct fields of the given cursor, invoking the given visitor function with the cursors of each visited field. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func (t Type_) Type_visitFields(visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type) Type_visitFields(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -3903,7 +3903,7 @@ func (t Type_) Type_visitFields(visitor FieldVisitor, client_data ClientData) ui
 func (comment Comment) VerbatimBlockLineComment_getText() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3925,7 +3925,7 @@ func (comment Comment) VerbatimBlockLineComment_getText() string {
 func (comment Comment) VerbatimLineComment_getText() string {
 	c_comment := comment
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -4149,7 +4149,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerKind(isIncomplete *u
 func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() string {
 	c_results := results
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 	}
@@ -4243,7 +4243,7 @@ func (results *CodeCompleteResults) CodeCompleteGetNumDiagnostics() uint32 {
 func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() string {
 	c_results := results
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 	}
@@ -4269,7 +4269,7 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) string {
 	c_category_name, free_c_category_name := libc.CString(category_name)
 	defer free_c_category_name()
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_class_name),
 		unsafe.Pointer(&c_category_name),
@@ -4294,7 +4294,7 @@ func ConstructUSR_ObjCClass(class_name string) string {
 	c_class_name, free_c_class_name := libc.CString(class_name)
 	defer free_c_class_name()
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_class_name),
 	}
@@ -4314,12 +4314,12 @@ func ConstructUSR_ObjCClass(class_name string) string {
 }
 
 // Construct a USR for a specified Objective-C instance variable and   the USR for its containing class.
-func ConstructUSR_ObjCIvar(name string, classUSR String_) string {
+func ConstructUSR_ObjCIvar(name string, classUSR String) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_classUSR := classUSR
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_name),
 		unsafe.Pointer(&c_classUSR),
@@ -4340,13 +4340,13 @@ func ConstructUSR_ObjCIvar(name string, classUSR String_) string {
 }
 
 // Construct a USR for a specified Objective-C method and   the USR for its containing class.
-func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String_) string {
+func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_isInstanceMethod := isInstanceMethod
 	c_classUSR := classUSR
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_name),
 		unsafe.Pointer(&c_isInstanceMethod),
@@ -4368,12 +4368,12 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR Stri
 }
 
 // Construct a USR for a specified Objective-C property and the USR  for its containing class.
-func ConstructUSR_ObjCProperty(property string, classUSR String_) string {
+func ConstructUSR_ObjCProperty(property string, classUSR String) string {
 	c_property, free_c_property := libc.CString(property)
 	defer free_c_property()
 	c_classUSR := classUSR
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_property),
 		unsafe.Pointer(&c_classUSR),
@@ -4398,7 +4398,7 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 	c_protocol_name, free_c_protocol_name := libc.CString(protocol_name)
 	defer free_c_protocol_name()
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_protocol_name),
 	}
@@ -4938,7 +4938,7 @@ func (ranges *SourceRangeList) DisposeSourceRangeList() {
 }
 
 // Free the given string.
-func (string_ String_) DisposeString() {
+func (string_ String) DisposeString() {
 	c_string_ := string_
 
 	args := []unsafe.Pointer{
@@ -5107,7 +5107,7 @@ func (range1 SourceRange) EqualRanges(range2 SourceRange) uint32 {
 }
 
 // Determine whether two CXTypes represent the same type.
-func (a Type_) EqualTypes(b Type_) uint32 {
+func (a Type) EqualTypes(b Type) uint32 {
 	c_a := a
 	c_b := b
 
@@ -5248,7 +5248,7 @@ func (diagnostic Diagnostic) FormatDiagnostic(options uint32) string {
 	c_diagnostic := diagnostic
 	c_options := options
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_options),
@@ -5288,7 +5288,7 @@ func Free(buffer unsafe.Pointer) {
 }
 
 // Returns the address space of the given type.
-func (t Type_) AddressSpace() uint32 {
+func (t Type) AddressSpace() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -5342,11 +5342,11 @@ Retrieve the type of a parameter of a function type.
 
 If a non-function type is passed in or the function does not have enough parameters, an invalid type is returned.
 */
-func (t Type_) ArgType(i uint32) Type_ {
+func (t Type) ArgType(i uint32) Type {
 	c_t := t
 	c_i := i
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 		unsafe.Pointer(&c_i),
@@ -5371,10 +5371,10 @@ Return the element type of an array type.
 
 If a non-array type is passed in, an invalid type is returned.
 */
-func (t Type_) ArrayElementType() Type_ {
+func (t Type) ArrayElementType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -5398,7 +5398,7 @@ Return the array size of a constant array.
 
 If a non-array type is passed in, -1 is returned.
 */
-func (t Type_) ArraySize() int64 {
+func (t Type) ArraySize() int64 {
 	c_t := t
 
 	var retC int64
@@ -5424,7 +5424,7 @@ func (t Type_) ArraySize() int64 {
 func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() string {
 	c_kind := kind
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -5467,7 +5467,7 @@ Retrieve the character data associated with the given string.
 
 The returned data is a reference and not owned by the user. This data is only valid while the `CXString` is valid. This function is similar to `std::string::c_str()`.
 */
-func (string_ String_) CString() string {
+func (string_ String) CString() string {
 	c_string_ := string_
 
 	var retC unsafe.Pointer
@@ -5573,10 +5573,10 @@ Return the canonical type for a CXType.
 
 Clang's type system explicitly models typedefs and all the ways a specific type can be represented.  The canonical type is the underlying type with all the "sugar" removed.  For example, if 'T' is a typedef for 'int', the canonical type for 'T' would be 'int'.
 */
-func (t Type_) CanonicalType() Type_ {
+func (t Type) CanonicalType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -5624,7 +5624,7 @@ func (d Diagnostic) ChildDiagnostics() DiagnosticSet {
 
 // Return a version string, suitable for showing to a user, but not        intended to be parsed (the format is not guaranteed to be stable).
 func GetClangVersion() string {
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{}
 
 	err := ffi.CallFunction(
@@ -5646,7 +5646,7 @@ func (completion_string CompletionString) CompletionAnnotation(annotation_number
 	c_completion_string := completion_string
 	c_annotation_number := annotation_number
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_annotation_number),
@@ -5693,7 +5693,7 @@ func (completion_string CompletionString) CompletionAvailability() AvailabilityK
 func (completion_string CompletionString) CompletionBriefComment() string {
 	c_completion_string := completion_string
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
@@ -5767,7 +5767,7 @@ func (completion_string CompletionString) CompletionChunkText(chunk_number uint3
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_chunk_number),
@@ -5804,7 +5804,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 	c_fixit_index := fixit_index
 	c_replacement_range := replacement_range
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 		unsafe.Pointer(&c_completion_index),
@@ -5887,7 +5887,7 @@ func (completion_string CompletionString) CompletionParent(kind *CursorKind) str
 	c_completion_string := completion_string
 	c_kind := kind
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_kind),
@@ -6075,7 +6075,7 @@ The display name contains extra information that helps identify the cursor, such
 func (p0 Cursor) CursorDisplayName() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -6179,7 +6179,7 @@ These routines are used for testing and debugging, only, and should not be relie
 func (kind CursorKind) CursorKindSpelling() string {
 	c_kind := kind
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -6309,7 +6309,7 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
+func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprecated_message *String, always_unavailable *int32, unavailable_message *String, availability *PlatformAvailability, availability_size int32) int32 {
 	c_cursor := cursor
 	c_always_deprecated := always_deprecated
 	c_deprecated_message := deprecated_message
@@ -6348,7 +6348,7 @@ func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) string {
 	c_cursor := cursor
 	c_policy := policy
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 		unsafe.Pointer(&c_policy),
@@ -6454,10 +6454,10 @@ Retrieve the return type associated with a given cursor.
 
 This only returns a valid type if the cursor refers to a function or method.
 */
-func (c Cursor) CursorResultType() Type_ {
+func (c Cursor) CursorResultType() Type {
 	c_c := c
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -6513,7 +6513,7 @@ func (cursor Cursor) CursorSemanticParent() Cursor {
 func (p0 Cursor) CursorSpelling() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -6556,10 +6556,10 @@ func (cursor Cursor) CursorTLSKind() TLSKind {
 }
 
 // Retrieve the type of a CXCursor (if any).
-func (c Cursor) CursorType() Type_ {
+func (c Cursor) CursorType() Type {
 	c_c := c
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -6586,7 +6586,7 @@ A Unified Symbol Resolution (USR) is a string that identifies a particular entit
 func (p0 Cursor) CursorUSR() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -6663,7 +6663,7 @@ func (cursor Cursor) CursorVisibility() VisibilityKind {
 func (c Cursor) DeclObjCTypeEncoding() string {
 	c_c := c
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -6740,7 +6740,7 @@ func (p0 Diagnostic) DiagnosticCategory() uint32 {
 func GetDiagnosticCategoryName(category uint32) string {
 	c_category := category
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_category),
 	}
@@ -6763,7 +6763,7 @@ func GetDiagnosticCategoryName(category uint32) string {
 func (p0 Diagnostic) DiagnosticCategoryText() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 	}
@@ -6792,7 +6792,7 @@ func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *Sou
 	c_fixIt := fixIt
 	c_replacementRange := replacementRange
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_fixIt),
@@ -6912,11 +6912,11 @@ func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
 }
 
 // Retrieve the name of the command-line option that enabled this diagnostic.
-func (diag Diagnostic) DiagnosticOption(disable *String_) string {
+func (diag Diagnostic) DiagnosticOption(disable *String) string {
 	c_diag := diag
 	c_disable := disable
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diag.ptr),
 		unsafe.Pointer(&c_disable),
@@ -7015,7 +7015,7 @@ func (p0 Diagnostic) DiagnosticSeverity() DiagnosticSeverity {
 func (p0 Diagnostic) DiagnosticSpelling() string {
 	c_p0 := p0
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 	}
@@ -7039,10 +7039,10 @@ Return the element type of an array, complex, or vector type.
 
 If a type is passed in that is not an array, complex, or vector type, an invalid type is returned.
 */
-func (t Type_) ElementType() Type_ {
+func (t Type) ElementType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -7120,10 +7120,10 @@ Retrieve the integer type of an enum declaration.
 
 If the cursor does not reference an enum declaration, an invalid type is returned.
 */
-func (c Cursor) EnumDeclIntegerType() Type_ {
+func (c Cursor) EnumDeclIntegerType() Type {
 	c_c := c
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -7147,7 +7147,7 @@ Retrieve the exception specification type associated with a function type. This 
 
 If a non-function type is passed in, an error code of -1 is returned.
 */
-func (t Type_) ExceptionSpecificationType() int32 {
+func (t Type) ExceptionSpecificationType() int32 {
 	c_t := t
 
 	var retC int32
@@ -7292,7 +7292,7 @@ func (location SourceLocation) FileLocation(file *File, line *uint32, column *ui
 func (sFile File) FileName() string {
 	c_sFile := sFile
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_sFile.ptr),
 	}
@@ -7345,12 +7345,12 @@ This includes full qualification of all template parameters.
 
 Policy - Further refine the type formatting WithGlobalNsPrefix - If non-zero, function will prepend a '::' to qualified names
 */
-func (cT Type_) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) string {
+func (cT Type) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) string {
 	c_cT := cT
 	c_policy := policy
 	c_withGlobalNsPrefix := withGlobalNsPrefix
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 		unsafe.Pointer(&c_policy),
@@ -7376,7 +7376,7 @@ Retrieve the calling convention associated with a function type.
 
 If a non-function type is passed in, CXCallingConv_Invalid is returned.
 */
-func (t Type_) FunctionTypeCallingConv() CallingConv {
+func (t Type) FunctionTypeCallingConv() CallingConv {
 	c_t := t
 
 	var retC CallingConv
@@ -7399,10 +7399,10 @@ func (t Type_) FunctionTypeCallingConv() CallingConv {
 }
 
 // For cursors representing an iboutletcollection attribute,  this function returns the collection element type.
-func (p0 Cursor) IBOutletCollectionType() Type_ {
+func (p0 Cursor) IBOutletCollectionType() Type {
 	c_p0 := p0
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -7586,10 +7586,10 @@ Otherwise, returns the type itself.
 
 A type that has kind CXType_LValueReference or CXType_RValueReference is a reference type.
 */
-func (cT Type_) NonReferenceType() Type_ {
+func (cT Type) NonReferenceType() Type {
 	c_cT := cT
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -7670,7 +7670,7 @@ Retrieve the number of non-variadic parameters associated with a function type.
 
 If a non-function type is passed in, -1 is returned.
 */
-func (t Type_) NumArgTypes() int32 {
+func (t Type) NumArgTypes() int32 {
 	c_t := t
 
 	var retC int32
@@ -7766,7 +7766,7 @@ Return the number of elements of an array or vector type.
 
 If a type is passed in that is not an array or vector type, -1 is returned.
 */
-func (t Type_) NumElements() int64 {
+func (t Type) NumElements() int64 {
 	c_t := t
 
 	var retC int64
@@ -7868,10 +7868,10 @@ func (cursor Cursor) OverloadedDecl(index uint32) Cursor {
 // not supported : clang_getOverriddenCursors : param overridden : CXCursor **
 
 // For pointer types, returns the type of the pointee.
-func (t Type_) PointeeType() Type_ {
+func (t Type) PointeeType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -7903,7 +7903,7 @@ whereas clang_getExpansionLocation would have returned
 
 File: somefile.c Line: 3 Column: 12
 */
-func (location SourceLocation) PresumedLocation(filename *String_, line *uint32, column *uint32) {
+func (location SourceLocation) PresumedLocation(filename *String, line *uint32, column *uint32) {
 	c_location := location
 	c_filename := filename
 	c_line := line
@@ -8028,10 +8028,10 @@ Retrieve the return type associated with a function type.
 
 If a non-function type is passed in, an invalid type is returned.
 */
-func (t Type_) ResultType() Type_ {
+func (t Type) ResultType() Type {
 	c_t := t
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_t),
 	}
@@ -8147,7 +8147,7 @@ The output contains the symbol graph as well as some additional information abou
 func (cursor Cursor) SymbolGraphForCursor() string {
 	c_cursor := cursor
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 	}
@@ -8176,7 +8176,7 @@ func GetSymbolGraphForUSR(usr string, api APISet) string {
 	defer free_c_usr()
 	c_api := api
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_usr),
 		unsafe.Pointer(&c_api),
@@ -8353,7 +8353,7 @@ func (p0 TranslationUnit) TokenSpelling(p1 Token) string {
 	c_p0 := p0
 	c_p1 := p1
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
@@ -8404,7 +8404,7 @@ func (p0 TranslationUnit) TranslationUnitCursor() Cursor {
 func (cTUnit TranslationUnit) TranslationUnitSpelling() string {
 	c_cTUnit := cTUnit
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cTUnit.ptr),
 	}
@@ -8451,7 +8451,7 @@ func (cTUnit TranslationUnit) TranslationUnitTargetInfo() TargetInfo {
 }
 
 // Return the cursor for the declaration of the given type.
-func (t Type_) TypeDeclaration() Cursor {
+func (t Type) TypeDeclaration() Cursor {
 	c_t := t
 
 	var retC Cursor
@@ -8477,7 +8477,7 @@ func (t Type_) TypeDeclaration() Cursor {
 func (k TypeKind) TypeKindSpelling() string {
 	c_k := k
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_k),
 	}
@@ -8501,11 +8501,11 @@ Pretty-print the underlying type using a custom printing policy.
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
+func (cT Type) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 		unsafe.Pointer(&c_cxPolicy),
@@ -8530,10 +8530,10 @@ Pretty-print the underlying type using the rules of the language of the translat
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) TypeSpelling() string {
+func (cT Type) TypeSpelling() string {
 	c_cT := cT
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -8557,10 +8557,10 @@ Retrieve the underlying type of a typedef declaration.
 
 If the cursor does not reference a typedef declaration, an invalid type is returned.
 */
-func (c Cursor) TypedefDeclUnderlyingType() Type_ {
+func (c Cursor) TypedefDeclUnderlyingType() Type {
 	c_c := c
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -8580,10 +8580,10 @@ func (c Cursor) TypedefDeclUnderlyingType() Type_ {
 }
 
 // Returns the typedef name of the given type.
-func (cT Type_) TypedefName() string {
+func (cT Type) TypedefName() string {
 	c_cT := cT
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -8606,7 +8606,7 @@ func (cT Type_) TypedefName() string {
 func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() string {
 	c_kind := kind
 
-	var retC String_
+	var retC String
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -8642,10 +8642,10 @@ A type can be checked for qualifiers with clang_isConstQualifiedType(), clang_is
 
 A type that resulted from a call to clang_getUnqualifiedType will return false for all of the above calls.
 */
-func (cT Type_) UnqualifiedType() Type_ {
+func (cT Type) UnqualifiedType() Type {
 	c_cT := cT
 
-	var retC Type_
+	var retC Type
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -9201,7 +9201,7 @@ func (loc1 SourceLocation) IsBeforeInTranslationUnit(loc2 SourceLocation) uint32
 }
 
 // Determine whether a CXType has the "const" qualifier set, without looking through typedefs that may have added "const" at a different level.
-func (t Type_) IsConstQualifiedType() uint32 {
+func (t Type) IsConstQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -9318,7 +9318,7 @@ func (tu TranslationUnit) IsFileMultipleIncludeGuarded(file File) uint32 {
 }
 
 // Return 1 if the CXType is a variadic function type, and 0 otherwise.
-func (t Type_) IsFunctionTypeVariadic() uint32 {
+func (t Type) IsFunctionTypeVariadic() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -9391,7 +9391,7 @@ func (p0 Cursor) IsInvalidDeclaration() uint32 {
 }
 
 // Return 1 if the CXType is a POD (plain old data) type, and 0  otherwise.
-func (t Type_) IsPODType() uint32 {
+func (t Type) IsPODType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -9464,7 +9464,7 @@ func (p0 CursorKind) IsReference() uint32 {
 }
 
 // Determine whether a CXType has the "restrict" qualifier set, without looking through typedefs that may have added "restrict" at a different level.
-func (t Type_) IsRestrictQualifiedType() uint32 {
+func (t Type) IsRestrictQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -9579,7 +9579,7 @@ func (p0 Cursor) IsVirtualBase() uint32 {
 }
 
 // Determine whether a CXType has the "volatile" qualifier set, without looking through typedefs that may have added "volatile" at a different level.
-func (t Type_) IsVolatileQualifiedType() uint32 {
+func (t Type) IsVolatileQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -9602,7 +9602,7 @@ func (t Type_) IsVolatileQualifiedType() uint32 {
 }
 
 // Deserialize a set of diagnostics from a Clang diagnostics bitcode file.
-func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String_) DiagnosticSet {
+func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String) DiagnosticSet {
 	c_file, free_c_file := libc.CString(file)
 	defer free_c_file()
 	c_error := error
@@ -9775,7 +9775,7 @@ func (p0 Remapping) Remap_dispose() {
 	}
 }
 
-func (p0 Remapping) Remap_getFilenames(p1 uint32, p2 *String_, p3 *String_) {
+func (p0 Remapping) Remap_getFilenames(p1 uint32, p2 *String, p3 *String) {
 	c_p0 := p0
 	c_p1 := p1
 	c_p2 := p2
@@ -9965,7 +9965,7 @@ Visit the base classes of a type.
 
 This function visits all the direct base classes of a the given cursor, invoking the given visitor function with the cursors of each visited base. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func (t Type_) VisitCXXBaseClasses(visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type) VisitCXXBaseClasses(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -9996,7 +9996,7 @@ Visit the class methods of a type.
 
 This function visits all the methods of the given cursor, invoking the given visitor function with the cursors of each visited method. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func (t Type_) VisitCXXMethods(visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type) VisitCXXMethods(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data

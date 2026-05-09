@@ -446,7 +446,7 @@ type PlatformAvailability struct {
 
 	   Possible values are "ios" or "macos".
 	*/
-	Platform String_
+	Platform String
 	// The version number in which this entity was introduced.
 	Introduced Version
 	// The version number in which this entity was deprecated (but is still available).
@@ -456,7 +456,7 @@ type PlatformAvailability struct {
 	// Whether the entity is unconditionally unavailable on this platform.
 	Unavailable int32
 	// An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
-	Message String_
+	Message String
 }
 
 /*
@@ -501,7 +501,7 @@ A character string.
 
 The CXString type is used to return strings from the interface when the ownership of that string might differ from one call to the next. Use clang_getCString() to retrieve the string data and, once finished with the string data, call clang_disposeString() to free the string.
 */
-type String_ struct {
+type String struct {
 	_ structs.HostLayout
 
 	data          unsafe.Pointer // const void *
@@ -552,7 +552,7 @@ type TranslationUnitImpl struct {
 }
 
 // The type of an element in the abstract syntax tree.
-type Type_ struct {
+type Type struct {
 	_ structs.HostLayout
 
 	Kind TypeKind
