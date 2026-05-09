@@ -9,6 +9,10 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
+type APISetImpl struct {
+	_ structs.HostLayout
+}
+
 /*
 Contains the results of code-completion.
 
@@ -22,6 +26,14 @@ type CodeCompleteResults struct {
 	// The number of code-completion results stored in the Results array.
 	NumResults uint32
 	_          [4]byte
+}
+
+// A parsed comment.
+type Comment struct {
+	_ structs.HostLayout
+
+	aSTNode         unsafe.Pointer // const void *
+	TranslationUnit [8]byte        // CXTranslationUnit
 }
 
 // A single result of code completion.

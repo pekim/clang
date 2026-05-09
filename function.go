@@ -10,6 +10,96 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
+func (comment Comment) BlockCommandComment_getArgText(argIdx uint32) string {
+	c_comment := comment
+	c_argIdx := argIdx
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_argIdx),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_BlockCommandComment_getArgText,
+		ptr_clang_BlockCommandComment_getArgText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_BlockCommandComment_getArgText", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) BlockCommandComment_getCommandName() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_BlockCommandComment_getCommandName,
+		ptr_clang_BlockCommandComment_getCommandName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_BlockCommandComment_getCommandName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) BlockCommandComment_getNumArgs() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_BlockCommandComment_getNumArgs,
+		ptr_clang_BlockCommandComment_getNumArgs,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_BlockCommandComment_getNumArgs", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) BlockCommandComment_getParagraph() Comment {
+	c_comment := comment
+
+	var retC Comment
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_BlockCommandComment_getParagraph,
+		ptr_clang_BlockCommandComment_getParagraph,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_BlockCommandComment_getParagraph", err))
+	}
+
+	ret := retC
+	return ret
+}
+
 // Queries a CXCursorSet to see if it contains a specific CXCursor.
 func (cset CursorSet) CursorSet_contains(cursor Cursor) uint32 {
 	c_cset := cset
@@ -533,6 +623,101 @@ func (c Cursor) XRecord_isAbstract() uint32 {
 	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_CXXRecord_isAbstract", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) Comment_getChild(childIdx uint32) Comment {
+	c_comment := comment
+	c_childIdx := childIdx
+
+	var retC Comment
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_childIdx),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Comment_getChild,
+		ptr_clang_Comment_getChild,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Comment_getChild", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) Comment_getKind() CommentKind {
+	c_comment := comment
+
+	var retC CommentKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Comment_getKind,
+		ptr_clang_Comment_getKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Comment_getKind", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) Comment_getNumChildren() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Comment_getNumChildren,
+		ptr_clang_Comment_getNumChildren,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Comment_getNumChildren", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+A CXComment_Paragraph node is considered whitespace if it contains only CXComment_Text nodes that are empty or whitespace.
+
+Other AST nodes (except CXComment_Paragraph and CXComment_Text) are never considered whitespace.
+*/
+func (comment Comment) Comment_isWhitespace() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Comment_isWhitespace,
+		ptr_clang_Comment_isWhitespace,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Comment_isWhitespace", err))
 	}
 
 	ret := retC
@@ -1172,6 +1357,29 @@ func (c Cursor) Cursor_getOffsetOfField() int64 {
 	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getOffsetOfField", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Given a cursor that represents a documentable entity (e.g., declaration), return the associated parsed comment as a CXComment_FullComment AST node.
+func (c Cursor) Cursor_getParsedComment() Comment {
+	c_c := c
+
+	var retC Comment
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_c),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_Cursor_getParsedComment,
+		ptr_clang_Cursor_getParsedComment,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getParsedComment", err))
 	}
 
 	ret := retC
@@ -2122,6 +2330,203 @@ func (file File) File_tryGetRealPathName() string {
 	return ret
 }
 
+/*
+Convert a given full parsed comment to an HTML fragment.
+
+Specific details of HTML layout are subject to change.  Don't try to parse this HTML back into an AST, use other APIs instead.
+
+Currently the following CSS classes are used:
+
+Function argument documentation is rendered as a <dl> list with arguments sorted in function prototype order.  CSS classes used:
+
+Template parameter documentation is rendered as a <dl> list with parameters sorted in template parameter list order.  CSS classes used:
+*/
+func (comment Comment) FullComment_getAsHTML() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_FullComment_getAsHTML,
+		ptr_clang_FullComment_getAsHTML,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_FullComment_getAsHTML", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+/*
+Convert a given full parsed comment to an XML document.
+
+A Relax NG schema for the XML can be found in comment-xml-schema.rng file inside clang source tree.
+*/
+func (comment Comment) FullComment_getAsXML() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_FullComment_getAsXML,
+		ptr_clang_FullComment_getAsXML,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_FullComment_getAsXML", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) HTMLStartTagComment_isSelfClosing() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLStartTagComment_isSelfClosing,
+		ptr_clang_HTMLStartTagComment_isSelfClosing,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLStartTagComment_isSelfClosing", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) HTMLStartTag_getAttrName(attrIdx uint32) string {
+	c_comment := comment
+	c_attrIdx := attrIdx
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_attrIdx),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLStartTag_getAttrName,
+		ptr_clang_HTMLStartTag_getAttrName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLStartTag_getAttrName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) HTMLStartTag_getAttrValue(attrIdx uint32) string {
+	c_comment := comment
+	c_attrIdx := attrIdx
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_attrIdx),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLStartTag_getAttrValue,
+		ptr_clang_HTMLStartTag_getAttrValue,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLStartTag_getAttrValue", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) HTMLStartTag_getNumAttrs() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLStartTag_getNumAttrs,
+		ptr_clang_HTMLStartTag_getNumAttrs,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLStartTag_getNumAttrs", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+// Convert an HTML tag AST node to string.
+func (comment Comment) HTMLTagComment_getAsString() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLTagComment_getAsString,
+		ptr_clang_HTMLTagComment_getAsString,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLTagComment_getAsString", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) HTMLTagComment_getTagName() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_HTMLTagComment_getTagName,
+		ptr_clang_HTMLTagComment_getTagName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_HTMLTagComment_getTagName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
 // An indexing action/session, to be applied to one or multiple translation units.
 func (cIdx Index) IndexAction_create() IndexAction {
 	c_cIdx := cIdx
@@ -2166,6 +2571,118 @@ func (p0 IndexAction) IndexAction_dispose() {
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_IndexAction_dispose", err))
 	}
+}
+
+func (comment Comment) InlineCommandComment_getArgText(argIdx uint32) string {
+	c_comment := comment
+	c_argIdx := argIdx
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_argIdx),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_InlineCommandComment_getArgText,
+		ptr_clang_InlineCommandComment_getArgText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_InlineCommandComment_getArgText", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) InlineCommandComment_getCommandName() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_InlineCommandComment_getCommandName,
+		ptr_clang_InlineCommandComment_getCommandName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_InlineCommandComment_getCommandName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) InlineCommandComment_getNumArgs() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_InlineCommandComment_getNumArgs,
+		ptr_clang_InlineCommandComment_getNumArgs,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_InlineCommandComment_getNumArgs", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) InlineCommandComment_getRenderKind() CommentInlineCommandRenderKind {
+	c_comment := comment
+
+	var retC CommentInlineCommandRenderKind
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_InlineCommandComment_getRenderKind,
+		ptr_clang_InlineCommandComment_getRenderKind,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_InlineCommandComment_getRenderKind", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) InlineContentComment_hasTrailingNewline() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_InlineContentComment_hasTrailingNewline,
+		ptr_clang_InlineContentComment_hasTrailingNewline,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_InlineContentComment_hasTrailingNewline", err))
+	}
+
+	ret := retC
+	return ret
 }
 
 // Returns non-zero if the given source location is in the main file of the corresponding translation unit.
@@ -2472,6 +2989,116 @@ func (module Module) Module_isSystem() int32 {
 	return ret
 }
 
+func (comment Comment) ParamCommandComment_getDirection() CommentParamPassDirection {
+	c_comment := comment
+
+	var retC CommentParamPassDirection
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_ParamCommandComment_getDirection,
+		ptr_clang_ParamCommandComment_getDirection,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ParamCommandComment_getDirection", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) ParamCommandComment_getParamIndex() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_ParamCommandComment_getParamIndex,
+		ptr_clang_ParamCommandComment_getParamIndex,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ParamCommandComment_getParamIndex", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) ParamCommandComment_getParamName() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_ParamCommandComment_getParamName,
+		ptr_clang_ParamCommandComment_getParamName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ParamCommandComment_getParamName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) ParamCommandComment_isDirectionExplicit() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_ParamCommandComment_isDirectionExplicit,
+		ptr_clang_ParamCommandComment_isDirectionExplicit,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ParamCommandComment_isDirectionExplicit", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) ParamCommandComment_isParamIndexValid() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_ParamCommandComment_isParamIndexValid,
+		ptr_clang_ParamCommandComment_isParamIndexValid,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_ParamCommandComment_isParamIndexValid", err))
+	}
+
+	ret := retC
+	return ret
+}
+
 // Release a printing policy.
 func (policy PrintingPolicy) PrintingPolicy_dispose() {
 	c_policy := policy
@@ -2562,6 +3189,108 @@ func (range_ SourceRange) Range_isNull() int32 {
 	return ret
 }
 
+/*
+For example,
+
+for C and TT nesting depth is 0, for T nesting depth is 1.
+*/
+func (comment Comment) TParamCommandComment_getDepth() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_TParamCommandComment_getDepth,
+		ptr_clang_TParamCommandComment_getDepth,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TParamCommandComment_getDepth", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+/*
+For example,
+
+for C and TT nesting depth is 0, so we can ask for index at depth 0: at depth 0 C's index is 0, TT's index is 1.
+
+For T nesting depth is 1, so we can ask for index at depth 0 and 1: at depth 0 T's index is 1 (same as TT's), at depth 1 T's index is 0.
+*/
+func (comment Comment) TParamCommandComment_getIndex(depth uint32) uint32 {
+	c_comment := comment
+	c_depth := depth
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+		unsafe.Pointer(&c_depth),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_TParamCommandComment_getIndex,
+		ptr_clang_TParamCommandComment_getIndex,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TParamCommandComment_getIndex", err))
+	}
+
+	ret := retC
+	return ret
+}
+
+func (comment Comment) TParamCommandComment_getParamName() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_TParamCommandComment_getParamName,
+		ptr_clang_TParamCommandComment_getParamName,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TParamCommandComment_getParamName", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) TParamCommandComment_isParamPositionValid() uint32 {
+	c_comment := comment
+
+	var retC uint32
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_TParamCommandComment_isParamPositionValid,
+		ptr_clang_TParamCommandComment_isParamPositionValid,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TParamCommandComment_isParamPositionValid", err))
+	}
+
+	ret := retC
+	return ret
+}
+
 // Destroy the CXTargetInfo object.
 func (info TargetInfo) TargetInfo_dispose() {
 	c_info := info
@@ -2629,6 +3358,28 @@ func (info TargetInfo) TargetInfo_getTriple() string {
 	)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getTriple", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) TextComment_getText() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_TextComment_getText,
+		ptr_clang_TextComment_getText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_TextComment_getText", err))
 	}
 
 	ret := retC.CString()
@@ -3149,6 +3900,50 @@ func (t Type_) Type_visitFields(visitor FieldVisitor, client_data ClientData) ui
 	return ret
 }
 
+func (comment Comment) VerbatimBlockLineComment_getText() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_VerbatimBlockLineComment_getText,
+		ptr_clang_VerbatimBlockLineComment_getText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VerbatimBlockLineComment_getText", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+func (comment Comment) VerbatimLineComment_getText() string {
+	c_comment := comment
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_comment),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_VerbatimLineComment_getText,
+		ptr_clang_VerbatimLineComment_getText,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_VerbatimLineComment_getText", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
 // Map an absolute virtual file path to an absolute real one. The virtual path must be canonicalized (not contain "."/"..").
 func (p0 VirtualFileOverlay) VirtualFileOverlay_addFileMapping(virtualPath string, realPath string) ErrorCode {
 	c_p0 := p0
@@ -3622,6 +4417,31 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 	return ret
 }
 
+// Traverses the translation unit to create a CXAPISet.
+func (tu TranslationUnit) CreateAPISet(out_api *APISet) ErrorCode {
+	c_tu := tu
+	c_out_api := out_api
+
+	var retC ErrorCode
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_tu.ptr),
+		unsafe.Pointer(&c_out_api),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_createAPISet,
+		ptr_clang_createAPISet,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_createAPISet", err))
+	}
+
+	ret := retC
+	return ret
+}
+
 // Creates an empty CXCursorSet.
 func CreateCXCursorSet() CursorSet {
 	var retC CursorSet
@@ -3918,6 +4738,29 @@ func (tU TranslationUnit) DefaultSaveOptions() uint32 {
 
 	ret := retC
 	return ret
+}
+
+/*
+Dispose of an APISet.
+
+The provided CXAPISet can not be used after this function is called.
+*/
+func (api APISet) DisposeAPISet() {
+	c_api := api
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_api.ptr),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_disposeAPISet,
+		ptr_clang_disposeAPISet,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeAPISet", err))
+	}
 }
 
 // Disposes a CXCursorSet and releases its associated memory.
@@ -7294,6 +8137,63 @@ func (location SourceLocation) SpellingLocation(file *File, line *uint32, column
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSpellingLocation", err))
 	}
+}
+
+/*
+Generate a single symbol symbol graph for the declaration at the given cursor. Returns a null string if the AST node for the cursor isn't a declaration.
+
+The output contains the symbol graph as well as some additional information about related symbols.
+*/
+func (cursor Cursor) SymbolGraphForCursor() string {
+	c_cursor := cursor
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_cursor),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getSymbolGraphForCursor,
+		ptr_clang_getSymbolGraphForCursor,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSymbolGraphForCursor", err))
+	}
+
+	ret := retC.CString()
+	return ret
+}
+
+/*
+Generate a single symbol symbol graph for the given USR. Returns a null string if the associated symbol can not be found in the provided CXAPISet.
+
+The output contains the symbol graph as well as some additional information about related symbols.
+*/
+func GetSymbolGraphForUSR(usr string, api APISet) string {
+	c_usr, free_c_usr := libc.CString(usr)
+	defer free_c_usr()
+	c_api := api
+
+	var retC String_
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&c_usr),
+		unsafe.Pointer(&c_api),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_getSymbolGraphForUSR,
+		ptr_clang_getSymbolGraphForUSR,
+		unsafe.Pointer(&retC),
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSymbolGraphForUSR", err))
+	}
+
+	ret := retC.CString()
+	return ret
 }
 
 // Returns the human-readable null-terminated C string that represents  the name of the memory category.  This string should never be freed.

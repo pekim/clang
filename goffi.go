@@ -11,6 +11,10 @@ import (
 	lib "github.com/pekim/clang/internal/lib"
 )
 
+var cif_clang_BlockCommandComment_getArgText = &types.CallInterface{}
+var cif_clang_BlockCommandComment_getCommandName = &types.CallInterface{}
+var cif_clang_BlockCommandComment_getNumArgs = &types.CallInterface{}
+var cif_clang_BlockCommandComment_getParagraph = &types.CallInterface{}
 var cif_clang_CXCursorSet_contains = &types.CallInterface{}
 var cif_clang_CXCursorSet_insert = &types.CallInterface{}
 var cif_clang_CXIndex_getGlobalOptions = &types.CallInterface{}
@@ -31,6 +35,10 @@ var cif_clang_CXXMethod_isPureVirtual = &types.CallInterface{}
 var cif_clang_CXXMethod_isStatic = &types.CallInterface{}
 var cif_clang_CXXMethod_isVirtual = &types.CallInterface{}
 var cif_clang_CXXRecord_isAbstract = &types.CallInterface{}
+var cif_clang_Comment_getChild = &types.CallInterface{}
+var cif_clang_Comment_getKind = &types.CallInterface{}
+var cif_clang_Comment_getNumChildren = &types.CallInterface{}
+var cif_clang_Comment_isWhitespace = &types.CallInterface{}
 var cif_clang_Cursor_Evaluate = &types.CallInterface{}
 var cif_clang_Cursor_getArgument = &types.CallInterface{}
 var cif_clang_Cursor_getBinaryOpcode = &types.CallInterface{}
@@ -56,6 +64,7 @@ var cif_clang_Cursor_getObjCPropertyGetterName = &types.CallInterface{}
 var cif_clang_Cursor_getObjCPropertySetterName = &types.CallInterface{}
 var cif_clang_Cursor_getObjCSelectorIndex = &types.CallInterface{}
 var cif_clang_Cursor_getOffsetOfField = &types.CallInterface{}
+var cif_clang_Cursor_getParsedComment = &types.CallInterface{}
 var cif_clang_Cursor_getRawCommentText = &types.CallInterface{}
 var cif_clang_Cursor_getReceiverType = &types.CallInterface{}
 var cif_clang_Cursor_getSpellingNameRange = &types.CallInterface{}
@@ -94,8 +103,21 @@ var cif_clang_EvalResult_getKind = &types.CallInterface{}
 var cif_clang_EvalResult_isUnsignedInt = &types.CallInterface{}
 var cif_clang_File_isEqual = &types.CallInterface{}
 var cif_clang_File_tryGetRealPathName = &types.CallInterface{}
+var cif_clang_FullComment_getAsHTML = &types.CallInterface{}
+var cif_clang_FullComment_getAsXML = &types.CallInterface{}
+var cif_clang_HTMLStartTagComment_isSelfClosing = &types.CallInterface{}
+var cif_clang_HTMLStartTag_getAttrName = &types.CallInterface{}
+var cif_clang_HTMLStartTag_getAttrValue = &types.CallInterface{}
+var cif_clang_HTMLStartTag_getNumAttrs = &types.CallInterface{}
+var cif_clang_HTMLTagComment_getAsString = &types.CallInterface{}
+var cif_clang_HTMLTagComment_getTagName = &types.CallInterface{}
 var cif_clang_IndexAction_create = &types.CallInterface{}
 var cif_clang_IndexAction_dispose = &types.CallInterface{}
+var cif_clang_InlineCommandComment_getArgText = &types.CallInterface{}
+var cif_clang_InlineCommandComment_getCommandName = &types.CallInterface{}
+var cif_clang_InlineCommandComment_getNumArgs = &types.CallInterface{}
+var cif_clang_InlineCommandComment_getRenderKind = &types.CallInterface{}
+var cif_clang_InlineContentComment_hasTrailingNewline = &types.CallInterface{}
 var cif_clang_Location_isFromMainFile = &types.CallInterface{}
 var cif_clang_Location_isInSystemHeader = &types.CallInterface{}
 var cif_clang_ModuleMapDescriptor_create = &types.CallInterface{}
@@ -109,13 +131,23 @@ var cif_clang_Module_getNumTopLevelHeaders = &types.CallInterface{}
 var cif_clang_Module_getParent = &types.CallInterface{}
 var cif_clang_Module_getTopLevelHeader = &types.CallInterface{}
 var cif_clang_Module_isSystem = &types.CallInterface{}
+var cif_clang_ParamCommandComment_getDirection = &types.CallInterface{}
+var cif_clang_ParamCommandComment_getParamIndex = &types.CallInterface{}
+var cif_clang_ParamCommandComment_getParamName = &types.CallInterface{}
+var cif_clang_ParamCommandComment_isDirectionExplicit = &types.CallInterface{}
+var cif_clang_ParamCommandComment_isParamIndexValid = &types.CallInterface{}
 var cif_clang_PrintingPolicy_dispose = &types.CallInterface{}
 var cif_clang_PrintingPolicy_getProperty = &types.CallInterface{}
 var cif_clang_PrintingPolicy_setProperty = &types.CallInterface{}
 var cif_clang_Range_isNull = &types.CallInterface{}
+var cif_clang_TParamCommandComment_getDepth = &types.CallInterface{}
+var cif_clang_TParamCommandComment_getIndex = &types.CallInterface{}
+var cif_clang_TParamCommandComment_getParamName = &types.CallInterface{}
+var cif_clang_TParamCommandComment_isParamPositionValid = &types.CallInterface{}
 var cif_clang_TargetInfo_dispose = &types.CallInterface{}
 var cif_clang_TargetInfo_getPointerWidth = &types.CallInterface{}
 var cif_clang_TargetInfo_getTriple = &types.CallInterface{}
+var cif_clang_TextComment_getText = &types.CallInterface{}
 var cif_clang_Type_getAlignOf = &types.CallInterface{}
 var cif_clang_Type_getCXXRefQualifier = &types.CallInterface{}
 var cif_clang_Type_getClassType = &types.CallInterface{}
@@ -135,6 +167,8 @@ var cif_clang_Type_getTemplateArgumentAsType = &types.CallInterface{}
 var cif_clang_Type_getValueType = &types.CallInterface{}
 var cif_clang_Type_isTransparentTagTypedef = &types.CallInterface{}
 var cif_clang_Type_visitFields = &types.CallInterface{}
+var cif_clang_VerbatimBlockLineComment_getText = &types.CallInterface{}
+var cif_clang_VerbatimLineComment_getText = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_addFileMapping = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_create = &types.CallInterface{}
 var cif_clang_VirtualFileOverlay_dispose = &types.CallInterface{}
@@ -153,6 +187,7 @@ var cif_clang_constructUSR_ObjCIvar = &types.CallInterface{}
 var cif_clang_constructUSR_ObjCMethod = &types.CallInterface{}
 var cif_clang_constructUSR_ObjCProperty = &types.CallInterface{}
 var cif_clang_constructUSR_ObjCProtocol = &types.CallInterface{}
+var cif_clang_createAPISet = &types.CallInterface{}
 var cif_clang_createCXCursorSet = &types.CallInterface{}
 var cif_clang_createIndex = &types.CallInterface{}
 var cif_clang_createIndexWithOptions = &types.CallInterface{}
@@ -164,6 +199,7 @@ var cif_clang_defaultDiagnosticDisplayOptions = &types.CallInterface{}
 var cif_clang_defaultEditingTranslationUnitOptions = &types.CallInterface{}
 var cif_clang_defaultReparseOptions = &types.CallInterface{}
 var cif_clang_defaultSaveOptions = &types.CallInterface{}
+var cif_clang_disposeAPISet = &types.CallInterface{}
 var cif_clang_disposeCXCursorSet = &types.CallInterface{}
 var cif_clang_disposeCXPlatformAvailability = &types.CallInterface{}
 var cif_clang_disposeCXTUResourceUsage = &types.CallInterface{}
@@ -297,6 +333,8 @@ var cif_clang_getResultType = &types.CallInterface{}
 var cif_clang_getSkippedRanges = &types.CallInterface{}
 var cif_clang_getSpecializedCursorTemplate = &types.CallInterface{}
 var cif_clang_getSpellingLocation = &types.CallInterface{}
+var cif_clang_getSymbolGraphForCursor = &types.CallInterface{}
+var cif_clang_getSymbolGraphForUSR = &types.CallInterface{}
 var cif_clang_getTUResourceUsageName = &types.CallInterface{}
 var cif_clang_getTemplateCursorKind = &types.CallInterface{}
 var cif_clang_getToken = &types.CallInterface{}
@@ -368,6 +406,10 @@ var cif_clang_visitCXXBaseClasses = &types.CallInterface{}
 var cif_clang_visitCXXMethods = &types.CallInterface{}
 var cif_clang_visitChildrenWithBlock = &types.CallInterface{}
 
+var ptr_clang_BlockCommandComment_getArgText unsafe.Pointer
+var ptr_clang_BlockCommandComment_getCommandName unsafe.Pointer
+var ptr_clang_BlockCommandComment_getNumArgs unsafe.Pointer
+var ptr_clang_BlockCommandComment_getParagraph unsafe.Pointer
 var ptr_clang_CXCursorSet_contains unsafe.Pointer
 var ptr_clang_CXCursorSet_insert unsafe.Pointer
 var ptr_clang_CXIndex_getGlobalOptions unsafe.Pointer
@@ -388,6 +430,10 @@ var ptr_clang_CXXMethod_isPureVirtual unsafe.Pointer
 var ptr_clang_CXXMethod_isStatic unsafe.Pointer
 var ptr_clang_CXXMethod_isVirtual unsafe.Pointer
 var ptr_clang_CXXRecord_isAbstract unsafe.Pointer
+var ptr_clang_Comment_getChild unsafe.Pointer
+var ptr_clang_Comment_getKind unsafe.Pointer
+var ptr_clang_Comment_getNumChildren unsafe.Pointer
+var ptr_clang_Comment_isWhitespace unsafe.Pointer
 var ptr_clang_Cursor_Evaluate unsafe.Pointer
 var ptr_clang_Cursor_getArgument unsafe.Pointer
 var ptr_clang_Cursor_getBinaryOpcode unsafe.Pointer
@@ -413,6 +459,7 @@ var ptr_clang_Cursor_getObjCPropertyGetterName unsafe.Pointer
 var ptr_clang_Cursor_getObjCPropertySetterName unsafe.Pointer
 var ptr_clang_Cursor_getObjCSelectorIndex unsafe.Pointer
 var ptr_clang_Cursor_getOffsetOfField unsafe.Pointer
+var ptr_clang_Cursor_getParsedComment unsafe.Pointer
 var ptr_clang_Cursor_getRawCommentText unsafe.Pointer
 var ptr_clang_Cursor_getReceiverType unsafe.Pointer
 var ptr_clang_Cursor_getSpellingNameRange unsafe.Pointer
@@ -451,8 +498,21 @@ var ptr_clang_EvalResult_getKind unsafe.Pointer
 var ptr_clang_EvalResult_isUnsignedInt unsafe.Pointer
 var ptr_clang_File_isEqual unsafe.Pointer
 var ptr_clang_File_tryGetRealPathName unsafe.Pointer
+var ptr_clang_FullComment_getAsHTML unsafe.Pointer
+var ptr_clang_FullComment_getAsXML unsafe.Pointer
+var ptr_clang_HTMLStartTagComment_isSelfClosing unsafe.Pointer
+var ptr_clang_HTMLStartTag_getAttrName unsafe.Pointer
+var ptr_clang_HTMLStartTag_getAttrValue unsafe.Pointer
+var ptr_clang_HTMLStartTag_getNumAttrs unsafe.Pointer
+var ptr_clang_HTMLTagComment_getAsString unsafe.Pointer
+var ptr_clang_HTMLTagComment_getTagName unsafe.Pointer
 var ptr_clang_IndexAction_create unsafe.Pointer
 var ptr_clang_IndexAction_dispose unsafe.Pointer
+var ptr_clang_InlineCommandComment_getArgText unsafe.Pointer
+var ptr_clang_InlineCommandComment_getCommandName unsafe.Pointer
+var ptr_clang_InlineCommandComment_getNumArgs unsafe.Pointer
+var ptr_clang_InlineCommandComment_getRenderKind unsafe.Pointer
+var ptr_clang_InlineContentComment_hasTrailingNewline unsafe.Pointer
 var ptr_clang_Location_isFromMainFile unsafe.Pointer
 var ptr_clang_Location_isInSystemHeader unsafe.Pointer
 var ptr_clang_ModuleMapDescriptor_create unsafe.Pointer
@@ -466,13 +526,23 @@ var ptr_clang_Module_getNumTopLevelHeaders unsafe.Pointer
 var ptr_clang_Module_getParent unsafe.Pointer
 var ptr_clang_Module_getTopLevelHeader unsafe.Pointer
 var ptr_clang_Module_isSystem unsafe.Pointer
+var ptr_clang_ParamCommandComment_getDirection unsafe.Pointer
+var ptr_clang_ParamCommandComment_getParamIndex unsafe.Pointer
+var ptr_clang_ParamCommandComment_getParamName unsafe.Pointer
+var ptr_clang_ParamCommandComment_isDirectionExplicit unsafe.Pointer
+var ptr_clang_ParamCommandComment_isParamIndexValid unsafe.Pointer
 var ptr_clang_PrintingPolicy_dispose unsafe.Pointer
 var ptr_clang_PrintingPolicy_getProperty unsafe.Pointer
 var ptr_clang_PrintingPolicy_setProperty unsafe.Pointer
 var ptr_clang_Range_isNull unsafe.Pointer
+var ptr_clang_TParamCommandComment_getDepth unsafe.Pointer
+var ptr_clang_TParamCommandComment_getIndex unsafe.Pointer
+var ptr_clang_TParamCommandComment_getParamName unsafe.Pointer
+var ptr_clang_TParamCommandComment_isParamPositionValid unsafe.Pointer
 var ptr_clang_TargetInfo_dispose unsafe.Pointer
 var ptr_clang_TargetInfo_getPointerWidth unsafe.Pointer
 var ptr_clang_TargetInfo_getTriple unsafe.Pointer
+var ptr_clang_TextComment_getText unsafe.Pointer
 var ptr_clang_Type_getAlignOf unsafe.Pointer
 var ptr_clang_Type_getCXXRefQualifier unsafe.Pointer
 var ptr_clang_Type_getClassType unsafe.Pointer
@@ -492,6 +562,8 @@ var ptr_clang_Type_getTemplateArgumentAsType unsafe.Pointer
 var ptr_clang_Type_getValueType unsafe.Pointer
 var ptr_clang_Type_isTransparentTagTypedef unsafe.Pointer
 var ptr_clang_Type_visitFields unsafe.Pointer
+var ptr_clang_VerbatimBlockLineComment_getText unsafe.Pointer
+var ptr_clang_VerbatimLineComment_getText unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_addFileMapping unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_create unsafe.Pointer
 var ptr_clang_VirtualFileOverlay_dispose unsafe.Pointer
@@ -510,6 +582,7 @@ var ptr_clang_constructUSR_ObjCIvar unsafe.Pointer
 var ptr_clang_constructUSR_ObjCMethod unsafe.Pointer
 var ptr_clang_constructUSR_ObjCProperty unsafe.Pointer
 var ptr_clang_constructUSR_ObjCProtocol unsafe.Pointer
+var ptr_clang_createAPISet unsafe.Pointer
 var ptr_clang_createCXCursorSet unsafe.Pointer
 var ptr_clang_createIndex unsafe.Pointer
 var ptr_clang_createIndexWithOptions unsafe.Pointer
@@ -521,6 +594,7 @@ var ptr_clang_defaultDiagnosticDisplayOptions unsafe.Pointer
 var ptr_clang_defaultEditingTranslationUnitOptions unsafe.Pointer
 var ptr_clang_defaultReparseOptions unsafe.Pointer
 var ptr_clang_defaultSaveOptions unsafe.Pointer
+var ptr_clang_disposeAPISet unsafe.Pointer
 var ptr_clang_disposeCXCursorSet unsafe.Pointer
 var ptr_clang_disposeCXPlatformAvailability unsafe.Pointer
 var ptr_clang_disposeCXTUResourceUsage unsafe.Pointer
@@ -654,6 +728,8 @@ var ptr_clang_getResultType unsafe.Pointer
 var ptr_clang_getSkippedRanges unsafe.Pointer
 var ptr_clang_getSpecializedCursorTemplate unsafe.Pointer
 var ptr_clang_getSpellingLocation unsafe.Pointer
+var ptr_clang_getSymbolGraphForCursor unsafe.Pointer
+var ptr_clang_getSymbolGraphForUSR unsafe.Pointer
 var ptr_clang_getTUResourceUsageName unsafe.Pointer
 var ptr_clang_getTemplateCursorKind unsafe.Pointer
 var ptr_clang_getToken unsafe.Pointer
@@ -739,6 +815,63 @@ func Init() error {
 	err = initManual(library)
 	if err != nil {
 		return err
+	}
+
+	{
+		ptr_clang_BlockCommandComment_getArgText, err = ffi.GetSymbol(library, "clang_BlockCommandComment_getArgText")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_BlockCommandComment_getArgText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_BlockCommandComment_getArgText", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_BlockCommandComment_getCommandName, err = ffi.GetSymbol(library, "clang_BlockCommandComment_getCommandName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_BlockCommandComment_getCommandName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_BlockCommandComment_getCommandName", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_BlockCommandComment_getNumArgs, err = ffi.GetSymbol(library, "clang_BlockCommandComment_getNumArgs")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_BlockCommandComment_getNumArgs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_BlockCommandComment_getNumArgs", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_BlockCommandComment_getParagraph, err = ffi.GetSymbol(library, "clang_BlockCommandComment_getParagraph")
+		if err == nil {
+			returnType := commentTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_BlockCommandComment_getParagraph, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_BlockCommandComment_getParagraph", err)
+			}
+		}
 	}
 
 	{
@@ -1021,6 +1154,63 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_CXXRecord_isAbstract, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_CXXRecord_isAbstract", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_Comment_getChild, err = ffi.GetSymbol(library, "clang_Comment_getChild")
+		if err == nil {
+			returnType := commentTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Comment_getChild, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Comment_getChild", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_Comment_getKind, err = ffi.GetSymbol(library, "clang_Comment_getKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Comment_getKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Comment_getKind", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_Comment_getNumChildren, err = ffi.GetSymbol(library, "clang_Comment_getNumChildren")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Comment_getNumChildren, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Comment_getNumChildren", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_Comment_isWhitespace, err = ffi.GetSymbol(library, "clang_Comment_isWhitespace")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Comment_isWhitespace, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Comment_isWhitespace", err)
 			}
 		}
 	}
@@ -1380,6 +1570,20 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_Cursor_getOffsetOfField, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getOffsetOfField", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_Cursor_getParsedComment, err = ffi.GetSymbol(library, "clang_Cursor_getParsedComment")
+		if err == nil {
+			returnType := commentTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_Cursor_getParsedComment, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_Cursor_getParsedComment", err)
 			}
 		}
 	}
@@ -1927,6 +2131,120 @@ func Init() error {
 	}
 
 	{
+		ptr_clang_FullComment_getAsHTML, err = ffi.GetSymbol(library, "clang_FullComment_getAsHTML")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_FullComment_getAsHTML, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_FullComment_getAsHTML", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_FullComment_getAsXML, err = ffi.GetSymbol(library, "clang_FullComment_getAsXML")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_FullComment_getAsXML, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_FullComment_getAsXML", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLStartTagComment_isSelfClosing, err = ffi.GetSymbol(library, "clang_HTMLStartTagComment_isSelfClosing")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLStartTagComment_isSelfClosing, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLStartTagComment_isSelfClosing", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLStartTag_getAttrName, err = ffi.GetSymbol(library, "clang_HTMLStartTag_getAttrName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLStartTag_getAttrName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLStartTag_getAttrName", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLStartTag_getAttrValue, err = ffi.GetSymbol(library, "clang_HTMLStartTag_getAttrValue")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLStartTag_getAttrValue, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLStartTag_getAttrValue", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLStartTag_getNumAttrs, err = ffi.GetSymbol(library, "clang_HTMLStartTag_getNumAttrs")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLStartTag_getNumAttrs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLStartTag_getNumAttrs", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLTagComment_getAsString, err = ffi.GetSymbol(library, "clang_HTMLTagComment_getAsString")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLTagComment_getAsString, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLTagComment_getAsString", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_HTMLTagComment_getTagName, err = ffi.GetSymbol(library, "clang_HTMLTagComment_getTagName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_HTMLTagComment_getTagName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_HTMLTagComment_getTagName", err)
+			}
+		}
+	}
+
+	{
 		ptr_clang_IndexAction_create, err = ffi.GetSymbol(library, "clang_IndexAction_create")
 		if err == nil {
 			returnType := types.PointerTypeDescriptor
@@ -1950,6 +2268,77 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_IndexAction_dispose, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_IndexAction_dispose", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_InlineCommandComment_getArgText, err = ffi.GetSymbol(library, "clang_InlineCommandComment_getArgText")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_InlineCommandComment_getArgText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_InlineCommandComment_getArgText", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_InlineCommandComment_getCommandName, err = ffi.GetSymbol(library, "clang_InlineCommandComment_getCommandName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_InlineCommandComment_getCommandName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_InlineCommandComment_getCommandName", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_InlineCommandComment_getNumArgs, err = ffi.GetSymbol(library, "clang_InlineCommandComment_getNumArgs")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_InlineCommandComment_getNumArgs, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_InlineCommandComment_getNumArgs", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_InlineCommandComment_getRenderKind, err = ffi.GetSymbol(library, "clang_InlineCommandComment_getRenderKind")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_InlineCommandComment_getRenderKind, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_InlineCommandComment_getRenderKind", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_InlineContentComment_hasTrailingNewline, err = ffi.GetSymbol(library, "clang_InlineContentComment_hasTrailingNewline")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_InlineContentComment_hasTrailingNewline, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_InlineContentComment_hasTrailingNewline", err)
 			}
 		}
 	}
@@ -2142,6 +2531,76 @@ func Init() error {
 	}
 
 	{
+		ptr_clang_ParamCommandComment_getDirection, err = ffi.GetSymbol(library, "clang_ParamCommandComment_getDirection")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_ParamCommandComment_getDirection, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ParamCommandComment_getDirection", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_ParamCommandComment_getParamIndex, err = ffi.GetSymbol(library, "clang_ParamCommandComment_getParamIndex")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_ParamCommandComment_getParamIndex, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ParamCommandComment_getParamIndex", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_ParamCommandComment_getParamName, err = ffi.GetSymbol(library, "clang_ParamCommandComment_getParamName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_ParamCommandComment_getParamName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ParamCommandComment_getParamName", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_ParamCommandComment_isDirectionExplicit, err = ffi.GetSymbol(library, "clang_ParamCommandComment_isDirectionExplicit")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_ParamCommandComment_isDirectionExplicit, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ParamCommandComment_isDirectionExplicit", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_ParamCommandComment_isParamIndexValid, err = ffi.GetSymbol(library, "clang_ParamCommandComment_isParamIndexValid")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_ParamCommandComment_isParamIndexValid, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_ParamCommandComment_isParamIndexValid", err)
+			}
+		}
+	}
+
+	{
 		ptr_clang_PrintingPolicy_dispose, err = ffi.GetSymbol(library, "clang_PrintingPolicy_dispose")
 		if err == nil {
 			returnType := types.VoidTypeDescriptor
@@ -2201,6 +2660,63 @@ func Init() error {
 	}
 
 	{
+		ptr_clang_TParamCommandComment_getDepth, err = ffi.GetSymbol(library, "clang_TParamCommandComment_getDepth")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_TParamCommandComment_getDepth, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TParamCommandComment_getDepth", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_TParamCommandComment_getIndex, err = ffi.GetSymbol(library, "clang_TParamCommandComment_getIndex")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+				types.UInt32TypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_TParamCommandComment_getIndex, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TParamCommandComment_getIndex", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_TParamCommandComment_getParamName, err = ffi.GetSymbol(library, "clang_TParamCommandComment_getParamName")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_TParamCommandComment_getParamName, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TParamCommandComment_getParamName", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_TParamCommandComment_isParamPositionValid, err = ffi.GetSymbol(library, "clang_TParamCommandComment_isParamPositionValid")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_TParamCommandComment_isParamPositionValid, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TParamCommandComment_isParamPositionValid", err)
+			}
+		}
+	}
+
+	{
 		ptr_clang_TargetInfo_dispose, err = ffi.GetSymbol(library, "clang_TargetInfo_dispose")
 		if err == nil {
 			returnType := types.VoidTypeDescriptor
@@ -2238,6 +2754,20 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_TargetInfo_getTriple, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TargetInfo_getTriple", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_TextComment_getText, err = ffi.GetSymbol(library, "clang_TextComment_getText")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_TextComment_getText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_TextComment_getText", err)
 			}
 		}
 	}
@@ -2515,6 +3045,34 @@ func Init() error {
 	}
 
 	{
+		ptr_clang_VerbatimBlockLineComment_getText, err = ffi.GetSymbol(library, "clang_VerbatimBlockLineComment_getText")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_VerbatimBlockLineComment_getText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VerbatimBlockLineComment_getText", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_VerbatimLineComment_getText, err = ffi.GetSymbol(library, "clang_VerbatimLineComment_getText")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				commentTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_VerbatimLineComment_getText, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_VerbatimLineComment_getText", err)
+			}
+		}
+	}
+
+	{
 		ptr_clang_VirtualFileOverlay_addFileMapping, err = ffi.GetSymbol(library, "clang_VirtualFileOverlay_addFileMapping")
 		if err == nil {
 			returnType := types.UInt32TypeDescriptor
@@ -2786,6 +3344,21 @@ func Init() error {
 	}
 
 	{
+		ptr_clang_createAPISet, err = ffi.GetSymbol(library, "clang_createAPISet")
+		if err == nil {
+			returnType := types.UInt32TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_createAPISet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_createAPISet", err)
+			}
+		}
+	}
+
+	{
 		ptr_clang_createCXCursorSet, err = ffi.GetSymbol(library, "clang_createCXCursorSet")
 		if err == nil {
 			returnType := types.PointerTypeDescriptor
@@ -2936,6 +3509,20 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_defaultSaveOptions, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_defaultSaveOptions", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_disposeAPISet, err = ffi.GetSymbol(library, "clang_disposeAPISet")
+		if err == nil {
+			returnType := types.VoidTypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_disposeAPISet, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_disposeAPISet", err)
 			}
 		}
 	}
@@ -4862,6 +5449,35 @@ func Init() error {
 			err = ffi.PrepareCallInterface(cif_clang_getSpellingLocation, types.DefaultCall, returnType, argTypes)
 			if err != nil {
 				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSpellingLocation", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_getSymbolGraphForCursor, err = ffi.GetSymbol(library, "clang_getSymbolGraphForCursor")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				cursorTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getSymbolGraphForCursor, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSymbolGraphForCursor", err)
+			}
+		}
+	}
+
+	{
+		ptr_clang_getSymbolGraphForUSR, err = ffi.GetSymbol(library, "clang_getSymbolGraphForUSR")
+		if err == nil {
+			returnType := string_TypeDescriptor
+			argTypes := []*types.TypeDescriptor{
+				types.PointerTypeDescriptor,
+				types.PointerTypeDescriptor,
+			}
+			err = ffi.PrepareCallInterface(cif_clang_getSymbolGraphForUSR, types.DefaultCall, returnType, argTypes)
+			if err != nil {
+				return fmt.Errorf("failed to prepare call interface for %s : %w", "clang_getSymbolGraphForUSR", err)
 			}
 		}
 	}

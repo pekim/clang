@@ -4,6 +4,11 @@ package clang
 
 import "unsafe"
 
+// CXAPISet is an opaque type that represents a data structure containing all the API information for a given translation unit. This can be used for a single symbol symbol graph for a given symbol.
+type APISet struct {
+	ptr unsafe.Pointer
+}
+
 // Opaque pointer representing client data that will be passed through to various callbacks and visitors.
 type ClientData struct {
 	ptr unsafe.Pointer

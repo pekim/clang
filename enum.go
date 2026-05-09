@@ -182,6 +182,98 @@ const (
 	CodeComplete_IncludeCompletionsWithFixIts CodeComplete_Flags = 16
 )
 
+// The most appropriate rendering mode for an inline command, chosen on command semantics in Doxygen.
+type CommentInlineCommandRenderKind uint32
+
+const (
+	// Command argument should be rendered in a normal font.
+	CommentInlineCommandRenderKind_Normal CommentInlineCommandRenderKind = 0
+	// Command argument should be rendered in a bold font.
+	CommentInlineCommandRenderKind_Bold CommentInlineCommandRenderKind = 1
+	// Command argument should be rendered in a monospaced font.
+	CommentInlineCommandRenderKind_Monospaced CommentInlineCommandRenderKind = 2
+	// Command argument should be rendered emphasized (typically italic font).
+	CommentInlineCommandRenderKind_Emphasized CommentInlineCommandRenderKind = 3
+	// Command argument should not be rendered (since it only defines an anchor).
+	CommentInlineCommandRenderKind_Anchor CommentInlineCommandRenderKind = 4
+)
+
+// Describes the type of the comment AST node (CXComment).  A comment node can be considered block content (e. g., paragraph), inline content (plain text) or neither (the root AST node).
+type CommentKind uint32
+
+const (
+	// Null comment.  No AST node is constructed at the requested location because there is no text or a syntax error.
+	Comment_Null CommentKind = 0
+	// Plain text.  Inline content.
+	Comment_Text CommentKind = 1
+	/*
+	   A command with word-like arguments that is considered inline content.
+
+	   For example: \c command.
+	*/
+	Comment_InlineCommand CommentKind = 2
+	/*
+	   HTML start tag with attributes (name-value pairs).  Considered inline content.
+
+	   For example:
+	*/
+	Comment_HTMLStartTag CommentKind = 3
+	/*
+	   HTML end tag.  Considered inline content.
+
+	   For example:
+	*/
+	Comment_HTMLEndTag CommentKind = 4
+	// A paragraph, contains inline comment.  The paragraph itself is block content.
+	Comment_Paragraph CommentKind = 5
+	/*
+	   A command that has zero or more word-like arguments (number of word-like arguments depends on command name) and a paragraph as an argument.  Block command is block content.
+
+	   Paragraph argument is also a child of the block command.
+
+	   For example:  0 word-like arguments and a paragraph argument.
+
+	   AST nodes of special kinds that parser knows about (e. g., \param command) have their own node kinds.
+	*/
+	Comment_BlockCommand CommentKind = 6
+	/*
+	   A \param or \arg command that describes the function parameter (name, passing direction, description).
+
+	   For example: \param [in] ParamName description.
+	*/
+	Comment_ParamCommand CommentKind = 7
+	/*
+	   A \tparam command that describes a template parameter (name and description).
+
+	   For example: \tparam T description.
+	*/
+	Comment_TParamCommand CommentKind = 8
+	/*
+	   A verbatim block command (e. g., preformatted code).  Verbatim block has an opening and a closing command and contains multiple lines of text (CXComment_VerbatimBlockLine child nodes).
+
+	   For example: \verbatim aaa \endverbatim
+	*/
+	Comment_VerbatimBlockCommand CommentKind = 9
+	// A line of text that is contained within a CXComment_VerbatimBlockCommand node.
+	Comment_VerbatimBlockLine CommentKind = 10
+	// A verbatim line command.  Verbatim line has an opening command, a single line of text (up to the newline after the opening command) and has no closing command.
+	Comment_VerbatimLine CommentKind = 11
+	// A full comment attached to a declaration, contains block content.
+	Comment_FullComment CommentKind = 12
+)
+
+// Describes parameter passing direction for \param or \arg command.
+type CommentParamPassDirection uint32
+
+const (
+	// The parameter is an input parameter.
+	CommentParamPassDirection_In CommentParamPassDirection = 0
+	// The parameter is an output parameter.
+	CommentParamPassDirection_Out CommentParamPassDirection = 1
+	// The parameter is an input and output parameter.
+	CommentParamPassDirection_InOut CommentParamPassDirection = 2
+)
+
 /*
 Describes a single piece of text within a code-completion string.
 

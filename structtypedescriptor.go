@@ -8,6 +8,13 @@ import (
 	types "github.com/go-webgpu/goffi/types"
 )
 
+var aPISetImplTypeDescriptor = &types.TypeDescriptor{
+	Alignment: 8,
+	Kind:      types.StructType,
+	Members:   []*types.TypeDescriptor{},
+	Size:      unsafe.Sizeof(APISetImpl{}),
+}
+
 var codeCompleteResultsTypeDescriptor = &types.TypeDescriptor{
 	Alignment: 8,
 	Kind:      types.StructType,
@@ -16,6 +23,16 @@ var codeCompleteResultsTypeDescriptor = &types.TypeDescriptor{
 		types.UInt32TypeDescriptor,
 	},
 	Size: unsafe.Sizeof(CodeCompleteResults{}),
+}
+
+var commentTypeDescriptor = &types.TypeDescriptor{
+	Alignment: 8,
+	Kind:      types.StructType,
+	Members: []*types.TypeDescriptor{
+		types.PointerTypeDescriptor,
+		types.PointerTypeDescriptor,
+	},
+	Size: unsafe.Sizeof(Comment{}),
 }
 
 var completionResultTypeDescriptor = &types.TypeDescriptor{

@@ -10,6 +10,7 @@ var structTestVars = []struct {
 	goSize uintptr
 }{
 	{"CXCodeCompleteResults", 16, unsafe.Sizeof(*new(CodeCompleteResults))},
+	{"CXComment", 16, unsafe.Sizeof(*new(Comment))},
 	{"CXCompletionResult", 16, unsafe.Sizeof(*new(CompletionResult))},
 	{"CXCursor", 32, unsafe.Sizeof(*new(Cursor))},
 	{"CXCursorAndRangeVisitor", 16, unsafe.Sizeof(*new(CursorAndRangeVisitor))},
