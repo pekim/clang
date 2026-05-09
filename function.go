@@ -613,7 +613,7 @@ func (c Cursor) Cursor_getBinaryOpcode() BinaryOperatorKind_ {
 	return ret
 }
 
-func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() String_ {
+func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() string {
 	c_op := op
 
 	var retC String_
@@ -631,7 +631,7 @@ func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getBinaryOpcodeStr", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -640,7 +640,7 @@ Given a cursor that represents a documentable entity (e.g., declaration), return
 
 first paragraph.
 */
-func (c Cursor) Cursor_getBriefCommentText() String_ {
+func (c Cursor) Cursor_getBriefCommentText() string {
 	c_c := c
 
 	var retC String_
@@ -658,7 +658,7 @@ func (c Cursor) Cursor_getBriefCommentText() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getBriefCommentText", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -713,7 +713,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the Index-th clobber of it. This functio
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) String_ {
+func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) string {
 	c_cursor := cursor
 	c_index := index
 
@@ -733,7 +733,7 @@ func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyClobber", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -879,7 +879,7 @@ This function also returns a valid empty string if the cursor does not point at 
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func (p0 Cursor) Cursor_getGCCAssemblyTemplate() String_ {
+func (p0 Cursor) Cursor_getGCCAssemblyTemplate() string {
 	c_p0 := p0
 
 	var retC String_
@@ -897,12 +897,12 @@ func (p0 Cursor) Cursor_getGCCAssemblyTemplate() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getGCCAssemblyTemplate", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Retrieve the CXString representing the mangled name of the cursor.
-func (p0 Cursor) Cursor_getMangling() String_ {
+func (p0 Cursor) Cursor_getMangling() string {
 	c_p0 := p0
 
 	var retC String_
@@ -920,7 +920,7 @@ func (p0 Cursor) Cursor_getMangling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getMangling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -1079,7 +1079,7 @@ func (c Cursor) Cursor_getObjCPropertyAttributes(reserved uint32) uint32 {
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the getter.
-func (c Cursor) Cursor_getObjCPropertyGetterName() String_ {
+func (c Cursor) Cursor_getObjCPropertyGetterName() string {
 	c_c := c
 
 	var retC String_
@@ -1097,12 +1097,12 @@ func (c Cursor) Cursor_getObjCPropertyGetterName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCPropertyGetterName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the setter, if any.
-func (c Cursor) Cursor_getObjCPropertySetterName() String_ {
+func (c Cursor) Cursor_getObjCPropertySetterName() string {
 	c_c := c
 
 	var retC String_
@@ -1120,7 +1120,7 @@ func (c Cursor) Cursor_getObjCPropertySetterName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getObjCPropertySetterName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -1179,7 +1179,7 @@ func (c Cursor) Cursor_getOffsetOfField() int64 {
 }
 
 // Given a cursor that represents a declaration, return the associated comment text, including comment markers.
-func (c Cursor) Cursor_getRawCommentText() String_ {
+func (c Cursor) Cursor_getRawCommentText() string {
 	c_c := c
 
 	var retC String_
@@ -1197,7 +1197,7 @@ func (c Cursor) Cursor_getRawCommentText() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Cursor_getRawCommentText", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -2100,7 +2100,7 @@ Returns the real path name of file.
 
 An empty string may be returned. Use clang_getFileName() in that case.
 */
-func (file File) File_tryGetRealPathName() String_ {
+func (file File) File_tryGetRealPathName() string {
 	c_file := file
 
 	var retC String_
@@ -2118,7 +2118,7 @@ func (file File) File_tryGetRealPathName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_File_tryGetRealPathName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -2334,7 +2334,7 @@ func (module Module) Module_getASTFile() File {
 	return ret
 }
 
-func (module Module) Module_getFullName() String_ {
+func (module Module) Module_getFullName() string {
 	c_module := module
 
 	var retC String_
@@ -2352,11 +2352,11 @@ func (module Module) Module_getFullName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getFullName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
-func (module Module) Module_getName() String_ {
+func (module Module) Module_getName() string {
 	c_module := module
 
 	var retC String_
@@ -2374,7 +2374,7 @@ func (module Module) Module_getName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Module_getName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -2613,7 +2613,7 @@ Get the normalized target triple as a string.
 
 Returns the empty string in case of any error.
 */
-func (info TargetInfo) TargetInfo_getTriple() String_ {
+func (info TargetInfo) TargetInfo_getTriple() string {
 	c_info := info
 
 	var retC String_
@@ -2631,7 +2631,7 @@ func (info TargetInfo) TargetInfo_getTriple() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_TargetInfo_getTriple", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -2871,7 +2871,7 @@ func (t Type_) Type_getNumTemplateArguments() int32 {
 }
 
 // Returns the Objective-C type encoding for the specified CXType.
-func (type_ Type_) Type_getObjCEncoding() String_ {
+func (type_ Type_) Type_getObjCEncoding() string {
 	c_type_ := type_
 
 	var retC String_
@@ -2889,7 +2889,7 @@ func (type_ Type_) Type_getObjCEncoding() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_Type_getObjCEncoding", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -3351,7 +3351,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerKind(isIncomplete *u
 }
 
 // Returns the USR for the container for the current code completion context. If there is not a container for the current context, this function will return the empty string.
-func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() String_ {
+func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() string {
 	c_results := results
 
 	var retC String_
@@ -3369,7 +3369,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetContainerUSR", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -3445,7 +3445,7 @@ func (results *CodeCompleteResults) CodeCompleteGetNumDiagnostics() uint32 {
 }
 
 // Returns the currently-entered selector for an Objective-C message send, formatted like "initWithFoo:bar:". Only guaranteed to return a non-empty string for CXCompletionContext_ObjCInstanceMessage and CXCompletionContext_ObjCClassMessage.
-func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() String_ {
+func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() string {
 	c_results := results
 
 	var retC String_
@@ -3463,12 +3463,12 @@ func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_codeCompleteGetObjCSelector", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C category.
-func ConstructUSR_ObjCCategory(class_name string, category_name string) String_ {
+func ConstructUSR_ObjCCategory(class_name string, category_name string) string {
 	c_class_name, free_c_class_name := libc.CString(class_name)
 	defer free_c_class_name()
 	c_category_name, free_c_category_name := libc.CString(category_name)
@@ -3490,12 +3490,12 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) String_ 
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCCategory", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C class.
-func ConstructUSR_ObjCClass(class_name string) String_ {
+func ConstructUSR_ObjCClass(class_name string) string {
 	c_class_name, free_c_class_name := libc.CString(class_name)
 	defer free_c_class_name()
 
@@ -3514,12 +3514,12 @@ func ConstructUSR_ObjCClass(class_name string) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCClass", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C instance variable and   the USR for its containing class.
-func ConstructUSR_ObjCIvar(name string, classUSR String_) String_ {
+func ConstructUSR_ObjCIvar(name string, classUSR String_) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_classUSR := classUSR
@@ -3540,12 +3540,12 @@ func ConstructUSR_ObjCIvar(name string, classUSR String_) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCIvar", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C method and   the USR for its containing class.
-func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String_) String_ {
+func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String_) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_isInstanceMethod := isInstanceMethod
@@ -3568,12 +3568,12 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR Stri
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCMethod", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C property and the USR  for its containing class.
-func ConstructUSR_ObjCProperty(property string, classUSR String_) String_ {
+func ConstructUSR_ObjCProperty(property string, classUSR String_) string {
 	c_property, free_c_property := libc.CString(property)
 	defer free_c_property()
 	c_classUSR := classUSR
@@ -3594,12 +3594,12 @@ func ConstructUSR_ObjCProperty(property string, classUSR String_) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProperty", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Construct a USR for a specified Objective-C protocol.
-func ConstructUSR_ObjCProtocol(protocol_name string) String_ {
+func ConstructUSR_ObjCProtocol(protocol_name string) string {
 	c_protocol_name, free_c_protocol_name := libc.CString(protocol_name)
 	defer free_c_protocol_name()
 
@@ -3618,7 +3618,7 @@ func ConstructUSR_ObjCProtocol(protocol_name string) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_constructUSR_ObjCProtocol", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4401,7 +4401,7 @@ Format the given diagnostic in a manner that is suitable for display.
 
 This routine will format the given diagnostic to a string, rendering the diagnostic according to the various options given. The clang_defaultDiagnosticDisplayOptions() function returns the set of options that most closely mimics the behavior of the clang compiler.
 */
-func (diagnostic Diagnostic) FormatDiagnostic(options uint32) String_ {
+func (diagnostic Diagnostic) FormatDiagnostic(options uint32) string {
 	c_diagnostic := diagnostic
 	c_options := options
 
@@ -4421,7 +4421,7 @@ func (diagnostic Diagnostic) FormatDiagnostic(options uint32) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_formatDiagnostic", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4578,7 +4578,7 @@ func (t Type_) ArraySize() int64 {
 }
 
 // Retrieve the spelling of a given CXBinaryOperatorKind.
-func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() String_ {
+func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() string {
 	c_kind := kind
 
 	var retC String_
@@ -4596,7 +4596,7 @@ func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getBinaryOperatorKindSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4780,7 +4780,7 @@ func (d Diagnostic) ChildDiagnostics() DiagnosticSet {
 }
 
 // Return a version string, suitable for showing to a user, but not        intended to be parsed (the format is not guaranteed to be stable).
-func GetClangVersion() String_ {
+func GetClangVersion() string {
 	var retC String_
 	args := []unsafe.Pointer{}
 
@@ -4794,12 +4794,12 @@ func GetClangVersion() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getClangVersion", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Retrieve the annotation associated with the given completion string.
-func (completion_string CompletionString) CompletionAnnotation(annotation_number uint32) String_ {
+func (completion_string CompletionString) CompletionAnnotation(annotation_number uint32) string {
 	c_completion_string := completion_string
 	c_annotation_number := annotation_number
 
@@ -4819,7 +4819,7 @@ func (completion_string CompletionString) CompletionAnnotation(annotation_number
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionAnnotation", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4847,7 +4847,7 @@ func (completion_string CompletionString) CompletionAvailability() AvailabilityK
 }
 
 // Retrieve the brief documentation comment attached to the declaration that corresponds to the given completion string.
-func (completion_string CompletionString) CompletionBriefComment() String_ {
+func (completion_string CompletionString) CompletionBriefComment() string {
 	c_completion_string := completion_string
 
 	var retC String_
@@ -4865,7 +4865,7 @@ func (completion_string CompletionString) CompletionBriefComment() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionBriefComment", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4920,7 +4920,7 @@ func (completion_string CompletionString) CompletionChunkKind(chunk_number uint3
 }
 
 // Retrieve the text associated with a particular chunk within a completion string.
-func (completion_string CompletionString) CompletionChunkText(chunk_number uint32) String_ {
+func (completion_string CompletionString) CompletionChunkText(chunk_number uint32) string {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
@@ -4940,7 +4940,7 @@ func (completion_string CompletionString) CompletionChunkText(chunk_number uint3
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionChunkText", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -4955,7 +4955,7 @@ The intuition is that provided fix-its change code around the identifier we comp
 
 std::unique_ptr<std::vector<int>> vec_ptr; In 'vec_ptr.^', one of the completions is 'push_back', it requires replacing '.' with '->'. In 'vec_ptr->^', one of the completions is 'release', it requires replacing '->' with '.'.
 */
-func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
+func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) string {
 	c_results := results
 	c_completion_index := completion_index
 	c_fixit_index := fixit_index
@@ -4979,7 +4979,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionFixIt", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5040,7 +5040,7 @@ Retrieve the parent context of the given completion string.
 
 The parent context of a completion string is the semantic parent of the declaration (if any) that the code completion represents. For example, a code completion for an Objective-C method would have the method's class or protocol as its context.
 */
-func (completion_string CompletionString) CompletionParent(kind *CursorKind) String_ {
+func (completion_string CompletionString) CompletionParent(kind *CursorKind) string {
 	c_completion_string := completion_string
 	c_kind := kind
 
@@ -5060,7 +5060,7 @@ func (completion_string CompletionString) CompletionParent(kind *CursorKind) Str
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCompletionParent", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5229,7 +5229,7 @@ Retrieve the display name for the entity referenced by this cursor.
 
 The display name contains extra information that helps identify the cursor, such as the parameters of a function or template or the arguments of a class template specialization.
 */
-func (p0 Cursor) CursorDisplayName() String_ {
+func (p0 Cursor) CursorDisplayName() string {
 	c_p0 := p0
 
 	var retC String_
@@ -5247,7 +5247,7 @@ func (p0 Cursor) CursorDisplayName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorDisplayName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5333,7 +5333,7 @@ These routines are used for testing and debugging, only, and should not be relie
 
 @{
 */
-func (kind CursorKind) CursorKindSpelling() String_ {
+func (kind CursorKind) CursorKindSpelling() string {
 	c_kind := kind
 
 	var retC String_
@@ -5351,7 +5351,7 @@ func (kind CursorKind) CursorKindSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorKindSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5501,7 +5501,7 @@ func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprec
 }
 
 // Pretty print declarations.
-func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) String_ {
+func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) string {
 	c_cursor := cursor
 	c_policy := policy
 
@@ -5521,7 +5521,7 @@ func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorPrettyPrinted", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5667,7 +5667,7 @@ func (cursor Cursor) CursorSemanticParent() Cursor {
 }
 
 // Retrieve a name for the entity referenced by this cursor.
-func (p0 Cursor) CursorSpelling() String_ {
+func (p0 Cursor) CursorSpelling() string {
 	c_p0 := p0
 
 	var retC String_
@@ -5685,7 +5685,7 @@ func (p0 Cursor) CursorSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5740,7 +5740,7 @@ Retrieve a Unified Symbol Resolution (USR) for the entity referenced by the give
 
 A Unified Symbol Resolution (USR) is a string that identifies a particular entity (function, class, variable, etc.) within a program. USRs can be compared across translation units to determine, e.g., when references in one translation refer to an entity defined in another translation unit.
 */
-func (p0 Cursor) CursorUSR() String_ {
+func (p0 Cursor) CursorUSR() string {
 	c_p0 := p0
 
 	var retC String_
@@ -5758,7 +5758,7 @@ func (p0 Cursor) CursorUSR() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getCursorUSR", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5817,7 +5817,7 @@ func (cursor Cursor) CursorVisibility() VisibilityKind {
 }
 
 // Returns the Objective-C type encoding for the specified declaration.
-func (c Cursor) DeclObjCTypeEncoding() String_ {
+func (c Cursor) DeclObjCTypeEncoding() string {
 	c_c := c
 
 	var retC String_
@@ -5835,7 +5835,7 @@ func (c Cursor) DeclObjCTypeEncoding() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDeclObjCTypeEncoding", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5894,7 +5894,7 @@ func (p0 Diagnostic) DiagnosticCategory() uint32 {
 }
 
 // Retrieve the name of a particular diagnostic category.  This  is now deprecated.  Use clang_getDiagnosticCategoryText()  instead.
-func GetDiagnosticCategoryName(category uint32) String_ {
+func GetDiagnosticCategoryName(category uint32) string {
 	c_category := category
 
 	var retC String_
@@ -5912,12 +5912,12 @@ func GetDiagnosticCategoryName(category uint32) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Retrieve the diagnostic category text for a given diagnostic.
-func (p0 Diagnostic) DiagnosticCategoryText() String_ {
+func (p0 Diagnostic) DiagnosticCategoryText() string {
 	c_p0 := p0
 
 	var retC String_
@@ -5935,7 +5935,7 @@ func (p0 Diagnostic) DiagnosticCategoryText() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticCategoryText", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -5944,7 +5944,7 @@ Retrieve the replacement information for a given fix-it.
 
 Fix-its are described in terms of a source range whose contents should be replaced by a string. This approach generalizes over three kinds of operations: removal of source code (the range covers the code to be removed and the replacement string is empty), replacement of source code (the range covers the code to be replaced and the replacement string provides the new code), and insertion (both the start and end of the range point at the insertion location, and the replacement string provides the text to insert).
 */
-func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) String_ {
+func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) string {
 	c_diagnostic := diagnostic
 	c_fixIt := fixIt
 	c_replacementRange := replacementRange
@@ -5966,7 +5966,7 @@ func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *Sou
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticFixIt", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -6069,7 +6069,7 @@ func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
 }
 
 // Retrieve the name of the command-line option that enabled this diagnostic.
-func (diag Diagnostic) DiagnosticOption(disable *String_) String_ {
+func (diag Diagnostic) DiagnosticOption(disable *String_) string {
 	c_diag := diag
 	c_disable := disable
 
@@ -6089,7 +6089,7 @@ func (diag Diagnostic) DiagnosticOption(disable *String_) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticOption", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -6169,7 +6169,7 @@ func (p0 Diagnostic) DiagnosticSeverity() DiagnosticSeverity {
 }
 
 // Retrieve the text of the given diagnostic.
-func (p0 Diagnostic) DiagnosticSpelling() String_ {
+func (p0 Diagnostic) DiagnosticSpelling() string {
 	c_p0 := p0
 
 	var retC String_
@@ -6187,7 +6187,7 @@ func (p0 Diagnostic) DiagnosticSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getDiagnosticSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -6446,7 +6446,7 @@ func (location SourceLocation) FileLocation(file *File, line *uint32, column *ui
 }
 
 // Retrieve the complete file and path name of the given file.
-func (sFile File) FileName() String_ {
+func (sFile File) FileName() string {
 	c_sFile := sFile
 
 	var retC String_
@@ -6464,7 +6464,7 @@ func (sFile File) FileName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -6502,7 +6502,7 @@ This includes full qualification of all template parameters.
 
 Policy - Further refine the type formatting WithGlobalNsPrefix - If non-zero, function will prepend a '::' to qualified names
 */
-func (cT Type_) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
+func (cT Type_) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) string {
 	c_cT := cT
 	c_policy := policy
 	c_withGlobalNsPrefix := withGlobalNsPrefix
@@ -6524,7 +6524,7 @@ func (cT Type_) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uin
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFullyQualifiedName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7449,7 +7449,7 @@ Determine the spelling of the given token.
 
 The spelling of a token is the textual representation of that token, e.g., the text of an identifier or keyword.
 */
-func (p0 TranslationUnit) TokenSpelling(p1 Token) String_ {
+func (p0 TranslationUnit) TokenSpelling(p1 Token) string {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -7469,7 +7469,7 @@ func (p0 TranslationUnit) TokenSpelling(p1 Token) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTokenSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7501,7 +7501,7 @@ func (p0 TranslationUnit) TranslationUnitCursor() Cursor {
 }
 
 // Get the original translation unit source file name.
-func (cTUnit TranslationUnit) TranslationUnitSpelling() String_ {
+func (cTUnit TranslationUnit) TranslationUnitSpelling() string {
 	c_cTUnit := cTUnit
 
 	var retC String_
@@ -7519,7 +7519,7 @@ func (cTUnit TranslationUnit) TranslationUnitSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTranslationUnitSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7574,7 +7574,7 @@ func (t Type_) TypeDeclaration() Cursor {
 }
 
 // Retrieve the spelling of a given CXTypeKind.
-func (k TypeKind) TypeKindSpelling() String_ {
+func (k TypeKind) TypeKindSpelling() string {
 	c_k := k
 
 	var retC String_
@@ -7592,7 +7592,7 @@ func (k TypeKind) TypeKindSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypeKindSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7601,7 +7601,7 @@ Pretty-print the underlying type using a custom printing policy.
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) TypePrettyPrinted(cxPolicy PrintingPolicy) String_ {
+func (cT Type_) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
@@ -7621,7 +7621,7 @@ func (cT Type_) TypePrettyPrinted(cxPolicy PrintingPolicy) String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypePrettyPrinted", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7630,7 +7630,7 @@ Pretty-print the underlying type using the rules of the language of the translat
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) TypeSpelling() String_ {
+func (cT Type_) TypeSpelling() string {
 	c_cT := cT
 
 	var retC String_
@@ -7648,7 +7648,7 @@ func (cT Type_) TypeSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypeSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
@@ -7680,7 +7680,7 @@ func (c Cursor) TypedefDeclUnderlyingType() Type_ {
 }
 
 // Returns the typedef name of the given type.
-func (cT Type_) TypedefName() String_ {
+func (cT Type_) TypedefName() string {
 	c_cT := cT
 
 	var retC String_
@@ -7698,12 +7698,12 @@ func (cT Type_) TypedefName() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getTypedefName", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 
 // Retrieve the spelling of a given CXUnaryOperatorKind.
-func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() String_ {
+func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() string {
 	c_kind := kind
 
 	var retC String_
@@ -7721,7 +7721,7 @@ func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() String_ {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getUnaryOperatorKindSpelling", err))
 	}
 
-	ret := retC
+	ret := retC.CString()
 	return ret
 }
 

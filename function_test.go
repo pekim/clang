@@ -17,9 +17,7 @@ func TestFunctionNoArgsNoReturn(t *testing.T) {
 func TestFunctionReturnCXString(t *testing.T) {
 	assert.NoError(t, Init())
 
-	cxString := GetClangVersion()
-	version := cxString.CString()
-	assert.True(t, strings.HasPrefix(version, "clang version "))
+	assert.True(t, strings.HasPrefix(GetClangVersion(), "clang version "))
 }
 
 func TestFunctionScalarArgsPointerTypeReturn(t *testing.T) {
