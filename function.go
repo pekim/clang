@@ -4445,7 +4445,7 @@ func Free(buffer unsafe.Pointer) {
 }
 
 // Returns the address space of the given type.
-func (t Type_) GetAddressSpace() uint32 {
+func (t Type_) AddressSpace() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -4472,7 +4472,7 @@ Retrieve all ranges from all files that were skipped by the preprocessor.
 
 The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
 */
-func (tu TranslationUnit) GetAllSkippedRanges() *SourceRangeList {
+func (tu TranslationUnit) AllSkippedRanges() *SourceRangeList {
 	c_tu := tu
 
 	var retC unsafe.Pointer
@@ -4499,7 +4499,7 @@ Retrieve the type of a parameter of a function type.
 
 If a non-function type is passed in or the function does not have enough parameters, an invalid type is returned.
 */
-func (t Type_) GetArgType(i uint32) Type_ {
+func (t Type_) ArgType(i uint32) Type_ {
 	c_t := t
 	c_i := i
 
@@ -4528,7 +4528,7 @@ Return the element type of an array type.
 
 If a non-array type is passed in, an invalid type is returned.
 */
-func (t Type_) GetArrayElementType() Type_ {
+func (t Type_) ArrayElementType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -4555,7 +4555,7 @@ Return the array size of a constant array.
 
 If a non-array type is passed in, -1 is returned.
 */
-func (t Type_) GetArraySize() int64 {
+func (t Type_) ArraySize() int64 {
 	c_t := t
 
 	var retC int64
@@ -4578,7 +4578,7 @@ func (t Type_) GetArraySize() int64 {
 }
 
 // Retrieve the spelling of a given CXBinaryOperatorKind.
-func (kind BinaryOperatorKind) GetBinaryOperatorKindSpelling() String_ {
+func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -4624,7 +4624,7 @@ Retrieve the character data associated with the given string.
 
 The returned data is a reference and not owned by the user. This data is only valid while the `CXString` is valid. This function is similar to `std::string::c_str()`.
 */
-func (string_ String_) GetCString() string {
+func (string_ String_) CString() string {
 	c_string_ := string_
 
 	var retC unsafe.Pointer
@@ -4647,7 +4647,7 @@ func (string_ String_) GetCString() string {
 }
 
 // Return the memory usage of a translation unit.  This object  should be released with clang_disposeCXTUResourceUsage().
-func (tU TranslationUnit) GetCXTUResourceUsage() TUResourceUsage {
+func (tU TranslationUnit) CXTUResourceUsage() TUResourceUsage {
 	c_tU := tU
 
 	var retC TUResourceUsage
@@ -4674,7 +4674,7 @@ Returns the access control level for the referenced object.
 
 If the cursor refers to a C++ declaration, its access control level within its parent scope is returned. Otherwise, if the cursor refers to a base specifier or access specifier, the specifier itself is returned.
 */
-func (p0 Cursor) GetCXXAccessSpecifier() CXXAccessSpecifier {
+func (p0 Cursor) CXXAccessSpecifier() CXXAccessSpecifier {
 	c_p0 := p0
 
 	var retC CXXAccessSpecifier
@@ -4703,7 +4703,7 @@ In the C family of languages, many kinds of entities can be declared several tim
 
 The declarations and the definition of X are represented by three different cursors, all of which are declarations of the same underlying entity. One of these cursor is considered the "canonical" cursor, which is effectively the representative for the underlying entity. One can determine if two cursors are declarations of the same underlying entity by comparing their canonical cursors.
 */
-func (p0 Cursor) GetCanonicalCursor() Cursor {
+func (p0 Cursor) CanonicalCursor() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -4730,7 +4730,7 @@ Return the canonical type for a CXType.
 
 Clang's type system explicitly models typedefs and all the ways a specific type can be represented.  The canonical type is the underlying type with all the "sugar" removed.  For example, if 'T' is a typedef for 'int', the canonical type for 'T' would be 'int'.
 */
-func (t Type_) GetCanonicalType() Type_ {
+func (t Type_) CanonicalType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -4757,7 +4757,7 @@ Retrieve the child diagnostics of a CXDiagnostic.
 
 This CXDiagnosticSet does not need to be released by clang_disposeDiagnosticSet.
 */
-func (d Diagnostic) GetChildDiagnostics() DiagnosticSet {
+func (d Diagnostic) ChildDiagnostics() DiagnosticSet {
 	c_d := d
 
 	var retC DiagnosticSet
@@ -4799,7 +4799,7 @@ func GetClangVersion() String_ {
 }
 
 // Retrieve the annotation associated with the given completion string.
-func (completion_string CompletionString) GetCompletionAnnotation(annotation_number uint32) String_ {
+func (completion_string CompletionString) CompletionAnnotation(annotation_number uint32) String_ {
 	c_completion_string := completion_string
 	c_annotation_number := annotation_number
 
@@ -4824,7 +4824,7 @@ func (completion_string CompletionString) GetCompletionAnnotation(annotation_num
 }
 
 // Determine the availability of the entity that this code-completion string refers to.
-func (completion_string CompletionString) GetCompletionAvailability() AvailabilityKind {
+func (completion_string CompletionString) CompletionAvailability() AvailabilityKind {
 	c_completion_string := completion_string
 
 	var retC AvailabilityKind
@@ -4847,7 +4847,7 @@ func (completion_string CompletionString) GetCompletionAvailability() Availabili
 }
 
 // Retrieve the brief documentation comment attached to the declaration that corresponds to the given completion string.
-func (completion_string CompletionString) GetCompletionBriefComment() String_ {
+func (completion_string CompletionString) CompletionBriefComment() String_ {
 	c_completion_string := completion_string
 
 	var retC String_
@@ -4870,7 +4870,7 @@ func (completion_string CompletionString) GetCompletionBriefComment() String_ {
 }
 
 // Retrieve the completion string associated with a particular chunk within a completion string.
-func (completion_string CompletionString) GetCompletionChunkCompletionString(chunk_number uint32) CompletionString {
+func (completion_string CompletionString) CompletionChunkCompletionString(chunk_number uint32) CompletionString {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
@@ -4895,7 +4895,7 @@ func (completion_string CompletionString) GetCompletionChunkCompletionString(chu
 }
 
 // Determine the kind of a particular chunk within a completion string.
-func (completion_string CompletionString) GetCompletionChunkKind(chunk_number uint32) CompletionChunkKind {
+func (completion_string CompletionString) CompletionChunkKind(chunk_number uint32) CompletionChunkKind {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
@@ -4920,7 +4920,7 @@ func (completion_string CompletionString) GetCompletionChunkKind(chunk_number ui
 }
 
 // Retrieve the text associated with a particular chunk within a completion string.
-func (completion_string CompletionString) GetCompletionChunkText(chunk_number uint32) String_ {
+func (completion_string CompletionString) CompletionChunkText(chunk_number uint32) String_ {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
@@ -4955,7 +4955,7 @@ The intuition is that provided fix-its change code around the identifier we comp
 
 std::unique_ptr<std::vector<int>> vec_ptr; In 'vec_ptr.^', one of the completions is 'push_back', it requires replacing '.' with '->'. In 'vec_ptr->^', one of the completions is 'release', it requires replacing '->' with '.'.
 */
-func (results *CodeCompleteResults) GetCompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
+func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
 	c_results := results
 	c_completion_index := completion_index
 	c_fixit_index := fixit_index
@@ -4984,7 +4984,7 @@ func (results *CodeCompleteResults) GetCompletionFixIt(completion_index uint32, 
 }
 
 // Retrieve the number of annotations associated with the given completion string.
-func (completion_string CompletionString) GetCompletionNumAnnotations() uint32 {
+func (completion_string CompletionString) CompletionNumAnnotations() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
@@ -5011,7 +5011,7 @@ Retrieve the number of fix-its for the given completion index.
 
 Calling this makes sense only if CXCodeComplete_IncludeCompletionsWithFixIts option was set.
 */
-func (results *CodeCompleteResults) GetCompletionNumFixIts(completion_index uint32) uint32 {
+func (results *CodeCompleteResults) CompletionNumFixIts(completion_index uint32) uint32 {
 	c_results := results
 	c_completion_index := completion_index
 
@@ -5040,7 +5040,7 @@ Retrieve the parent context of the given completion string.
 
 The parent context of a completion string is the semantic parent of the declaration (if any) that the code completion represents. For example, a code completion for an Objective-C method would have the method's class or protocol as its context.
 */
-func (completion_string CompletionString) GetCompletionParent(kind *CursorKind) String_ {
+func (completion_string CompletionString) CompletionParent(kind *CursorKind) String_ {
 	c_completion_string := completion_string
 	c_kind := kind
 
@@ -5069,7 +5069,7 @@ Determine the priority of this code completion.
 
 The priority of a code completion indicates how likely it is that this particular completion is the completion that the user will select. The priority is selected by various internal heuristics.
 */
-func (completion_string CompletionString) GetCompletionPriority() uint32 {
+func (completion_string CompletionString) CompletionPriority() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
@@ -5096,7 +5096,7 @@ Map a source location to the cursor that describes the entity at that location i
 
 clang_getCursor() maps an arbitrary source location within a translation unit down to the most specific cursor that describes the entity at that location. For example, given an expression x + y, invoking clang_getCursor() with a source location pointing to "x" will return the cursor for "x"; similarly for "y". If the cursor points anywhere between "x" or "y" (e.g., on the + or the whitespace around it), clang_getCursor() will return a cursor referring to the "+" expression.
 */
-func (p0 TranslationUnit) GetCursor(p1 SourceLocation) Cursor {
+func (p0 TranslationUnit) Cursor(p1 SourceLocation) Cursor {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -5121,7 +5121,7 @@ func (p0 TranslationUnit) GetCursor(p1 SourceLocation) Cursor {
 }
 
 // Determine the availability of the entity that this cursor refers to, taking the current target platform into account.
-func (cursor Cursor) GetCursorAvailability() AvailabilityKind {
+func (cursor Cursor) CursorAvailability() AvailabilityKind {
 	c_cursor := cursor
 
 	var retC AvailabilityKind
@@ -5148,7 +5148,7 @@ Retrieve the binary operator kind of this cursor.
 
 If this cursor is not a binary operator then returns Invalid.
 */
-func (cursor Cursor) GetCursorBinaryOperatorKind() BinaryOperatorKind {
+func (cursor Cursor) CursorBinaryOperatorKind() BinaryOperatorKind {
 	c_cursor := cursor
 
 	var retC BinaryOperatorKind
@@ -5171,7 +5171,7 @@ func (cursor Cursor) GetCursorBinaryOperatorKind() BinaryOperatorKind {
 }
 
 // Retrieve a completion string for an arbitrary declaration or macro definition cursor.
-func (cursor Cursor) GetCursorCompletionString() CompletionString {
+func (cursor Cursor) CursorCompletionString() CompletionString {
 	c_cursor := cursor
 
 	var retC CompletionString
@@ -5202,7 +5202,7 @@ there are three declarations of the function "f", but only the  second one is a 
 
 If given a cursor for which there is no corresponding definition,  e.g., because there is no definition of that entity within this  translation unit, returns a NULL cursor.
 */
-func (p0 Cursor) GetCursorDefinition() Cursor {
+func (p0 Cursor) CursorDefinition() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -5229,7 +5229,7 @@ Retrieve the display name for the entity referenced by this cursor.
 
 The display name contains extra information that helps identify the cursor, such as the parameters of a function or template or the arguments of a class template specialization.
 */
-func (p0 Cursor) GetCursorDisplayName() String_ {
+func (p0 Cursor) CursorDisplayName() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5256,7 +5256,7 @@ Retrieve the exception specification type associated with a given cursor. This i
 
 This only returns a valid result if the cursor refers to a function or method.
 */
-func (c Cursor) GetCursorExceptionSpecificationType() int32 {
+func (c Cursor) CursorExceptionSpecificationType() int32 {
 	c_c := c
 
 	var retC int32
@@ -5283,7 +5283,7 @@ Retrieve the physical extent of the source construct referenced by the given cur
 
 The extent of a cursor starts with the file/line/column pointing at the first character within the source construct that the cursor refers to and ends with the last character within that source construct. For a declaration, the extent covers the declaration itself. For a reference, the extent covers the location of the reference (e.g., where the referenced entity was actually used).
 */
-func (p0 Cursor) GetCursorExtent() SourceRange {
+func (p0 Cursor) CursorExtent() SourceRange {
 	c_p0 := p0
 
 	var retC SourceRange
@@ -5306,7 +5306,7 @@ func (p0 Cursor) GetCursorExtent() SourceRange {
 }
 
 // Retrieve the kind of the given cursor.
-func (p0 Cursor) GetCursorKind() CursorKind {
+func (p0 Cursor) CursorKind() CursorKind {
 	c_p0 := p0
 
 	var retC CursorKind
@@ -5333,7 +5333,7 @@ These routines are used for testing and debugging, only, and should not be relie
 
 @{
 */
-func (kind CursorKind) GetCursorKindSpelling() String_ {
+func (kind CursorKind) CursorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -5356,7 +5356,7 @@ func (kind CursorKind) GetCursorKindSpelling() String_ {
 }
 
 // Determine the "language" of the entity referred to by a given cursor.
-func (cursor Cursor) GetCursorLanguage() LanguageKind {
+func (cursor Cursor) CursorLanguage() LanguageKind {
 	c_cursor := cursor
 
 	var retC LanguageKind
@@ -5389,7 +5389,7 @@ In the example above, both declarations of C::f have C as their semantic context
 
 For declarations written in the global scope, the lexical parent is the translation unit.
 */
-func (cursor Cursor) GetCursorLexicalParent() Cursor {
+func (cursor Cursor) CursorLexicalParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -5412,7 +5412,7 @@ func (cursor Cursor) GetCursorLexicalParent() Cursor {
 }
 
 // Determine the linkage of the entity referred to by a given cursor.
-func (cursor Cursor) GetCursorLinkage() LinkageKind {
+func (cursor Cursor) CursorLinkage() LinkageKind {
 	c_cursor := cursor
 
 	var retC LinkageKind
@@ -5439,7 +5439,7 @@ Retrieve the physical location of the source constructor referenced by the given
 
 The location of a declaration is typically the location of the name of that declaration, where the name of that declaration would occur if it is unnamed, or some keyword that introduces that particular declaration. The location of a reference is where that reference occurs within the source code.
 */
-func (p0 Cursor) GetCursorLocation() SourceLocation {
+func (p0 Cursor) CursorLocation() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
@@ -5466,7 +5466,7 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func (cursor Cursor) GetCursorPlatformAvailability(always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
+func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
 	c_cursor := cursor
 	c_always_deprecated := always_deprecated
 	c_deprecated_message := deprecated_message
@@ -5501,7 +5501,7 @@ func (cursor Cursor) GetCursorPlatformAvailability(always_deprecated *int32, dep
 }
 
 // Pretty print declarations.
-func (cursor Cursor) GetCursorPrettyPrinted(policy PrintingPolicy) String_ {
+func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) String_ {
 	c_cursor := cursor
 	c_policy := policy
 
@@ -5530,7 +5530,7 @@ Retrieve the default policy for the cursor.
 
 The policy should be released after use with clang_PrintingPolicy_dispose.
 */
-func (p0 Cursor) GetCursorPrintingPolicy() PrintingPolicy {
+func (p0 Cursor) CursorPrintingPolicy() PrintingPolicy {
 	c_p0 := p0
 
 	var retC PrintingPolicy
@@ -5553,7 +5553,7 @@ func (p0 Cursor) GetCursorPrintingPolicy() PrintingPolicy {
 }
 
 // Given a cursor that references something else, return the source range covering that reference.
-func (c Cursor) GetCursorReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRange {
+func (c Cursor) CursorReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRange {
 	c_c := c
 	c_nameFlags := nameFlags
 	c_pieceIndex := pieceIndex
@@ -5584,7 +5584,7 @@ For a cursor that is a reference, retrieve a cursor representing the entity that
 
 Reference cursors refer to other entities in the AST. For example, an Objective-C superclass reference cursor refers to an Objective-C class. This function produces the cursor for the Objective-C class from the cursor for the superclass reference. If the input cursor is a declaration or definition, it returns that declaration or definition unchanged. Otherwise, returns the NULL cursor.
 */
-func (p0 Cursor) GetCursorReferenced() Cursor {
+func (p0 Cursor) CursorReferenced() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -5611,7 +5611,7 @@ Retrieve the return type associated with a given cursor.
 
 This only returns a valid type if the cursor refers to a function or method.
 */
-func (c Cursor) GetCursorResultType() Type_ {
+func (c Cursor) CursorResultType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -5644,7 +5644,7 @@ In the example above, both declarations of C::f have C as their semantic context
 
 For global declarations, the semantic parent is the translation unit.
 */
-func (cursor Cursor) GetCursorSemanticParent() Cursor {
+func (cursor Cursor) CursorSemanticParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -5667,7 +5667,7 @@ func (cursor Cursor) GetCursorSemanticParent() Cursor {
 }
 
 // Retrieve a name for the entity referenced by this cursor.
-func (p0 Cursor) GetCursorSpelling() String_ {
+func (p0 Cursor) CursorSpelling() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5690,7 +5690,7 @@ func (p0 Cursor) GetCursorSpelling() String_ {
 }
 
 // Determine the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
-func (cursor Cursor) GetCursorTLSKind() TLSKind {
+func (cursor Cursor) CursorTLSKind() TLSKind {
 	c_cursor := cursor
 
 	var retC TLSKind
@@ -5713,7 +5713,7 @@ func (cursor Cursor) GetCursorTLSKind() TLSKind {
 }
 
 // Retrieve the type of a CXCursor (if any).
-func (c Cursor) GetCursorType() Type_ {
+func (c Cursor) CursorType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -5740,7 +5740,7 @@ Retrieve a Unified Symbol Resolution (USR) for the entity referenced by the give
 
 A Unified Symbol Resolution (USR) is a string that identifies a particular entity (function, class, variable, etc.) within a program. USRs can be compared across translation units to determine, e.g., when references in one translation refer to an entity defined in another translation unit.
 */
-func (p0 Cursor) GetCursorUSR() String_ {
+func (p0 Cursor) CursorUSR() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5767,7 +5767,7 @@ Retrieve the unary operator kind of this cursor.
 
 If this cursor is not a unary operator then returns Invalid.
 */
-func (cursor Cursor) GetCursorUnaryOperatorKind() UnaryOperatorKind {
+func (cursor Cursor) CursorUnaryOperatorKind() UnaryOperatorKind {
 	c_cursor := cursor
 
 	var retC UnaryOperatorKind
@@ -5794,7 +5794,7 @@ Describe the visibility of the entity referred to by a cursor.
 
 This returns the default visibility if not explicitly specified by a visibility attribute. The default visibility may be changed by commandline arguments.
 */
-func (cursor Cursor) GetCursorVisibility() VisibilityKind {
+func (cursor Cursor) CursorVisibility() VisibilityKind {
 	c_cursor := cursor
 
 	var retC VisibilityKind
@@ -5817,7 +5817,7 @@ func (cursor Cursor) GetCursorVisibility() VisibilityKind {
 }
 
 // Returns the Objective-C type encoding for the specified declaration.
-func (c Cursor) GetDeclObjCTypeEncoding() String_ {
+func (c Cursor) DeclObjCTypeEncoding() String_ {
 	c_c := c
 
 	var retC String_
@@ -5842,7 +5842,7 @@ func (c Cursor) GetDeclObjCTypeEncoding() String_ {
 // not supported : clang_getDefinitionSpellingAndExtent : param startBuf : const char **
 
 // Retrieve a diagnostic associated with the given translation unit.
-func (unit TranslationUnit) GetDiagnostic(index uint32) Diagnostic {
+func (unit TranslationUnit) Diagnostic(index uint32) Diagnostic {
 	c_unit := unit
 	c_index := index
 
@@ -5871,7 +5871,7 @@ Retrieve the category number for this diagnostic.
 
 Diagnostics can be categorized into groups along with other, related diagnostics (e.g., diagnostics under the same warning flag). This routine retrieves the category number for the given diagnostic.
 */
-func (p0 Diagnostic) GetDiagnosticCategory() uint32 {
+func (p0 Diagnostic) DiagnosticCategory() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -5917,7 +5917,7 @@ func GetDiagnosticCategoryName(category uint32) String_ {
 }
 
 // Retrieve the diagnostic category text for a given diagnostic.
-func (p0 Diagnostic) GetDiagnosticCategoryText() String_ {
+func (p0 Diagnostic) DiagnosticCategoryText() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5944,7 +5944,7 @@ Retrieve the replacement information for a given fix-it.
 
 Fix-its are described in terms of a source range whose contents should be replaced by a string. This approach generalizes over three kinds of operations: removal of source code (the range covers the code to be removed and the replacement string is empty), replacement of source code (the range covers the code to be replaced and the replacement string provides the new code), and insertion (both the start and end of the range point at the insertion location, and the replacement string provides the text to insert).
 */
-func (diagnostic Diagnostic) GetDiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) String_ {
+func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) String_ {
 	c_diagnostic := diagnostic
 	c_fixIt := fixIt
 	c_replacementRange := replacementRange
@@ -5971,7 +5971,7 @@ func (diagnostic Diagnostic) GetDiagnosticFixIt(fixIt uint32, replacementRange *
 }
 
 // Retrieve a diagnostic associated with the given CXDiagnosticSet.
-func (diags DiagnosticSet) GetDiagnosticInSet(index uint32) Diagnostic {
+func (diags DiagnosticSet) DiagnosticInSet(index uint32) Diagnostic {
 	c_diags := diags
 	c_index := index
 
@@ -6000,7 +6000,7 @@ Retrieve the source location of the given diagnostic.
 
 This location is where Clang would print the caret ('^') when displaying the diagnostic on the command line.
 */
-func (p0 Diagnostic) GetDiagnosticLocation() SourceLocation {
+func (p0 Diagnostic) DiagnosticLocation() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
@@ -6023,7 +6023,7 @@ func (p0 Diagnostic) GetDiagnosticLocation() SourceLocation {
 }
 
 // Determine the number of fix-it hints associated with the given diagnostic.
-func (diagnostic Diagnostic) GetDiagnosticNumFixIts() uint32 {
+func (diagnostic Diagnostic) DiagnosticNumFixIts() uint32 {
 	c_diagnostic := diagnostic
 
 	var retC uint32
@@ -6046,7 +6046,7 @@ func (diagnostic Diagnostic) GetDiagnosticNumFixIts() uint32 {
 }
 
 // Determine the number of source ranges associated with the given diagnostic.
-func (p0 Diagnostic) GetDiagnosticNumRanges() uint32 {
+func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -6069,7 +6069,7 @@ func (p0 Diagnostic) GetDiagnosticNumRanges() uint32 {
 }
 
 // Retrieve the name of the command-line option that enabled this diagnostic.
-func (diag Diagnostic) GetDiagnosticOption(disable *String_) String_ {
+func (diag Diagnostic) DiagnosticOption(disable *String_) String_ {
 	c_diag := diag
 	c_disable := disable
 
@@ -6098,7 +6098,7 @@ Retrieve a source range associated with the diagnostic.
 
 A diagnostic's source ranges highlight important elements in the source code. On the command line, Clang displays source ranges by underlining them with '~' characters.
 */
-func (diagnostic Diagnostic) GetDiagnosticRange(range_ uint32) SourceRange {
+func (diagnostic Diagnostic) DiagnosticRange(range_ uint32) SourceRange {
 	c_diagnostic := diagnostic
 	c_range_ := range_
 
@@ -6123,7 +6123,7 @@ func (diagnostic Diagnostic) GetDiagnosticRange(range_ uint32) SourceRange {
 }
 
 // Retrieve the complete set of diagnostics associated with a        translation unit.
-func (unit TranslationUnit) GetDiagnosticSetFromTU() DiagnosticSet {
+func (unit TranslationUnit) DiagnosticSetFromTU() DiagnosticSet {
 	c_unit := unit
 
 	var retC DiagnosticSet
@@ -6146,7 +6146,7 @@ func (unit TranslationUnit) GetDiagnosticSetFromTU() DiagnosticSet {
 }
 
 // Determine the severity of the given diagnostic.
-func (p0 Diagnostic) GetDiagnosticSeverity() DiagnosticSeverity {
+func (p0 Diagnostic) DiagnosticSeverity() DiagnosticSeverity {
 	c_p0 := p0
 
 	var retC DiagnosticSeverity
@@ -6169,7 +6169,7 @@ func (p0 Diagnostic) GetDiagnosticSeverity() DiagnosticSeverity {
 }
 
 // Retrieve the text of the given diagnostic.
-func (p0 Diagnostic) GetDiagnosticSpelling() String_ {
+func (p0 Diagnostic) DiagnosticSpelling() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -6196,7 +6196,7 @@ Return the element type of an array, complex, or vector type.
 
 If a type is passed in that is not an array, complex, or vector type, an invalid type is returned.
 */
-func (t Type_) GetElementType() Type_ {
+func (t Type_) ElementType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -6223,7 +6223,7 @@ Retrieve the integer value of an enum constant declaration as an unsigned  long 
 
 If the cursor does not reference an enum constant declaration, ULLONG_MAX is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
 */
-func (c Cursor) GetEnumConstantDeclUnsignedValue() uint64 {
+func (c Cursor) EnumConstantDeclUnsignedValue() uint64 {
 	c_c := c
 
 	var retC uint64
@@ -6250,7 +6250,7 @@ Retrieve the integer value of an enum constant declaration as a signed  long lon
 
 If the cursor does not reference an enum constant declaration, LLONG_MIN is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
 */
-func (c Cursor) GetEnumConstantDeclValue() int64 {
+func (c Cursor) EnumConstantDeclValue() int64 {
 	c_c := c
 
 	var retC int64
@@ -6277,7 +6277,7 @@ Retrieve the integer type of an enum declaration.
 
 If the cursor does not reference an enum declaration, an invalid type is returned.
 */
-func (c Cursor) GetEnumDeclIntegerType() Type_ {
+func (c Cursor) EnumDeclIntegerType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -6304,7 +6304,7 @@ Retrieve the exception specification type associated with a function type. This 
 
 If a non-function type is passed in, an error code of -1 is returned.
 */
-func (t Type_) GetExceptionSpecificationType() int32 {
+func (t Type_) ExceptionSpecificationType() int32 {
 	c_t := t
 
 	var retC int32
@@ -6331,7 +6331,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion.
 */
-func (location SourceLocation) GetExpansionLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) ExpansionLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6364,7 +6364,7 @@ If the cursor does not reference a bit-field, or if the bit-field's width expres
 
 For example:
 */
-func (c Cursor) GetFieldDeclBitWidth() int32 {
+func (c Cursor) FieldDeclBitWidth() int32 {
 	c_c := c
 
 	var retC int32
@@ -6387,7 +6387,7 @@ func (c Cursor) GetFieldDeclBitWidth() int32 {
 }
 
 // Retrieve a file handle within the given translation unit.
-func (tu TranslationUnit) GetFile(file_name string) File {
+func (tu TranslationUnit) File(file_name string) File {
 	c_tu := tu
 	c_file_name, free_c_file_name := libc.CString(file_name)
 	defer free_c_file_name()
@@ -6419,7 +6419,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, return where the macro was expanded or where the macro argument was written, if the location points at a macro argument.
 */
-func (location SourceLocation) GetFileLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) FileLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6446,7 +6446,7 @@ func (location SourceLocation) GetFileLocation(file *File, line *uint32, column 
 }
 
 // Retrieve the complete file and path name of the given file.
-func (sFile File) GetFileName() String_ {
+func (sFile File) FileName() String_ {
 	c_sFile := sFile
 
 	var retC String_
@@ -6471,7 +6471,7 @@ func (sFile File) GetFileName() String_ {
 // not supported : clang_getFileTime : return value : time_t
 
 // Retrieve the unique ID for the given file.
-func (file File) GetFileUniqueID(outID *FileUniqueID) int32 {
+func (file File) FileUniqueID(outID *FileUniqueID) int32 {
 	c_file := file
 	c_outID := outID
 
@@ -6502,7 +6502,7 @@ This includes full qualification of all template parameters.
 
 Policy - Further refine the type formatting WithGlobalNsPrefix - If non-zero, function will prepend a '::' to qualified names
 */
-func (cT Type_) GetFullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
+func (cT Type_) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
 	c_cT := cT
 	c_policy := policy
 	c_withGlobalNsPrefix := withGlobalNsPrefix
@@ -6533,7 +6533,7 @@ Retrieve the calling convention associated with a function type.
 
 If a non-function type is passed in, CXCallingConv_Invalid is returned.
 */
-func (t Type_) GetFunctionTypeCallingConv() CallingConv {
+func (t Type_) FunctionTypeCallingConv() CallingConv {
 	c_t := t
 
 	var retC CallingConv
@@ -6556,7 +6556,7 @@ func (t Type_) GetFunctionTypeCallingConv() CallingConv {
 }
 
 // For cursors representing an iboutletcollection attribute,  this function returns the collection element type.
-func (p0 Cursor) GetIBOutletCollectionType() Type_ {
+func (p0 Cursor) IBOutletCollectionType() Type_ {
 	c_p0 := p0
 
 	var retC Type_
@@ -6579,7 +6579,7 @@ func (p0 Cursor) GetIBOutletCollectionType() Type_ {
 }
 
 // Retrieve the file that is included by the given inclusion directive cursor.
-func (cursor Cursor) GetIncludedFile() File {
+func (cursor Cursor) IncludedFile() File {
 	c_cursor := cursor
 
 	var retC File
@@ -6602,7 +6602,7 @@ func (cursor Cursor) GetIncludedFile() File {
 }
 
 // Visit the set of preprocessor inclusions in a translation unit.   The visitor function is called with the provided data for every included   file.  This does not include headers included by the PCH file (unless one   is inspecting the inclusions in the PCH file itself).
-func (tu TranslationUnit) GetInclusions(visitor InclusionVisitor, client_data ClientData) {
+func (tu TranslationUnit) Inclusions(visitor InclusionVisitor, client_data ClientData) {
 	c_tu := tu
 	c_visitor := visitor
 	c_client_data := client_data
@@ -6629,7 +6629,7 @@ Legacy API to retrieve the file, line, column, and offset represented by the giv
 
 This interface has been replaced by the newer interface #clang_getExpansionLocation(). See that interface's documentation for details.
 */
-func (location SourceLocation) GetInstantiationLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) InstantiationLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6656,7 +6656,7 @@ func (location SourceLocation) GetInstantiationLocation(file *File, line *uint32
 }
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
-func (tu TranslationUnit) GetLocation(file File, line uint32, column uint32) SourceLocation {
+func (tu TranslationUnit) Location(file File, line uint32, column uint32) SourceLocation {
 	c_tu := tu
 	c_file := file
 	c_line := line
@@ -6685,7 +6685,7 @@ func (tu TranslationUnit) GetLocation(file File, line uint32, column uint32) Sou
 }
 
 // Retrieves the source location associated with a given character offset in a particular translation unit.
-func (tu TranslationUnit) GetLocationForOffset(file File, offset uint32) SourceLocation {
+func (tu TranslationUnit) LocationForOffset(file File, offset uint32) SourceLocation {
 	c_tu := tu
 	c_file := file
 	c_offset := offset
@@ -6712,7 +6712,7 @@ func (tu TranslationUnit) GetLocationForOffset(file File, offset uint32) SourceL
 }
 
 // Given a CXFile header file, return the module that contains it, if one exists.
-func (p0 TranslationUnit) GetModuleForFile(p1 File) Module {
+func (p0 TranslationUnit) ModuleForFile(p1 File) Module {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -6743,7 +6743,7 @@ Otherwise, returns the type itself.
 
 A type that has kind CXType_LValueReference or CXType_RValueReference is a reference type.
 */
-func (cT Type_) GetNonReferenceType() Type_ {
+func (cT Type_) NonReferenceType() Type_ {
 	c_cT := cT
 
 	var retC Type_
@@ -6827,7 +6827,7 @@ Retrieve the number of non-variadic parameters associated with a function type.
 
 If a non-function type is passed in, -1 is returned.
 */
-func (t Type_) GetNumArgTypes() int32 {
+func (t Type_) NumArgTypes() int32 {
 	c_t := t
 
 	var retC int32
@@ -6850,7 +6850,7 @@ func (t Type_) GetNumArgTypes() int32 {
 }
 
 // Retrieve the number of chunks in the given code-completion string.
-func (completion_string CompletionString) GetNumCompletionChunks() uint32 {
+func (completion_string CompletionString) NumCompletionChunks() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
@@ -6873,7 +6873,7 @@ func (completion_string CompletionString) GetNumCompletionChunks() uint32 {
 }
 
 // Determine the number of diagnostics produced for the given translation unit.
-func (unit TranslationUnit) GetNumDiagnostics() uint32 {
+func (unit TranslationUnit) NumDiagnostics() uint32 {
 	c_unit := unit
 
 	var retC uint32
@@ -6896,7 +6896,7 @@ func (unit TranslationUnit) GetNumDiagnostics() uint32 {
 }
 
 // Determine the number of diagnostics in a CXDiagnosticSet.
-func (diags DiagnosticSet) GetNumDiagnosticsInSet() uint32 {
+func (diags DiagnosticSet) NumDiagnosticsInSet() uint32 {
 	c_diags := diags
 
 	var retC uint32
@@ -6923,7 +6923,7 @@ Return the number of elements of an array or vector type.
 
 If a type is passed in that is not an array or vector type, -1 is returned.
 */
-func (t Type_) GetNumElements() int64 {
+func (t Type_) NumElements() int64 {
 	c_t := t
 
 	var retC int64
@@ -6946,7 +6946,7 @@ func (t Type_) GetNumElements() int64 {
 }
 
 // Determine the number of overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
-func (cursor Cursor) GetNumOverloadedDecls() uint32 {
+func (cursor Cursor) NumOverloadedDecls() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -6973,7 +6973,7 @@ Returns the offset in bits of a CX_CXXBaseSpecifier relative to the parent class
 
 Returns a small negative number if the offset cannot be computed. See CXTypeLayoutError for error codes.
 */
-func (parent Cursor) GetOffsetOfBase(base Cursor) int64 {
+func (parent Cursor) OffsetOfBase(base Cursor) int64 {
 	c_parent := parent
 	c_base := base
 
@@ -6998,7 +6998,7 @@ func (parent Cursor) GetOffsetOfBase(base Cursor) int64 {
 }
 
 // Retrieve a cursor for one of the overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
-func (cursor Cursor) GetOverloadedDecl(index uint32) Cursor {
+func (cursor Cursor) OverloadedDecl(index uint32) Cursor {
 	c_cursor := cursor
 	c_index := index
 
@@ -7025,7 +7025,7 @@ func (cursor Cursor) GetOverloadedDecl(index uint32) Cursor {
 // not supported : clang_getOverriddenCursors : param overridden : CXCursor **
 
 // For pointer types, returns the type of the pointee.
-func (t Type_) GetPointeeType() Type_ {
+func (t Type_) PointeeType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -7060,7 +7060,7 @@ whereas clang_getExpansionLocation would have returned
 
 File: somefile.c Line: 3 Column: 12
 */
-func (location SourceLocation) GetPresumedLocation(filename *String_, line *uint32, column *uint32) {
+func (location SourceLocation) PresumedLocation(filename *String_, line *uint32, column *uint32) {
 	c_location := location
 	c_filename := filename
 	c_line := line
@@ -7085,7 +7085,7 @@ func (location SourceLocation) GetPresumedLocation(filename *String_, line *uint
 }
 
 // Retrieve a source range given the beginning and ending source locations.
-func (begin SourceLocation) GetRange(end SourceLocation) SourceRange {
+func (begin SourceLocation) Range(end SourceLocation) SourceRange {
 	c_begin := begin
 	c_end := end
 
@@ -7110,7 +7110,7 @@ func (begin SourceLocation) GetRange(end SourceLocation) SourceRange {
 }
 
 // Retrieve a source location representing the last character within a source range.
-func (range_ SourceRange) GetRangeEnd() SourceLocation {
+func (range_ SourceRange) RangeEnd() SourceLocation {
 	c_range_ := range_
 
 	var retC SourceLocation
@@ -7133,7 +7133,7 @@ func (range_ SourceRange) GetRangeEnd() SourceLocation {
 }
 
 // Retrieve a source location representing the first character within a source range.
-func (range_ SourceRange) GetRangeStart() SourceLocation {
+func (range_ SourceRange) RangeStart() SourceLocation {
 	c_range_ := range_
 
 	var retC SourceLocation
@@ -7185,7 +7185,7 @@ Retrieve the return type associated with a function type.
 
 If a non-function type is passed in, an invalid type is returned.
 */
-func (t Type_) GetResultType() Type_ {
+func (t Type_) ResultType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -7212,7 +7212,7 @@ Retrieve all ranges that were skipped by the preprocessor.
 
 The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
 */
-func (tu TranslationUnit) GetSkippedRanges(file File) *SourceRangeList {
+func (tu TranslationUnit) SkippedRanges(file File) *SourceRangeList {
 	c_tu := tu
 	c_file := file
 
@@ -7243,7 +7243,7 @@ This routine determines the template involved both for explicit specializations 
 
 For members of a class template (e.g., member functions, member classes, or static data members), returns the specialized or instantiated member. Although not strictly "templates" in the C++ language, members of class templates have the same notions of specializations and instantiations that templates do, so this routine treats them similarly.
 */
-func (c Cursor) GetSpecializedCursorTemplate() Cursor {
+func (c Cursor) SpecializedCursorTemplate() Cursor {
 	c_c := c
 
 	var retC Cursor
@@ -7270,7 +7270,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro instantiation, return where the location was originally spelled in the source file.
 */
-func (location SourceLocation) GetSpellingLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) SpellingLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -7297,7 +7297,7 @@ func (location SourceLocation) GetSpellingLocation(file *File, line *uint32, col
 }
 
 // Returns the human-readable null-terminated C string that represents  the name of the memory category.  This string should never be freed.
-func (kind TUResourceUsageKind) GetTUResourceUsageName() string {
+func (kind TUResourceUsageKind) TUResourceUsageName() string {
 	c_kind := kind
 
 	var retC unsafe.Pointer
@@ -7324,7 +7324,7 @@ Given a cursor that represents a template, determine the cursor kind of the spec
 
 This routine can be used to determine what flavor of function template, class template, or class template partial specialization is stored in the cursor. For example, it can describe whether a class template cursor is declared with "struct", "class" or "union".
 */
-func (c Cursor) GetTemplateCursorKind() CursorKind {
+func (c Cursor) TemplateCursorKind() CursorKind {
 	c_c := c
 
 	var retC CursorKind
@@ -7347,7 +7347,7 @@ func (c Cursor) GetTemplateCursorKind() CursorKind {
 }
 
 // Get the raw lexical token starting with the given location.
-func (tU TranslationUnit) GetToken(location SourceLocation) *Token {
+func (tU TranslationUnit) Token(location SourceLocation) *Token {
 	c_tU := tU
 	c_location := location
 
@@ -7372,7 +7372,7 @@ func (tU TranslationUnit) GetToken(location SourceLocation) *Token {
 }
 
 // Retrieve a source range that covers the given token.
-func (p0 TranslationUnit) GetTokenExtent(p1 Token) SourceRange {
+func (p0 TranslationUnit) TokenExtent(p1 Token) SourceRange {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -7397,7 +7397,7 @@ func (p0 TranslationUnit) GetTokenExtent(p1 Token) SourceRange {
 }
 
 // Determine the kind of the given token.
-func (p0 Token) GetTokenKind() TokenKind {
+func (p0 Token) TokenKind() TokenKind {
 	c_p0 := p0
 
 	var retC TokenKind
@@ -7420,7 +7420,7 @@ func (p0 Token) GetTokenKind() TokenKind {
 }
 
 // Retrieve the source location of the given token.
-func (p0 TranslationUnit) GetTokenLocation(p1 Token) SourceLocation {
+func (p0 TranslationUnit) TokenLocation(p1 Token) SourceLocation {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -7449,7 +7449,7 @@ Determine the spelling of the given token.
 
 The spelling of a token is the textual representation of that token, e.g., the text of an identifier or keyword.
 */
-func (p0 TranslationUnit) GetTokenSpelling(p1 Token) String_ {
+func (p0 TranslationUnit) TokenSpelling(p1 Token) String_ {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -7478,7 +7478,7 @@ Retrieve the cursor that represents the given translation unit.
 
 The translation unit cursor can be used to start traversing the various declarations within the given translation unit.
 */
-func (p0 TranslationUnit) GetTranslationUnitCursor() Cursor {
+func (p0 TranslationUnit) TranslationUnitCursor() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -7501,7 +7501,7 @@ func (p0 TranslationUnit) GetTranslationUnitCursor() Cursor {
 }
 
 // Get the original translation unit source file name.
-func (cTUnit TranslationUnit) GetTranslationUnitSpelling() String_ {
+func (cTUnit TranslationUnit) TranslationUnitSpelling() String_ {
 	c_cTUnit := cTUnit
 
 	var retC String_
@@ -7528,7 +7528,7 @@ Get target information for this translation unit.
 
 The CXTargetInfo object cannot outlive the CXTranslationUnit object.
 */
-func (cTUnit TranslationUnit) GetTranslationUnitTargetInfo() TargetInfo {
+func (cTUnit TranslationUnit) TranslationUnitTargetInfo() TargetInfo {
 	c_cTUnit := cTUnit
 
 	var retC TargetInfo
@@ -7551,7 +7551,7 @@ func (cTUnit TranslationUnit) GetTranslationUnitTargetInfo() TargetInfo {
 }
 
 // Return the cursor for the declaration of the given type.
-func (t Type_) GetTypeDeclaration() Cursor {
+func (t Type_) TypeDeclaration() Cursor {
 	c_t := t
 
 	var retC Cursor
@@ -7574,7 +7574,7 @@ func (t Type_) GetTypeDeclaration() Cursor {
 }
 
 // Retrieve the spelling of a given CXTypeKind.
-func (k TypeKind) GetTypeKindSpelling() String_ {
+func (k TypeKind) TypeKindSpelling() String_ {
 	c_k := k
 
 	var retC String_
@@ -7601,7 +7601,7 @@ Pretty-print the underlying type using a custom printing policy.
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) GetTypePrettyPrinted(cxPolicy PrintingPolicy) String_ {
+func (cT Type_) TypePrettyPrinted(cxPolicy PrintingPolicy) String_ {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
@@ -7630,7 +7630,7 @@ Pretty-print the underlying type using the rules of the language of the translat
 
 If the type is invalid, an empty string is returned.
 */
-func (cT Type_) GetTypeSpelling() String_ {
+func (cT Type_) TypeSpelling() String_ {
 	c_cT := cT
 
 	var retC String_
@@ -7657,7 +7657,7 @@ Retrieve the underlying type of a typedef declaration.
 
 If the cursor does not reference a typedef declaration, an invalid type is returned.
 */
-func (c Cursor) GetTypedefDeclUnderlyingType() Type_ {
+func (c Cursor) TypedefDeclUnderlyingType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -7680,7 +7680,7 @@ func (c Cursor) GetTypedefDeclUnderlyingType() Type_ {
 }
 
 // Returns the typedef name of the given type.
-func (cT Type_) GetTypedefName() String_ {
+func (cT Type_) TypedefName() String_ {
 	c_cT := cT
 
 	var retC String_
@@ -7703,7 +7703,7 @@ func (cT Type_) GetTypedefName() String_ {
 }
 
 // Retrieve the spelling of a given CXUnaryOperatorKind.
-func (kind UnaryOperatorKind) GetUnaryOperatorKindSpelling() String_ {
+func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -7742,7 +7742,7 @@ A type can be checked for qualifiers with clang_isConstQualifiedType(), clang_is
 
 A type that resulted from a call to clang_getUnqualifiedType will return false for all of the above calls.
 */
-func (cT Type_) GetUnqualifiedType() Type_ {
+func (cT Type_) UnqualifiedType() Type_ {
 	c_cT := cT
 
 	var retC Type_

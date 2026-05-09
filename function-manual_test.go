@@ -51,7 +51,7 @@ func TestVisitChildren(t *testing.T) {
 	)
 	assert.Equal(t, Error_Success, errorCode)
 
-	tuCursor := tu.GetTranslationUnitCursor()
+	tuCursor := tu.TranslationUnitCursor()
 	ok := VisitChildren(tuCursor, func(cursor Cursor, _parent Cursor) ChildVisitResult {
 		// fmt.Println(
 		// 	GetCString(GetCursorKindSpelling(GetCursorKind(cursor))),
@@ -59,9 +59,9 @@ func TestVisitChildren(t *testing.T) {
 		// 	client_data,
 		// )
 
-		kind := cursor.GetCursorKind()
+		kind := cursor.CursorKind()
 		if kind == Cursor_FunctionDecl {
-			assert.Equal(t, "some_function", cursor.GetCursorSpelling().GetCString())
+			assert.Equal(t, "some_function", cursor.CursorSpelling().CString())
 		}
 		assert.True(t, kind == Cursor_MacroDefinition || kind == Cursor_FunctionDecl)
 
