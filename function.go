@@ -101,7 +101,7 @@ func (comment Comment) BlockCommandComment_getParagraph() Comment {
 }
 
 // Queries a CXCursorSet to see if it contains a specific CXCursor.
-func (cset CursorSet) CursorSet_contains(cursor Cursor) uint32 {
+func (cset CursorSet) Contains(cursor Cursor) uint32 {
 	c_cset := cset
 	c_cursor := cursor
 
@@ -126,7 +126,7 @@ func (cset CursorSet) CursorSet_contains(cursor Cursor) uint32 {
 }
 
 // Inserts a CXCursor into a CXCursorSet.
-func (cset CursorSet) CursorSet_insert(cursor Cursor) uint32 {
+func (cset CursorSet) Insert(cursor Cursor) uint32 {
 	c_cset := cset
 	c_cursor := cursor
 
@@ -184,7 +184,7 @@ This function is DEPRECATED. Set CXIndexOptions::ThreadBackgroundPriorityForInde
 
 For example:
 */
-func (p0 Index) Index_setGlobalOptions(options uint32) {
+func (p0 Index) SetGlobalOptions(options uint32) {
 	c_p0 := p0
 	c_options := options
 
@@ -211,7 +211,7 @@ This function is DEPRECATED. Set CXIndexOptions::InvocationEmissionPath and call
 
 The invocation emission path specifies a path which will contain log files for certain libclang invocations. A null value (default) implies that libclang invocations are not logged..
 */
-func (p0 Index) Index_setInvocationEmissionPathOption(path string) {
+func (p0 Index) SetInvocationEmissionPathOption(path string) {
 	c_p0 := p0
 	c_path, free_c_path := libc.CString(path)
 	defer free_c_path()
@@ -702,7 +702,7 @@ A CXComment_Paragraph node is considered whitespace if it contains only CXCommen
 
 Other AST nodes (except CXComment_Paragraph and CXComment_Text) are never considered whitespace.
 */
-func (comment Comment) Comment_isWhitespace() uint32 {
+func (comment Comment) IsWhitespace() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -725,7 +725,7 @@ func (comment Comment) Comment_isWhitespace() uint32 {
 }
 
 // If cursor is a statement declaration tries to evaluate the statement and if its variable, tries to evaluate its initializer, into its corresponding type. If it's an expression, tries to evaluate the expression.
-func (c Cursor) Cursor_Evaluate() EvalResult {
+func (c Cursor) Evaluate() EvalResult {
 	c_c := c
 
 	var retC EvalResult
@@ -848,7 +848,7 @@ func (c Cursor) BriefCommentText() string {
 }
 
 // Retrieve the CXStrings representing the mangled symbols of the C++ constructor or destructor at the cursor.
-func (p0 Cursor) CXXManglings() *StringSet {
+func (p0 Cursor) XManglings() *StringSet {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -1673,7 +1673,7 @@ func (cursor Cursor) VarDeclInitializer() Cursor {
 }
 
 // Determine whether the given cursor has any attributes.
-func (c Cursor) Cursor_hasAttrs() uint32 {
+func (c Cursor) HasAttrs() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1696,7 +1696,7 @@ func (c Cursor) Cursor_hasAttrs() uint32 {
 }
 
 // If cursor refers to a variable declaration that has external storage returns 1. If cursor refers to a variable declaration that doesn't have external storage returns 0. Otherwise returns -1.
-func (cursor Cursor) Cursor_hasVarDeclExternalStorage() int32 {
+func (cursor Cursor) HasVarDeclExternalStorage() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -1719,7 +1719,7 @@ func (cursor Cursor) Cursor_hasVarDeclExternalStorage() int32 {
 }
 
 // If cursor refers to a variable declaration that has global storage returns 1. If cursor refers to a variable declaration that doesn't have global storage returns 0. Otherwise returns -1.
-func (cursor Cursor) Cursor_hasVarDeclGlobalStorage() int32 {
+func (cursor Cursor) HasVarDeclGlobalStorage() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -1742,7 +1742,7 @@ func (cursor Cursor) Cursor_hasVarDeclGlobalStorage() int32 {
 }
 
 // Determine whether the given cursor represents an anonymous tag or namespace
-func (c Cursor) Cursor_isAnonymous() uint32 {
+func (c Cursor) IsAnonymous() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1765,7 +1765,7 @@ func (c Cursor) Cursor_isAnonymous() uint32 {
 }
 
 // Determine whether the given cursor represents an anonymous record declaration.
-func (c Cursor) Cursor_isAnonymousRecordDecl() uint32 {
+func (c Cursor) IsAnonymousRecordDecl() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1788,7 +1788,7 @@ func (c Cursor) Cursor_isAnonymousRecordDecl() uint32 {
 }
 
 // Returns non-zero if the cursor specifies a Record member that is a bit-field.
-func (c Cursor) Cursor_isBitField() uint32 {
+func (c Cursor) IsBitField() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1817,7 +1817,7 @@ For a C++ method: the call is virtual. For an Objective-C message: the receiver 
 
 If the method/message is "static" or the cursor does not point to a method/message, it will return zero.
 */
-func (c Cursor) Cursor_isDynamicCall() int32 {
+func (c Cursor) IsDynamicCall() int32 {
 	c_c := c
 
 	var retC int32
@@ -1840,7 +1840,7 @@ func (c Cursor) Cursor_isDynamicCall() int32 {
 }
 
 // Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
-func (c Cursor) Cursor_isExternalSymbol(language *String, definedIn *String, isGenerated *uint32) uint32 {
+func (c Cursor) IsExternalSymbol(language *String, definedIn *String, isGenerated *uint32) uint32 {
 	c_c := c
 	c_language := language
 	c_definedIn := definedIn
@@ -1869,7 +1869,7 @@ func (c Cursor) Cursor_isExternalSymbol(language *String, definedIn *String, isG
 }
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
-func (c Cursor) Cursor_isFunctionInlined() uint32 {
+func (c Cursor) IsFunctionInlined() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1892,7 +1892,7 @@ func (c Cursor) Cursor_isFunctionInlined() uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, check if the assembly block has goto labels. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func (p0 Cursor) Cursor_isGCCAssemblyHasGoto() uint32 {
+func (p0 Cursor) IsGCCAssemblyHasGoto() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -1915,7 +1915,7 @@ func (p0 Cursor) Cursor_isGCCAssemblyHasGoto() uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, check if the inline assembly is `volatile`. This function returns 0 if the cursor does not point at a GCC inline assembly block.
-func (cursor Cursor) Cursor_isGCCAssemblyVolatile() uint32 {
+func (cursor Cursor) IsGCCAssemblyVolatile() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -1938,7 +1938,7 @@ func (cursor Cursor) Cursor_isGCCAssemblyVolatile() uint32 {
 }
 
 // Determine whether the given cursor represents an inline namespace declaration.
-func (c Cursor) Cursor_isInlineNamespace() uint32 {
+func (c Cursor) IsInlineNamespace() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1961,7 +1961,7 @@ func (c Cursor) Cursor_isInlineNamespace() uint32 {
 }
 
 // Determine whether a  CXCursor that is a macro, is a builtin one.
-func (c Cursor) Cursor_isMacroBuiltin() uint32 {
+func (c Cursor) IsMacroBuiltin() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1984,7 +1984,7 @@ func (c Cursor) Cursor_isMacroBuiltin() uint32 {
 }
 
 // Determine whether a  CXCursor that is a macro, is function like.
-func (c Cursor) Cursor_isMacroFunctionLike() uint32 {
+func (c Cursor) IsMacroFunctionLike() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -2007,7 +2007,7 @@ func (c Cursor) Cursor_isMacroFunctionLike() uint32 {
 }
 
 // Returns non-zero if cursor is null.
-func (cursor Cursor) Cursor_isNull() int32 {
+func (cursor Cursor) IsNull() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -2030,7 +2030,7 @@ func (cursor Cursor) Cursor_isNull() int32 {
 }
 
 // Given a cursor that represents an Objective-C method or property declaration, return non-zero if the declaration was affected by "\@optional". Returns zero if the cursor is not such a declaration or it is "\@required".
-func (c Cursor) Cursor_isObjCOptional() uint32 {
+func (c Cursor) IsObjCOptional() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -2053,7 +2053,7 @@ func (c Cursor) Cursor_isObjCOptional() uint32 {
 }
 
 // Returns non-zero if the given cursor is a variadic function or method.
-func (c Cursor) Cursor_isVariadic() uint32 {
+func (c Cursor) IsVariadic() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -2099,7 +2099,7 @@ func (c Cursor) EnumDecl_isScoped() uint32 {
 }
 
 // Disposes the created Eval memory.
-func (e EvalResult) EvalResult_dispose() {
+func (e EvalResult) Dispose() {
 	c_e := e
 
 	args := []unsafe.Pointer{
@@ -2256,7 +2256,7 @@ func (e EvalResult) Kind() EvalResultKind {
 }
 
 // Returns a non-zero value if the kind is Int and the evaluation result resulted in an unsigned integer.
-func (e EvalResult) EvalResult_isUnsignedInt() uint32 {
+func (e EvalResult) IsUnsignedInt() uint32 {
 	c_e := e
 
 	var retC uint32
@@ -2279,7 +2279,7 @@ func (e EvalResult) EvalResult_isUnsignedInt() uint32 {
 }
 
 // Returns non-zero if the file1 and file2 point to the same file, or they are both NULL.
-func (file1 File) File_isEqual(file2 File) int32 {
+func (file1 File) IsEqual(file2 File) int32 {
 	c_file1 := file1
 	c_file2 := file2
 
@@ -2308,7 +2308,7 @@ Returns the real path name of file.
 
 An empty string may be returned. Use clang_getFileName() in that case.
 */
-func (file File) File_tryGetRealPathName() string {
+func (file File) TryGetRealPathName() string {
 	c_file := file
 
 	var retC String
@@ -2528,7 +2528,7 @@ func (comment Comment) HTMLTagComment_getTagName() string {
 }
 
 // An indexing action/session, to be applied to one or multiple translation units.
-func (cIdx Index) IndexAction_create() IndexAction {
+func (cIdx Index) Action_create() IndexAction {
 	c_cIdx := cIdx
 
 	var retC IndexAction
@@ -2555,7 +2555,7 @@ Destroy the given index action.
 
 The index action must not be destroyed until all of the translation units created within that index action have been destroyed.
 */
-func (p0 IndexAction) IndexAction_dispose() {
+func (p0 IndexAction) Dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
@@ -2757,7 +2757,7 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 }
 
 // Dispose a CXModuleMapDescriptor object.
-func (p0 ModuleMapDescriptor) ModuleMapDescriptor_dispose() {
+func (p0 ModuleMapDescriptor) Dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
@@ -2776,7 +2776,7 @@ func (p0 ModuleMapDescriptor) ModuleMapDescriptor_dispose() {
 }
 
 // Sets the framework module name that the module.modulemap describes.
-func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setFrameworkModuleName(name string) ErrorCode {
+func (p0 ModuleMapDescriptor) SetFrameworkModuleName(name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
@@ -2802,7 +2802,7 @@ func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setFrameworkModuleName(name st
 }
 
 // Sets the umbrella header name that the module.modulemap describes.
-func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setUmbrellaHeader(name string) ErrorCode {
+func (p0 ModuleMapDescriptor) SetUmbrellaHeader(name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
@@ -2967,7 +2967,7 @@ func (p0 TranslationUnit) Module_getTopLevelHeader(module Module, index uint32) 
 	return ret
 }
 
-func (module Module) Module_isSystem() int32 {
+func (module Module) IsSystem() int32 {
 	c_module := module
 
 	var retC int32
@@ -3100,7 +3100,7 @@ func (comment Comment) ParamCommandComment_isParamIndexValid() uint32 {
 }
 
 // Release a printing policy.
-func (policy PrintingPolicy) PrintingPolicy_dispose() {
+func (policy PrintingPolicy) Dispose() {
 	c_policy := policy
 
 	args := []unsafe.Pointer{
@@ -3144,7 +3144,7 @@ func (policy PrintingPolicy) Property(property PrintingPolicyProperty) uint32 {
 }
 
 // Set a property value for the given printing policy.
-func (policy PrintingPolicy) PrintingPolicy_setProperty(property PrintingPolicyProperty, value uint32) {
+func (policy PrintingPolicy) SetProperty(property PrintingPolicyProperty, value uint32) {
 	c_policy := policy
 	c_property := property
 	c_value := value
@@ -3292,7 +3292,7 @@ func (comment Comment) TParamCommandComment_isParamPositionValid() uint32 {
 }
 
 // Destroy the CXTargetInfo object.
-func (info TargetInfo) TargetInfo_dispose() {
+func (info TargetInfo) Dispose() {
 	c_info := info
 
 	args := []unsafe.Pointer{
@@ -3418,7 +3418,7 @@ Retrieve the ref-qualifier kind of a function or method.
 
 The ref-qualifier is returned for C++ functions or methods. For other types or non-C++ declarations, CXRefQualifier_None is returned.
 */
-func (t Type) CXXRefQualifier() RefQualifierKind {
+func (t Type) XRefQualifier() RefQualifierKind {
 	c_t := t
 
 	var retC RefQualifierKind
@@ -3847,7 +3847,7 @@ Determine if a typedef is 'transparent' tag.
 
 A typedef is considered 'transparent' if it shares a name and spelling location with its underlying tag type, as is the case with the NS_ENUM macro.
 */
-func (t Type) Type_isTransparentTagTypedef() uint32 {
+func (t Type) IsTransparentTagTypedef() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3874,7 +3874,7 @@ Visit the fields of a particular type.
 
 This function visits all the direct fields of the given cursor, invoking the given visitor function with the cursors of each visited field. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func (t Type) Type_visitFields(visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type) VisitFields(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -3945,7 +3945,7 @@ func (comment Comment) VerbatimLineComment_getText() string {
 }
 
 // Map an absolute virtual file path to an absolute real one. The virtual path must be canonicalized (not contain "."/"..").
-func (p0 VirtualFileOverlay) VirtualFileOverlay_addFileMapping(virtualPath string, realPath string) ErrorCode {
+func (p0 VirtualFileOverlay) AddFileMapping(virtualPath string, realPath string) ErrorCode {
 	c_p0 := p0
 	c_virtualPath, free_c_virtualPath := libc.CString(virtualPath)
 	defer free_c_virtualPath()
@@ -3997,7 +3997,7 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 }
 
 // Dispose a CXVirtualFileOverlay object.
-func (p0 VirtualFileOverlay) VirtualFileOverlay_dispose() {
+func (p0 VirtualFileOverlay) Dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
@@ -4016,7 +4016,7 @@ func (p0 VirtualFileOverlay) VirtualFileOverlay_dispose() {
 }
 
 // Set the case sensitivity for the CXVirtualFileOverlay object. The CXVirtualFileOverlay object is case-sensitive by default, this option can be used to override the default.
-func (p0 VirtualFileOverlay) VirtualFileOverlay_setCaseSensitivity(caseSensitive int32) ErrorCode {
+func (p0 VirtualFileOverlay) SetCaseSensitivity(caseSensitive int32) ErrorCode {
 	c_p0 := p0
 	c_caseSensitive := caseSensitive
 
@@ -5490,7 +5490,7 @@ func (string_ String) CString() string {
 }
 
 // Return the memory usage of a translation unit.  This object  should be released with clang_disposeCXTUResourceUsage().
-func (tU TranslationUnit) CXTUResourceUsage() TUResourceUsage {
+func (tU TranslationUnit) TUResourceUsage() TUResourceUsage {
 	c_tU := tU
 
 	var retC TUResourceUsage
@@ -5517,7 +5517,7 @@ Returns the access control level for the referenced object.
 
 If the cursor refers to a C++ declaration, its access control level within its parent scope is returned. Otherwise, if the cursor refers to a base specifier or access specifier, the specifier itself is returned.
 */
-func (p0 Cursor) CXXAccessSpecifier() CXXAccessSpecifier {
+func (p0 Cursor) XAccessSpecifier() CXXAccessSpecifier {
 	c_p0 := p0
 
 	var retC CXXAccessSpecifier

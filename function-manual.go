@@ -15,7 +15,7 @@ invoking the given visitor function with the cursors of each visited child.
 The traversal may be recursive, if the visitor returns CXChildVisit_Recurse.
 The traversal may also be ended prematurely, if the visitor returns CXChildVisit_Break.
 */
-func VisitChildren(parent Cursor, visitor func(
+func (parent Cursor) VisitChildren(visitor func(
 	cursor Cursor, parent Cursor,
 ) ChildVisitResult) uint32 {
 	c_parent := parent

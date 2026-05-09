@@ -52,7 +52,7 @@ func TestVisitChildren(t *testing.T) {
 	assert.Equal(t, Error_Success, errorCode)
 
 	tuCursor := tu.TranslationUnitCursor()
-	ok := VisitChildren(tuCursor, func(cursor Cursor, _parent Cursor) ChildVisitResult {
+	ok := tuCursor.VisitChildren(func(cursor Cursor, _parent Cursor) ChildVisitResult {
 		// fmt.Println(
 		// 	GetCString(GetCursorKindSpelling(GetCursorKind(cursor))),
 		// 	GetCString(GetCursorSpelling(cursor)),
