@@ -11,13 +11,13 @@ import (
 )
 
 // Queries a CXCursorSet to see if it contains a specific CXCursor.
-func CursorSet_contains(cset CursorSet, cursor Cursor) uint32 {
+func (cset CursorSet) CursorSet_contains(cursor Cursor) uint32 {
 	c_cset := cset
 	c_cursor := cursor
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cset),
+		unsafe.Pointer(&c_cset.ptr),
 		unsafe.Pointer(&c_cursor),
 	}
 
@@ -36,13 +36,13 @@ func CursorSet_contains(cset CursorSet, cursor Cursor) uint32 {
 }
 
 // Inserts a CXCursor into a CXCursorSet.
-func CursorSet_insert(cset CursorSet, cursor Cursor) uint32 {
+func (cset CursorSet) CursorSet_insert(cursor Cursor) uint32 {
 	c_cset := cset
 	c_cursor := cursor
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cset),
+		unsafe.Pointer(&c_cset.ptr),
 		unsafe.Pointer(&c_cursor),
 	}
 
@@ -65,12 +65,12 @@ Gets the general options associated with a CXIndex.
 
 This function allows to obtain the final option values used by libclang after specifying the option policies via CXChoice enumerators.
 */
-func Index_getGlobalOptions(p0 Index) uint32 {
+func (p0 Index) Index_getGlobalOptions() uint32 {
 	c_p0 := p0
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -94,12 +94,12 @@ This function is DEPRECATED. Set CXIndexOptions::ThreadBackgroundPriorityForInde
 
 For example:
 */
-func Index_setGlobalOptions(p0 Index, options uint32) {
+func (p0 Index) Index_setGlobalOptions(options uint32) {
 	c_p0 := p0
 	c_options := options
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_options),
 	}
 
@@ -121,13 +121,13 @@ This function is DEPRECATED. Set CXIndexOptions::InvocationEmissionPath and call
 
 The invocation emission path specifies a path which will contain log files for certain libclang invocations. A null value (default) implies that libclang invocations are not logged..
 */
-func Index_setInvocationEmissionPathOption(p0 Index, path string) {
+func (p0 Index) Index_setInvocationEmissionPathOption(path string) {
 	c_p0 := p0
 	c_path, free_c_path := libc.CString(path)
 	defer free_c_path()
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_path),
 	}
 
@@ -143,7 +143,7 @@ func Index_setInvocationEmissionPathOption(p0 Index, path string) {
 }
 
 // Determine if a C++ constructor is a converting constructor.
-func XConstructor_isConvertingConstructor(c Cursor) uint32 {
+func (c Cursor) XConstructor_isConvertingConstructor() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -166,7 +166,7 @@ func XConstructor_isConvertingConstructor(c Cursor) uint32 {
 }
 
 // Determine if a C++ constructor is a copy constructor.
-func XConstructor_isCopyConstructor(c Cursor) uint32 {
+func (c Cursor) XConstructor_isCopyConstructor() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -189,7 +189,7 @@ func XConstructor_isCopyConstructor(c Cursor) uint32 {
 }
 
 // Determine if a C++ constructor is the default constructor.
-func XConstructor_isDefaultConstructor(c Cursor) uint32 {
+func (c Cursor) XConstructor_isDefaultConstructor() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -212,7 +212,7 @@ func XConstructor_isDefaultConstructor(c Cursor) uint32 {
 }
 
 // Determine if a C++ constructor is a move constructor.
-func XConstructor_isMoveConstructor(c Cursor) uint32 {
+func (c Cursor) XConstructor_isMoveConstructor() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -235,7 +235,7 @@ func XConstructor_isMoveConstructor(c Cursor) uint32 {
 }
 
 // Determine if a C++ field is declared 'mutable'.
-func XField_isMutable(c Cursor) uint32 {
+func (c Cursor) XField_isMutable() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -258,7 +258,7 @@ func XField_isMutable(c Cursor) uint32 {
 }
 
 // Determine if a C++ member function or member function template is declared 'const'.
-func XMethod_isConst(c Cursor) uint32 {
+func (c Cursor) XMethod_isConst() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -295,7 +295,7 @@ class Bar {        bool operator=(const int&);    };
 
 Is not.
 */
-func XMethod_isCopyAssignmentOperator(c Cursor) uint32 {
+func (c Cursor) XMethod_isCopyAssignmentOperator() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -318,7 +318,7 @@ func XMethod_isCopyAssignmentOperator(c Cursor) uint32 {
 }
 
 // Determine if a C++ method is declared '= default'.
-func XMethod_isDefaulted(c Cursor) uint32 {
+func (c Cursor) XMethod_isDefaulted() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -341,7 +341,7 @@ func XMethod_isDefaulted(c Cursor) uint32 {
 }
 
 // Determine if a C++ method is declared '= delete'.
-func XMethod_isDeleted(c Cursor) uint32 {
+func (c Cursor) XMethod_isDeleted() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -388,7 +388,7 @@ class Foo {          explicit(foo(1)) Foo();          explicit(foo(2)) operator 
 
 This function will return 0 for the constructor and 1 for the conversion function.
 */
-func XMethod_isExplicit(c Cursor) uint32 {
+func (c Cursor) XMethod_isExplicit() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -425,7 +425,7 @@ class Bar {        bool operator=(const int&&);    };
 
 Is not.
 */
-func XMethod_isMoveAssignmentOperator(c Cursor) uint32 {
+func (c Cursor) XMethod_isMoveAssignmentOperator() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -448,7 +448,7 @@ func XMethod_isMoveAssignmentOperator(c Cursor) uint32 {
 }
 
 // Determine if a C++ member function or member function template is pure virtual.
-func XMethod_isPureVirtual(c Cursor) uint32 {
+func (c Cursor) XMethod_isPureVirtual() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -471,7 +471,7 @@ func XMethod_isPureVirtual(c Cursor) uint32 {
 }
 
 // Determine if a C++ member function or member function template is declared 'static'.
-func XMethod_isStatic(c Cursor) uint32 {
+func (c Cursor) XMethod_isStatic() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -494,7 +494,7 @@ func XMethod_isStatic(c Cursor) uint32 {
 }
 
 // Determine if a C++ member function or member function template is explicitly declared 'virtual' or if it overrides a virtual method from one of the base classes.
-func XMethod_isVirtual(c Cursor) uint32 {
+func (c Cursor) XMethod_isVirtual() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -517,7 +517,7 @@ func XMethod_isVirtual(c Cursor) uint32 {
 }
 
 // Determine if a C++ record is abstract, i.e. whether a class or struct has a pure virtual member function.
-func XRecord_isAbstract(c Cursor) uint32 {
+func (c Cursor) XRecord_isAbstract() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -540,7 +540,7 @@ func XRecord_isAbstract(c Cursor) uint32 {
 }
 
 // If cursor is a statement declaration tries to evaluate the statement and if its variable, tries to evaluate its initializer, into its corresponding type. If it's an expression, tries to evaluate the expression.
-func Cursor_Evaluate(c Cursor) EvalResult {
+func (c Cursor) Cursor_Evaluate() EvalResult {
 	c_c := c
 
 	var retC EvalResult
@@ -567,7 +567,7 @@ Retrieve the argument cursor of a function or method.
 
 The argument cursor can be determined for calls as well as for declarations of functions or methods. For other cursors and for invalid indices, an invalid cursor is returned.
 */
-func Cursor_getArgument(c Cursor, i uint32) Cursor {
+func (c Cursor) Cursor_getArgument(i uint32) Cursor {
 	c_c := c
 	c_i := i
 
@@ -591,7 +591,7 @@ func Cursor_getArgument(c Cursor, i uint32) Cursor {
 	return ret
 }
 
-func Cursor_getBinaryOpcode(c Cursor) BinaryOperatorKind_ {
+func (c Cursor) Cursor_getBinaryOpcode() BinaryOperatorKind_ {
 	c_c := c
 
 	var retC BinaryOperatorKind_
@@ -613,7 +613,7 @@ func Cursor_getBinaryOpcode(c Cursor) BinaryOperatorKind_ {
 	return ret
 }
 
-func Cursor_getBinaryOpcodeStr(op BinaryOperatorKind_) String_ {
+func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() String_ {
 	c_op := op
 
 	var retC String_
@@ -640,7 +640,7 @@ Given a cursor that represents a documentable entity (e.g., declaration), return
 
 first paragraph.
 */
-func Cursor_getBriefCommentText(c Cursor) String_ {
+func (c Cursor) Cursor_getBriefCommentText() String_ {
 	c_c := c
 
 	var retC String_
@@ -663,7 +663,7 @@ func Cursor_getBriefCommentText(c Cursor) String_ {
 }
 
 // Retrieve the CXStrings representing the mangled symbols of the C++ constructor or destructor at the cursor.
-func Cursor_getCXXManglings(p0 Cursor) *StringSet {
+func (p0 Cursor) Cursor_getCXXManglings() *StringSet {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -686,7 +686,7 @@ func Cursor_getCXXManglings(p0 Cursor) *StringSet {
 }
 
 // Given a cursor that represents a declaration, return the associated comment's source range.  The range may include multiple consecutive comments with whitespace in between.
-func Cursor_getCommentRange(c Cursor) SourceRange {
+func (c Cursor) Cursor_getCommentRange() SourceRange {
 	c_c := c
 
 	var retC SourceRange
@@ -713,7 +713,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the Index-th clobber of it. This functio
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func Cursor_getGCCAssemblyClobber(cursor Cursor, index uint32) String_ {
+func (cursor Cursor) Cursor_getGCCAssemblyClobber(index uint32) String_ {
 	c_cursor := cursor
 	c_index := index
 
@@ -742,7 +742,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func Cursor_getGCCAssemblyInput(cursor Cursor, index uint32, constraint *String_, expr *Cursor) uint32 {
+func (cursor Cursor) Cursor_getGCCAssemblyInput(index uint32, constraint *String_, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -771,7 +771,7 @@ func Cursor_getGCCAssemblyInput(cursor Cursor, index uint32, constraint *String_
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the clobbers in it. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func Cursor_getGCCAssemblyNumClobbers(cursor Cursor) uint32 {
+func (cursor Cursor) Cursor_getGCCAssemblyNumClobbers() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -794,7 +794,7 @@ func Cursor_getGCCAssemblyNumClobbers(cursor Cursor) uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the number of inputs. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func Cursor_getGCCAssemblyNumInputs(p0 Cursor) uint32 {
+func (p0 Cursor) Cursor_getGCCAssemblyNumInputs() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -817,7 +817,7 @@ func Cursor_getGCCAssemblyNumInputs(p0 Cursor) uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the number of outputs. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func Cursor_getGCCAssemblyNumOutputs(p0 Cursor) uint32 {
+func (p0 Cursor) Cursor_getGCCAssemblyNumOutputs() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -844,7 +844,7 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func Cursor_getGCCAssemblyOutput(cursor Cursor, index uint32, constraint *String_, expr *Cursor) uint32 {
+func (cursor Cursor) Cursor_getGCCAssemblyOutput(index uint32, constraint *String_, expr *Cursor) uint32 {
 	c_cursor := cursor
 	c_index := index
 	c_constraint := constraint
@@ -879,7 +879,7 @@ This function also returns a valid empty string if the cursor does not point at 
 
 Users are responsible for releasing the allocation of returned string via clang_disposeString.
 */
-func Cursor_getGCCAssemblyTemplate(p0 Cursor) String_ {
+func (p0 Cursor) Cursor_getGCCAssemblyTemplate() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -902,7 +902,7 @@ func Cursor_getGCCAssemblyTemplate(p0 Cursor) String_ {
 }
 
 // Retrieve the CXString representing the mangled name of the cursor.
-func Cursor_getMangling(p0 Cursor) String_ {
+func (p0 Cursor) Cursor_getMangling() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -925,7 +925,7 @@ func Cursor_getMangling(p0 Cursor) String_ {
 }
 
 // Given a CXCursor_ModuleImportDecl cursor, return the associated module.
-func Cursor_getModule(c Cursor) Module {
+func (c Cursor) Cursor_getModule() Module {
 	c_c := c
 
 	var retC Module
@@ -952,7 +952,7 @@ Retrieve the number of non-variadic arguments associated with a given cursor.
 
 The number of arguments can be determined for calls as well as for declarations of functions or methods. For other cursors -1 is returned.
 */
-func Cursor_getNumArguments(c Cursor) int32 {
+func (c Cursor) Cursor_getNumArguments() int32 {
 	c_c := c
 
 	var retC int32
@@ -985,7 +985,7 @@ template <>   void foo<float, -7, true>();
 
 The value 3 would be returned from this call.
 */
-func Cursor_getNumTemplateArguments(c Cursor) int32 {
+func (c Cursor) Cursor_getNumTemplateArguments() int32 {
 	c_c := c
 
 	var retC int32
@@ -1008,7 +1008,7 @@ func Cursor_getNumTemplateArguments(c Cursor) int32 {
 }
 
 // Given a cursor that represents an Objective-C method or parameter declaration, return the associated Objective-C qualifiers for the return type or the parameter respectively. The bits are formed from CXObjCDeclQualifierKind.
-func Cursor_getObjCDeclQualifiers(c Cursor) uint32 {
+func (c Cursor) Cursor_getObjCDeclQualifiers() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1031,7 +1031,7 @@ func Cursor_getObjCDeclQualifiers(c Cursor) uint32 {
 }
 
 // Retrieve the CXStrings representing the mangled symbols of the ObjC class interface or implementation at the cursor.
-func Cursor_getObjCManglings(p0 Cursor) *StringSet {
+func (p0 Cursor) Cursor_getObjCManglings() *StringSet {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -1054,7 +1054,7 @@ func Cursor_getObjCManglings(p0 Cursor) *StringSet {
 }
 
 // Given a cursor that represents a property declaration, return the associated property attributes. The bits are formed from CXObjCPropertyAttrKind.
-func Cursor_getObjCPropertyAttributes(c Cursor, reserved uint32) uint32 {
+func (c Cursor) Cursor_getObjCPropertyAttributes(reserved uint32) uint32 {
 	c_c := c
 	c_reserved := reserved
 
@@ -1079,7 +1079,7 @@ func Cursor_getObjCPropertyAttributes(c Cursor, reserved uint32) uint32 {
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the getter.
-func Cursor_getObjCPropertyGetterName(c Cursor) String_ {
+func (c Cursor) Cursor_getObjCPropertyGetterName() String_ {
 	c_c := c
 
 	var retC String_
@@ -1102,7 +1102,7 @@ func Cursor_getObjCPropertyGetterName(c Cursor) String_ {
 }
 
 // Given a cursor that represents a property declaration, return the name of the method that implements the setter, if any.
-func Cursor_getObjCPropertySetterName(c Cursor) String_ {
+func (c Cursor) Cursor_getObjCPropertySetterName() String_ {
 	c_c := c
 
 	var retC String_
@@ -1129,7 +1129,7 @@ If the cursor points to a selector identifier in an Objective-C method or messag
 
 After getting a cursor with #clang_getCursor, this can be called to determine if the location points to a selector identifier.
 */
-func Cursor_getObjCSelectorIndex(p0 Cursor) int32 {
+func (p0 Cursor) Cursor_getObjCSelectorIndex() int32 {
 	c_p0 := p0
 
 	var retC int32
@@ -1156,7 +1156,7 @@ Return the offset of the field represented by the Cursor.
 
 If the cursor is not a field declaration, -1 is returned. If the cursor semantic parent is not a record field declaration,   CXTypeLayoutError_Invalid is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
 */
-func Cursor_getOffsetOfField(c Cursor) int64 {
+func (c Cursor) Cursor_getOffsetOfField() int64 {
 	c_c := c
 
 	var retC int64
@@ -1179,7 +1179,7 @@ func Cursor_getOffsetOfField(c Cursor) int64 {
 }
 
 // Given a cursor that represents a declaration, return the associated comment text, including comment markers.
-func Cursor_getRawCommentText(c Cursor) String_ {
+func (c Cursor) Cursor_getRawCommentText() String_ {
 	c_c := c
 
 	var retC String_
@@ -1202,7 +1202,7 @@ func Cursor_getRawCommentText(c Cursor) String_ {
 }
 
 // Given a cursor pointing to an Objective-C message or property reference, or C++ method call, returns the CXType of the receiver.
-func Cursor_getReceiverType(c Cursor) Type_ {
+func (c Cursor) Cursor_getReceiverType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -1225,7 +1225,7 @@ func Cursor_getReceiverType(c Cursor) Type_ {
 }
 
 // Retrieve a range for a piece that forms the cursors spelling name. Most of the times there is only one range for the complete spelling but for Objective-C methods and Objective-C message expressions, there are multiple pieces for each selector identifier.
-func Cursor_getSpellingNameRange(p0 Cursor, pieceIndex uint32, options uint32) SourceRange {
+func (p0 Cursor) Cursor_getSpellingNameRange(pieceIndex uint32, options uint32) SourceRange {
 	c_p0 := p0
 	c_pieceIndex := pieceIndex
 	c_options := options
@@ -1256,7 +1256,7 @@ Returns the storage class for a function or variable declaration.
 
 If the passed in Cursor is not a function or variable declaration, CX_SC_Invalid is returned else the storage class.
 */
-func Cursor_getStorageClass(p0 Cursor) StorageClass {
+func (p0 Cursor) Cursor_getStorageClass() StorageClass {
 	c_p0 := p0
 
 	var retC StorageClass
@@ -1289,7 +1289,7 @@ template <>   void foo<float, -7, true>();
 
 For I = 0, 1, and 2, Type, Integral, and Integral will be returned, respectively.
 */
-func Cursor_getTemplateArgumentKind(c Cursor, i uint32) TemplateArgumentKind {
+func (c Cursor) Cursor_getTemplateArgumentKind(i uint32) TemplateArgumentKind {
 	c_c := c
 	c_i := i
 
@@ -1324,7 +1324,7 @@ template <>   void foo<float, -7, true>();
 
 If called with I = 0, "float", will be returned. Invalid types will be returned for I == 1 or 2.
 */
-func Cursor_getTemplateArgumentType(c Cursor, i uint32) Type_ {
+func (c Cursor) Cursor_getTemplateArgumentType(i uint32) Type_ {
 	c_c := c
 	c_i := i
 
@@ -1359,7 +1359,7 @@ template <>   void foo<float, 2147483649, true>();
 
 If called with I = 1 or 2, 2147483649 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
 */
-func Cursor_getTemplateArgumentUnsignedValue(c Cursor, i uint32) uint64 {
+func (c Cursor) Cursor_getTemplateArgumentUnsignedValue(i uint32) uint64 {
 	c_c := c
 	c_i := i
 
@@ -1394,7 +1394,7 @@ template <>   void foo<float, -7, true>();
 
 If called with I = 1 or 2, -7 or true will be returned, respectively. For I == 0, this function's behavior is undefined.
 */
-func Cursor_getTemplateArgumentValue(c Cursor, i uint32) int64 {
+func (c Cursor) Cursor_getTemplateArgumentValue(i uint32) int64 {
 	c_c := c
 	c_i := i
 
@@ -1419,7 +1419,7 @@ func Cursor_getTemplateArgumentValue(c Cursor, i uint32) int64 {
 }
 
 // Returns the translation unit that a cursor originated from.
-func Cursor_getTranslationUnit(p0 Cursor) TranslationUnit {
+func (p0 Cursor) Cursor_getTranslationUnit() TranslationUnit {
 	c_p0 := p0
 
 	var retC TranslationUnit
@@ -1442,7 +1442,7 @@ func Cursor_getTranslationUnit(p0 Cursor) TranslationUnit {
 }
 
 // If cursor refers to a variable declaration and it has initializer returns cursor referring to the initializer otherwise return null cursor.
-func Cursor_getVarDeclInitializer(cursor Cursor) Cursor {
+func (cursor Cursor) Cursor_getVarDeclInitializer() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -1465,7 +1465,7 @@ func Cursor_getVarDeclInitializer(cursor Cursor) Cursor {
 }
 
 // Determine whether the given cursor has any attributes.
-func Cursor_hasAttrs(c Cursor) uint32 {
+func (c Cursor) Cursor_hasAttrs() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1488,7 +1488,7 @@ func Cursor_hasAttrs(c Cursor) uint32 {
 }
 
 // If cursor refers to a variable declaration that has external storage returns 1. If cursor refers to a variable declaration that doesn't have external storage returns 0. Otherwise returns -1.
-func Cursor_hasVarDeclExternalStorage(cursor Cursor) int32 {
+func (cursor Cursor) Cursor_hasVarDeclExternalStorage() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -1511,7 +1511,7 @@ func Cursor_hasVarDeclExternalStorage(cursor Cursor) int32 {
 }
 
 // If cursor refers to a variable declaration that has global storage returns 1. If cursor refers to a variable declaration that doesn't have global storage returns 0. Otherwise returns -1.
-func Cursor_hasVarDeclGlobalStorage(cursor Cursor) int32 {
+func (cursor Cursor) Cursor_hasVarDeclGlobalStorage() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -1534,7 +1534,7 @@ func Cursor_hasVarDeclGlobalStorage(cursor Cursor) int32 {
 }
 
 // Determine whether the given cursor represents an anonymous tag or namespace
-func Cursor_isAnonymous(c Cursor) uint32 {
+func (c Cursor) Cursor_isAnonymous() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1557,7 +1557,7 @@ func Cursor_isAnonymous(c Cursor) uint32 {
 }
 
 // Determine whether the given cursor represents an anonymous record declaration.
-func Cursor_isAnonymousRecordDecl(c Cursor) uint32 {
+func (c Cursor) Cursor_isAnonymousRecordDecl() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1580,7 +1580,7 @@ func Cursor_isAnonymousRecordDecl(c Cursor) uint32 {
 }
 
 // Returns non-zero if the cursor specifies a Record member that is a bit-field.
-func Cursor_isBitField(c Cursor) uint32 {
+func (c Cursor) Cursor_isBitField() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1609,7 +1609,7 @@ For a C++ method: the call is virtual. For an Objective-C message: the receiver 
 
 If the method/message is "static" or the cursor does not point to a method/message, it will return zero.
 */
-func Cursor_isDynamicCall(c Cursor) int32 {
+func (c Cursor) Cursor_isDynamicCall() int32 {
 	c_c := c
 
 	var retC int32
@@ -1632,7 +1632,7 @@ func Cursor_isDynamicCall(c Cursor) int32 {
 }
 
 // Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
-func Cursor_isExternalSymbol(c Cursor, language *String_, definedIn *String_, isGenerated *uint32) uint32 {
+func (c Cursor) Cursor_isExternalSymbol(language *String_, definedIn *String_, isGenerated *uint32) uint32 {
 	c_c := c
 	c_language := language
 	c_definedIn := definedIn
@@ -1661,7 +1661,7 @@ func Cursor_isExternalSymbol(c Cursor, language *String_, definedIn *String_, is
 }
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
-func Cursor_isFunctionInlined(c Cursor) uint32 {
+func (c Cursor) Cursor_isFunctionInlined() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1684,7 +1684,7 @@ func Cursor_isFunctionInlined(c Cursor) uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, check if the assembly block has goto labels. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
-func Cursor_isGCCAssemblyHasGoto(p0 Cursor) uint32 {
+func (p0 Cursor) Cursor_isGCCAssemblyHasGoto() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -1707,7 +1707,7 @@ func Cursor_isGCCAssemblyHasGoto(p0 Cursor) uint32 {
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, check if the inline assembly is `volatile`. This function returns 0 if the cursor does not point at a GCC inline assembly block.
-func Cursor_isGCCAssemblyVolatile(cursor Cursor) uint32 {
+func (cursor Cursor) Cursor_isGCCAssemblyVolatile() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -1730,7 +1730,7 @@ func Cursor_isGCCAssemblyVolatile(cursor Cursor) uint32 {
 }
 
 // Determine whether the given cursor represents an inline namespace declaration.
-func Cursor_isInlineNamespace(c Cursor) uint32 {
+func (c Cursor) Cursor_isInlineNamespace() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1753,7 +1753,7 @@ func Cursor_isInlineNamespace(c Cursor) uint32 {
 }
 
 // Determine whether a  CXCursor that is a macro, is a builtin one.
-func Cursor_isMacroBuiltin(c Cursor) uint32 {
+func (c Cursor) Cursor_isMacroBuiltin() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1776,7 +1776,7 @@ func Cursor_isMacroBuiltin(c Cursor) uint32 {
 }
 
 // Determine whether a  CXCursor that is a macro, is function like.
-func Cursor_isMacroFunctionLike(c Cursor) uint32 {
+func (c Cursor) Cursor_isMacroFunctionLike() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1799,7 +1799,7 @@ func Cursor_isMacroFunctionLike(c Cursor) uint32 {
 }
 
 // Returns non-zero if cursor is null.
-func Cursor_isNull(cursor Cursor) int32 {
+func (cursor Cursor) Cursor_isNull() int32 {
 	c_cursor := cursor
 
 	var retC int32
@@ -1822,7 +1822,7 @@ func Cursor_isNull(cursor Cursor) int32 {
 }
 
 // Given a cursor that represents an Objective-C method or property declaration, return non-zero if the declaration was affected by "\@optional". Returns zero if the cursor is not such a declaration or it is "\@required".
-func Cursor_isObjCOptional(c Cursor) uint32 {
+func (c Cursor) Cursor_isObjCOptional() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1845,7 +1845,7 @@ func Cursor_isObjCOptional(c Cursor) uint32 {
 }
 
 // Returns non-zero if the given cursor is a variadic function or method.
-func Cursor_isVariadic(c Cursor) uint32 {
+func (c Cursor) Cursor_isVariadic() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1868,7 +1868,7 @@ func Cursor_isVariadic(c Cursor) uint32 {
 }
 
 // Determine if an enum declaration refers to a scoped enum.
-func EnumDecl_isScoped(c Cursor) uint32 {
+func (c Cursor) EnumDecl_isScoped() uint32 {
 	c_c := c
 
 	var retC uint32
@@ -1891,11 +1891,11 @@ func EnumDecl_isScoped(c Cursor) uint32 {
 }
 
 // Disposes the created Eval memory.
-func EvalResult_dispose(e EvalResult) {
+func (e EvalResult) EvalResult_dispose() {
 	c_e := e
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -1910,12 +1910,12 @@ func EvalResult_dispose(e EvalResult) {
 }
 
 // Returns the evaluation result as double if the kind is double.
-func EvalResult_getAsDouble(e EvalResult) float64 {
+func (e EvalResult) EvalResult_getAsDouble() float64 {
 	c_e := e
 
 	var retC float64
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -1933,12 +1933,12 @@ func EvalResult_getAsDouble(e EvalResult) float64 {
 }
 
 // Returns the evaluation result as integer if the kind is Int.
-func EvalResult_getAsInt(e EvalResult) int32 {
+func (e EvalResult) EvalResult_getAsInt() int32 {
 	c_e := e
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -1956,12 +1956,12 @@ func EvalResult_getAsInt(e EvalResult) int32 {
 }
 
 // Returns the evaluation result as a long long integer if the kind is Int. This prevents overflows that may happen if the result is returned with clang_EvalResult_getAsInt.
-func EvalResult_getAsLongLong(e EvalResult) int64 {
+func (e EvalResult) EvalResult_getAsLongLong() int64 {
 	c_e := e
 
 	var retC int64
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -1979,12 +1979,12 @@ func EvalResult_getAsLongLong(e EvalResult) int64 {
 }
 
 // Returns the evaluation result as a constant string if the kind is other than Int or float. User must not free this pointer, instead call clang_EvalResult_dispose on the CXEvalResult returned by clang_Cursor_Evaluate.
-func EvalResult_getAsStr(e EvalResult) string {
+func (e EvalResult) EvalResult_getAsStr() string {
 	c_e := e
 
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2002,12 +2002,12 @@ func EvalResult_getAsStr(e EvalResult) string {
 }
 
 // Returns the evaluation result as an unsigned integer if the kind is Int and clang_EvalResult_isUnsignedInt is non-zero.
-func EvalResult_getAsUnsigned(e EvalResult) uint64 {
+func (e EvalResult) EvalResult_getAsUnsigned() uint64 {
 	c_e := e
 
 	var retC uint64
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2025,12 +2025,12 @@ func EvalResult_getAsUnsigned(e EvalResult) uint64 {
 }
 
 // Returns the kind of the evaluated result.
-func EvalResult_getKind(e EvalResult) EvalResultKind {
+func (e EvalResult) EvalResult_getKind() EvalResultKind {
 	c_e := e
 
 	var retC EvalResultKind
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2048,12 +2048,12 @@ func EvalResult_getKind(e EvalResult) EvalResultKind {
 }
 
 // Returns a non-zero value if the kind is Int and the evaluation result resulted in an unsigned integer.
-func EvalResult_isUnsignedInt(e EvalResult) uint32 {
+func (e EvalResult) EvalResult_isUnsignedInt() uint32 {
 	c_e := e
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_e),
+		unsafe.Pointer(&c_e.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2071,13 +2071,13 @@ func EvalResult_isUnsignedInt(e EvalResult) uint32 {
 }
 
 // Returns non-zero if the file1 and file2 point to the same file, or they are both NULL.
-func File_isEqual(file1 File, file2 File) int32 {
+func (file1 File) File_isEqual(file2 File) int32 {
 	c_file1 := file1
 	c_file2 := file2
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_file1),
+		unsafe.Pointer(&c_file1.ptr),
 		unsafe.Pointer(&c_file2),
 	}
 
@@ -2100,12 +2100,12 @@ Returns the real path name of file.
 
 An empty string may be returned. Use clang_getFileName() in that case.
 */
-func File_tryGetRealPathName(file File) String_ {
+func (file File) File_tryGetRealPathName() String_ {
 	c_file := file
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_file.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2123,12 +2123,12 @@ func File_tryGetRealPathName(file File) String_ {
 }
 
 // An indexing action/session, to be applied to one or multiple translation units.
-func IndexAction_create(cIdx Index) IndexAction {
+func (cIdx Index) IndexAction_create() IndexAction {
 	c_cIdx := cIdx
 
 	var retC IndexAction
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2150,11 +2150,11 @@ Destroy the given index action.
 
 The index action must not be destroyed until all of the translation units created within that index action have been destroyed.
 */
-func IndexAction_dispose(p0 IndexAction) {
+func (p0 IndexAction) IndexAction_dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2169,7 +2169,7 @@ func IndexAction_dispose(p0 IndexAction) {
 }
 
 // Returns non-zero if the given source location is in the main file of the corresponding translation unit.
-func Location_isFromMainFile(location SourceLocation) int32 {
+func (location SourceLocation) Location_isFromMainFile() int32 {
 	c_location := location
 
 	var retC int32
@@ -2192,7 +2192,7 @@ func Location_isFromMainFile(location SourceLocation) int32 {
 }
 
 // Returns non-zero if the given source location is in a system header.
-func Location_isInSystemHeader(location SourceLocation) int32 {
+func (location SourceLocation) Location_isInSystemHeader() int32 {
 	c_location := location
 
 	var retC int32
@@ -2240,11 +2240,11 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 }
 
 // Dispose a CXModuleMapDescriptor object.
-func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
+func (p0 ModuleMapDescriptor) ModuleMapDescriptor_dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2259,14 +2259,14 @@ func ModuleMapDescriptor_dispose(p0 ModuleMapDescriptor) {
 }
 
 // Sets the framework module name that the module.modulemap describes.
-func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name string) ErrorCode {
+func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setFrameworkModuleName(name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_name),
 	}
 
@@ -2285,14 +2285,14 @@ func ModuleMapDescriptor_setFrameworkModuleName(p0 ModuleMapDescriptor, name str
 }
 
 // Sets the umbrella header name that the module.modulemap describes.
-func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) ErrorCode {
+func (p0 ModuleMapDescriptor) ModuleMapDescriptor_setUmbrellaHeader(name string) ErrorCode {
 	c_p0 := p0
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_name),
 	}
 
@@ -2312,12 +2312,12 @@ func ModuleMapDescriptor_setUmbrellaHeader(p0 ModuleMapDescriptor, name string) 
 
 // not supported : clang_ModuleMapDescriptor_writeToBuffer : param out_buffer_ptr : char **
 
-func Module_getASTFile(module Module) File {
+func (module Module) Module_getASTFile() File {
 	c_module := module
 
 	var retC File
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_module.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2334,12 +2334,12 @@ func Module_getASTFile(module Module) File {
 	return ret
 }
 
-func Module_getFullName(module Module) String_ {
+func (module Module) Module_getFullName() String_ {
 	c_module := module
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_module.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2356,12 +2356,12 @@ func Module_getFullName(module Module) String_ {
 	return ret
 }
 
-func Module_getName(module Module) String_ {
+func (module Module) Module_getName() String_ {
 	c_module := module
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_module.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2378,13 +2378,13 @@ func Module_getName(module Module) String_ {
 	return ret
 }
 
-func Module_getNumTopLevelHeaders(p0 TranslationUnit, module Module) uint32 {
+func (p0 TranslationUnit) Module_getNumTopLevelHeaders(module Module) uint32 {
 	c_p0 := p0
 	c_module := module
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_module),
 	}
 
@@ -2402,12 +2402,12 @@ func Module_getNumTopLevelHeaders(p0 TranslationUnit, module Module) uint32 {
 	return ret
 }
 
-func Module_getParent(module Module) Module {
+func (module Module) Module_getParent() Module {
 	c_module := module
 
 	var retC Module
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_module.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2424,14 +2424,14 @@ func Module_getParent(module Module) Module {
 	return ret
 }
 
-func Module_getTopLevelHeader(p0 TranslationUnit, module Module, index uint32) File {
+func (p0 TranslationUnit) Module_getTopLevelHeader(module Module, index uint32) File {
 	c_p0 := p0
 	c_module := module
 	c_index := index
 
 	var retC File
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_module),
 		unsafe.Pointer(&c_index),
 	}
@@ -2450,12 +2450,12 @@ func Module_getTopLevelHeader(p0 TranslationUnit, module Module, index uint32) F
 	return ret
 }
 
-func Module_isSystem(module Module) int32 {
+func (module Module) Module_isSystem() int32 {
 	c_module := module
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_module),
+		unsafe.Pointer(&c_module.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2473,11 +2473,11 @@ func Module_isSystem(module Module) int32 {
 }
 
 // Release a printing policy.
-func PrintingPolicy_dispose(policy PrintingPolicy) {
+func (policy PrintingPolicy) PrintingPolicy_dispose() {
 	c_policy := policy
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_policy),
+		unsafe.Pointer(&c_policy.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2492,13 +2492,13 @@ func PrintingPolicy_dispose(policy PrintingPolicy) {
 }
 
 // Get a property value for the given printing policy.
-func PrintingPolicy_getProperty(policy PrintingPolicy, property PrintingPolicyProperty) uint32 {
+func (policy PrintingPolicy) PrintingPolicy_getProperty(property PrintingPolicyProperty) uint32 {
 	c_policy := policy
 	c_property := property
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_policy),
+		unsafe.Pointer(&c_policy.ptr),
 		unsafe.Pointer(&c_property),
 	}
 
@@ -2517,13 +2517,13 @@ func PrintingPolicy_getProperty(policy PrintingPolicy, property PrintingPolicyPr
 }
 
 // Set a property value for the given printing policy.
-func PrintingPolicy_setProperty(policy PrintingPolicy, property PrintingPolicyProperty, value uint32) {
+func (policy PrintingPolicy) PrintingPolicy_setProperty(property PrintingPolicyProperty, value uint32) {
 	c_policy := policy
 	c_property := property
 	c_value := value
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_policy),
+		unsafe.Pointer(&c_policy.ptr),
 		unsafe.Pointer(&c_property),
 		unsafe.Pointer(&c_value),
 	}
@@ -2540,7 +2540,7 @@ func PrintingPolicy_setProperty(policy PrintingPolicy, property PrintingPolicyPr
 }
 
 // Returns non-zero if range is null.
-func Range_isNull(range_ SourceRange) int32 {
+func (range_ SourceRange) Range_isNull() int32 {
 	c_range_ := range_
 
 	var retC int32
@@ -2563,11 +2563,11 @@ func Range_isNull(range_ SourceRange) int32 {
 }
 
 // Destroy the CXTargetInfo object.
-func TargetInfo_dispose(info TargetInfo) {
+func (info TargetInfo) TargetInfo_dispose() {
 	c_info := info
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_info),
+		unsafe.Pointer(&c_info.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2586,12 +2586,12 @@ Get the pointer width of the target in bits.
 
 Returns -1 in case of error.
 */
-func TargetInfo_getPointerWidth(info TargetInfo) int32 {
+func (info TargetInfo) TargetInfo_getPointerWidth() int32 {
 	c_info := info
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_info),
+		unsafe.Pointer(&c_info.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2613,12 +2613,12 @@ Get the normalized target triple as a string.
 
 Returns the empty string in case of any error.
 */
-func TargetInfo_getTriple(info TargetInfo) String_ {
+func (info TargetInfo) TargetInfo_getTriple() String_ {
 	c_info := info
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_info),
+		unsafe.Pointer(&c_info.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -2640,7 +2640,7 @@ Return the alignment of a type in bytes as per C++[expr.alignof]   standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned. If the type declaration is not a constant size type,   CXTypeLayoutError_NotConstantSize is returned.
 */
-func Type_getAlignOf(t Type_) int64 {
+func (t Type_) Type_getAlignOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -2667,7 +2667,7 @@ Retrieve the ref-qualifier kind of a function or method.
 
 The ref-qualifier is returned for C++ functions or methods. For other types or non-C++ declarations, CXRefQualifier_None is returned.
 */
-func Type_getCXXRefQualifier(t Type_) RefQualifierKind {
+func (t Type_) Type_getCXXRefQualifier() RefQualifierKind {
 	c_t := t
 
 	var retC RefQualifierKind
@@ -2694,7 +2694,7 @@ Return the class type of an member pointer type.
 
 If a non-member-pointer type is passed in, an invalid type is returned.
 */
-func Type_getClassType(t Type_) Type_ {
+func (t Type_) Type_getClassType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -2721,7 +2721,7 @@ Return the type that was modified by this attributed type.
 
 If the type is not an attributed type, an invalid type is returned.
 */
-func Type_getModifiedType(t Type_) Type_ {
+func (t Type_) Type_getModifiedType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -2748,7 +2748,7 @@ Retrieve the type named by the qualified-id.
 
 If a non-elaborated type is passed in, an invalid type is returned.
 */
-func Type_getNamedType(t Type_) Type_ {
+func (t Type_) Type_getNamedType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -2771,7 +2771,7 @@ func Type_getNamedType(t Type_) Type_ {
 }
 
 // Retrieve the nullability kind of a pointer type.
-func Type_getNullability(t Type_) TypeNullabilityKind {
+func (t Type_) Type_getNullability() TypeNullabilityKind {
 	c_t := t
 
 	var retC TypeNullabilityKind
@@ -2798,7 +2798,7 @@ Retrieve the number of protocol references associated with an ObjC object/id.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func Type_getNumObjCProtocolRefs(t Type_) uint32 {
+func (t Type_) Type_getNumObjCProtocolRefs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -2825,7 +2825,7 @@ Retrieve the number of type arguments associated with an ObjC object.
 
 If the type is not an ObjC object, 0 is returned.
 */
-func Type_getNumObjCTypeArgs(t Type_) uint32 {
+func (t Type_) Type_getNumObjCTypeArgs() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -2848,7 +2848,7 @@ func Type_getNumObjCTypeArgs(t Type_) uint32 {
 }
 
 // Returns the number of template arguments for given template specialization, or -1 if type T is not a template specialization.
-func Type_getNumTemplateArguments(t Type_) int32 {
+func (t Type_) Type_getNumTemplateArguments() int32 {
 	c_t := t
 
 	var retC int32
@@ -2871,7 +2871,7 @@ func Type_getNumTemplateArguments(t Type_) int32 {
 }
 
 // Returns the Objective-C type encoding for the specified CXType.
-func Type_getObjCEncoding(type_ Type_) String_ {
+func (type_ Type_) Type_getObjCEncoding() String_ {
 	c_type_ := type_
 
 	var retC String_
@@ -2898,7 +2898,7 @@ Retrieves the base type of the ObjCObjectType.
 
 If the type is not an ObjC object, an invalid type is returned.
 */
-func Type_getObjCObjectBaseType(t Type_) Type_ {
+func (t Type_) Type_getObjCObjectBaseType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -2925,7 +2925,7 @@ Retrieve the decl for a protocol reference for an ObjC object/id.
 
 If the type is not an ObjC object or there are not enough protocol references, an invalid cursor is returned.
 */
-func Type_getObjCProtocolDecl(t Type_, i uint32) Cursor {
+func (t Type_) Type_getObjCProtocolDecl(i uint32) Cursor {
 	c_t := t
 	c_i := i
 
@@ -2954,7 +2954,7 @@ Retrieve a type argument associated with an ObjC object.
 
 If the type is not an ObjC or the index is not valid, an invalid type is returned.
 */
-func Type_getObjCTypeArg(t Type_, i uint32) Type_ {
+func (t Type_) Type_getObjCTypeArg(i uint32) Type_ {
 	c_t := t
 	c_i := i
 
@@ -2983,7 +2983,7 @@ Return the offset of a field named S in a record of type T in bits   as it would
 
 If the cursor is not a record field declaration, CXTypeLayoutError_Invalid   is returned. If the field's type declaration is an incomplete type,   CXTypeLayoutError_Incomplete is returned. If the field's type declaration is a dependent type,   CXTypeLayoutError_Dependent is returned. If the field's name S is not found,   CXTypeLayoutError_InvalidFieldName is returned.
 */
-func Type_getOffsetOf(t Type_, s string) int64 {
+func (t Type_) Type_getOffsetOf(s string) int64 {
 	c_t := t
 	c_s, free_c_s := libc.CString(s)
 	defer free_c_s()
@@ -3013,7 +3013,7 @@ Return the size of a type in bytes as per C++[expr.sizeof] standard.
 
 If the type declaration is invalid, CXTypeLayoutError_Invalid is returned. If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete   is returned. If the type declaration is a dependent type, CXTypeLayoutError_Dependent is   returned.
 */
-func Type_getSizeOf(t Type_) int64 {
+func (t Type_) Type_getSizeOf() int64 {
 	c_t := t
 
 	var retC int64
@@ -3040,7 +3040,7 @@ Returns the type template argument of a template class specialization at given i
 
 This function only returns template type arguments and does not handle template template arguments or variadic packs.
 */
-func Type_getTemplateArgumentAsType(t Type_, i uint32) Type_ {
+func (t Type_) Type_getTemplateArgumentAsType(i uint32) Type_ {
 	c_t := t
 	c_i := i
 
@@ -3069,7 +3069,7 @@ Gets the type contained by this atomic type.
 
 If a non-atomic type is passed in, an invalid type is returned.
 */
-func Type_getValueType(cT Type_) Type_ {
+func (cT Type_) Type_getValueType() Type_ {
 	c_cT := cT
 
 	var retC Type_
@@ -3096,7 +3096,7 @@ Determine if a typedef is 'transparent' tag.
 
 A typedef is considered 'transparent' if it shares a name and spelling location with its underlying tag type, as is the case with the NS_ENUM macro.
 */
-func Type_isTransparentTagTypedef(t Type_) uint32 {
+func (t Type_) Type_isTransparentTagTypedef() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -3123,7 +3123,7 @@ Visit the fields of a particular type.
 
 This function visits all the direct fields of the given cursor, invoking the given visitor function with the cursors of each visited field. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func Type_visitFields(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type_) Type_visitFields(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -3150,7 +3150,7 @@ func Type_visitFields(t Type_, visitor FieldVisitor, client_data ClientData) uin
 }
 
 // Map an absolute virtual file path to an absolute real one. The virtual path must be canonicalized (not contain "."/"..").
-func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string, realPath string) ErrorCode {
+func (p0 VirtualFileOverlay) VirtualFileOverlay_addFileMapping(virtualPath string, realPath string) ErrorCode {
 	c_p0 := p0
 	c_virtualPath, free_c_virtualPath := libc.CString(virtualPath)
 	defer free_c_virtualPath()
@@ -3159,7 +3159,7 @@ func VirtualFileOverlay_addFileMapping(p0 VirtualFileOverlay, virtualPath string
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_virtualPath),
 		unsafe.Pointer(&c_realPath),
 	}
@@ -3202,11 +3202,11 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 }
 
 // Dispose a CXVirtualFileOverlay object.
-func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
+func (p0 VirtualFileOverlay) VirtualFileOverlay_dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -3221,13 +3221,13 @@ func VirtualFileOverlay_dispose(p0 VirtualFileOverlay) {
 }
 
 // Set the case sensitivity for the CXVirtualFileOverlay object. The CXVirtualFileOverlay object is case-sensitive by default, this option can be used to override the default.
-func VirtualFileOverlay_setCaseSensitivity(p0 VirtualFileOverlay, caseSensitive int32) ErrorCode {
+func (p0 VirtualFileOverlay) VirtualFileOverlay_setCaseSensitivity(caseSensitive int32) ErrorCode {
 	c_p0 := p0
 	c_caseSensitive := caseSensitive
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_caseSensitive),
 	}
 
@@ -3256,14 +3256,14 @@ This token-annotation routine is equivalent to invoking clang_getCursor() for th
 
 Only the first and last of these cursors will occur within the annotate, since the tokens "f" and "x' directly refer to a function and a variable, respectively, but the parentheses are just a small part of the full syntax of the function call expression, which is not provided as an annotation.
 */
-func AnnotateTokens(tU TranslationUnit, tokens *Token, numTokens uint32, cursors *Cursor) {
+func (tU TranslationUnit) AnnotateTokens(tokens *Token, numTokens uint32, cursors *Cursor) {
 	c_tU := tU
 	c_tokens := tokens
 	c_numTokens := numTokens
 	c_cursors := cursors
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_tokens),
 		unsafe.Pointer(&c_numTokens),
 		unsafe.Pointer(&c_cursors),
@@ -3287,7 +3287,7 @@ This function performs code completion at a particular file, line, and column wi
 
 Code completion itself is meant to be triggered by the client when the user types punctuation characters or whitespace, at which point the code-completion location will coincide with the cursor. For example, if p is a pointer, code-completion might be triggered after the "-" and then after the ">" in p->. When the code-completion location is after the ">", the completion results will provide, e.g., the members of the struct that "p" points to. The client is responsible for placing the cursor at the beginning of the token currently being typed, then filtering the results based on the contents of the token. For example, when code-completing for the expression p->get, the client should provide the location just after the ">" (e.g., pointing at the "g") to this code-completion hook. Then, the client can filter the results based on the current token text ("get"), only showing those results that start with "get". The intent of this interface is to separate the relatively high-latency acquisition of code-completion results from the filtering of results on a per-character basis, which must have a lower latency.
 */
-func CodeCompleteAt(tU TranslationUnit, complete_filename string, complete_line uint32, complete_column uint32, unsaved_files []UnsavedFile, options uint32) *CodeCompleteResults {
+func (tU TranslationUnit) CodeCompleteAt(complete_filename string, complete_line uint32, complete_column uint32, unsaved_files []UnsavedFile, options uint32) *CodeCompleteResults {
 	c_tU := tU
 	c_complete_filename, free_c_complete_filename := libc.CString(complete_filename)
 	defer free_c_complete_filename()
@@ -3302,7 +3302,7 @@ func CodeCompleteAt(tU TranslationUnit, complete_filename string, complete_line 
 
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_complete_filename),
 		unsafe.Pointer(&c_complete_line),
 		unsafe.Pointer(&c_complete_column),
@@ -3326,7 +3326,7 @@ func CodeCompleteAt(tU TranslationUnit, complete_filename string, complete_line 
 }
 
 // Returns the cursor kind for the container for the current code completion context. The container is only guaranteed to be set for contexts where a container exists (i.e. member accesses or Objective-C message sends); if there is not a container, this function will return CXCursor_InvalidCode.
-func CodeCompleteGetContainerKind(results *CodeCompleteResults, isIncomplete *uint32) CursorKind {
+func (results *CodeCompleteResults) CodeCompleteGetContainerKind(isIncomplete *uint32) CursorKind {
 	c_results := results
 	c_isIncomplete := isIncomplete
 
@@ -3351,7 +3351,7 @@ func CodeCompleteGetContainerKind(results *CodeCompleteResults, isIncomplete *ui
 }
 
 // Returns the USR for the container for the current code completion context. If there is not a container for the current context, this function will return the empty string.
-func CodeCompleteGetContainerUSR(results *CodeCompleteResults) String_ {
+func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() String_ {
 	c_results := results
 
 	var retC String_
@@ -3374,7 +3374,7 @@ func CodeCompleteGetContainerUSR(results *CodeCompleteResults) String_ {
 }
 
 // Determines what completions are appropriate for the context the given code completion.
-func CodeCompleteGetContexts(results *CodeCompleteResults) uint64 {
+func (results *CodeCompleteResults) CodeCompleteGetContexts() uint64 {
 	c_results := results
 
 	var retC uint64
@@ -3397,7 +3397,7 @@ func CodeCompleteGetContexts(results *CodeCompleteResults) uint64 {
 }
 
 // Retrieve a diagnostic associated with the given code completion.
-func CodeCompleteGetDiagnostic(results *CodeCompleteResults, index uint32) Diagnostic {
+func (results *CodeCompleteResults) CodeCompleteGetDiagnostic(index uint32) Diagnostic {
 	c_results := results
 	c_index := index
 
@@ -3422,7 +3422,7 @@ func CodeCompleteGetDiagnostic(results *CodeCompleteResults, index uint32) Diagn
 }
 
 // Determine the number of diagnostics produced prior to the location where code completion was performed.
-func CodeCompleteGetNumDiagnostics(results *CodeCompleteResults) uint32 {
+func (results *CodeCompleteResults) CodeCompleteGetNumDiagnostics() uint32 {
 	c_results := results
 
 	var retC uint32
@@ -3445,7 +3445,7 @@ func CodeCompleteGetNumDiagnostics(results *CodeCompleteResults) uint32 {
 }
 
 // Returns the currently-entered selector for an Objective-C message send, formatted like "initWithFoo:bar:". Only guaranteed to return a non-empty string for CXCompletionContext_ObjCInstanceMessage and CXCompletionContext_ObjCClassMessage.
-func CodeCompleteGetObjCSelector(results *CodeCompleteResults) String_ {
+func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() String_ {
 	c_results := results
 
 	var retC String_
@@ -3683,7 +3683,7 @@ Call this function instead of clang_createIndex() if you need to configure the a
 
 For example:
 */
-func CreateIndexWithOptions(options *IndexOptions) Index {
+func (options *IndexOptions) CreateIndexWithOptions() Index {
 	c_options := options
 
 	var retC Index
@@ -3706,14 +3706,14 @@ func CreateIndexWithOptions(options *IndexOptions) Index {
 }
 
 // Same as clang_createTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
-func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
+func (cIdx Index) CreateTranslationUnit(ast_filename string) TranslationUnit {
 	c_cIdx := cIdx
 	c_ast_filename, free_c_ast_filename := libc.CString(ast_filename)
 	defer free_c_ast_filename()
 
 	var retC TranslationUnit
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_ast_filename),
 	}
 
@@ -3732,7 +3732,7 @@ func CreateTranslationUnit(cIdx Index, ast_filename string) TranslationUnit {
 }
 
 // Create a translation unit from an AST file (-emit-ast).
-func CreateTranslationUnit2(cIdx Index, ast_filename string, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) CreateTranslationUnit2(ast_filename string, out_TU *TranslationUnit) ErrorCode {
 	c_cIdx := cIdx
 	c_ast_filename, free_c_ast_filename := libc.CString(ast_filename)
 	defer free_c_ast_filename()
@@ -3740,7 +3740,7 @@ func CreateTranslationUnit2(cIdx Index, ast_filename string, out_TU *Translation
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_ast_filename),
 		unsafe.Pointer(&c_out_TU),
 	}
@@ -3768,7 +3768,7 @@ Note: When encountered in 'clang_command_line_args', the following options are i
 
 '-c'   '-emit-ast'   '-fsyntax-only'   '-o <output file>'  (both '-o' and '<output file>' are ignored)
 */
-func CreateTranslationUnitFromSourceFile(cIdx Index, source_filename string, clang_command_line_args []string, unsaved_files []UnsavedFile) TranslationUnit {
+func (cIdx Index) CreateTranslationUnitFromSourceFile(source_filename string, clang_command_line_args []string, unsaved_files []UnsavedFile) TranslationUnit {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -3783,7 +3783,7 @@ func CreateTranslationUnitFromSourceFile(cIdx Index, source_filename string, cla
 
 	var retC TranslationUnit
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_source_filename),
 		unsafe.Pointer(&c_num_clang_command_line_args),
 		unsafe.Pointer(&c_clang_command_line_args),
@@ -3871,12 +3871,12 @@ Returns the set of flags that is suitable for reparsing a translation unit.
 
 The set of flags returned provide options for clang_reparseTranslationUnit() by default. The returned flag set contains an unspecified set of optimizations geared toward common uses of reparsing. The set of optimizations enabled may change from one version to the next.
 */
-func DefaultReparseOptions(tU TranslationUnit) uint32 {
+func (tU TranslationUnit) DefaultReparseOptions() uint32 {
 	c_tU := tU
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -3898,12 +3898,12 @@ Returns the set of flags that is suitable for saving a translation unit.
 
 The set of flags returned provide options for clang_saveTranslationUnit() by default. The returned flag set contains an unspecified set of options that save translation units with the most commonly-requested data.
 */
-func DefaultSaveOptions(tU TranslationUnit) uint32 {
+func (tU TranslationUnit) DefaultSaveOptions() uint32 {
 	c_tU := tU
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -3921,11 +3921,11 @@ func DefaultSaveOptions(tU TranslationUnit) uint32 {
 }
 
 // Disposes a CXCursorSet and releases its associated memory.
-func DisposeCXCursorSet(cset CursorSet) {
+func (cset CursorSet) DisposeCXCursorSet() {
 	c_cset := cset
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cset),
+		unsafe.Pointer(&c_cset.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -3940,7 +3940,7 @@ func DisposeCXCursorSet(cset CursorSet) {
 }
 
 // Free the memory associated with a CXPlatformAvailability structure.
-func DisposeCXPlatformAvailability(availability *PlatformAvailability) {
+func (availability *PlatformAvailability) DisposeCXPlatformAvailability() {
 	c_availability := availability
 
 	args := []unsafe.Pointer{
@@ -3958,7 +3958,7 @@ func DisposeCXPlatformAvailability(availability *PlatformAvailability) {
 	}
 }
 
-func DisposeCXTUResourceUsage(usage TUResourceUsage) {
+func (usage TUResourceUsage) DisposeCXTUResourceUsage() {
 	c_usage := usage
 
 	args := []unsafe.Pointer{
@@ -3977,7 +3977,7 @@ func DisposeCXTUResourceUsage(usage TUResourceUsage) {
 }
 
 // Free the given set of code-completion results.
-func DisposeCodeCompleteResults(results *CodeCompleteResults) {
+func (results *CodeCompleteResults) DisposeCodeCompleteResults() {
 	c_results := results
 
 	args := []unsafe.Pointer{
@@ -3996,11 +3996,11 @@ func DisposeCodeCompleteResults(results *CodeCompleteResults) {
 }
 
 // Destroy a diagnostic.
-func DisposeDiagnostic(diagnostic Diagnostic) {
+func (diagnostic Diagnostic) DisposeDiagnostic() {
 	c_diagnostic := diagnostic
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_diagnostic.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4015,11 +4015,11 @@ func DisposeDiagnostic(diagnostic Diagnostic) {
 }
 
 // Release a CXDiagnosticSet and all of its contained diagnostics.
-func DisposeDiagnosticSet(diags DiagnosticSet) {
+func (diags DiagnosticSet) DisposeDiagnosticSet() {
 	c_diags := diags
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_diags.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4038,11 +4038,11 @@ Destroy the given index.
 
 The index must not be destroyed until all of the translation units created within that index have been destroyed.
 */
-func DisposeIndex(index Index) {
+func (index Index) DisposeIndex() {
 	c_index := index
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_index),
+		unsafe.Pointer(&c_index.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4057,7 +4057,7 @@ func DisposeIndex(index Index) {
 }
 
 // Free the set of overridden cursors returned by clang_getOverriddenCursors().
-func DisposeOverriddenCursors(overridden *Cursor) {
+func (overridden *Cursor) DisposeOverriddenCursors() {
 	c_overridden := overridden
 
 	args := []unsafe.Pointer{
@@ -4076,7 +4076,7 @@ func DisposeOverriddenCursors(overridden *Cursor) {
 }
 
 // Destroy the given CXSourceRangeList.
-func DisposeSourceRangeList(ranges *SourceRangeList) {
+func (ranges *SourceRangeList) DisposeSourceRangeList() {
 	c_ranges := ranges
 
 	args := []unsafe.Pointer{
@@ -4095,7 +4095,7 @@ func DisposeSourceRangeList(ranges *SourceRangeList) {
 }
 
 // Free the given string.
-func DisposeString(string_ String_) {
+func (string_ String_) DisposeString() {
 	c_string_ := string_
 
 	args := []unsafe.Pointer{
@@ -4114,7 +4114,7 @@ func DisposeString(string_ String_) {
 }
 
 // Free the given string set.
-func DisposeStringSet(set *StringSet) {
+func (set *StringSet) DisposeStringSet() {
 	c_set := set
 
 	args := []unsafe.Pointer{
@@ -4133,13 +4133,13 @@ func DisposeStringSet(set *StringSet) {
 }
 
 // Free the given set of tokens.
-func DisposeTokens(tU TranslationUnit, tokens *Token, numTokens uint32) {
+func (tU TranslationUnit) DisposeTokens(tokens *Token, numTokens uint32) {
 	c_tU := tU
 	c_tokens := tokens
 	c_numTokens := numTokens
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_tokens),
 		unsafe.Pointer(&c_numTokens),
 	}
@@ -4156,11 +4156,11 @@ func DisposeTokens(tU TranslationUnit, tokens *Token, numTokens uint32) {
 }
 
 // Destroy the specified CXTranslationUnit object.
-func DisposeTranslationUnit(p0 TranslationUnit) {
+func (p0 TranslationUnit) DisposeTranslationUnit() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4189,7 +4189,7 @@ func EnableStackTraces() {
 }
 
 // Determine whether two cursors are equivalent.
-func EqualCursors(p0 Cursor, p1 Cursor) uint32 {
+func (p0 Cursor) EqualCursors(p1 Cursor) uint32 {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -4214,7 +4214,7 @@ func EqualCursors(p0 Cursor, p1 Cursor) uint32 {
 }
 
 // Determine whether two source locations, which must refer into the same translation unit, refer to exactly the same point in the source code.
-func EqualLocations(loc1 SourceLocation, loc2 SourceLocation) uint32 {
+func (loc1 SourceLocation) EqualLocations(loc2 SourceLocation) uint32 {
 	c_loc1 := loc1
 	c_loc2 := loc2
 
@@ -4239,7 +4239,7 @@ func EqualLocations(loc1 SourceLocation, loc2 SourceLocation) uint32 {
 }
 
 // Determine whether two ranges are equivalent.
-func EqualRanges(range1 SourceRange, range2 SourceRange) uint32 {
+func (range1 SourceRange) EqualRanges(range2 SourceRange) uint32 {
 	c_range1 := range1
 	c_range2 := range2
 
@@ -4264,7 +4264,7 @@ func EqualRanges(range1 SourceRange, range2 SourceRange) uint32 {
 }
 
 // Determine whether two CXTypes represent the same type.
-func EqualTypes(a Type_, b Type_) uint32 {
+func (a Type_) EqualTypes(b Type_) uint32 {
 	c_a := a
 	c_b := b
 
@@ -4291,14 +4291,14 @@ func EqualTypes(a Type_, b Type_) uint32 {
 // not supported : clang_executeOnThread : param fn : void (*)(void *)
 
 // Find #import/#include directives in a specific file.
-func FindIncludesInFile(tU TranslationUnit, file File, visitor CursorAndRangeVisitor) Result {
+func (tU TranslationUnit) FindIncludesInFile(file File, visitor CursorAndRangeVisitor) Result {
 	c_tU := tU
 	c_file := file
 	c_visitor := visitor
 
 	var retC Result
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_file),
 		unsafe.Pointer(&c_visitor),
 	}
@@ -4317,14 +4317,14 @@ func FindIncludesInFile(tU TranslationUnit, file File, visitor CursorAndRangeVis
 	return ret
 }
 
-func FindIncludesInFileWithBlock(p0 TranslationUnit, p1 File, p2 CursorAndRangeVisitorBlock) Result {
+func (p0 TranslationUnit) FindIncludesInFileWithBlock(p1 File, p2 CursorAndRangeVisitorBlock) Result {
 	c_p0 := p0
 	c_p1 := p1
 	c_p2 := p2
 
 	var retC Result
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 		unsafe.Pointer(&c_p2),
 	}
@@ -4344,7 +4344,7 @@ func FindIncludesInFileWithBlock(p0 TranslationUnit, p1 File, p2 CursorAndRangeV
 }
 
 // Find references of a declaration in a specific file.
-func FindReferencesInFile(cursor Cursor, file File, visitor CursorAndRangeVisitor) Result {
+func (cursor Cursor) FindReferencesInFile(file File, visitor CursorAndRangeVisitor) Result {
 	c_cursor := cursor
 	c_file := file
 	c_visitor := visitor
@@ -4370,7 +4370,7 @@ func FindReferencesInFile(cursor Cursor, file File, visitor CursorAndRangeVisito
 	return ret
 }
 
-func FindReferencesInFileWithBlock(p0 Cursor, p1 File, p2 CursorAndRangeVisitorBlock) Result {
+func (p0 Cursor) FindReferencesInFileWithBlock(p1 File, p2 CursorAndRangeVisitorBlock) Result {
 	c_p0 := p0
 	c_p1 := p1
 	c_p2 := p2
@@ -4401,13 +4401,13 @@ Format the given diagnostic in a manner that is suitable for display.
 
 This routine will format the given diagnostic to a string, rendering the diagnostic according to the various options given. The clang_defaultDiagnosticDisplayOptions() function returns the set of options that most closely mimics the behavior of the clang compiler.
 */
-func FormatDiagnostic(diagnostic Diagnostic, options uint32) String_ {
+func (diagnostic Diagnostic) FormatDiagnostic(options uint32) String_ {
 	c_diagnostic := diagnostic
 	c_options := options
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_options),
 	}
 
@@ -4445,7 +4445,7 @@ func Free(buffer unsafe.Pointer) {
 }
 
 // Returns the address space of the given type.
-func GetAddressSpace(t Type_) uint32 {
+func (t Type_) GetAddressSpace() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -4472,12 +4472,12 @@ Retrieve all ranges from all files that were skipped by the preprocessor.
 
 The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
 */
-func GetAllSkippedRanges(tu TranslationUnit) *SourceRangeList {
+func (tu TranslationUnit) GetAllSkippedRanges() *SourceRangeList {
 	c_tu := tu
 
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4499,7 +4499,7 @@ Retrieve the type of a parameter of a function type.
 
 If a non-function type is passed in or the function does not have enough parameters, an invalid type is returned.
 */
-func GetArgType(t Type_, i uint32) Type_ {
+func (t Type_) GetArgType(i uint32) Type_ {
 	c_t := t
 	c_i := i
 
@@ -4528,7 +4528,7 @@ Return the element type of an array type.
 
 If a non-array type is passed in, an invalid type is returned.
 */
-func GetArrayElementType(t Type_) Type_ {
+func (t Type_) GetArrayElementType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -4555,7 +4555,7 @@ Return the array size of a constant array.
 
 If a non-array type is passed in, -1 is returned.
 */
-func GetArraySize(t Type_) int64 {
+func (t Type_) GetArraySize() int64 {
 	c_t := t
 
 	var retC int64
@@ -4578,7 +4578,7 @@ func GetArraySize(t Type_) int64 {
 }
 
 // Retrieve the spelling of a given CXBinaryOperatorKind.
-func GetBinaryOperatorKindSpelling(kind BinaryOperatorKind) String_ {
+func (kind BinaryOperatorKind) GetBinaryOperatorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -4624,7 +4624,7 @@ Retrieve the character data associated with the given string.
 
 The returned data is a reference and not owned by the user. This data is only valid while the `CXString` is valid. This function is similar to `std::string::c_str()`.
 */
-func GetCString(string_ String_) string {
+func (string_ String_) GetCString() string {
 	c_string_ := string_
 
 	var retC unsafe.Pointer
@@ -4647,12 +4647,12 @@ func GetCString(string_ String_) string {
 }
 
 // Return the memory usage of a translation unit.  This object  should be released with clang_disposeCXTUResourceUsage().
-func GetCXTUResourceUsage(tU TranslationUnit) TUResourceUsage {
+func (tU TranslationUnit) GetCXTUResourceUsage() TUResourceUsage {
 	c_tU := tU
 
 	var retC TUResourceUsage
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4674,7 +4674,7 @@ Returns the access control level for the referenced object.
 
 If the cursor refers to a C++ declaration, its access control level within its parent scope is returned. Otherwise, if the cursor refers to a base specifier or access specifier, the specifier itself is returned.
 */
-func GetCXXAccessSpecifier(p0 Cursor) CXXAccessSpecifier {
+func (p0 Cursor) GetCXXAccessSpecifier() CXXAccessSpecifier {
 	c_p0 := p0
 
 	var retC CXXAccessSpecifier
@@ -4703,7 +4703,7 @@ In the C family of languages, many kinds of entities can be declared several tim
 
 The declarations and the definition of X are represented by three different cursors, all of which are declarations of the same underlying entity. One of these cursor is considered the "canonical" cursor, which is effectively the representative for the underlying entity. One can determine if two cursors are declarations of the same underlying entity by comparing their canonical cursors.
 */
-func GetCanonicalCursor(p0 Cursor) Cursor {
+func (p0 Cursor) GetCanonicalCursor() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -4730,7 +4730,7 @@ Return the canonical type for a CXType.
 
 Clang's type system explicitly models typedefs and all the ways a specific type can be represented.  The canonical type is the underlying type with all the "sugar" removed.  For example, if 'T' is a typedef for 'int', the canonical type for 'T' would be 'int'.
 */
-func GetCanonicalType(t Type_) Type_ {
+func (t Type_) GetCanonicalType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -4757,12 +4757,12 @@ Retrieve the child diagnostics of a CXDiagnostic.
 
 This CXDiagnosticSet does not need to be released by clang_disposeDiagnosticSet.
 */
-func GetChildDiagnostics(d Diagnostic) DiagnosticSet {
+func (d Diagnostic) GetChildDiagnostics() DiagnosticSet {
 	c_d := d
 
 	var retC DiagnosticSet
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_d),
+		unsafe.Pointer(&c_d.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4799,13 +4799,13 @@ func GetClangVersion() String_ {
 }
 
 // Retrieve the annotation associated with the given completion string.
-func GetCompletionAnnotation(completion_string CompletionString, annotation_number uint32) String_ {
+func (completion_string CompletionString) GetCompletionAnnotation(annotation_number uint32) String_ {
 	c_completion_string := completion_string
 	c_annotation_number := annotation_number
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_annotation_number),
 	}
 
@@ -4824,12 +4824,12 @@ func GetCompletionAnnotation(completion_string CompletionString, annotation_numb
 }
 
 // Determine the availability of the entity that this code-completion string refers to.
-func GetCompletionAvailability(completion_string CompletionString) AvailabilityKind {
+func (completion_string CompletionString) GetCompletionAvailability() AvailabilityKind {
 	c_completion_string := completion_string
 
 	var retC AvailabilityKind
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4847,12 +4847,12 @@ func GetCompletionAvailability(completion_string CompletionString) AvailabilityK
 }
 
 // Retrieve the brief documentation comment attached to the declaration that corresponds to the given completion string.
-func GetCompletionBriefComment(completion_string CompletionString) String_ {
+func (completion_string CompletionString) GetCompletionBriefComment() String_ {
 	c_completion_string := completion_string
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -4870,13 +4870,13 @@ func GetCompletionBriefComment(completion_string CompletionString) String_ {
 }
 
 // Retrieve the completion string associated with a particular chunk within a completion string.
-func GetCompletionChunkCompletionString(completion_string CompletionString, chunk_number uint32) CompletionString {
+func (completion_string CompletionString) GetCompletionChunkCompletionString(chunk_number uint32) CompletionString {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
 	var retC CompletionString
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_chunk_number),
 	}
 
@@ -4895,13 +4895,13 @@ func GetCompletionChunkCompletionString(completion_string CompletionString, chun
 }
 
 // Determine the kind of a particular chunk within a completion string.
-func GetCompletionChunkKind(completion_string CompletionString, chunk_number uint32) CompletionChunkKind {
+func (completion_string CompletionString) GetCompletionChunkKind(chunk_number uint32) CompletionChunkKind {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
 	var retC CompletionChunkKind
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_chunk_number),
 	}
 
@@ -4920,13 +4920,13 @@ func GetCompletionChunkKind(completion_string CompletionString, chunk_number uin
 }
 
 // Retrieve the text associated with a particular chunk within a completion string.
-func GetCompletionChunkText(completion_string CompletionString, chunk_number uint32) String_ {
+func (completion_string CompletionString) GetCompletionChunkText(chunk_number uint32) String_ {
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_chunk_number),
 	}
 
@@ -4955,7 +4955,7 @@ The intuition is that provided fix-its change code around the identifier we comp
 
 std::unique_ptr<std::vector<int>> vec_ptr; In 'vec_ptr.^', one of the completions is 'push_back', it requires replacing '.' with '->'. In 'vec_ptr->^', one of the completions is 'release', it requires replacing '->' with '.'.
 */
-func GetCompletionFixIt(results *CodeCompleteResults, completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
+func (results *CodeCompleteResults) GetCompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) String_ {
 	c_results := results
 	c_completion_index := completion_index
 	c_fixit_index := fixit_index
@@ -4984,12 +4984,12 @@ func GetCompletionFixIt(results *CodeCompleteResults, completion_index uint32, f
 }
 
 // Retrieve the number of annotations associated with the given completion string.
-func GetCompletionNumAnnotations(completion_string CompletionString) uint32 {
+func (completion_string CompletionString) GetCompletionNumAnnotations() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -5011,7 +5011,7 @@ Retrieve the number of fix-its for the given completion index.
 
 Calling this makes sense only if CXCodeComplete_IncludeCompletionsWithFixIts option was set.
 */
-func GetCompletionNumFixIts(results *CodeCompleteResults, completion_index uint32) uint32 {
+func (results *CodeCompleteResults) GetCompletionNumFixIts(completion_index uint32) uint32 {
 	c_results := results
 	c_completion_index := completion_index
 
@@ -5040,13 +5040,13 @@ Retrieve the parent context of the given completion string.
 
 The parent context of a completion string is the semantic parent of the declaration (if any) that the code completion represents. For example, a code completion for an Objective-C method would have the method's class or protocol as its context.
 */
-func GetCompletionParent(completion_string CompletionString, kind *CursorKind) String_ {
+func (completion_string CompletionString) GetCompletionParent(kind *CursorKind) String_ {
 	c_completion_string := completion_string
 	c_kind := kind
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_kind),
 	}
 
@@ -5069,12 +5069,12 @@ Determine the priority of this code completion.
 
 The priority of a code completion indicates how likely it is that this particular completion is the completion that the user will select. The priority is selected by various internal heuristics.
 */
-func GetCompletionPriority(completion_string CompletionString) uint32 {
+func (completion_string CompletionString) GetCompletionPriority() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -5096,13 +5096,13 @@ Map a source location to the cursor that describes the entity at that location i
 
 clang_getCursor() maps an arbitrary source location within a translation unit down to the most specific cursor that describes the entity at that location. For example, given an expression x + y, invoking clang_getCursor() with a source location pointing to "x" will return the cursor for "x"; similarly for "y". If the cursor points anywhere between "x" or "y" (e.g., on the + or the whitespace around it), clang_getCursor() will return a cursor referring to the "+" expression.
 */
-func GetCursor(p0 TranslationUnit, p1 SourceLocation) Cursor {
+func (p0 TranslationUnit) GetCursor(p1 SourceLocation) Cursor {
 	c_p0 := p0
 	c_p1 := p1
 
 	var retC Cursor
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 	}
 
@@ -5121,7 +5121,7 @@ func GetCursor(p0 TranslationUnit, p1 SourceLocation) Cursor {
 }
 
 // Determine the availability of the entity that this cursor refers to, taking the current target platform into account.
-func GetCursorAvailability(cursor Cursor) AvailabilityKind {
+func (cursor Cursor) GetCursorAvailability() AvailabilityKind {
 	c_cursor := cursor
 
 	var retC AvailabilityKind
@@ -5148,7 +5148,7 @@ Retrieve the binary operator kind of this cursor.
 
 If this cursor is not a binary operator then returns Invalid.
 */
-func GetCursorBinaryOperatorKind(cursor Cursor) BinaryOperatorKind {
+func (cursor Cursor) GetCursorBinaryOperatorKind() BinaryOperatorKind {
 	c_cursor := cursor
 
 	var retC BinaryOperatorKind
@@ -5171,7 +5171,7 @@ func GetCursorBinaryOperatorKind(cursor Cursor) BinaryOperatorKind {
 }
 
 // Retrieve a completion string for an arbitrary declaration or macro definition cursor.
-func GetCursorCompletionString(cursor Cursor) CompletionString {
+func (cursor Cursor) GetCursorCompletionString() CompletionString {
 	c_cursor := cursor
 
 	var retC CompletionString
@@ -5202,7 +5202,7 @@ there are three declarations of the function "f", but only the  second one is a 
 
 If given a cursor for which there is no corresponding definition,  e.g., because there is no definition of that entity within this  translation unit, returns a NULL cursor.
 */
-func GetCursorDefinition(p0 Cursor) Cursor {
+func (p0 Cursor) GetCursorDefinition() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -5229,7 +5229,7 @@ Retrieve the display name for the entity referenced by this cursor.
 
 The display name contains extra information that helps identify the cursor, such as the parameters of a function or template or the arguments of a class template specialization.
 */
-func GetCursorDisplayName(p0 Cursor) String_ {
+func (p0 Cursor) GetCursorDisplayName() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5256,7 +5256,7 @@ Retrieve the exception specification type associated with a given cursor. This i
 
 This only returns a valid result if the cursor refers to a function or method.
 */
-func GetCursorExceptionSpecificationType(c Cursor) int32 {
+func (c Cursor) GetCursorExceptionSpecificationType() int32 {
 	c_c := c
 
 	var retC int32
@@ -5283,7 +5283,7 @@ Retrieve the physical extent of the source construct referenced by the given cur
 
 The extent of a cursor starts with the file/line/column pointing at the first character within the source construct that the cursor refers to and ends with the last character within that source construct. For a declaration, the extent covers the declaration itself. For a reference, the extent covers the location of the reference (e.g., where the referenced entity was actually used).
 */
-func GetCursorExtent(p0 Cursor) SourceRange {
+func (p0 Cursor) GetCursorExtent() SourceRange {
 	c_p0 := p0
 
 	var retC SourceRange
@@ -5306,7 +5306,7 @@ func GetCursorExtent(p0 Cursor) SourceRange {
 }
 
 // Retrieve the kind of the given cursor.
-func GetCursorKind(p0 Cursor) CursorKind {
+func (p0 Cursor) GetCursorKind() CursorKind {
 	c_p0 := p0
 
 	var retC CursorKind
@@ -5333,7 +5333,7 @@ These routines are used for testing and debugging, only, and should not be relie
 
 @{
 */
-func GetCursorKindSpelling(kind CursorKind) String_ {
+func (kind CursorKind) GetCursorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -5356,7 +5356,7 @@ func GetCursorKindSpelling(kind CursorKind) String_ {
 }
 
 // Determine the "language" of the entity referred to by a given cursor.
-func GetCursorLanguage(cursor Cursor) LanguageKind {
+func (cursor Cursor) GetCursorLanguage() LanguageKind {
 	c_cursor := cursor
 
 	var retC LanguageKind
@@ -5389,7 +5389,7 @@ In the example above, both declarations of C::f have C as their semantic context
 
 For declarations written in the global scope, the lexical parent is the translation unit.
 */
-func GetCursorLexicalParent(cursor Cursor) Cursor {
+func (cursor Cursor) GetCursorLexicalParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -5412,7 +5412,7 @@ func GetCursorLexicalParent(cursor Cursor) Cursor {
 }
 
 // Determine the linkage of the entity referred to by a given cursor.
-func GetCursorLinkage(cursor Cursor) LinkageKind {
+func (cursor Cursor) GetCursorLinkage() LinkageKind {
 	c_cursor := cursor
 
 	var retC LinkageKind
@@ -5439,7 +5439,7 @@ Retrieve the physical location of the source constructor referenced by the given
 
 The location of a declaration is typically the location of the name of that declaration, where the name of that declaration would occur if it is unnamed, or some keyword that introduces that particular declaration. The location of a reference is where that reference occurs within the source code.
 */
-func GetCursorLocation(p0 Cursor) SourceLocation {
+func (p0 Cursor) GetCursorLocation() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
@@ -5466,7 +5466,7 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func GetCursorPlatformAvailability(cursor Cursor, always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
+func (cursor Cursor) GetCursorPlatformAvailability(always_deprecated *int32, deprecated_message *String_, always_unavailable *int32, unavailable_message *String_, availability *PlatformAvailability, availability_size int32) int32 {
 	c_cursor := cursor
 	c_always_deprecated := always_deprecated
 	c_deprecated_message := deprecated_message
@@ -5501,7 +5501,7 @@ func GetCursorPlatformAvailability(cursor Cursor, always_deprecated *int32, depr
 }
 
 // Pretty print declarations.
-func GetCursorPrettyPrinted(cursor Cursor, policy PrintingPolicy) String_ {
+func (cursor Cursor) GetCursorPrettyPrinted(policy PrintingPolicy) String_ {
 	c_cursor := cursor
 	c_policy := policy
 
@@ -5530,7 +5530,7 @@ Retrieve the default policy for the cursor.
 
 The policy should be released after use with clang_PrintingPolicy_dispose.
 */
-func GetCursorPrintingPolicy(p0 Cursor) PrintingPolicy {
+func (p0 Cursor) GetCursorPrintingPolicy() PrintingPolicy {
 	c_p0 := p0
 
 	var retC PrintingPolicy
@@ -5553,7 +5553,7 @@ func GetCursorPrintingPolicy(p0 Cursor) PrintingPolicy {
 }
 
 // Given a cursor that references something else, return the source range covering that reference.
-func GetCursorReferenceNameRange(c Cursor, nameFlags uint32, pieceIndex uint32) SourceRange {
+func (c Cursor) GetCursorReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRange {
 	c_c := c
 	c_nameFlags := nameFlags
 	c_pieceIndex := pieceIndex
@@ -5584,7 +5584,7 @@ For a cursor that is a reference, retrieve a cursor representing the entity that
 
 Reference cursors refer to other entities in the AST. For example, an Objective-C superclass reference cursor refers to an Objective-C class. This function produces the cursor for the Objective-C class from the cursor for the superclass reference. If the input cursor is a declaration or definition, it returns that declaration or definition unchanged. Otherwise, returns the NULL cursor.
 */
-func GetCursorReferenced(p0 Cursor) Cursor {
+func (p0 Cursor) GetCursorReferenced() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -5611,7 +5611,7 @@ Retrieve the return type associated with a given cursor.
 
 This only returns a valid type if the cursor refers to a function or method.
 */
-func GetCursorResultType(c Cursor) Type_ {
+func (c Cursor) GetCursorResultType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -5644,7 +5644,7 @@ In the example above, both declarations of C::f have C as their semantic context
 
 For global declarations, the semantic parent is the translation unit.
 */
-func GetCursorSemanticParent(cursor Cursor) Cursor {
+func (cursor Cursor) GetCursorSemanticParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -5667,7 +5667,7 @@ func GetCursorSemanticParent(cursor Cursor) Cursor {
 }
 
 // Retrieve a name for the entity referenced by this cursor.
-func GetCursorSpelling(p0 Cursor) String_ {
+func (p0 Cursor) GetCursorSpelling() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5690,7 +5690,7 @@ func GetCursorSpelling(p0 Cursor) String_ {
 }
 
 // Determine the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
-func GetCursorTLSKind(cursor Cursor) TLSKind {
+func (cursor Cursor) GetCursorTLSKind() TLSKind {
 	c_cursor := cursor
 
 	var retC TLSKind
@@ -5713,7 +5713,7 @@ func GetCursorTLSKind(cursor Cursor) TLSKind {
 }
 
 // Retrieve the type of a CXCursor (if any).
-func GetCursorType(c Cursor) Type_ {
+func (c Cursor) GetCursorType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -5740,7 +5740,7 @@ Retrieve a Unified Symbol Resolution (USR) for the entity referenced by the give
 
 A Unified Symbol Resolution (USR) is a string that identifies a particular entity (function, class, variable, etc.) within a program. USRs can be compared across translation units to determine, e.g., when references in one translation refer to an entity defined in another translation unit.
 */
-func GetCursorUSR(p0 Cursor) String_ {
+func (p0 Cursor) GetCursorUSR() String_ {
 	c_p0 := p0
 
 	var retC String_
@@ -5767,7 +5767,7 @@ Retrieve the unary operator kind of this cursor.
 
 If this cursor is not a unary operator then returns Invalid.
 */
-func GetCursorUnaryOperatorKind(cursor Cursor) UnaryOperatorKind {
+func (cursor Cursor) GetCursorUnaryOperatorKind() UnaryOperatorKind {
 	c_cursor := cursor
 
 	var retC UnaryOperatorKind
@@ -5794,7 +5794,7 @@ Describe the visibility of the entity referred to by a cursor.
 
 This returns the default visibility if not explicitly specified by a visibility attribute. The default visibility may be changed by commandline arguments.
 */
-func GetCursorVisibility(cursor Cursor) VisibilityKind {
+func (cursor Cursor) GetCursorVisibility() VisibilityKind {
 	c_cursor := cursor
 
 	var retC VisibilityKind
@@ -5817,7 +5817,7 @@ func GetCursorVisibility(cursor Cursor) VisibilityKind {
 }
 
 // Returns the Objective-C type encoding for the specified declaration.
-func GetDeclObjCTypeEncoding(c Cursor) String_ {
+func (c Cursor) GetDeclObjCTypeEncoding() String_ {
 	c_c := c
 
 	var retC String_
@@ -5842,13 +5842,13 @@ func GetDeclObjCTypeEncoding(c Cursor) String_ {
 // not supported : clang_getDefinitionSpellingAndExtent : param startBuf : const char **
 
 // Retrieve a diagnostic associated with the given translation unit.
-func GetDiagnostic(unit TranslationUnit, index uint32) Diagnostic {
+func (unit TranslationUnit) GetDiagnostic(index uint32) Diagnostic {
 	c_unit := unit
 	c_index := index
 
 	var retC Diagnostic
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_unit),
+		unsafe.Pointer(&c_unit.ptr),
 		unsafe.Pointer(&c_index),
 	}
 
@@ -5871,12 +5871,12 @@ Retrieve the category number for this diagnostic.
 
 Diagnostics can be categorized into groups along with other, related diagnostics (e.g., diagnostics under the same warning flag). This routine retrieves the category number for the given diagnostic.
 */
-func GetDiagnosticCategory(p0 Diagnostic) uint32 {
+func (p0 Diagnostic) GetDiagnosticCategory() uint32 {
 	c_p0 := p0
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -5917,12 +5917,12 @@ func GetDiagnosticCategoryName(category uint32) String_ {
 }
 
 // Retrieve the diagnostic category text for a given diagnostic.
-func GetDiagnosticCategoryText(p0 Diagnostic) String_ {
+func (p0 Diagnostic) GetDiagnosticCategoryText() String_ {
 	c_p0 := p0
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -5944,14 +5944,14 @@ Retrieve the replacement information for a given fix-it.
 
 Fix-its are described in terms of a source range whose contents should be replaced by a string. This approach generalizes over three kinds of operations: removal of source code (the range covers the code to be removed and the replacement string is empty), replacement of source code (the range covers the code to be replaced and the replacement string provides the new code), and insertion (both the start and end of the range point at the insertion location, and the replacement string provides the text to insert).
 */
-func GetDiagnosticFixIt(diagnostic Diagnostic, fixIt uint32, replacementRange *SourceRange) String_ {
+func (diagnostic Diagnostic) GetDiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) String_ {
 	c_diagnostic := diagnostic
 	c_fixIt := fixIt
 	c_replacementRange := replacementRange
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_fixIt),
 		unsafe.Pointer(&c_replacementRange),
 	}
@@ -5971,13 +5971,13 @@ func GetDiagnosticFixIt(diagnostic Diagnostic, fixIt uint32, replacementRange *S
 }
 
 // Retrieve a diagnostic associated with the given CXDiagnosticSet.
-func GetDiagnosticInSet(diags DiagnosticSet, index uint32) Diagnostic {
+func (diags DiagnosticSet) GetDiagnosticInSet(index uint32) Diagnostic {
 	c_diags := diags
 	c_index := index
 
 	var retC Diagnostic
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_diags.ptr),
 		unsafe.Pointer(&c_index),
 	}
 
@@ -6000,12 +6000,12 @@ Retrieve the source location of the given diagnostic.
 
 This location is where Clang would print the caret ('^') when displaying the diagnostic on the command line.
 */
-func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
+func (p0 Diagnostic) GetDiagnosticLocation() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6023,12 +6023,12 @@ func GetDiagnosticLocation(p0 Diagnostic) SourceLocation {
 }
 
 // Determine the number of fix-it hints associated with the given diagnostic.
-func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
+func (diagnostic Diagnostic) GetDiagnosticNumFixIts() uint32 {
 	c_diagnostic := diagnostic
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_diagnostic.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6046,12 +6046,12 @@ func GetDiagnosticNumFixIts(diagnostic Diagnostic) uint32 {
 }
 
 // Determine the number of source ranges associated with the given diagnostic.
-func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
+func (p0 Diagnostic) GetDiagnosticNumRanges() uint32 {
 	c_p0 := p0
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6069,13 +6069,13 @@ func GetDiagnosticNumRanges(p0 Diagnostic) uint32 {
 }
 
 // Retrieve the name of the command-line option that enabled this diagnostic.
-func GetDiagnosticOption(diag Diagnostic, disable *String_) String_ {
+func (diag Diagnostic) GetDiagnosticOption(disable *String_) String_ {
 	c_diag := diag
 	c_disable := disable
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diag),
+		unsafe.Pointer(&c_diag.ptr),
 		unsafe.Pointer(&c_disable),
 	}
 
@@ -6098,13 +6098,13 @@ Retrieve a source range associated with the diagnostic.
 
 A diagnostic's source ranges highlight important elements in the source code. On the command line, Clang displays source ranges by underlining them with '~' characters.
 */
-func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
+func (diagnostic Diagnostic) GetDiagnosticRange(range_ uint32) SourceRange {
 	c_diagnostic := diagnostic
 	c_range_ := range_
 
 	var retC SourceRange
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diagnostic),
+		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_range_),
 	}
 
@@ -6123,12 +6123,12 @@ func GetDiagnosticRange(diagnostic Diagnostic, range_ uint32) SourceRange {
 }
 
 // Retrieve the complete set of diagnostics associated with a        translation unit.
-func GetDiagnosticSetFromTU(unit TranslationUnit) DiagnosticSet {
+func (unit TranslationUnit) GetDiagnosticSetFromTU() DiagnosticSet {
 	c_unit := unit
 
 	var retC DiagnosticSet
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_unit),
+		unsafe.Pointer(&c_unit.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6146,12 +6146,12 @@ func GetDiagnosticSetFromTU(unit TranslationUnit) DiagnosticSet {
 }
 
 // Determine the severity of the given diagnostic.
-func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
+func (p0 Diagnostic) GetDiagnosticSeverity() DiagnosticSeverity {
 	c_p0 := p0
 
 	var retC DiagnosticSeverity
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6169,12 +6169,12 @@ func GetDiagnosticSeverity(p0 Diagnostic) DiagnosticSeverity {
 }
 
 // Retrieve the text of the given diagnostic.
-func GetDiagnosticSpelling(p0 Diagnostic) String_ {
+func (p0 Diagnostic) GetDiagnosticSpelling() String_ {
 	c_p0 := p0
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6196,7 +6196,7 @@ Return the element type of an array, complex, or vector type.
 
 If a type is passed in that is not an array, complex, or vector type, an invalid type is returned.
 */
-func GetElementType(t Type_) Type_ {
+func (t Type_) GetElementType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -6223,7 +6223,7 @@ Retrieve the integer value of an enum constant declaration as an unsigned  long 
 
 If the cursor does not reference an enum constant declaration, ULLONG_MAX is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
 */
-func GetEnumConstantDeclUnsignedValue(c Cursor) uint64 {
+func (c Cursor) GetEnumConstantDeclUnsignedValue() uint64 {
 	c_c := c
 
 	var retC uint64
@@ -6250,7 +6250,7 @@ Retrieve the integer value of an enum constant declaration as a signed  long lon
 
 If the cursor does not reference an enum constant declaration, LLONG_MIN is returned. Since this is also potentially a valid constant value, the kind of the cursor must be verified before calling this function.
 */
-func GetEnumConstantDeclValue(c Cursor) int64 {
+func (c Cursor) GetEnumConstantDeclValue() int64 {
 	c_c := c
 
 	var retC int64
@@ -6277,7 +6277,7 @@ Retrieve the integer type of an enum declaration.
 
 If the cursor does not reference an enum declaration, an invalid type is returned.
 */
-func GetEnumDeclIntegerType(c Cursor) Type_ {
+func (c Cursor) GetEnumDeclIntegerType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -6304,7 +6304,7 @@ Retrieve the exception specification type associated with a function type. This 
 
 If a non-function type is passed in, an error code of -1 is returned.
 */
-func GetExceptionSpecificationType(t Type_) int32 {
+func (t Type_) GetExceptionSpecificationType() int32 {
 	c_t := t
 
 	var retC int32
@@ -6331,7 +6331,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion.
 */
-func GetExpansionLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) GetExpansionLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6364,7 +6364,7 @@ If the cursor does not reference a bit-field, or if the bit-field's width expres
 
 For example:
 */
-func GetFieldDeclBitWidth(c Cursor) int32 {
+func (c Cursor) GetFieldDeclBitWidth() int32 {
 	c_c := c
 
 	var retC int32
@@ -6387,14 +6387,14 @@ func GetFieldDeclBitWidth(c Cursor) int32 {
 }
 
 // Retrieve a file handle within the given translation unit.
-func GetFile(tu TranslationUnit, file_name string) File {
+func (tu TranslationUnit) GetFile(file_name string) File {
 	c_tu := tu
 	c_file_name, free_c_file_name := libc.CString(file_name)
 	defer free_c_file_name()
 
 	var retC File
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_file_name),
 	}
 
@@ -6419,7 +6419,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, return where the macro was expanded or where the macro argument was written, if the location points at a macro argument.
 */
-func GetFileLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) GetFileLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6446,12 +6446,12 @@ func GetFileLocation(location SourceLocation, file *File, line *uint32, column *
 }
 
 // Retrieve the complete file and path name of the given file.
-func GetFileName(sFile File) String_ {
+func (sFile File) GetFileName() String_ {
 	c_sFile := sFile
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_sFile),
+		unsafe.Pointer(&c_sFile.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6471,13 +6471,13 @@ func GetFileName(sFile File) String_ {
 // not supported : clang_getFileTime : return value : time_t
 
 // Retrieve the unique ID for the given file.
-func GetFileUniqueID(file File, outID *FileUniqueID) int32 {
+func (file File) GetFileUniqueID(outID *FileUniqueID) int32 {
 	c_file := file
 	c_outID := outID
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_file),
+		unsafe.Pointer(&c_file.ptr),
 		unsafe.Pointer(&c_outID),
 	}
 
@@ -6502,7 +6502,7 @@ This includes full qualification of all template parameters.
 
 Policy - Further refine the type formatting WithGlobalNsPrefix - If non-zero, function will prepend a '::' to qualified names
 */
-func GetFullyQualifiedName(cT Type_, policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
+func (cT Type_) GetFullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint32) String_ {
 	c_cT := cT
 	c_policy := policy
 	c_withGlobalNsPrefix := withGlobalNsPrefix
@@ -6533,7 +6533,7 @@ Retrieve the calling convention associated with a function type.
 
 If a non-function type is passed in, CXCallingConv_Invalid is returned.
 */
-func GetFunctionTypeCallingConv(t Type_) CallingConv {
+func (t Type_) GetFunctionTypeCallingConv() CallingConv {
 	c_t := t
 
 	var retC CallingConv
@@ -6556,7 +6556,7 @@ func GetFunctionTypeCallingConv(t Type_) CallingConv {
 }
 
 // For cursors representing an iboutletcollection attribute,  this function returns the collection element type.
-func GetIBOutletCollectionType(p0 Cursor) Type_ {
+func (p0 Cursor) GetIBOutletCollectionType() Type_ {
 	c_p0 := p0
 
 	var retC Type_
@@ -6579,7 +6579,7 @@ func GetIBOutletCollectionType(p0 Cursor) Type_ {
 }
 
 // Retrieve the file that is included by the given inclusion directive cursor.
-func GetIncludedFile(cursor Cursor) File {
+func (cursor Cursor) GetIncludedFile() File {
 	c_cursor := cursor
 
 	var retC File
@@ -6602,13 +6602,13 @@ func GetIncludedFile(cursor Cursor) File {
 }
 
 // Visit the set of preprocessor inclusions in a translation unit.   The visitor function is called with the provided data for every included   file.  This does not include headers included by the PCH file (unless one   is inspecting the inclusions in the PCH file itself).
-func GetInclusions(tu TranslationUnit, visitor InclusionVisitor, client_data ClientData) {
+func (tu TranslationUnit) GetInclusions(visitor InclusionVisitor, client_data ClientData) {
 	c_tu := tu
 	c_visitor := visitor
 	c_client_data := client_data
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_visitor),
 		unsafe.Pointer(&c_client_data),
 	}
@@ -6629,7 +6629,7 @@ Legacy API to retrieve the file, line, column, and offset represented by the giv
 
 This interface has been replaced by the newer interface #clang_getExpansionLocation(). See that interface's documentation for details.
 */
-func GetInstantiationLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) GetInstantiationLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -6656,7 +6656,7 @@ func GetInstantiationLocation(location SourceLocation, file *File, line *uint32,
 }
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
-func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) SourceLocation {
+func (tu TranslationUnit) GetLocation(file File, line uint32, column uint32) SourceLocation {
 	c_tu := tu
 	c_file := file
 	c_line := line
@@ -6664,7 +6664,7 @@ func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) Sour
 
 	var retC SourceLocation
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_file),
 		unsafe.Pointer(&c_line),
 		unsafe.Pointer(&c_column),
@@ -6685,14 +6685,14 @@ func GetLocation(tu TranslationUnit, file File, line uint32, column uint32) Sour
 }
 
 // Retrieves the source location associated with a given character offset in a particular translation unit.
-func GetLocationForOffset(tu TranslationUnit, file File, offset uint32) SourceLocation {
+func (tu TranslationUnit) GetLocationForOffset(file File, offset uint32) SourceLocation {
 	c_tu := tu
 	c_file := file
 	c_offset := offset
 
 	var retC SourceLocation
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_file),
 		unsafe.Pointer(&c_offset),
 	}
@@ -6712,13 +6712,13 @@ func GetLocationForOffset(tu TranslationUnit, file File, offset uint32) SourceLo
 }
 
 // Given a CXFile header file, return the module that contains it, if one exists.
-func GetModuleForFile(p0 TranslationUnit, p1 File) Module {
+func (p0 TranslationUnit) GetModuleForFile(p1 File) Module {
 	c_p0 := p0
 	c_p1 := p1
 
 	var retC Module
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 	}
 
@@ -6743,7 +6743,7 @@ Otherwise, returns the type itself.
 
 A type that has kind CXType_LValueReference or CXType_RValueReference is a reference type.
 */
-func GetNonReferenceType(cT Type_) Type_ {
+func (cT Type_) GetNonReferenceType() Type_ {
 	c_cT := cT
 
 	var retC Type_
@@ -6827,7 +6827,7 @@ Retrieve the number of non-variadic parameters associated with a function type.
 
 If a non-function type is passed in, -1 is returned.
 */
-func GetNumArgTypes(t Type_) int32 {
+func (t Type_) GetNumArgTypes() int32 {
 	c_t := t
 
 	var retC int32
@@ -6850,12 +6850,12 @@ func GetNumArgTypes(t Type_) int32 {
 }
 
 // Retrieve the number of chunks in the given code-completion string.
-func GetNumCompletionChunks(completion_string CompletionString) uint32 {
+func (completion_string CompletionString) GetNumCompletionChunks() uint32 {
 	c_completion_string := completion_string
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_completion_string),
+		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6873,12 +6873,12 @@ func GetNumCompletionChunks(completion_string CompletionString) uint32 {
 }
 
 // Determine the number of diagnostics produced for the given translation unit.
-func GetNumDiagnostics(unit TranslationUnit) uint32 {
+func (unit TranslationUnit) GetNumDiagnostics() uint32 {
 	c_unit := unit
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_unit),
+		unsafe.Pointer(&c_unit.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6896,12 +6896,12 @@ func GetNumDiagnostics(unit TranslationUnit) uint32 {
 }
 
 // Determine the number of diagnostics in a CXDiagnosticSet.
-func GetNumDiagnosticsInSet(diags DiagnosticSet) uint32 {
+func (diags DiagnosticSet) GetNumDiagnosticsInSet() uint32 {
 	c_diags := diags
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_diags),
+		unsafe.Pointer(&c_diags.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -6923,7 +6923,7 @@ Return the number of elements of an array or vector type.
 
 If a type is passed in that is not an array or vector type, -1 is returned.
 */
-func GetNumElements(t Type_) int64 {
+func (t Type_) GetNumElements() int64 {
 	c_t := t
 
 	var retC int64
@@ -6946,7 +6946,7 @@ func GetNumElements(t Type_) int64 {
 }
 
 // Determine the number of overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
-func GetNumOverloadedDecls(cursor Cursor) uint32 {
+func (cursor Cursor) GetNumOverloadedDecls() uint32 {
 	c_cursor := cursor
 
 	var retC uint32
@@ -6973,7 +6973,7 @@ Returns the offset in bits of a CX_CXXBaseSpecifier relative to the parent class
 
 Returns a small negative number if the offset cannot be computed. See CXTypeLayoutError for error codes.
 */
-func GetOffsetOfBase(parent Cursor, base Cursor) int64 {
+func (parent Cursor) GetOffsetOfBase(base Cursor) int64 {
 	c_parent := parent
 	c_base := base
 
@@ -6998,7 +6998,7 @@ func GetOffsetOfBase(parent Cursor, base Cursor) int64 {
 }
 
 // Retrieve a cursor for one of the overloaded declarations referenced by a CXCursor_OverloadedDeclRef cursor.
-func GetOverloadedDecl(cursor Cursor, index uint32) Cursor {
+func (cursor Cursor) GetOverloadedDecl(index uint32) Cursor {
 	c_cursor := cursor
 	c_index := index
 
@@ -7025,7 +7025,7 @@ func GetOverloadedDecl(cursor Cursor, index uint32) Cursor {
 // not supported : clang_getOverriddenCursors : param overridden : CXCursor **
 
 // For pointer types, returns the type of the pointee.
-func GetPointeeType(t Type_) Type_ {
+func (t Type_) GetPointeeType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -7060,7 +7060,7 @@ whereas clang_getExpansionLocation would have returned
 
 File: somefile.c Line: 3 Column: 12
 */
-func GetPresumedLocation(location SourceLocation, filename *String_, line *uint32, column *uint32) {
+func (location SourceLocation) GetPresumedLocation(filename *String_, line *uint32, column *uint32) {
 	c_location := location
 	c_filename := filename
 	c_line := line
@@ -7085,7 +7085,7 @@ func GetPresumedLocation(location SourceLocation, filename *String_, line *uint3
 }
 
 // Retrieve a source range given the beginning and ending source locations.
-func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
+func (begin SourceLocation) GetRange(end SourceLocation) SourceRange {
 	c_begin := begin
 	c_end := end
 
@@ -7110,7 +7110,7 @@ func GetRange(begin SourceLocation, end SourceLocation) SourceRange {
 }
 
 // Retrieve a source location representing the last character within a source range.
-func GetRangeEnd(range_ SourceRange) SourceLocation {
+func (range_ SourceRange) GetRangeEnd() SourceLocation {
 	c_range_ := range_
 
 	var retC SourceLocation
@@ -7133,7 +7133,7 @@ func GetRangeEnd(range_ SourceRange) SourceLocation {
 }
 
 // Retrieve a source location representing the first character within a source range.
-func GetRangeStart(range_ SourceRange) SourceLocation {
+func (range_ SourceRange) GetRangeStart() SourceLocation {
 	c_range_ := range_
 
 	var retC SourceLocation
@@ -7185,7 +7185,7 @@ Retrieve the return type associated with a function type.
 
 If a non-function type is passed in, an invalid type is returned.
 */
-func GetResultType(t Type_) Type_ {
+func (t Type_) GetResultType() Type_ {
 	c_t := t
 
 	var retC Type_
@@ -7212,13 +7212,13 @@ Retrieve all ranges that were skipped by the preprocessor.
 
 The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.
 */
-func GetSkippedRanges(tu TranslationUnit, file File) *SourceRangeList {
+func (tu TranslationUnit) GetSkippedRanges(file File) *SourceRangeList {
 	c_tu := tu
 	c_file := file
 
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_file),
 	}
 
@@ -7243,7 +7243,7 @@ This routine determines the template involved both for explicit specializations 
 
 For members of a class template (e.g., member functions, member classes, or static data members), returns the specialized or instantiated member. Although not strictly "templates" in the C++ language, members of class templates have the same notions of specializations and instantiations that templates do, so this routine treats them similarly.
 */
-func GetSpecializedCursorTemplate(c Cursor) Cursor {
+func (c Cursor) GetSpecializedCursorTemplate() Cursor {
 	c_c := c
 
 	var retC Cursor
@@ -7270,7 +7270,7 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro instantiation, return where the location was originally spelled in the source file.
 */
-func GetSpellingLocation(location SourceLocation, file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) GetSpellingLocation(file *File, line *uint32, column *uint32, offset *uint32) {
 	c_location := location
 	c_file := file
 	c_line := line
@@ -7297,7 +7297,7 @@ func GetSpellingLocation(location SourceLocation, file *File, line *uint32, colu
 }
 
 // Returns the human-readable null-terminated C string that represents  the name of the memory category.  This string should never be freed.
-func GetTUResourceUsageName(kind TUResourceUsageKind) string {
+func (kind TUResourceUsageKind) GetTUResourceUsageName() string {
 	c_kind := kind
 
 	var retC unsafe.Pointer
@@ -7324,7 +7324,7 @@ Given a cursor that represents a template, determine the cursor kind of the spec
 
 This routine can be used to determine what flavor of function template, class template, or class template partial specialization is stored in the cursor. For example, it can describe whether a class template cursor is declared with "struct", "class" or "union".
 */
-func GetTemplateCursorKind(c Cursor) CursorKind {
+func (c Cursor) GetTemplateCursorKind() CursorKind {
 	c_c := c
 
 	var retC CursorKind
@@ -7347,13 +7347,13 @@ func GetTemplateCursorKind(c Cursor) CursorKind {
 }
 
 // Get the raw lexical token starting with the given location.
-func GetToken(tU TranslationUnit, location SourceLocation) *Token {
+func (tU TranslationUnit) GetToken(location SourceLocation) *Token {
 	c_tU := tU
 	c_location := location
 
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_location),
 	}
 
@@ -7372,13 +7372,13 @@ func GetToken(tU TranslationUnit, location SourceLocation) *Token {
 }
 
 // Retrieve a source range that covers the given token.
-func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
+func (p0 TranslationUnit) GetTokenExtent(p1 Token) SourceRange {
 	c_p0 := p0
 	c_p1 := p1
 
 	var retC SourceRange
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 	}
 
@@ -7397,7 +7397,7 @@ func GetTokenExtent(p0 TranslationUnit, p1 Token) SourceRange {
 }
 
 // Determine the kind of the given token.
-func GetTokenKind(p0 Token) TokenKind {
+func (p0 Token) GetTokenKind() TokenKind {
 	c_p0 := p0
 
 	var retC TokenKind
@@ -7420,13 +7420,13 @@ func GetTokenKind(p0 Token) TokenKind {
 }
 
 // Retrieve the source location of the given token.
-func GetTokenLocation(p0 TranslationUnit, p1 Token) SourceLocation {
+func (p0 TranslationUnit) GetTokenLocation(p1 Token) SourceLocation {
 	c_p0 := p0
 	c_p1 := p1
 
 	var retC SourceLocation
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 	}
 
@@ -7449,13 +7449,13 @@ Determine the spelling of the given token.
 
 The spelling of a token is the textual representation of that token, e.g., the text of an identifier or keyword.
 */
-func GetTokenSpelling(p0 TranslationUnit, p1 Token) String_ {
+func (p0 TranslationUnit) GetTokenSpelling(p1 Token) String_ {
 	c_p0 := p0
 	c_p1 := p1
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 	}
 
@@ -7478,12 +7478,12 @@ Retrieve the cursor that represents the given translation unit.
 
 The translation unit cursor can be used to start traversing the various declarations within the given translation unit.
 */
-func GetTranslationUnitCursor(p0 TranslationUnit) Cursor {
+func (p0 TranslationUnit) GetTranslationUnitCursor() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -7501,12 +7501,12 @@ func GetTranslationUnitCursor(p0 TranslationUnit) Cursor {
 }
 
 // Get the original translation unit source file name.
-func GetTranslationUnitSpelling(cTUnit TranslationUnit) String_ {
+func (cTUnit TranslationUnit) GetTranslationUnitSpelling() String_ {
 	c_cTUnit := cTUnit
 
 	var retC String_
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cTUnit),
+		unsafe.Pointer(&c_cTUnit.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -7528,12 +7528,12 @@ Get target information for this translation unit.
 
 The CXTargetInfo object cannot outlive the CXTranslationUnit object.
 */
-func GetTranslationUnitTargetInfo(cTUnit TranslationUnit) TargetInfo {
+func (cTUnit TranslationUnit) GetTranslationUnitTargetInfo() TargetInfo {
 	c_cTUnit := cTUnit
 
 	var retC TargetInfo
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cTUnit),
+		unsafe.Pointer(&c_cTUnit.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -7551,7 +7551,7 @@ func GetTranslationUnitTargetInfo(cTUnit TranslationUnit) TargetInfo {
 }
 
 // Return the cursor for the declaration of the given type.
-func GetTypeDeclaration(t Type_) Cursor {
+func (t Type_) GetTypeDeclaration() Cursor {
 	c_t := t
 
 	var retC Cursor
@@ -7574,7 +7574,7 @@ func GetTypeDeclaration(t Type_) Cursor {
 }
 
 // Retrieve the spelling of a given CXTypeKind.
-func GetTypeKindSpelling(k TypeKind) String_ {
+func (k TypeKind) GetTypeKindSpelling() String_ {
 	c_k := k
 
 	var retC String_
@@ -7601,7 +7601,7 @@ Pretty-print the underlying type using a custom printing policy.
 
 If the type is invalid, an empty string is returned.
 */
-func GetTypePrettyPrinted(cT Type_, cxPolicy PrintingPolicy) String_ {
+func (cT Type_) GetTypePrettyPrinted(cxPolicy PrintingPolicy) String_ {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
@@ -7630,7 +7630,7 @@ Pretty-print the underlying type using the rules of the language of the translat
 
 If the type is invalid, an empty string is returned.
 */
-func GetTypeSpelling(cT Type_) String_ {
+func (cT Type_) GetTypeSpelling() String_ {
 	c_cT := cT
 
 	var retC String_
@@ -7657,7 +7657,7 @@ Retrieve the underlying type of a typedef declaration.
 
 If the cursor does not reference a typedef declaration, an invalid type is returned.
 */
-func GetTypedefDeclUnderlyingType(c Cursor) Type_ {
+func (c Cursor) GetTypedefDeclUnderlyingType() Type_ {
 	c_c := c
 
 	var retC Type_
@@ -7680,7 +7680,7 @@ func GetTypedefDeclUnderlyingType(c Cursor) Type_ {
 }
 
 // Returns the typedef name of the given type.
-func GetTypedefName(cT Type_) String_ {
+func (cT Type_) GetTypedefName() String_ {
 	c_cT := cT
 
 	var retC String_
@@ -7703,7 +7703,7 @@ func GetTypedefName(cT Type_) String_ {
 }
 
 // Retrieve the spelling of a given CXUnaryOperatorKind.
-func GetUnaryOperatorKindSpelling(kind UnaryOperatorKind) String_ {
+func (kind UnaryOperatorKind) GetUnaryOperatorKindSpelling() String_ {
 	c_kind := kind
 
 	var retC String_
@@ -7742,7 +7742,7 @@ A type can be checked for qualifiers with clang_isConstQualifiedType(), clang_is
 
 A type that resulted from a call to clang_getUnqualifiedType will return false for all of the above calls.
 */
-func GetUnqualifiedType(cT Type_) Type_ {
+func (cT Type_) GetUnqualifiedType() Type_ {
 	c_cT := cT
 
 	var retC Type_
@@ -7765,7 +7765,7 @@ func GetUnqualifiedType(cT Type_) Type_ {
 }
 
 // Compute a hash value for the given cursor.
-func HashCursor(p0 Cursor) uint32 {
+func (p0 Cursor) HashCursor() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -7788,7 +7788,7 @@ func HashCursor(p0 Cursor) uint32 {
 }
 
 // Retrieve the CXSourceLocation represented by the given CXIdxLoc.
-func IndexLoc_getCXSourceLocation(loc IdxLoc) SourceLocation {
+func (loc IdxLoc) IndexLoc_getCXSourceLocation() SourceLocation {
 	c_loc := loc
 
 	var retC SourceLocation
@@ -7815,7 +7815,7 @@ Retrieve the CXIdxFile, file, line, column, and offset represented by the given 
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion and if it refers into a macro argument retrieves the location of the argument.
 */
-func IndexLoc_getFileLocation(loc IdxLoc, indexFile *IdxClientFile, file *File, line *uint32, column *uint32, offset *uint32) {
+func (loc IdxLoc) IndexLoc_getFileLocation(indexFile *IdxClientFile, file *File, line *uint32, column *uint32, offset *uint32) {
 	c_loc := loc
 	c_indexFile := indexFile
 	c_file := file
@@ -7848,7 +7848,7 @@ Index the given source file and the translation unit corresponding to that file 
 
 The rest of the parameters are the same as #clang_parseTranslationUnit.
 */
-func IndexSourceFile(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
 	c_p0 := p0
 	c_client_data := client_data
 	c_index_callbacks := index_callbacks
@@ -7869,7 +7869,7 @@ func IndexSourceFile(p0 IndexAction, client_data ClientData, index_callbacks *In
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_client_data),
 		unsafe.Pointer(&c_index_callbacks),
 		unsafe.Pointer(&c_index_callbacks_size),
@@ -7898,7 +7898,7 @@ func IndexSourceFile(p0 IndexAction, client_data ClientData, index_callbacks *In
 }
 
 // Same as clang_indexSourceFile but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
-func IndexSourceFileFullArgv(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
 	c_p0 := p0
 	c_client_data := client_data
 	c_index_callbacks := index_callbacks
@@ -7919,7 +7919,7 @@ func IndexSourceFileFullArgv(p0 IndexAction, client_data ClientData, index_callb
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_client_data),
 		unsafe.Pointer(&c_index_callbacks),
 		unsafe.Pointer(&c_index_callbacks_size),
@@ -7956,7 +7956,7 @@ The order of callback invocations is not guaranteed to be the same as when index
 
 The parameters are the same as #clang_indexSourceFile.
 */
-func IndexTranslationUnit(p0 IndexAction, client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, p5 TranslationUnit) int32 {
+func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, p5 TranslationUnit) int32 {
 	c_p0 := p0
 	c_client_data := client_data
 	c_index_callbacks := index_callbacks
@@ -7966,7 +7966,7 @@ func IndexTranslationUnit(p0 IndexAction, client_data ClientData, index_callback
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_client_data),
 		unsafe.Pointer(&c_index_callbacks),
 		unsafe.Pointer(&c_index_callbacks_size),
@@ -7988,7 +7988,7 @@ func IndexTranslationUnit(p0 IndexAction, client_data ClientData, index_callback
 	return ret
 }
 
-func Index_getCXXClassDeclInfo(p0 *IdxDeclInfo) *IdxCXXClassDeclInfo {
+func (p0 *IdxDeclInfo) Index_getCXXClassDeclInfo() *IdxCXXClassDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8011,7 +8011,7 @@ func Index_getCXXClassDeclInfo(p0 *IdxDeclInfo) *IdxCXXClassDeclInfo {
 }
 
 // For retrieving a custom CXIdxClientContainer attached to a container.
-func Index_getClientContainer(p0 *IdxContainerInfo) IdxClientContainer {
+func (p0 *IdxContainerInfo) Index_getClientContainer() IdxClientContainer {
 	c_p0 := p0
 
 	var retC IdxClientContainer
@@ -8034,7 +8034,7 @@ func Index_getClientContainer(p0 *IdxContainerInfo) IdxClientContainer {
 }
 
 // For retrieving a custom CXIdxClientEntity attached to an entity.
-func Index_getClientEntity(p0 *IdxEntityInfo) IdxClientEntity {
+func (p0 *IdxEntityInfo) Index_getClientEntity() IdxClientEntity {
 	c_p0 := p0
 
 	var retC IdxClientEntity
@@ -8056,7 +8056,7 @@ func Index_getClientEntity(p0 *IdxEntityInfo) IdxClientEntity {
 	return ret
 }
 
-func Index_getIBOutletCollectionAttrInfo(p0 *IdxAttrInfo) *IdxIBOutletCollectionAttrInfo {
+func (p0 *IdxAttrInfo) Index_getIBOutletCollectionAttrInfo() *IdxIBOutletCollectionAttrInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8078,7 +8078,7 @@ func Index_getIBOutletCollectionAttrInfo(p0 *IdxAttrInfo) *IdxIBOutletCollection
 	return ret
 }
 
-func Index_getObjCCategoryDeclInfo(p0 *IdxDeclInfo) *IdxObjCCategoryDeclInfo {
+func (p0 *IdxDeclInfo) Index_getObjCCategoryDeclInfo() *IdxObjCCategoryDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8100,7 +8100,7 @@ func Index_getObjCCategoryDeclInfo(p0 *IdxDeclInfo) *IdxObjCCategoryDeclInfo {
 	return ret
 }
 
-func Index_getObjCContainerDeclInfo(p0 *IdxDeclInfo) *IdxObjCContainerDeclInfo {
+func (p0 *IdxDeclInfo) Index_getObjCContainerDeclInfo() *IdxObjCContainerDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8122,7 +8122,7 @@ func Index_getObjCContainerDeclInfo(p0 *IdxDeclInfo) *IdxObjCContainerDeclInfo {
 	return ret
 }
 
-func Index_getObjCInterfaceDeclInfo(p0 *IdxDeclInfo) *IdxObjCInterfaceDeclInfo {
+func (p0 *IdxDeclInfo) Index_getObjCInterfaceDeclInfo() *IdxObjCInterfaceDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8144,7 +8144,7 @@ func Index_getObjCInterfaceDeclInfo(p0 *IdxDeclInfo) *IdxObjCInterfaceDeclInfo {
 	return ret
 }
 
-func Index_getObjCPropertyDeclInfo(p0 *IdxDeclInfo) *IdxObjCPropertyDeclInfo {
+func (p0 *IdxDeclInfo) Index_getObjCPropertyDeclInfo() *IdxObjCPropertyDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8166,7 +8166,7 @@ func Index_getObjCPropertyDeclInfo(p0 *IdxDeclInfo) *IdxObjCPropertyDeclInfo {
 	return ret
 }
 
-func Index_getObjCProtocolRefListInfo(p0 *IdxDeclInfo) *IdxObjCProtocolRefListInfo {
+func (p0 *IdxDeclInfo) Index_getObjCProtocolRefListInfo() *IdxObjCProtocolRefListInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8188,7 +8188,7 @@ func Index_getObjCProtocolRefListInfo(p0 *IdxDeclInfo) *IdxObjCProtocolRefListIn
 	return ret
 }
 
-func Index_isEntityObjCContainerKind(p0 IdxEntityKind) int32 {
+func (p0 IdxEntityKind) Index_isEntityObjCContainerKind() int32 {
 	c_p0 := p0
 
 	var retC int32
@@ -8211,7 +8211,7 @@ func Index_isEntityObjCContainerKind(p0 IdxEntityKind) int32 {
 }
 
 // For setting a custom CXIdxClientContainer attached to a container.
-func Index_setClientContainer(p0 *IdxContainerInfo, p1 IdxClientContainer) {
+func (p0 *IdxContainerInfo) Index_setClientContainer(p1 IdxClientContainer) {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -8232,7 +8232,7 @@ func Index_setClientContainer(p0 *IdxContainerInfo, p1 IdxClientContainer) {
 }
 
 // For setting a custom CXIdxClientEntity attached to an entity.
-func Index_setClientEntity(p0 *IdxEntityInfo, p1 IdxClientEntity) {
+func (p0 *IdxEntityInfo) Index_setClientEntity(p1 IdxClientEntity) {
 	c_p0 := p0
 	c_p1 := p1
 
@@ -8253,7 +8253,7 @@ func Index_setClientEntity(p0 *IdxEntityInfo, p1 IdxClientEntity) {
 }
 
 // Determine whether the given cursor kind represents an attribute.
-func IsAttribute(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsAttribute() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8276,7 +8276,7 @@ func IsAttribute(p0 CursorKind) uint32 {
 }
 
 // Determine for two source locations if the first comes strictly before the second one in the source code.
-func IsBeforeInTranslationUnit(loc1 SourceLocation, loc2 SourceLocation) uint32 {
+func (loc1 SourceLocation) IsBeforeInTranslationUnit(loc2 SourceLocation) uint32 {
 	c_loc1 := loc1
 	c_loc2 := loc2
 
@@ -8301,7 +8301,7 @@ func IsBeforeInTranslationUnit(loc1 SourceLocation, loc2 SourceLocation) uint32 
 }
 
 // Determine whether a CXType has the "const" qualifier set, without looking through typedefs that may have added "const" at a different level.
-func IsConstQualifiedType(t Type_) uint32 {
+func (t Type_) IsConstQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -8324,7 +8324,7 @@ func IsConstQualifiedType(t Type_) uint32 {
 }
 
 // Determine whether the declaration pointed to by this cursor is also a definition of that entity.
-func IsCursorDefinition(p0 Cursor) uint32 {
+func (p0 Cursor) IsCursorDefinition() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8347,7 +8347,7 @@ func IsCursorDefinition(p0 Cursor) uint32 {
 }
 
 // Determine whether the given cursor kind represents a declaration.
-func IsDeclaration(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsDeclaration() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8370,7 +8370,7 @@ func IsDeclaration(p0 CursorKind) uint32 {
 }
 
 // Determine whether the given cursor kind represents an expression.
-func IsExpression(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsExpression() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8393,13 +8393,13 @@ func IsExpression(p0 CursorKind) uint32 {
 }
 
 // Determine whether the given header is guarded against multiple inclusions, either with the conventional #ifndef/#define/#endif macro guards or with #pragma once.
-func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
+func (tu TranslationUnit) IsFileMultipleIncludeGuarded(file File) uint32 {
 	c_tu := tu
 	c_file := file
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tu),
+		unsafe.Pointer(&c_tu.ptr),
 		unsafe.Pointer(&c_file),
 	}
 
@@ -8418,7 +8418,7 @@ func IsFileMultipleIncludeGuarded(tu TranslationUnit, file File) uint32 {
 }
 
 // Return 1 if the CXType is a variadic function type, and 0 otherwise.
-func IsFunctionTypeVariadic(t Type_) uint32 {
+func (t Type_) IsFunctionTypeVariadic() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -8441,7 +8441,7 @@ func IsFunctionTypeVariadic(t Type_) uint32 {
 }
 
 // Determine whether the given cursor kind represents an invalid cursor.
-func IsInvalid(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsInvalid() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8468,7 +8468,7 @@ Determine whether the given declaration is invalid.
 
 A declaration is invalid if it could not be parsed successfully.
 */
-func IsInvalidDeclaration(p0 Cursor) uint32 {
+func (p0 Cursor) IsInvalidDeclaration() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8491,7 +8491,7 @@ func IsInvalidDeclaration(p0 Cursor) uint32 {
 }
 
 // Return 1 if the CXType is a POD (plain old data) type, and 0  otherwise.
-func IsPODType(t Type_) uint32 {
+func (t Type_) IsPODType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -8514,7 +8514,7 @@ func IsPODType(t Type_) uint32 {
 }
 
 // * Determine whether the given cursor represents a preprocessing element, such as a preprocessor directive or macro instantiation.
-func IsPreprocessing(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsPreprocessing() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8541,7 +8541,7 @@ Determine whether the given cursor kind represents a simple reference.
 
 Note that other kinds of cursors (such as expressions) can also refer to other cursors. Use clang_getCursorReferenced() to determine whether a particular cursor refers to another entity.
 */
-func IsReference(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsReference() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8564,7 +8564,7 @@ func IsReference(p0 CursorKind) uint32 {
 }
 
 // Determine whether a CXType has the "restrict" qualifier set, without looking through typedefs that may have added "restrict" at a different level.
-func IsRestrictQualifiedType(t Type_) uint32 {
+func (t Type_) IsRestrictQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -8587,7 +8587,7 @@ func IsRestrictQualifiedType(t Type_) uint32 {
 }
 
 // Determine whether the given cursor kind represents a statement.
-func IsStatement(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsStatement() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8610,7 +8610,7 @@ func IsStatement(p0 CursorKind) uint32 {
 }
 
 // Determine whether the given cursor kind represents a translation unit.
-func IsTranslationUnit(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsTranslationUnit() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8633,7 +8633,7 @@ func IsTranslationUnit(p0 CursorKind) uint32 {
 }
 
 // * Determine whether the given cursor represents a currently  unexposed piece of the AST (e.g., CXCursor_UnexposedStmt).
-func IsUnexposed(p0 CursorKind) uint32 {
+func (p0 CursorKind) IsUnexposed() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8656,7 +8656,7 @@ func IsUnexposed(p0 CursorKind) uint32 {
 }
 
 // Returns 1 if the base class specified by the cursor with kind   CX_CXXBaseSpecifier is virtual.
-func IsVirtualBase(p0 Cursor) uint32 {
+func (p0 Cursor) IsVirtualBase() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -8679,7 +8679,7 @@ func IsVirtualBase(p0 Cursor) uint32 {
 }
 
 // Determine whether a CXType has the "volatile" qualifier set, without looking through typedefs that may have added "volatile" at a different level.
-func IsVolatileQualifiedType(t Type_) uint32 {
+func (t Type_) IsVolatileQualifiedType() uint32 {
 	c_t := t
 
 	var retC uint32
@@ -8730,7 +8730,7 @@ func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String_) D
 }
 
 // Same as clang_parseTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
-func ParseTranslationUnit(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) TranslationUnit {
+func (cIdx Index) ParseTranslationUnit(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) TranslationUnit {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -8746,7 +8746,7 @@ func ParseTranslationUnit(cIdx Index, source_filename string, command_line_args 
 
 	var retC TranslationUnit
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_source_filename),
 		unsafe.Pointer(&c_command_line_args),
 		unsafe.Pointer(&c_num_command_line_args),
@@ -8774,7 +8774,7 @@ Parse the given source file and the translation unit corresponding to that file.
 
 This routine is the main entry point for the Clang C API, providing the ability to parse a source file into a translation unit that can then be queried by other functions in the API. This routine accepts a set of command-line arguments so that the compilation can be configured in the same way that the compiler is configured on the command line.
 */
-func ParseTranslationUnit2(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -8791,7 +8791,7 @@ func ParseTranslationUnit2(cIdx Index, source_filename string, command_line_args
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_source_filename),
 		unsafe.Pointer(&c_command_line_args),
 		unsafe.Pointer(&c_num_command_line_args),
@@ -8816,7 +8816,7 @@ func ParseTranslationUnit2(cIdx Index, source_filename string, command_line_args
 }
 
 // Same as clang_parseTranslationUnit2 but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
-func ParseTranslationUnit2FullArgv(cIdx Index, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -8833,7 +8833,7 @@ func ParseTranslationUnit2FullArgv(cIdx Index, source_filename string, command_l
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_cIdx),
+		unsafe.Pointer(&c_cIdx.ptr),
 		unsafe.Pointer(&c_source_filename),
 		unsafe.Pointer(&c_command_line_args),
 		unsafe.Pointer(&c_num_command_line_args),
@@ -8857,11 +8857,11 @@ func ParseTranslationUnit2FullArgv(cIdx Index, source_filename string, command_l
 	return ret
 }
 
-func Remap_dispose(p0 Remapping) {
+func (p0 Remapping) Remap_dispose() {
 	c_p0 := p0
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -8875,14 +8875,14 @@ func Remap_dispose(p0 Remapping) {
 	}
 }
 
-func Remap_getFilenames(p0 Remapping, p1 uint32, p2 *String_, p3 *String_) {
+func (p0 Remapping) Remap_getFilenames(p1 uint32, p2 *String_, p3 *String_) {
 	c_p0 := p0
 	c_p1 := p1
 	c_p2 := p2
 	c_p3 := p3
 
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
 		unsafe.Pointer(&c_p2),
 		unsafe.Pointer(&c_p3),
@@ -8899,12 +8899,12 @@ func Remap_getFilenames(p0 Remapping, p1 uint32, p2 *String_, p3 *String_) {
 	}
 }
 
-func Remap_getNumFiles(p0 Remapping) uint32 {
+func (p0 Remapping) Remap_getNumFiles() uint32 {
 	c_p0 := p0
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -8928,7 +8928,7 @@ This routine can be used to re-parse the source files that originally created th
 
 Reparsing a translation unit invalidates all cursors and source locations that refer into that translation unit. This makes reparsing a translation unit semantically equivalent to destroying the translation unit and then creating a new translation unit with the same command-line arguments. However, it may be more efficient to reparse a translation unit using this routine.
 */
-func ReparseTranslationUnit(tU TranslationUnit, unsaved_files []UnsavedFile, options uint32) int32 {
+func (tU TranslationUnit) ReparseTranslationUnit(unsaved_files []UnsavedFile, options uint32) int32 {
 	c_tU := tU
 	c_num_unsaved_files := len(unsaved_files)
 	var c_unsaved_files unsafe.Pointer
@@ -8939,7 +8939,7 @@ func ReparseTranslationUnit(tU TranslationUnit, unsaved_files []UnsavedFile, opt
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_num_unsaved_files),
 		unsafe.Pointer(&c_unsaved_files),
 		unsafe.Pointer(&c_options),
@@ -8964,7 +8964,7 @@ Saves a translation unit into a serialized representation of that translation un
 
 Any translation unit that was parsed without error can be saved into a file. The translation unit can then be deserialized into a new CXTranslationUnit with clang_createTranslationUnit() or, if it is an incomplete translation unit that corresponds to a header, used as a precompiled header when parsing other translation units.
 */
-func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) int32 {
+func (tU TranslationUnit) SaveTranslationUnit(fileName string, options uint32) int32 {
 	c_tU := tU
 	c_fileName, free_c_fileName := libc.CString(fileName)
 	defer free_c_fileName()
@@ -8972,7 +8972,7 @@ func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) in
 
 	var retC int32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_tU),
+		unsafe.Pointer(&c_tU.ptr),
 		unsafe.Pointer(&c_fileName),
 		unsafe.Pointer(&c_options),
 	}
@@ -8992,7 +8992,7 @@ func SaveTranslationUnit(tU TranslationUnit, fileName string, options uint32) in
 }
 
 // Sort the code-completion results in case-insensitive alphabetical order.
-func SortCodeCompletionResults(results *CompletionResult, numResults uint32) {
+func (results *CompletionResult) SortCodeCompletionResults(numResults uint32) {
 	c_results := results
 	c_numResults := numResults
 
@@ -9017,12 +9017,12 @@ Suspend a translation unit in order to free memory associated with it.
 
 A suspended translation unit uses significantly less memory but on the other side does not support any other calls than clang_reparseTranslationUnit to resume it or clang_disposeTranslationUnit to dispose it completely.
 */
-func SuspendTranslationUnit(p0 TranslationUnit) uint32 {
+func (p0 TranslationUnit) SuspendTranslationUnit() uint32 {
 	c_p0 := p0
 
 	var retC uint32
 	args := []unsafe.Pointer{
-		unsafe.Pointer(&c_p0),
+		unsafe.Pointer(&c_p0.ptr),
 	}
 
 	err := ffi.CallFunction(
@@ -9065,7 +9065,7 @@ Visit the base classes of a type.
 
 This function visits all the direct base classes of a the given cursor, invoking the given visitor function with the cursors of each visited base. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func VisitCXXBaseClasses(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type_) VisitCXXBaseClasses(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -9096,7 +9096,7 @@ Visit the class methods of a type.
 
 This function visits all the methods of the given cursor, invoking the given visitor function with the cursors of each visited method. The traversal may be ended prematurely, if the visitor returns CXFieldVisit_Break.
 */
-func VisitCXXMethods(t Type_, visitor FieldVisitor, client_data ClientData) uint32 {
+func (t Type_) VisitCXXMethods(visitor FieldVisitor, client_data ClientData) uint32 {
 	c_t := t
 	c_visitor := visitor
 	c_client_data := client_data
@@ -9123,7 +9123,7 @@ func VisitCXXMethods(t Type_, visitor FieldVisitor, client_data ClientData) uint
 }
 
 // Visits the children of a cursor using the specified block.  Behaves identically to clang_visitChildren() in all other respects.
-func VisitChildrenWithBlock(parent Cursor, block CursorVisitorBlock) uint32 {
+func (parent Cursor) VisitChildrenWithBlock(block CursorVisitorBlock) uint32 {
 	c_parent := parent
 	c_block := block
 

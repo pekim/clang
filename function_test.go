@@ -18,7 +18,7 @@ func TestFunctionReturnCXString(t *testing.T) {
 	assert.NoError(t, Init())
 
 	cxString := GetClangVersion()
-	version := GetCString(cxString)
+	version := cxString.GetCString()
 	assert.True(t, strings.HasPrefix(version, "clang version "))
 }
 
@@ -41,8 +41,8 @@ func TestFunctionStringSliceArg(t *testing.T) {
 		"-x", "c-header",
 	}
 
-	tu := CreateTranslationUnitFromSourceFile(index, "test-data/test.h", parseArgs, nil)
+	tu := index.CreateTranslationUnitFromSourceFile("test-data/test.h", parseArgs, nil)
 	assert.NotNil(t, tu)
-	cursor := GetTranslationUnitCursor(tu)
-	assert.Equal(t, Cursor_TranslationUnit, GetCursorKind(cursor))
+	cursor := tu.GetTranslationUnitCursor()
+	assert.Equal(t, Cursor_TranslationUnit, cursor.GetCursorKind())
 }
