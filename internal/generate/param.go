@@ -35,7 +35,7 @@ func newParam(cursor clang.Cursor, name string) param {
 func (param *param) enrich(gen *gen, index int) {
 	param.typ = newTyp(param.clangType, gen)
 	param.isOut = index > 0 && !param.isArray() &&
-		(param.isScalarPointer || param.isPointerTypePointer() || param.isStructPointer())
+		(param.isEnumPointer() || param.isScalarPointer || param.isPointerTypePointer() || param.isStructPointer())
 }
 
 func (param param) isSupported() (string, bool) {

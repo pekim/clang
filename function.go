@@ -5899,9 +5899,10 @@ Retrieve the parent context of the given completion string.
 
 The parent context of a completion string is the semantic parent of the declaration (if any) that the code completion represents. For example, a code completion for an Objective-C method would have the method's class or protocol as its context.
 */
-func (completion_string CompletionString) CompletionParent(kind *CursorKind) string {
+func (completion_string CompletionString) CompletionParent() (CursorKind, string) {
 	c_completion_string := completion_string
-	c_kind := kind
+	var kind CursorKind
+	c_kind := &kind
 
 	var retC String
 	args := []unsafe.Pointer{
@@ -5920,7 +5921,7 @@ func (completion_string CompletionString) CompletionParent(kind *CursorKind) str
 	}
 
 	ret := retC.CString()
-	return ret
+	return kind, ret
 }
 
 /*
@@ -9661,10 +9662,11 @@ func (t Type) IsVolatileQualifiedType() uint32 {
 }
 
 // Deserialize a set of diagnostics from a Clang diagnostics bitcode file.
-func LoadDiagnostics(file string, error *LoadDiag_Error) (string, DiagnosticSet) {
+func LoadDiagnostics(file string) (LoadDiag_Error, string, DiagnosticSet) {
 	c_file, free_c_file := libc.CString(file)
 	defer free_c_file()
-	c_error := error
+	var error LoadDiag_Error
+	c_error := &error
 	var errorString String
 	c_errorString := &errorString
 
@@ -9686,7 +9688,7 @@ func LoadDiagnostics(file string, error *LoadDiag_Error) (string, DiagnosticSet)
 	}
 
 	ret := retC
-	return errorString.CString(), ret
+	return error, errorString.CString(), ret
 }
 
 // Same as clang_parseTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.

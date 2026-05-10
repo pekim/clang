@@ -226,6 +226,9 @@ func (typ typ) goDecl() jen.Code {
 }
 
 func (typ typ) goOutReturnDecl() jen.Code {
+	if typ.isEnumPointer() {
+		return jen.Id(typ.enumPointer.goName)
+	}
 	if typ.isPointerTypePointer() {
 		return jen.Id(typ.pointerTypePointer.goName)
 	}
@@ -243,6 +246,9 @@ func (typ typ) goOutReturnDecl() jen.Code {
 }
 
 func (typ typ) goOutVarDecl() jen.Code {
+	if typ.isEnumPointer() {
+		return jen.Id(typ.enumPointer.goName)
+	}
 	if typ.isPointerTypePointer() {
 		return jen.Id(typ.pointerTypePointer.goName)
 	}
