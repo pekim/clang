@@ -32,10 +32,10 @@ func newParam(cursor clang.Cursor, name string) param {
 	}
 }
 
-func (param *param) enrich(gen *gen) {
+func (param *param) enrich(gen *gen, index int) {
 	param.typ = newTyp(param.clangType, gen)
-	param.isOut = param.isScalarPointer || param.isPointerTypePointer() ||
-		(param.isStructPointer() && param.structPointer.cName == "CXString")
+	param.isOut = index > 0 && !param.isArray() &&
+		(param.isScalarPointer || param.isPointerTypePointer() || param.isStructPointer())
 }
 
 func (param param) isSupported() (string, bool) {
@@ -221,10 +221,6 @@ func newParams(cursor clang.Cursor) params {
 }
 
 func (pp params) enrich(gen *gen) {
-	for i := range pp {
-		(pp[i]).enrich(gen)
-	}
-
 	// Pair up array params with their array length params
 	for i, param := range pp {
 		if strings.HasPrefix(param.cName, "num_") {
@@ -235,6 +231,10 @@ func (pp params) enrich(gen *gen) {
 				pp[arrayParamIndex].arrayLenParam = &pp[i]
 			}
 		}
+	}
+
+	for i := range pp {
+		(pp[i]).enrich(gen, i)
 	}
 }
 

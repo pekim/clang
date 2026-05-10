@@ -927,12 +927,13 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) GCCAssemblyInput(index uint32, expr *Cursor) (string, uint32) {
+func (cursor Cursor) GCCAssemblyInput(index uint32) (string, Cursor, uint32) {
 	c_cursor := cursor
 	c_index := index
 	var constraint String
 	c_constraint := &constraint
-	c_expr := expr
+	var expr Cursor
+	c_expr := &expr
 
 	var retC uint32
 	args := []unsafe.Pointer{
@@ -953,7 +954,7 @@ func (cursor Cursor) GCCAssemblyInput(index uint32, expr *Cursor) (string, uint3
 	}
 
 	ret := retC
-	return constraint.CString(), ret
+	return constraint.CString(), expr, ret
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the clobbers in it. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
@@ -1030,12 +1031,13 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) GCCAssemblyOutput(index uint32, expr *Cursor) (string, uint32) {
+func (cursor Cursor) GCCAssemblyOutput(index uint32) (string, Cursor, uint32) {
 	c_cursor := cursor
 	c_index := index
 	var constraint String
 	c_constraint := &constraint
-	c_expr := expr
+	var expr Cursor
+	c_expr := &expr
 
 	var retC uint32
 	args := []unsafe.Pointer{
@@ -1056,7 +1058,7 @@ func (cursor Cursor) GCCAssemblyOutput(index uint32, expr *Cursor) (string, uint
 	}
 
 	ret := retC
-	return constraint.CString(), ret
+	return constraint.CString(), expr, ret
 }
 
 /*
@@ -4056,11 +4058,13 @@ This token-annotation routine is equivalent to invoking clang_getCursor() for th
 
 Only the first and last of these cursors will occur within the annotate, since the tokens "f" and "x' directly refer to a function and a variable, respectively, but the parentheses are just a small part of the full syntax of the function call expression, which is not provided as an annotation.
 */
-func (tU TranslationUnit) AnnotateTokens(tokens *Token, numTokens uint32, cursors *Cursor) {
+func (tU TranslationUnit) AnnotateTokens(numTokens uint32) (Token, Cursor) {
 	c_tU := tU
-	c_tokens := tokens
+	var tokens Token
+	c_tokens := &tokens
 	c_numTokens := numTokens
-	c_cursors := cursors
+	var cursors Cursor
+	c_cursors := &cursors
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_tU.ptr),
@@ -4078,6 +4082,7 @@ func (tU TranslationUnit) AnnotateTokens(tokens *Token, numTokens uint32, cursor
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_annotateTokens", err))
 	}
+	return tokens, cursors
 }
 
 /*
@@ -4984,9 +4989,10 @@ func (set *StringSet) DisposeStringSet() {
 }
 
 // Free the given set of tokens.
-func (tU TranslationUnit) DisposeTokens(tokens *Token, numTokens uint32) {
+func (tU TranslationUnit) DisposeTokens(numTokens uint32) Token {
 	c_tU := tU
-	c_tokens := tokens
+	var tokens Token
+	c_tokens := &tokens
 	c_numTokens := numTokens
 
 	args := []unsafe.Pointer{
@@ -5004,6 +5010,7 @@ func (tU TranslationUnit) DisposeTokens(tokens *Token, numTokens uint32) {
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_disposeTokens", err))
 	}
+	return tokens
 }
 
 // Destroy the specified CXTranslationUnit object.
@@ -5806,11 +5813,12 @@ The intuition is that provided fix-its change code around the identifier we comp
 
 std::unique_ptr<std::vector<int>> vec_ptr; In 'vec_ptr.^', one of the completions is 'push_back', it requires replacing '.' with '->'. In 'vec_ptr->^', one of the completions is 'release', it requires replacing '->' with '.'.
 */
-func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fixit_index uint32, replacement_range *SourceRange) string {
+func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fixit_index uint32) (SourceRange, string) {
 	c_results := results
 	c_completion_index := completion_index
 	c_fixit_index := fixit_index
-	c_replacement_range := replacement_range
+	var replacement_range SourceRange
+	c_replacement_range := &replacement_range
 
 	var retC String
 	args := []unsafe.Pointer{
@@ -5831,7 +5839,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 	}
 
 	ret := retC.CString()
-	return ret
+	return replacement_range, ret
 }
 
 // Retrieve the number of annotations associated with the given completion string.
@@ -6317,7 +6325,7 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func (cursor Cursor) CursorPlatformAvailability(availability *PlatformAvailability, availability_size int32) (int32, string, int32, string, int32) {
+func (cursor Cursor) CursorPlatformAvailability(availability_size int32) (int32, string, int32, string, PlatformAvailability, int32) {
 	c_cursor := cursor
 	var always_deprecated int32
 	c_always_deprecated := &always_deprecated
@@ -6327,7 +6335,8 @@ func (cursor Cursor) CursorPlatformAvailability(availability *PlatformAvailabili
 	c_always_unavailable := &always_unavailable
 	var unavailable_message String
 	c_unavailable_message := &unavailable_message
-	c_availability := availability
+	var availability PlatformAvailability
+	c_availability := &availability
 	c_availability_size := availability_size
 
 	var retC int32
@@ -6352,7 +6361,7 @@ func (cursor Cursor) CursorPlatformAvailability(availability *PlatformAvailabili
 	}
 
 	ret := retC
-	return always_deprecated, deprecated_message.CString(), always_unavailable, unavailable_message.CString(), ret
+	return always_deprecated, deprecated_message.CString(), always_unavailable, unavailable_message.CString(), availability, ret
 }
 
 // Pretty print declarations.
@@ -6799,10 +6808,11 @@ Retrieve the replacement information for a given fix-it.
 
 Fix-its are described in terms of a source range whose contents should be replaced by a string. This approach generalizes over three kinds of operations: removal of source code (the range covers the code to be removed and the replacement string is empty), replacement of source code (the range covers the code to be replaced and the replacement string provides the new code), and insertion (both the start and end of the range point at the insertion location, and the replacement string provides the text to insert).
 */
-func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *SourceRange) string {
+func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32) (SourceRange, string) {
 	c_diagnostic := diagnostic
 	c_fixIt := fixIt
-	c_replacementRange := replacementRange
+	var replacementRange SourceRange
+	c_replacementRange := &replacementRange
 
 	var retC String
 	args := []unsafe.Pointer{
@@ -6822,7 +6832,7 @@ func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32, replacementRange *Sou
 	}
 
 	ret := retC.CString()
-	return ret
+	return replacementRange, ret
 }
 
 // Retrieve a diagnostic associated with the given CXDiagnosticSet.
@@ -7337,9 +7347,10 @@ func (sFile File) FileName() string {
 // not supported : clang_getFileTime : return value : time_t
 
 // Retrieve the unique ID for the given file.
-func (file File) FileUniqueID(outID *FileUniqueID) int32 {
+func (file File) FileUniqueID() (FileUniqueID, int32) {
 	c_file := file
-	c_outID := outID
+	var outID FileUniqueID
+	c_outID := &outID
 
 	var retC int32
 	args := []unsafe.Pointer{
@@ -7358,7 +7369,7 @@ func (file File) FileUniqueID(outID *FileUniqueID) int32 {
 	}
 
 	ret := retC
-	return ret
+	return outID, ret
 }
 
 /*
@@ -8791,10 +8802,11 @@ Index the given source file and the translation unit corresponding to that file 
 
 The rest of the parameters are the same as #clang_parseTranslationUnit.
 */
-func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (TranslationUnit, int32) {
+func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (IndexerCallbacks, TranslationUnit, int32) {
 	c_p0 := p0
 	c_client_data := client_data
-	c_index_callbacks := index_callbacks
+	var index_callbacks IndexerCallbacks
+	c_index_callbacks := &index_callbacks
 	c_index_callbacks_size := index_callbacks_size
 	c_index_options := index_options
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
@@ -8838,14 +8850,15 @@ func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *I
 	}
 
 	ret := retC
-	return out_TU, ret
+	return index_callbacks, out_TU, ret
 }
 
 // Same as clang_indexSourceFile but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
-func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (TranslationUnit, int32) {
+func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (IndexerCallbacks, TranslationUnit, int32) {
 	c_p0 := p0
 	c_client_data := client_data
-	c_index_callbacks := index_callbacks
+	var index_callbacks IndexerCallbacks
+	c_index_callbacks := &index_callbacks
 	c_index_callbacks_size := index_callbacks_size
 	c_index_options := index_options
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
@@ -8889,7 +8902,7 @@ func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_call
 	}
 
 	ret := retC
-	return out_TU, ret
+	return index_callbacks, out_TU, ret
 }
 
 /*
@@ -8901,10 +8914,11 @@ The order of callback invocations is not guaranteed to be the same as when index
 
 The parameters are the same as #clang_indexSourceFile.
 */
-func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, p5 TranslationUnit) int32 {
+func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbacks_size uint32, index_options uint32, p5 TranslationUnit) (IndexerCallbacks, int32) {
 	c_p0 := p0
 	c_client_data := client_data
-	c_index_callbacks := index_callbacks
+	var index_callbacks IndexerCallbacks
+	c_index_callbacks := &index_callbacks
 	c_index_callbacks_size := index_callbacks_size
 	c_index_options := index_options
 	c_p5 := p5
@@ -8930,7 +8944,7 @@ func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbac
 	}
 
 	ret := retC
-	return ret
+	return index_callbacks, ret
 }
 
 func (p0 *IdxDeclInfo) Index_getCXXClassDeclInfo() *IdxCXXClassDeclInfo {
