@@ -1840,11 +1840,12 @@ func (c Cursor) IsDynamicCall() int32 {
 }
 
 // Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
-func (c Cursor) IsExternalSymbol(language *String, definedIn *String, isGenerated *uint32) uint32 {
+func (c Cursor) IsExternalSymbol(language *String, definedIn *String) (uint32, uint32) {
 	c_c := c
 	c_language := language
 	c_definedIn := definedIn
-	c_isGenerated := isGenerated
+	var isGenerated uint32
+	c_isGenerated := &isGenerated
 
 	var retC uint32
 	args := []unsafe.Pointer{
@@ -1865,7 +1866,7 @@ func (c Cursor) IsExternalSymbol(language *String, definedIn *String, isGenerate
 	}
 
 	ret := retC
-	return ret
+	return isGenerated, ret
 }
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
@@ -4121,9 +4122,10 @@ func (tU TranslationUnit) CodeCompleteAt(complete_filename string, complete_line
 }
 
 // Returns the cursor kind for the container for the current code completion context. The container is only guaranteed to be set for contexts where a container exists (i.e. member accesses or Objective-C message sends); if there is not a container, this function will return CXCursor_InvalidCode.
-func (results *CodeCompleteResults) CodeCompleteGetContainerKind(isIncomplete *uint32) CursorKind {
+func (results *CodeCompleteResults) CodeCompleteGetContainerKind() (uint32, CursorKind) {
 	c_results := results
-	c_isIncomplete := isIncomplete
+	var isIncomplete uint32
+	c_isIncomplete := &isIncomplete
 
 	var retC CursorKind
 	args := []unsafe.Pointer{
@@ -4142,7 +4144,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerKind(isIncomplete *u
 	}
 
 	ret := retC
-	return ret
+	return isIncomplete, ret
 }
 
 // Returns the USR for the container for the current code completion context. If there is not a container for the current context, this function will return the empty string.
@@ -4418,9 +4420,10 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 }
 
 // Traverses the translation unit to create a CXAPISet.
-func (tu TranslationUnit) CreateAPISet(out_api *APISet) ErrorCode {
+func (tu TranslationUnit) CreateAPISet() (APISet, ErrorCode) {
 	c_tu := tu
-	c_out_api := out_api
+	var out_api APISet
+	c_out_api := &out_api
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
@@ -4439,7 +4442,7 @@ func (tu TranslationUnit) CreateAPISet(out_api *APISet) ErrorCode {
 	}
 
 	ret := retC
-	return ret
+	return out_api, ret
 }
 
 // Creates an empty CXCursorSet.
@@ -4552,11 +4555,12 @@ func (cIdx Index) CreateTranslationUnit(ast_filename string) TranslationUnit {
 }
 
 // Create a translation unit from an AST file (-emit-ast).
-func (cIdx Index) CreateTranslationUnit2(ast_filename string, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) CreateTranslationUnit2(ast_filename string) (TranslationUnit, ErrorCode) {
 	c_cIdx := cIdx
 	c_ast_filename, free_c_ast_filename := libc.CString(ast_filename)
 	defer free_c_ast_filename()
-	c_out_TU := out_TU
+	var out_TU TranslationUnit
+	c_out_TU := &out_TU
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
@@ -4576,7 +4580,7 @@ func (cIdx Index) CreateTranslationUnit2(ast_filename string, out_TU *Translatio
 	}
 
 	ret := retC
-	return ret
+	return out_TU, ret
 }
 
 /*
@@ -6309,11 +6313,13 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprecated_message *String, always_unavailable *int32, unavailable_message *String, availability *PlatformAvailability, availability_size int32) int32 {
+func (cursor Cursor) CursorPlatformAvailability(deprecated_message *String, unavailable_message *String, availability *PlatformAvailability, availability_size int32) (int32, int32, int32) {
 	c_cursor := cursor
-	c_always_deprecated := always_deprecated
+	var always_deprecated int32
+	c_always_deprecated := &always_deprecated
 	c_deprecated_message := deprecated_message
-	c_always_unavailable := always_unavailable
+	var always_unavailable int32
+	c_always_unavailable := &always_unavailable
 	c_unavailable_message := unavailable_message
 	c_availability := availability
 	c_availability_size := availability_size
@@ -6340,7 +6346,7 @@ func (cursor Cursor) CursorPlatformAvailability(always_deprecated *int32, deprec
 	}
 
 	ret := retC
-	return ret
+	return always_deprecated, always_unavailable, ret
 }
 
 // Pretty print declarations.
@@ -7174,12 +7180,16 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion.
 */
-func (location SourceLocation) ExpansionLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) ExpansionLocation() (File, uint32, uint32, uint32) {
 	c_location := location
-	c_file := file
-	c_line := line
-	c_column := column
-	c_offset := offset
+	var file File
+	c_file := &file
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
+	var offset uint32
+	c_offset := &offset
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_location),
@@ -7198,6 +7208,7 @@ func (location SourceLocation) ExpansionLocation(file *File, line *uint32, colum
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getExpansionLocation", err))
 	}
+	return file, line, column, offset
 }
 
 /*
@@ -7262,12 +7273,16 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro expansion, return where the macro was expanded or where the macro argument was written, if the location points at a macro argument.
 */
-func (location SourceLocation) FileLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) FileLocation() (File, uint32, uint32, uint32) {
 	c_location := location
-	c_file := file
-	c_line := line
-	c_column := column
-	c_offset := offset
+	var file File
+	c_file := &file
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
+	var offset uint32
+	c_offset := &offset
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_location),
@@ -7286,6 +7301,7 @@ func (location SourceLocation) FileLocation(file *File, line *uint32, column *ui
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getFileLocation", err))
 	}
+	return file, line, column, offset
 }
 
 // Retrieve the complete file and path name of the given file.
@@ -7472,12 +7488,16 @@ Legacy API to retrieve the file, line, column, and offset represented by the giv
 
 This interface has been replaced by the newer interface #clang_getExpansionLocation(). See that interface's documentation for details.
 */
-func (location SourceLocation) InstantiationLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) InstantiationLocation() (File, uint32, uint32, uint32) {
 	c_location := location
-	c_file := file
-	c_line := line
-	c_column := column
-	c_offset := offset
+	var file File
+	c_file := &file
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
+	var offset uint32
+	c_offset := &offset
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_location),
@@ -7496,6 +7516,7 @@ func (location SourceLocation) InstantiationLocation(file *File, line *uint32, c
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getInstantiationLocation", err))
 	}
+	return file, line, column, offset
 }
 
 // Retrieves the source location associated with a given file/line/column in a particular translation unit.
@@ -7903,11 +7924,13 @@ whereas clang_getExpansionLocation would have returned
 
 File: somefile.c Line: 3 Column: 12
 */
-func (location SourceLocation) PresumedLocation(filename *String, line *uint32, column *uint32) {
+func (location SourceLocation) PresumedLocation(filename *String) (uint32, uint32) {
 	c_location := location
 	c_filename := filename
-	c_line := line
-	c_column := column
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_location),
@@ -7925,6 +7948,7 @@ func (location SourceLocation) PresumedLocation(filename *String, line *uint32, 
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getPresumedLocation", err))
 	}
+	return line, column
 }
 
 // Retrieve a source range given the beginning and ending source locations.
@@ -8113,12 +8137,16 @@ Retrieve the file, line, column, and offset represented by the given source loca
 
 If the location refers into a macro instantiation, return where the location was originally spelled in the source file.
 */
-func (location SourceLocation) SpellingLocation(file *File, line *uint32, column *uint32, offset *uint32) {
+func (location SourceLocation) SpellingLocation() (File, uint32, uint32, uint32) {
 	c_location := location
-	c_file := file
-	c_line := line
-	c_column := column
-	c_offset := offset
+	var file File
+	c_file := &file
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
+	var offset uint32
+	c_offset := &offset
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_location),
@@ -8137,6 +8165,7 @@ func (location SourceLocation) SpellingLocation(file *File, line *uint32, column
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getSpellingLocation", err))
 	}
+	return file, line, column, offset
 }
 
 /*
@@ -8715,13 +8744,18 @@ Retrieve the CXIdxFile, file, line, column, and offset represented by the given 
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion and if it refers into a macro argument retrieves the location of the argument.
 */
-func (loc IdxLoc) IndexLoc_getFileLocation(indexFile *IdxClientFile, file *File, line *uint32, column *uint32, offset *uint32) {
+func (loc IdxLoc) IndexLoc_getFileLocation() (IdxClientFile, File, uint32, uint32, uint32) {
 	c_loc := loc
-	c_indexFile := indexFile
-	c_file := file
-	c_line := line
-	c_column := column
-	c_offset := offset
+	var indexFile IdxClientFile
+	c_indexFile := &indexFile
+	var file File
+	c_file := &file
+	var line uint32
+	c_line := &line
+	var column uint32
+	c_column := &column
+	var offset uint32
+	c_offset := &offset
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_loc),
@@ -8741,6 +8775,7 @@ func (loc IdxLoc) IndexLoc_getFileLocation(indexFile *IdxClientFile, file *File,
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_indexLoc_getFileLocation", err))
 	}
+	return indexFile, file, line, column, offset
 }
 
 /*
@@ -8748,7 +8783,7 @@ Index the given source file and the translation unit corresponding to that file 
 
 The rest of the parameters are the same as #clang_parseTranslationUnit.
 */
-func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (TranslationUnit, int32) {
 	c_p0 := p0
 	c_client_data := client_data
 	c_index_callbacks := index_callbacks
@@ -8764,7 +8799,8 @@ func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *I
 		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
 	}
 	c_num_unsaved_files := len(unsaved_files)
-	c_out_TU := out_TU
+	var out_TU TranslationUnit
+	c_out_TU := &out_TU
 	c_tU_options := tU_options
 
 	var retC int32
@@ -8794,11 +8830,11 @@ func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks *I
 	}
 
 	ret := retC
-	return ret
+	return out_TU, ret
 }
 
 // Same as clang_indexSourceFile but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
-func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, out_TU *TranslationUnit, tU_options uint32) int32 {
+func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_callbacks *IndexerCallbacks, index_callbacks_size uint32, index_options uint32, source_filename string, command_line_args []string, unsaved_files []UnsavedFile, tU_options uint32) (TranslationUnit, int32) {
 	c_p0 := p0
 	c_client_data := client_data
 	c_index_callbacks := index_callbacks
@@ -8814,7 +8850,8 @@ func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_call
 		c_unsaved_files = unsafe.Pointer(&unsaved_files[0])
 	}
 	c_num_unsaved_files := len(unsaved_files)
-	c_out_TU := out_TU
+	var out_TU TranslationUnit
+	c_out_TU := &out_TU
 	c_tU_options := tU_options
 
 	var retC int32
@@ -8844,7 +8881,7 @@ func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_call
 	}
 
 	ret := retC
-	return ret
+	return out_TU, ret
 }
 
 /*
@@ -9674,7 +9711,7 @@ Parse the given source file and the translation unit corresponding to that file.
 
 This routine is the main entry point for the Clang C API, providing the ability to parse a source file into a translation unit that can then be queried by other functions in the API. This routine accepts a set of command-line arguments so that the compilation can be configured in the same way that the compiler is configured on the command line.
 */
-func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) (TranslationUnit, ErrorCode) {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -9687,7 +9724,8 @@ func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_arg
 	}
 	c_num_unsaved_files := len(unsaved_files)
 	c_options := options
-	c_out_TU := out_TU
+	var out_TU TranslationUnit
+	c_out_TU := &out_TU
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
@@ -9712,11 +9750,11 @@ func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_arg
 	}
 
 	ret := retC
-	return ret
+	return out_TU, ret
 }
 
 // Same as clang_parseTranslationUnit2 but requires a full command line for command_line_args including argv[0]. This is useful if the standard library paths are relative to the binary.
-func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32, out_TU *TranslationUnit) ErrorCode {
+func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_line_args []string, unsaved_files []UnsavedFile, options uint32) (TranslationUnit, ErrorCode) {
 	c_cIdx := cIdx
 	c_source_filename, free_c_source_filename := libc.CString(source_filename)
 	defer free_c_source_filename()
@@ -9729,7 +9767,8 @@ func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_
 	}
 	c_num_unsaved_files := len(unsaved_files)
 	c_options := options
-	c_out_TU := out_TU
+	var out_TU TranslationUnit
+	c_out_TU := &out_TU
 
 	var retC ErrorCode
 	args := []unsafe.Pointer{
@@ -9754,7 +9793,7 @@ func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_
 	}
 
 	ret := retC
-	return ret
+	return out_TU, ret
 }
 
 func (p0 Remapping) Remap_dispose() {

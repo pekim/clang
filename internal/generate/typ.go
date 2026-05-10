@@ -63,6 +63,7 @@ type typ struct {
 	scalar             *scalar
 	struct_            *struct_
 	structPointer      *struct_
+	isScalarPointer    bool
 	isString           bool
 	isStringPointer    bool
 	isPointer          bool
@@ -97,6 +98,7 @@ func newTyp(clangType clang.Type, gen *gen) typ {
 		typ.pointerTypePointer = gen.pointerTypes.find(pointeeSpelling)
 		typ.structPointer = gen.structs.find(pointeeSpelling)
 	}
+	typ.isScalarPointer = typ.isPointer && typ.isScalar()
 	typ.isString = isPointer && clangType.PointeeType().Kind == clang.Type_Char_S
 	typ.isStringPointer = isPointerPointer && clangType.PointeeType().PointeeType().Kind == clang.Type_Char_S
 
@@ -218,6 +220,17 @@ func (typ typ) goDecl() jen.Code {
 	}
 	if typ.isPointer {
 		return jen.Qual("unsafe", "Pointer")
+	}
+
+	panic(fmt.Sprintf("unsupported typ : %s", typ))
+}
+
+func (typ typ) goOutReturnDecl() jen.Code {
+	if typ.isPointerTypePointer() {
+		return jen.Id(typ.pointerTypePointer.goName)
+	}
+	if typ.isScalarPointer {
+		return jen.Add(typ.scalar.code)
 	}
 
 	panic(fmt.Sprintf("unsupported typ : %s", typ))

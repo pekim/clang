@@ -45,11 +45,8 @@ func Generate() {
 func (gen *gen) findEntities(tu clang.TranslationUnit, headerFile string) {
 	tu.TranslationUnitCursor().VisitChildren(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		// ignore cursors that are from diffent files
-		var file clang.File
-		var line uint32
-		var column uint32
-		var offset uint32
-		cursor.CursorLocation().FileLocation(&file, &line, &column, &offset)
+		file, _, _, _ := cursor.CursorLocation().FileLocation()
+
 		if file.FileName() != headerFile {
 			return clang.ChildVisit_Continue
 		}

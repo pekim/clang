@@ -43,11 +43,9 @@ func TestVisitChildren(t *testing.T) {
 		"-x", "c-header",
 	}
 
-	var tu TranslationUnit
-	errorCode := index.ParseTranslationUnit2("test-data/test.h", parseArgs, nil,
+	tu, errorCode := index.ParseTranslationUnit2("test-data/test.h", parseArgs, nil,
 		// errorCode := ParseTranslationUnit2(index, "../clang-go-generate/clang-c/Index.h", parseArgs, nil,
 		uint32(TranslationUnit_SkipFunctionBodies|TranslationUnit_DetailedPreprocessingRecord),
-		&tu,
 	)
 	assert.Equal(t, Error_Success, errorCode)
 

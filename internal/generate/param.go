@@ -16,6 +16,7 @@ type param struct {
 	cVar      string
 	comment   string
 	clangType clang.Type
+	isOut     bool
 
 	arrayParam    *param // if non-nil, then it's the array param, and this param is the array length
 	arrayLenParam *param // if non-nil, then it's the array length param, and this param is the array param
@@ -33,6 +34,7 @@ func newParam(cursor clang.Cursor, name string) param {
 
 func (param *param) enrich(gen *gen) {
 	param.typ = newTyp(param.clangType, gen)
+	param.isOut = param.isScalarPointer || param.isPointerTypePointer()
 }
 
 func (param param) isSupported() (string, bool) {
@@ -80,8 +82,14 @@ func (param param) isArrayLen() bool {
 	return param.arrayParam != nil
 }
 
+// var out_TU TranslationUnit
+// c_out_TU:=&out_TU
+
 func (param param) goDecl() jen.Code {
 	if param.isArrayLen() {
+		return jen.Null()
+	}
+	if param.isOut {
 		return jen.Null()
 	}
 
@@ -95,7 +103,25 @@ func (param param) goDecl() jen.Code {
 	return jen.Id(param.goName).Add(param.typ.goDecl())
 }
 
+func (param param) goReturnDecl() jen.Code {
+	if !param.isOut {
+		return jen.Null()
+	}
+
+	return param.goOutReturnDecl()
+}
+
+func (param param) outCVar(g *jen.Group) {
+	g.Var().Id(param.goName).Add(param.goOutReturnDecl())
+	g.Id(param.cVar).Op(":=").Op("&").Id(param.goName)
+}
+
 func (param param) goVarToCVar(g *jen.Group) {
+	if param.isOut {
+		param.outCVar(g)
+		return
+	}
+
 	if param.isArrayLen() {
 		g.Id(param.cVar).Op(":=").Len(jen.Id(param.arrayParam.goName))
 		return
@@ -219,6 +245,15 @@ func (pp params) isSupported() (string, bool) {
 	}
 
 	return "", true
+}
+
+func (pp params) someOut() bool {
+	for _, param := range pp {
+		if param.isOut {
+			return true
+		}
+	}
+	return false
 }
 
 func (pp params) find(cName string) int {

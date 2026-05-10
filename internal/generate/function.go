@@ -135,7 +135,12 @@ func (function function) generateImplementation(file file) {
 			}
 		}).
 		// return declaration
-		Add(function.returnValue.goDecl()).
+		ParamsFunc(func(g *jen.Group) {
+			for _, param := range function.params {
+				g.Add(param.goReturnDecl())
+			}
+			g.Add(function.returnValue.goDecl())
+		}).
 
 		// function body
 		BlockFunc(func(g *jen.Group) {
@@ -193,9 +198,21 @@ func (function function) generateImplementation(file file) {
 				)),
 			)
 
-			if !function.returnValue.isVoid {
-				g.Line().Add(function.returnValue.cVarToGoVar("retC", "ret"))
-				g.Return(jen.Id("ret"))
+			if !function.returnValue.isVoid || function.params.someOut() {
+				if !function.returnValue.isVoid {
+					g.Line().Add(function.returnValue.cVarToGoVar("retC", "ret"))
+				}
+
+				g.Return().ListFunc(func(g *jen.Group) {
+					for _, param := range function.params {
+						if param.isOut {
+							g.Id(param.goName)
+						}
+					}
+					if !function.returnValue.isVoid {
+						g.Id("ret")
+					}
+				})
 			}
 		})
 }
