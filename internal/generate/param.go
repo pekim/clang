@@ -34,7 +34,8 @@ func newParam(cursor clang.Cursor, name string) param {
 
 func (param *param) enrich(gen *gen) {
 	param.typ = newTyp(param.clangType, gen)
-	param.isOut = param.isScalarPointer || param.isPointerTypePointer()
+	param.isOut = param.isScalarPointer || param.isPointerTypePointer() ||
+		(param.isStructPointer() && param.structPointer.cName == "CXString")
 }
 
 func (param param) isSupported() (string, bool) {
@@ -112,7 +113,7 @@ func (param param) goReturnDecl() jen.Code {
 }
 
 func (param param) outCVar(g *jen.Group) {
-	g.Var().Id(param.goName).Add(param.goOutReturnDecl())
+	g.Var().Id(param.goName).Add(param.goOutVarDecl())
 	g.Id(param.cVar).Op(":=").Op("&").Id(param.goName)
 }
 

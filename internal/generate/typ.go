@@ -232,6 +232,23 @@ func (typ typ) goOutReturnDecl() jen.Code {
 	if typ.isScalarPointer {
 		return jen.Add(typ.scalar.code)
 	}
+	if typ.isStructPointer() && typ.structPointer.cName == "CXString" {
+		return jen.String()
+	}
+
+	panic(fmt.Sprintf("unsupported typ : %s", typ))
+}
+
+func (typ typ) goOutVarDecl() jen.Code {
+	if typ.isPointerTypePointer() {
+		return jen.Id(typ.pointerTypePointer.goName)
+	}
+	if typ.isScalarPointer {
+		return jen.Add(typ.scalar.code)
+	}
+	if typ.isStructPointer() && typ.structPointer.cName == "CXString" {
+		return jen.Id("String")
+	}
 
 	panic(fmt.Sprintf("unsupported typ : %s", typ))
 }

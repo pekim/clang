@@ -206,7 +206,11 @@ func (function function) generateImplementation(file file) {
 				g.Return().ListFunc(func(g *jen.Group) {
 					for _, param := range function.params {
 						if param.isOut {
-							g.Id(param.goName)
+							g.Id(param.goName).Do(func(s *jen.Statement) {
+								if param.isStructPointer() && param.structPointer.cName == "CXString" {
+									s.Dot("CString").Call()
+								}
+							})
 						}
 					}
 					if !function.returnValue.isVoid {

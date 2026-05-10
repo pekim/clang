@@ -927,10 +927,11 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) GCCAssemblyInput(index uint32, constraint *String, expr *Cursor) uint32 {
+func (cursor Cursor) GCCAssemblyInput(index uint32, expr *Cursor) (string, uint32) {
 	c_cursor := cursor
 	c_index := index
-	c_constraint := constraint
+	var constraint String
+	c_constraint := &constraint
 	c_expr := expr
 
 	var retC uint32
@@ -952,7 +953,7 @@ func (cursor Cursor) GCCAssemblyInput(index uint32, constraint *String, expr *Cu
 	}
 
 	ret := retC
-	return ret
+	return constraint.CString(), ret
 }
 
 // Given a CXCursor_GCCAsmStmt cursor, count the clobbers in it. This function also returns 0 if the cursor does not point at a GCC inline assembly block.
@@ -1029,10 +1030,11 @@ Given a CXCursor_GCCAsmStmt cursor, get the constraint and expression cursor to 
 
 Users are responsible for releasing the allocation of `Constraint` via clang_disposeString.
 */
-func (cursor Cursor) GCCAssemblyOutput(index uint32, constraint *String, expr *Cursor) uint32 {
+func (cursor Cursor) GCCAssemblyOutput(index uint32, expr *Cursor) (string, uint32) {
 	c_cursor := cursor
 	c_index := index
-	c_constraint := constraint
+	var constraint String
+	c_constraint := &constraint
 	c_expr := expr
 
 	var retC uint32
@@ -1054,7 +1056,7 @@ func (cursor Cursor) GCCAssemblyOutput(index uint32, constraint *String, expr *C
 	}
 
 	ret := retC
-	return ret
+	return constraint.CString(), ret
 }
 
 /*
@@ -1840,10 +1842,12 @@ func (c Cursor) IsDynamicCall() int32 {
 }
 
 // Returns non-zero if the given cursor points to a symbol marked with external_source_symbol attribute.
-func (c Cursor) IsExternalSymbol(language *String, definedIn *String) (uint32, uint32) {
+func (c Cursor) IsExternalSymbol() (string, string, uint32, uint32) {
 	c_c := c
-	c_language := language
-	c_definedIn := definedIn
+	var language String
+	c_language := &language
+	var definedIn String
+	c_definedIn := &definedIn
 	var isGenerated uint32
 	c_isGenerated := &isGenerated
 
@@ -1866,7 +1870,7 @@ func (c Cursor) IsExternalSymbol(language *String, definedIn *String) (uint32, u
 	}
 
 	ret := retC
-	return isGenerated, ret
+	return language.CString(), definedIn.CString(), isGenerated, ret
 }
 
 // Determine whether a  CXCursor that is a function declaration, is an inline declaration.
@@ -6313,14 +6317,16 @@ Determine the availability of the entity that this cursor refers to on any platf
 
 Note that the client is responsible for calling clang_disposeCXPlatformAvailability to free each of the platform-availability structures returned. There are min(N, availability_size) such structures.
 */
-func (cursor Cursor) CursorPlatformAvailability(deprecated_message *String, unavailable_message *String, availability *PlatformAvailability, availability_size int32) (int32, int32, int32) {
+func (cursor Cursor) CursorPlatformAvailability(availability *PlatformAvailability, availability_size int32) (int32, string, int32, string, int32) {
 	c_cursor := cursor
 	var always_deprecated int32
 	c_always_deprecated := &always_deprecated
-	c_deprecated_message := deprecated_message
+	var deprecated_message String
+	c_deprecated_message := &deprecated_message
 	var always_unavailable int32
 	c_always_unavailable := &always_unavailable
-	c_unavailable_message := unavailable_message
+	var unavailable_message String
+	c_unavailable_message := &unavailable_message
 	c_availability := availability
 	c_availability_size := availability_size
 
@@ -6346,7 +6352,7 @@ func (cursor Cursor) CursorPlatformAvailability(deprecated_message *String, unav
 	}
 
 	ret := retC
-	return always_deprecated, always_unavailable, ret
+	return always_deprecated, deprecated_message.CString(), always_unavailable, unavailable_message.CString(), ret
 }
 
 // Pretty print declarations.
@@ -6918,9 +6924,10 @@ func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
 }
 
 // Retrieve the name of the command-line option that enabled this diagnostic.
-func (diag Diagnostic) DiagnosticOption(disable *String) string {
+func (diag Diagnostic) DiagnosticOption() (string, string) {
 	c_diag := diag
-	c_disable := disable
+	var disable String
+	c_disable := &disable
 
 	var retC String
 	args := []unsafe.Pointer{
@@ -6939,7 +6946,7 @@ func (diag Diagnostic) DiagnosticOption(disable *String) string {
 	}
 
 	ret := retC.CString()
-	return ret
+	return disable.CString(), ret
 }
 
 /*
@@ -7924,9 +7931,10 @@ whereas clang_getExpansionLocation would have returned
 
 File: somefile.c Line: 3 Column: 12
 */
-func (location SourceLocation) PresumedLocation(filename *String) (uint32, uint32) {
+func (location SourceLocation) PresumedLocation() (string, uint32, uint32) {
 	c_location := location
-	c_filename := filename
+	var filename String
+	c_filename := &filename
 	var line uint32
 	c_line := &line
 	var column uint32
@@ -7948,7 +7956,7 @@ func (location SourceLocation) PresumedLocation(filename *String) (uint32, uint3
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_getPresumedLocation", err))
 	}
-	return line, column
+	return filename.CString(), line, column
 }
 
 // Retrieve a source range given the beginning and ending source locations.
@@ -9639,11 +9647,12 @@ func (t Type) IsVolatileQualifiedType() uint32 {
 }
 
 // Deserialize a set of diagnostics from a Clang diagnostics bitcode file.
-func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String) DiagnosticSet {
+func LoadDiagnostics(file string, error *LoadDiag_Error) (string, DiagnosticSet) {
 	c_file, free_c_file := libc.CString(file)
 	defer free_c_file()
 	c_error := error
-	c_errorString := errorString
+	var errorString String
+	c_errorString := &errorString
 
 	var retC DiagnosticSet
 	args := []unsafe.Pointer{
@@ -9663,7 +9672,7 @@ func LoadDiagnostics(file string, error *LoadDiag_Error, errorString *String) Di
 	}
 
 	ret := retC
-	return ret
+	return errorString.CString(), ret
 }
 
 // Same as clang_parseTranslationUnit2, but returns the CXTranslationUnit instead of an error code.  In case of an error this routine returns a NULL CXTranslationUnit, without further detailed error codes.
@@ -9814,11 +9823,13 @@ func (p0 Remapping) Remap_dispose() {
 	}
 }
 
-func (p0 Remapping) Remap_getFilenames(p1 uint32, p2 *String, p3 *String) {
+func (p0 Remapping) Remap_getFilenames(p1 uint32) (string, string) {
 	c_p0 := p0
 	c_p1 := p1
-	c_p2 := p2
-	c_p3 := p3
+	var p2 String
+	c_p2 := &p2
+	var p3 String
+	c_p3 := &p3
 
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
@@ -9836,6 +9847,7 @@ func (p0 Remapping) Remap_getFilenames(p1 uint32, p2 *String, p3 *String) {
 	if err != nil {
 		panic(fmt.Sprintf("failed to call %s : %s", "clang_remap_getFilenames", err))
 	}
+	return p2.CString(), p3.CString()
 }
 
 func (p0 Remapping) Remap_getNumFiles() uint32 {
