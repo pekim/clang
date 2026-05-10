@@ -78,6 +78,7 @@ func (function *function) enrich(gen *gen) {
 			function.goName = strings.TrimPrefix(function.goName, typeName)
 			function.goName = strings.TrimPrefix(function.goName, "Get")
 			function.goName = strings.TrimPrefix(function.goName, "_")
+			function.goName = strings.Replace(function.goName, "_get", "", 1)
 			function.goName = exportedGoName(function.goName)
 		}
 	}

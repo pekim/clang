@@ -27,19 +27,19 @@ func commentChildrenText(comment clang.Comment, builder *strings.Builder) {
 		switch child.Kind() {
 
 		case clang.Comment_Paragraph:
-			builder.WriteString(child.TextComment_getText())
+			builder.WriteString(child.TextCommentText())
 			commentChildrenText(child, builder)
 			builder.WriteString("\n\n")
 
 		case clang.Comment_Text:
-			builder.WriteString(child.TextComment_getText())
+			builder.WriteString(child.TextCommentText())
 
 		case clang.Comment_VerbatimLine:
-			child.TextComment_getText()
+			child.TextCommentText()
 
 		case clang.Comment_InlineCommand:
-			for i := range child.InlineCommandComment_getNumArgs() {
-				builder.WriteString(child.InlineCommandComment_getArgText(i))
+			for i := range child.InlineCommandCommentNumArgs() {
+				builder.WriteString(child.InlineCommandCommentArgText(i))
 			}
 		}
 	}

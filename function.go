@@ -10,7 +10,7 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
-func (comment Comment) BlockCommandComment_getArgText(argIdx uint32) string {
+func (comment Comment) BlockCommandCommentArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
@@ -34,7 +34,7 @@ func (comment Comment) BlockCommandComment_getArgText(argIdx uint32) string {
 	return ret
 }
 
-func (comment Comment) BlockCommandComment_getCommandName() string {
+func (comment Comment) BlockCommandCommentCommandName() string {
 	c_comment := comment
 
 	var retC String
@@ -56,7 +56,7 @@ func (comment Comment) BlockCommandComment_getCommandName() string {
 	return ret
 }
 
-func (comment Comment) BlockCommandComment_getNumArgs() uint32 {
+func (comment Comment) BlockCommandCommentNumArgs() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -78,7 +78,7 @@ func (comment Comment) BlockCommandComment_getNumArgs() uint32 {
 	return ret
 }
 
-func (comment Comment) BlockCommandComment_getParagraph() Comment {
+func (comment Comment) BlockCommandCommentParagraph() Comment {
 	c_comment := comment
 
 	var retC Comment
@@ -798,7 +798,7 @@ func (c Cursor) BinaryOpcode() BinaryOperatorKind_ {
 	return ret
 }
 
-func (op BinaryOperatorKind_) Cursor_getBinaryOpcodeStr() string {
+func (op BinaryOperatorKind_) CursorBinaryOpcodeStr() string {
 	c_op := op
 
 	var retC String
@@ -2348,7 +2348,7 @@ Function argument documentation is rendered as a <dl> list with arguments sorted
 
 Template parameter documentation is rendered as a <dl> list with parameters sorted in template parameter list order.  CSS classes used:
 */
-func (comment Comment) FullComment_getAsHTML() string {
+func (comment Comment) FullCommentAsHTML() string {
 	c_comment := comment
 
 	var retC String
@@ -2375,7 +2375,7 @@ Convert a given full parsed comment to an XML document.
 
 A Relax NG schema for the XML can be found in comment-xml-schema.rng file inside clang source tree.
 */
-func (comment Comment) FullComment_getAsXML() string {
+func (comment Comment) FullCommentAsXML() string {
 	c_comment := comment
 
 	var retC String
@@ -2419,7 +2419,7 @@ func (comment Comment) HTMLStartTagComment_isSelfClosing() uint32 {
 	return ret
 }
 
-func (comment Comment) HTMLStartTag_getAttrName(attrIdx uint32) string {
+func (comment Comment) HTMLStartTagAttrName(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
@@ -2443,7 +2443,7 @@ func (comment Comment) HTMLStartTag_getAttrName(attrIdx uint32) string {
 	return ret
 }
 
-func (comment Comment) HTMLStartTag_getAttrValue(attrIdx uint32) string {
+func (comment Comment) HTMLStartTagAttrValue(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
@@ -2467,7 +2467,7 @@ func (comment Comment) HTMLStartTag_getAttrValue(attrIdx uint32) string {
 	return ret
 }
 
-func (comment Comment) HTMLStartTag_getNumAttrs() uint32 {
+func (comment Comment) HTMLStartTagNumAttrs() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -2490,7 +2490,7 @@ func (comment Comment) HTMLStartTag_getNumAttrs() uint32 {
 }
 
 // Convert an HTML tag AST node to string.
-func (comment Comment) HTMLTagComment_getAsString() string {
+func (comment Comment) HTMLTagCommentAsString() string {
 	c_comment := comment
 
 	var retC String
@@ -2512,7 +2512,7 @@ func (comment Comment) HTMLTagComment_getAsString() string {
 	return ret
 }
 
-func (comment Comment) HTMLTagComment_getTagName() string {
+func (comment Comment) HTMLTagCommentTagName() string {
 	c_comment := comment
 
 	var retC String
@@ -2580,7 +2580,7 @@ func (p0 IndexAction) Dispose() {
 	}
 }
 
-func (comment Comment) InlineCommandComment_getArgText(argIdx uint32) string {
+func (comment Comment) InlineCommandCommentArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
@@ -2604,7 +2604,7 @@ func (comment Comment) InlineCommandComment_getArgText(argIdx uint32) string {
 	return ret
 }
 
-func (comment Comment) InlineCommandComment_getCommandName() string {
+func (comment Comment) InlineCommandCommentCommandName() string {
 	c_comment := comment
 
 	var retC String
@@ -2626,7 +2626,7 @@ func (comment Comment) InlineCommandComment_getCommandName() string {
 	return ret
 }
 
-func (comment Comment) InlineCommandComment_getNumArgs() uint32 {
+func (comment Comment) InlineCommandCommentNumArgs() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -2648,7 +2648,7 @@ func (comment Comment) InlineCommandComment_getNumArgs() uint32 {
 	return ret
 }
 
-func (comment Comment) InlineCommandComment_getRenderKind() CommentInlineCommandRenderKind {
+func (comment Comment) InlineCommandCommentRenderKind() CommentInlineCommandRenderKind {
 	c_comment := comment
 
 	var retC CommentInlineCommandRenderKind
@@ -2902,7 +2902,7 @@ func (module Module) Name() string {
 	return ret
 }
 
-func (p0 TranslationUnit) Module_getNumTopLevelHeaders(module Module) uint32 {
+func (p0 TranslationUnit) ModuleNumTopLevelHeaders(module Module) uint32 {
 	c_p0 := p0
 	c_module := module
 
@@ -2948,7 +2948,7 @@ func (module Module) Parent() Module {
 	return ret
 }
 
-func (p0 TranslationUnit) Module_getTopLevelHeader(module Module, index uint32) File {
+func (p0 TranslationUnit) ModuleTopLevelHeader(module Module, index uint32) File {
 	c_p0 := p0
 	c_module := module
 	c_index := index
@@ -2996,7 +2996,7 @@ func (module Module) IsSystem() int32 {
 	return ret
 }
 
-func (comment Comment) ParamCommandComment_getDirection() CommentParamPassDirection {
+func (comment Comment) ParamCommandCommentDirection() CommentParamPassDirection {
 	c_comment := comment
 
 	var retC CommentParamPassDirection
@@ -3018,7 +3018,7 @@ func (comment Comment) ParamCommandComment_getDirection() CommentParamPassDirect
 	return ret
 }
 
-func (comment Comment) ParamCommandComment_getParamIndex() uint32 {
+func (comment Comment) ParamCommandCommentParamIndex() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -3040,7 +3040,7 @@ func (comment Comment) ParamCommandComment_getParamIndex() uint32 {
 	return ret
 }
 
-func (comment Comment) ParamCommandComment_getParamName() string {
+func (comment Comment) ParamCommandCommentParamName() string {
 	c_comment := comment
 
 	var retC String
@@ -3201,7 +3201,7 @@ For example,
 
 for C and TT nesting depth is 0, for T nesting depth is 1.
 */
-func (comment Comment) TParamCommandComment_getDepth() uint32 {
+func (comment Comment) TParamCommandCommentDepth() uint32 {
 	c_comment := comment
 
 	var retC uint32
@@ -3230,7 +3230,7 @@ for C and TT nesting depth is 0, so we can ask for index at depth 0: at depth 0 
 
 For T nesting depth is 1, so we can ask for index at depth 0 and 1: at depth 0 T's index is 1 (same as TT's), at depth 1 T's index is 0.
 */
-func (comment Comment) TParamCommandComment_getIndex(depth uint32) uint32 {
+func (comment Comment) TParamCommandCommentIndex(depth uint32) uint32 {
 	c_comment := comment
 	c_depth := depth
 
@@ -3254,7 +3254,7 @@ func (comment Comment) TParamCommandComment_getIndex(depth uint32) uint32 {
 	return ret
 }
 
-func (comment Comment) TParamCommandComment_getParamName() string {
+func (comment Comment) TParamCommandCommentParamName() string {
 	c_comment := comment
 
 	var retC String
@@ -3371,7 +3371,7 @@ func (info TargetInfo) Triple() string {
 	return ret
 }
 
-func (comment Comment) TextComment_getText() string {
+func (comment Comment) TextCommentText() string {
 	c_comment := comment
 
 	var retC String
@@ -3907,7 +3907,7 @@ func (t Type) VisitFields(visitor FieldVisitor, client_data ClientData) uint32 {
 	return ret
 }
 
-func (comment Comment) VerbatimBlockLineComment_getText() string {
+func (comment Comment) VerbatimBlockLineCommentText() string {
 	c_comment := comment
 
 	var retC String
@@ -3929,7 +3929,7 @@ func (comment Comment) VerbatimBlockLineComment_getText() string {
 	return ret
 }
 
-func (comment Comment) VerbatimLineComment_getText() string {
+func (comment Comment) VerbatimLineCommentText() string {
 	c_comment := comment
 
 	var retC String
@@ -8737,7 +8737,7 @@ func (p0 Cursor) HashCursor() uint32 {
 }
 
 // Retrieve the CXSourceLocation represented by the given CXIdxLoc.
-func (loc IdxLoc) IndexLoc_getCXSourceLocation() SourceLocation {
+func (loc IdxLoc) IndexLocCXSourceLocation() SourceLocation {
 	c_loc := loc
 
 	var retC SourceLocation
@@ -8764,7 +8764,7 @@ Retrieve the CXIdxFile, file, line, column, and offset represented by the given 
 
 If the location refers into a macro expansion, retrieves the location of the macro expansion and if it refers into a macro argument retrieves the location of the argument.
 */
-func (loc IdxLoc) IndexLoc_getFileLocation() (IdxClientFile, File, uint32, uint32, uint32) {
+func (loc IdxLoc) IndexLocFileLocation() (IdxClientFile, File, uint32, uint32, uint32) {
 	c_loc := loc
 	var indexFile IdxClientFile
 	c_indexFile := &indexFile
@@ -8948,7 +8948,7 @@ func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbac
 	return index_callbacks, ret
 }
 
-func (p0 *IdxDeclInfo) Index_getCXXClassDeclInfo() *IdxCXXClassDeclInfo {
+func (p0 *IdxDeclInfo) IndexCXXClassDeclInfo() *IdxCXXClassDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -8971,7 +8971,7 @@ func (p0 *IdxDeclInfo) Index_getCXXClassDeclInfo() *IdxCXXClassDeclInfo {
 }
 
 // For retrieving a custom CXIdxClientContainer attached to a container.
-func (p0 *IdxContainerInfo) Index_getClientContainer() IdxClientContainer {
+func (p0 *IdxContainerInfo) IndexClientContainer() IdxClientContainer {
 	c_p0 := p0
 
 	var retC IdxClientContainer
@@ -8994,7 +8994,7 @@ func (p0 *IdxContainerInfo) Index_getClientContainer() IdxClientContainer {
 }
 
 // For retrieving a custom CXIdxClientEntity attached to an entity.
-func (p0 *IdxEntityInfo) Index_getClientEntity() IdxClientEntity {
+func (p0 *IdxEntityInfo) IndexClientEntity() IdxClientEntity {
 	c_p0 := p0
 
 	var retC IdxClientEntity
@@ -9016,7 +9016,7 @@ func (p0 *IdxEntityInfo) Index_getClientEntity() IdxClientEntity {
 	return ret
 }
 
-func (p0 *IdxAttrInfo) Index_getIBOutletCollectionAttrInfo() *IdxIBOutletCollectionAttrInfo {
+func (p0 *IdxAttrInfo) IndexIBOutletCollectionAttrInfo() *IdxIBOutletCollectionAttrInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9038,7 +9038,7 @@ func (p0 *IdxAttrInfo) Index_getIBOutletCollectionAttrInfo() *IdxIBOutletCollect
 	return ret
 }
 
-func (p0 *IdxDeclInfo) Index_getObjCCategoryDeclInfo() *IdxObjCCategoryDeclInfo {
+func (p0 *IdxDeclInfo) IndexObjCCategoryDeclInfo() *IdxObjCCategoryDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9060,7 +9060,7 @@ func (p0 *IdxDeclInfo) Index_getObjCCategoryDeclInfo() *IdxObjCCategoryDeclInfo 
 	return ret
 }
 
-func (p0 *IdxDeclInfo) Index_getObjCContainerDeclInfo() *IdxObjCContainerDeclInfo {
+func (p0 *IdxDeclInfo) IndexObjCContainerDeclInfo() *IdxObjCContainerDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9082,7 +9082,7 @@ func (p0 *IdxDeclInfo) Index_getObjCContainerDeclInfo() *IdxObjCContainerDeclInf
 	return ret
 }
 
-func (p0 *IdxDeclInfo) Index_getObjCInterfaceDeclInfo() *IdxObjCInterfaceDeclInfo {
+func (p0 *IdxDeclInfo) IndexObjCInterfaceDeclInfo() *IdxObjCInterfaceDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9104,7 +9104,7 @@ func (p0 *IdxDeclInfo) Index_getObjCInterfaceDeclInfo() *IdxObjCInterfaceDeclInf
 	return ret
 }
 
-func (p0 *IdxDeclInfo) Index_getObjCPropertyDeclInfo() *IdxObjCPropertyDeclInfo {
+func (p0 *IdxDeclInfo) IndexObjCPropertyDeclInfo() *IdxObjCPropertyDeclInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9126,7 +9126,7 @@ func (p0 *IdxDeclInfo) Index_getObjCPropertyDeclInfo() *IdxObjCPropertyDeclInfo 
 	return ret
 }
 
-func (p0 *IdxDeclInfo) Index_getObjCProtocolRefListInfo() *IdxObjCProtocolRefListInfo {
+func (p0 *IdxDeclInfo) IndexObjCProtocolRefListInfo() *IdxObjCProtocolRefListInfo {
 	c_p0 := p0
 
 	var retC unsafe.Pointer
@@ -9839,7 +9839,7 @@ func (p0 Remapping) Remap_dispose() {
 	}
 }
 
-func (p0 Remapping) Remap_getFilenames(p1 uint32) (string, string) {
+func (p0 Remapping) RemapFilenames(p1 uint32) (string, string) {
 	c_p0 := p0
 	c_p1 := p1
 	var p2 String
@@ -9866,7 +9866,7 @@ func (p0 Remapping) Remap_getFilenames(p1 uint32) (string, string) {
 	return p2.CString(), p3.CString()
 }
 
-func (p0 Remapping) Remap_getNumFiles() uint32 {
+func (p0 Remapping) RemapNumFiles() uint32 {
 	c_p0 := p0
 
 	var retC uint32
