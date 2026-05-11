@@ -47,7 +47,7 @@ func (rv *returnValue) isSupported() bool {
 }
 
 func (rv returnValue) goDecl() jen.Code {
-	if rv.isStruct() && rv.struct_.goName == "String" {
+	if rv.isStruct() && rv.struct_.cName == "CXString" {
 		return jen.String()
 	}
 	return rv.typ.goDecl()
@@ -65,7 +65,7 @@ func (rv returnValue) cVarToGoVar(cVar string, goVar string) jen.Code {
 		return jen.Id(goVar).Op(":=").Parens(jen.Op("*").Id(rv.structPointer.goName)).Parens(jen.Id(cVar))
 	}
 
-	if rv.isStruct() && rv.struct_.goName == "String" {
+	if rv.isStruct() && rv.struct_.cName == "CXString" {
 		return jen.Id(goVar).Op(":=").Id(cVar).Dot("CString").Call()
 	}
 
