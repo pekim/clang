@@ -264,3 +264,7 @@ func (typ typ) goOutVarDecl() jen.Code {
 
 	panic(fmt.Sprintf("unsupported typ : %s", typ))
 }
+
+func (typ typ) isCXString() bool {
+	return typ.isStruct() && typ.struct_.cName == "CXString"
+}

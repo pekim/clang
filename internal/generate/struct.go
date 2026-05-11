@@ -82,6 +82,9 @@ func (struct_ *struct_) enrich(gen *gen) {
 			name = fmt.Sprintf("_%d", nameSuffix)
 			nameSuffix++
 		}
+		if typ.isCXString() {
+			name = goName(cursor.CursorSpelling())
+		}
 		if typ.isPointer {
 			name = goName(cursor.CursorSpelling())
 		}
@@ -172,6 +175,9 @@ func (struct_ struct_) generateAccessors(file file) {
 		if field.isBitfield {
 			struct_.generateBitfieldAccessors(file, field)
 		}
+		if field.isCXString() {
+			struct_.generateCXStringAccessors(file, field)
+		}
 		if field.isString {
 			struct_.generateStringAccessors(file, field)
 		}
@@ -209,6 +215,18 @@ func (struct_ struct_) generateBitfieldAccessors(file file, field structField) {
 			jen.Lit(field.bitWidth),
 			jen.Id("value"),
 		),
+	)
+	file.Line()
+}
+
+func (struct_ struct_) generateCXStringAccessors(file file, field structField) {
+	// getter
+	file.Comment(field.comment)
+	file.
+		Func().
+		Params(jen.Id("s").Op("*").Id(struct_.goName)).
+		Id(exportedGoName(field.goName)).Params().String().Block(
+		jen.Return().Id("s").Dot(field.goName).Dot("CString").Call(),
 	)
 	file.Line()
 }

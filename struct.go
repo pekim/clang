@@ -446,7 +446,7 @@ type PlatformAvailability struct {
 
 	   Possible values are "ios" or "macos".
 	*/
-	Platform String
+	platform String
 	// The version number in which this entity was introduced.
 	Introduced Version
 	// The version number in which this entity was deprecated (but is still available).
@@ -456,7 +456,21 @@ type PlatformAvailability struct {
 	// Whether the entity is unconditionally unavailable on this platform.
 	Unavailable int32
 	// An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
-	Message String
+	message String
+}
+
+/*
+A string that describes the platform for which this structure provides availability information.
+
+Possible values are "ios" or "macos".
+*/
+func (s *PlatformAvailability) Platform() string {
+	return s.platform.CString()
+}
+
+// An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
+func (s *PlatformAvailability) Message() string {
+	return s.message.CString()
 }
 
 /*
