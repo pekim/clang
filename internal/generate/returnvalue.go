@@ -53,21 +53,21 @@ func (rv returnValue) goDecl() jen.Code {
 	return rv.typ.goDecl()
 }
 
-func (rv returnValue) cVarToGoVar(cVar string, goVar string) jen.Code {
+func (rv returnValue) cVarToGoVar(g *jen.Group, cVar string, goVar string) {
 	if rv.isString {
 		// 	ret := libc.GoString(retC)
-		return jen.Id(goVar).Op(":=").Qual("github.com/pekim/clang/internal/libc", "GoString").Call(
+		g.Id(goVar).Op(":=").Qual("github.com/pekim/clang/internal/libc", "GoString").Call(
 			jen.Id(cVar),
 		)
-	}
 
-	if rv.isStructPointer() {
-		return jen.Id(goVar).Op(":=").Parens(jen.Op("*").Id(rv.structPointer.goName)).Parens(jen.Id(cVar))
-	}
+	} else if rv.isStructPointer() {
+		g.Id(goVar).Op(":=").Parens(jen.Op("*").Id(rv.structPointer.goName)).Parens(jen.Id(cVar))
 
-	if rv.isCXString() {
-		return jen.Id(goVar).Op(":=").Id(cVar).Dot("CString").Call()
-	}
+	} else if rv.isCXString() {
+		g.Id(goVar).Op(":=").Id(cVar).Dot("CString").Call()
+		g.Id(cVar).Dot("DisposeString").Call().Op(";")
 
-	return jen.Id(goVar).Op(":=").Id(cVar)
+	} else {
+		g.Id(goVar).Op(":=").Id(cVar)
+	}
 }

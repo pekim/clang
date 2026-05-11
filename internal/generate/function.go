@@ -202,7 +202,8 @@ func (function function) generateImplementation(file file) {
 
 			if !function.returnValue.isVoid || function.params.someOut() {
 				if !function.returnValue.isVoid {
-					g.Line().Add(function.returnValue.cVarToGoVar("retC", "ret"))
+					g.Line()
+					function.returnValue.cVarToGoVar(g, "retC", "ret")
 				}
 
 				g.Return().ListFunc(func(g *jen.Group) {

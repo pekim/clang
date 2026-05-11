@@ -35,6 +35,7 @@ func (comment Comment) BlockCommandCommentArgText(argIdx uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -61,6 +62,7 @@ func (comment Comment) BlockCommandCommentCommandName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -922,6 +924,7 @@ func (op BinaryOperatorKind_) CursorBinaryOpcodeStr() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -952,6 +955,7 @@ func (c Cursor) BriefCommentText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1036,6 +1040,7 @@ func (cursor Cursor) GCCAssemblyClobber(index uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1222,6 +1227,7 @@ func (p0 Cursor) GCCAssemblyTemplate() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1248,6 +1254,7 @@ func (p0 Cursor) Mangling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1446,6 +1453,7 @@ func (c Cursor) ObjCPropertyGetterName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1472,6 +1480,7 @@ func (c Cursor) ObjCPropertySetterName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -1584,6 +1593,7 @@ func (c Cursor) RawCommentText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2619,6 +2629,7 @@ func (file File) TryGetRealPathName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2657,6 +2668,7 @@ func (comment Comment) FullCommentAsHTML() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2687,6 +2699,7 @@ func (comment Comment) FullCommentAsXML() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2741,6 +2754,7 @@ func (comment Comment) HTMLStartTagAttrName(attrIdx uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2769,6 +2783,7 @@ func (comment Comment) HTMLStartTagAttrValue(attrIdx uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2821,6 +2836,7 @@ func (comment Comment) HTMLTagCommentAsString() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2847,6 +2863,7 @@ func (comment Comment) HTMLTagCommentTagName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2927,6 +2944,7 @@ func (comment Comment) InlineCommandCommentArgText(argIdx uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -2953,6 +2971,7 @@ func (comment Comment) InlineCommandCommentCommandName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3245,6 +3264,7 @@ func (module Module) FullName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3271,6 +3291,7 @@ func (module Module) Name() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3459,6 +3480,7 @@ func (comment Comment) ParamCommandCommentParamName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3703,6 +3725,7 @@ func (comment Comment) TParamCommandCommentParamName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3811,6 +3834,7 @@ func (info TargetInfo) Triple() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -3837,6 +3861,7 @@ func (comment Comment) TextCommentText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4125,6 +4150,7 @@ func (type_ Type) ObjCEncoding() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4434,6 +4460,7 @@ func (comment Comment) VerbatimBlockLineCommentText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4460,6 +4487,7 @@ func (comment Comment) VerbatimLineCommentText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4712,6 +4740,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4818,6 +4847,7 @@ func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4848,6 +4878,7 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4875,6 +4906,7 @@ func ConstructUSR_ObjCClass(class_name string) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4904,6 +4936,7 @@ func ConstructUSR_ObjCIvar(name string, classUSR string_) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4935,6 +4968,7 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR stri
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4964,6 +4998,7 @@ func ConstructUSR_ObjCProperty(property string, classUSR string_) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -4991,6 +5026,7 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -5962,6 +5998,7 @@ func (diagnostic Diagnostic) FormatDiagnostic(options uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6158,6 +6195,7 @@ func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6382,6 +6420,7 @@ func GetClangVersion() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6410,6 +6449,7 @@ func (completion_string CompletionString) CompletionAnnotation(annotation_number
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6462,6 +6502,7 @@ func (completion_string CompletionString) CompletionBriefComment() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6546,6 +6587,7 @@ func (completion_string CompletionString) CompletionChunkText(chunk_number uint3
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -6589,6 +6631,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return replacement_range, ret
 }
 
@@ -6680,6 +6723,7 @@ func (completion_string CompletionString) CompletionParent() (CursorKind, string
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return kind, ret
 }
 
@@ -6890,6 +6934,7 @@ func (p0 Cursor) CursorDisplayName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7006,6 +7051,7 @@ func (kind CursorKind) CursorKindSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7217,6 +7263,7 @@ func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7401,6 +7448,7 @@ func (p0 Cursor) CursorSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7483,6 +7531,7 @@ func (p0 Cursor) CursorUSR() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7569,6 +7618,7 @@ func (c Cursor) DeclObjCTypeEncoding() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7655,6 +7705,7 @@ func GetDiagnosticCategoryName(category uint32) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7681,6 +7732,7 @@ func (p0 Diagnostic) DiagnosticCategoryText() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -7716,6 +7768,7 @@ func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32) (SourceRange, string)
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return replacementRange, ret
 }
 
@@ -7855,6 +7908,7 @@ func (diag Diagnostic) DiagnosticOption() (string, string) {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return disable.CString(), ret
 }
 
@@ -7965,6 +8019,7 @@ func (p0 Diagnostic) DiagnosticSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -8282,6 +8337,7 @@ func (sFile File) FileName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -8349,6 +8405,7 @@ func (cT Type) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9254,6 +9311,7 @@ func (cursor Cursor) SymbolGraphForCursor() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9287,6 +9345,7 @@ func GetSymbolGraphForUSR(usr string, api APISet) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9485,6 +9544,7 @@ func (p0 TranslationUnit) TokenSpelling(p1 Token) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9541,6 +9601,7 @@ func (cTUnit TranslationUnit) TranslationUnitSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9623,6 +9684,7 @@ func (k TypeKind) TypeKindSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9655,6 +9717,7 @@ func (cT Type) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9685,6 +9748,7 @@ func (cT Type) TypeSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9741,6 +9805,7 @@ func (cT Type) TypedefName() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
@@ -9767,6 +9832,7 @@ func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() string {
 	}
 
 	ret := retC.CString()
+	retC.DisposeString()
 	return ret
 }
 
