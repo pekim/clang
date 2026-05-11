@@ -278,7 +278,7 @@ func (struct_ struct_) generateFieldPadding(g *jen.Group, targetOffset int, prev
 	prevFieldEndOffset := (prevField.offset / 8) + prevField.size
 	padding := (targetOffset / 8) - prevFieldEndOffset
 	if padding > 0 {
-		g.Id("_").Index(jen.Lit(padding)).Byte()
+		g.Id("_").Index(jen.Lit(padding)).Byte().Comment("padding")
 	}
 }
 

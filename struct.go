@@ -25,7 +25,7 @@ type CodeCompleteResults struct {
 	results unsafe.Pointer // CXCompletionResult *
 	// The number of code-completion results stored in the Results array.
 	NumResults uint32
-	_          [4]byte
+	_          [4]byte // padding
 }
 
 // A parsed comment.
@@ -46,7 +46,7 @@ type CompletionResult struct {
 	   The cursor kind will be a macro, keyword, or a declaration (one of the *Decl cursor kinds), describing the entity that the completion is referring to.
 	*/
 	CursorKind CursorKind
-	_          [4]byte
+	_          [4]byte // padding
 	// The code-completion string that describes how to insert this code-completion result into the editing buffer.
 	CompletionString [8]byte // CXCompletionString
 }
@@ -88,7 +88,7 @@ type IdxAttrInfo struct {
 	_ structs.HostLayout
 
 	Kind   IdxAttrKind
-	_      [4]byte
+	_      [4]byte // padding
 	Cursor Cursor
 	Loc    IdxLoc
 }
@@ -107,7 +107,7 @@ type IdxCXXClassDeclInfo struct {
 	declInfo unsafe.Pointer // const CXIdxDeclInfo *
 	bases    unsafe.Pointer // const CXIdxBaseClassInfo *const *
 	NumBases uint32
-	_        [4]byte
+	_        [4]byte // padding
 }
 
 type IdxContainerInfo struct {
@@ -128,11 +128,11 @@ type IdxDeclInfo struct {
 	IsRedeclaration  int32
 	IsDefinition     int32
 	IsContainer      int32
-	_                [4]byte
+	_                [4]byte        // padding
 	declAsContainer  unsafe.Pointer // const CXIdxContainerInfo *
 	// Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
 	IsImplicit    int32
-	_             [4]byte
+	_             [4]byte        // padding
 	attributes    unsafe.Pointer // const CXIdxAttrInfo *const *
 	NumAttributes uint32
 	Flags         uint32
@@ -144,13 +144,13 @@ type IdxEntityInfo struct {
 	Kind          IdxEntityKind
 	TemplateKind  IdxEntityCXXTemplateKind
 	Lang          IdxEntityLanguage
-	_             [4]byte
+	_             [4]byte        // padding
 	name          unsafe.Pointer // const char *
 	uSR           unsafe.Pointer // const char *
 	Cursor        Cursor
 	attributes    unsafe.Pointer // const CXIdxAttrInfo *const *
 	NumAttributes uint32
-	_             [4]byte
+	_             [4]byte // padding
 }
 
 func (s *IdxEntityInfo) Name() string {
@@ -190,7 +190,7 @@ type IdxEntityRefInfo struct {
 	_ structs.HostLayout
 
 	Kind IdxEntityRefKind
-	_    [4]byte
+	_    [4]byte // padding
 	// Reference cursor.
 	Cursor Cursor
 	Loc    IdxLoc
@@ -206,7 +206,7 @@ type IdxEntityRefInfo struct {
 	container unsafe.Pointer // const CXIdxContainerInfo *
 	// Sets of symbol roles of the reference.
 	Role SymbolRole
-	_    [4]byte
+	_    [4]byte // padding
 }
 
 type IdxIBOutletCollectionAttrInfo struct {
@@ -230,7 +230,7 @@ type IdxImportedASTFileInfo struct {
 	Loc IdxLoc
 	// Non-zero if an inclusion directive was automatically turned into a module import. Applicable only for modules.
 	IsImplicit int32
-	_          [4]byte
+	_          [4]byte // padding
 }
 
 // Data for ppIncludedFile callback.
@@ -247,7 +247,7 @@ type IdxIncludedFileInfo struct {
 	IsAngled int32
 	// Non-zero if the directive was automatically turned into a module import.
 	IsModuleImport int32
-	_              [4]byte
+	_              [4]byte // padding
 }
 
 // Filename as written in the #include/#import directive.
@@ -273,7 +273,7 @@ type IdxLoc struct {
 
 	Ptr_data [16]byte // void *[2]
 	Int_data uint32
-	_        [4]byte
+	_        [4]byte // padding
 }
 
 type IdxObjCCategoryDeclInfo struct {
@@ -291,7 +291,7 @@ type IdxObjCContainerDeclInfo struct {
 
 	declInfo unsafe.Pointer // const CXIdxDeclInfo *
 	Kind     IdxObjCContainerKind
-	_        [4]byte
+	_        [4]byte // padding
 }
 
 type IdxObjCInterfaceDeclInfo struct {
@@ -323,7 +323,7 @@ type IdxObjCProtocolRefListInfo struct {
 
 	protocols    unsafe.Pointer // const CXIdxObjCProtocolRefInfo *const *
 	NumProtocols uint32
-	_            [4]byte
+	_            [4]byte // padding
 }
 
 /*
@@ -483,7 +483,7 @@ type SourceLocation struct {
 
 	Ptr_data [16]byte // const void *[2]
 	Int_data uint32
-	_        [4]byte
+	_        [4]byte // padding
 }
 
 /*
@@ -505,7 +505,7 @@ type SourceRangeList struct {
 
 	// The number of ranges in the ranges array.
 	Count uint32
-	_     [4]byte
+	_     [4]byte // padding
 	// An array of CXSourceRanges.
 	ranges unsafe.Pointer // CXSourceRange *
 }
@@ -520,7 +520,7 @@ type String struct {
 
 	data          unsafe.Pointer // const void *
 	Private_flags uint32
-	_             [4]byte
+	_             [4]byte // padding
 }
 
 type StringSet struct {
@@ -528,7 +528,7 @@ type StringSet struct {
 
 	strings unsafe.Pointer // CXString *
 	Count   uint32
-	_       [4]byte
+	_       [4]byte // padding
 }
 
 // The memory usage of a CXTranslationUnit, broken into categories.
@@ -537,7 +537,7 @@ type TUResourceUsage struct {
 
 	data       unsafe.Pointer // void *
 	NumEntries uint32
-	_          [4]byte
+	_          [4]byte        // padding
 	entries    unsafe.Pointer // CXTUResourceUsageEntry *
 }
 
@@ -545,7 +545,7 @@ type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 
 	Kind   TUResourceUsageKind
-	_      [4]byte
+	_      [4]byte // padding
 	Amount uint64
 }
 
@@ -570,7 +570,7 @@ type Type struct {
 	_ structs.HostLayout
 
 	Kind TypeKind
-	_    [4]byte
+	_    [4]byte  // padding
 	Data [16]byte // void *[2]
 }
 
