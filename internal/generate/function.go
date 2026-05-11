@@ -208,7 +208,7 @@ func (function function) generateImplementation(file file) {
 					for _, param := range function.params {
 						if param.isOut {
 							g.Id(param.goName).Do(func(s *jen.Statement) {
-								if param.isStructPointer() && param.structPointer.cName == "CXString" {
+								if param.isCXStringPointer() {
 									s.Dot("CString").Call()
 								}
 							})

@@ -235,10 +235,10 @@ func (typ typ) goOutReturnDecl() jen.Code {
 	if typ.isScalarPointer {
 		return jen.Add(typ.scalar.code)
 	}
+	if typ.isCXStringPointer() {
+		return jen.String()
+	}
 	if typ.isStructPointer() {
-		if typ.structPointer.cName == "CXString" {
-			return jen.String()
-		}
 		return jen.Id(typ.structPointer.goName)
 	}
 
@@ -255,10 +255,10 @@ func (typ typ) goOutVarDecl() jen.Code {
 	if typ.isScalarPointer {
 		return jen.Add(typ.scalar.code)
 	}
+	if typ.isCXStringPointer() {
+		return jen.Id(typ.structPointer.goName)
+	}
 	if typ.isStructPointer() {
-		if typ.structPointer.cName == "CXString" {
-			return jen.Id("String")
-		}
 		return jen.Id(typ.structPointer.goName)
 	}
 
@@ -267,4 +267,8 @@ func (typ typ) goOutVarDecl() jen.Code {
 
 func (typ typ) isCXString() bool {
 	return typ.isStruct() && typ.struct_.cName == "CXString"
+}
+
+func (typ typ) isCXStringPointer() bool {
+	return typ.isStructPointer() && typ.structPointer.cName == "CXString"
 }
