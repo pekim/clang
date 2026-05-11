@@ -9,6 +9,10 @@ import (
 	libc "github.com/pekim/clang/internal/libc"
 )
 
+//
+/*
+Represents the C struct CXAPISetImpl.
+*/
 type APISetImpl struct {
 	_ structs.HostLayout
 }
@@ -17,6 +21,9 @@ type APISetImpl struct {
 Contains the results of code-completion.
 
 This data structure contains the results of code completion, as produced by clang_codeCompleteAt(). Its contents must be freed by clang_disposeCodeCompleteResults.
+*/
+/*
+Represents the C struct CXCodeCompleteResults.
 */
 type CodeCompleteResults struct {
 	_ structs.HostLayout
@@ -29,6 +36,9 @@ type CodeCompleteResults struct {
 }
 
 // A parsed comment.
+/*
+Represents the C struct CXComment.
+*/
 type Comment struct {
 	_ structs.HostLayout
 
@@ -37,6 +47,9 @@ type Comment struct {
 }
 
 // A single result of code completion.
+/*
+Represents the C struct CXCompletionResult.
+*/
 type CompletionResult struct {
 	_ structs.HostLayout
 
@@ -58,6 +71,9 @@ The cursor abstraction unifies the different kinds of entities in a program--dec
 
 Cursors can be produced in two specific ways. clang_getTranslationUnitCursor() produces a cursor for a translation unit, from which one can use clang_visitChildren() to explore the rest of the translation unit. clang_getCursor() maps from a physical source location to the entity that resides at that location, allowing one to map from the source code into the AST.
 */
+/*
+Represents the C struct CXCursor.
+*/
 type Cursor struct {
 	_ structs.HostLayout
 
@@ -66,6 +82,10 @@ type Cursor struct {
 	Data  [24]byte // const void *[3]
 }
 
+//
+/*
+Represents the C struct CXCursorAndRangeVisitor.
+*/
 type CursorAndRangeVisitor struct {
 	_ structs.HostLayout
 
@@ -73,17 +93,28 @@ type CursorAndRangeVisitor struct {
 	visit   unsafe.Pointer // enum CXVisitorResult (*)(void *, CXCursor, CXSourceRange)
 }
 
+//
+/*
+Represents the C struct CXCursorSetImpl.
+*/
 type CursorSetImpl struct {
 	_ structs.HostLayout
 }
 
 // Uniquely identifies a CXFile, that refers to the same underlying file, across an indexing session.
+/*
+Represents the C struct CXFileUniqueID.
+*/
 type FileUniqueID struct {
 	_ structs.HostLayout
 
 	Data [24]byte // unsigned long long[3]
 }
 
+//
+/*
+Represents the C struct CXIdxAttrInfo.
+*/
 type IdxAttrInfo struct {
 	_ structs.HostLayout
 
@@ -93,6 +124,10 @@ type IdxAttrInfo struct {
 	Loc    IdxLoc
 }
 
+//
+/*
+Represents the C struct CXIdxBaseClassInfo.
+*/
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
@@ -101,6 +136,10 @@ type IdxBaseClassInfo struct {
 	Loc    IdxLoc
 }
 
+//
+/*
+Represents the C struct CXIdxCXXClassDeclInfo.
+*/
 type IdxCXXClassDeclInfo struct {
 	_ structs.HostLayout
 
@@ -110,12 +149,20 @@ type IdxCXXClassDeclInfo struct {
 	_        [4]byte // padding
 }
 
+//
+/*
+Represents the C struct CXIdxContainerInfo.
+*/
 type IdxContainerInfo struct {
 	_ structs.HostLayout
 
 	Cursor Cursor
 }
 
+//
+/*
+Represents the C struct CXIdxDeclInfo.
+*/
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
@@ -138,6 +185,10 @@ type IdxDeclInfo struct {
 	Flags         uint32
 }
 
+//
+/*
+Represents the C struct CXIdxEntityInfo.
+*/
 type IdxEntityInfo struct {
 	_ structs.HostLayout
 
@@ -186,6 +237,9 @@ func (s *IdxEntityInfo) SetUSR(str string) (free func()) {
 }
 
 // Data for IndexerCallbacks#indexEntityReference.
+/*
+Represents the C struct CXIdxEntityRefInfo.
+*/
 type IdxEntityRefInfo struct {
 	_ structs.HostLayout
 
@@ -209,6 +263,10 @@ type IdxEntityRefInfo struct {
 	_    [4]byte // padding
 }
 
+//
+/*
+Represents the C struct CXIdxIBOutletCollectionAttrInfo.
+*/
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
@@ -219,6 +277,9 @@ type IdxIBOutletCollectionAttrInfo struct {
 }
 
 // Data for IndexerCallbacks#importedASTFile.
+/*
+Represents the C struct CXIdxImportedASTFileInfo.
+*/
 type IdxImportedASTFileInfo struct {
 	_ structs.HostLayout
 
@@ -234,6 +295,9 @@ type IdxImportedASTFileInfo struct {
 }
 
 // Data for ppIncludedFile callback.
+/*
+Represents the C struct CXIdxIncludedFileInfo.
+*/
 type IdxIncludedFileInfo struct {
 	_ structs.HostLayout
 
@@ -268,6 +332,9 @@ func (s *IdxIncludedFileInfo) SetFilename(str string) (free func()) {
 }
 
 // Source location passed to index callbacks.
+/*
+Represents the C struct CXIdxLoc.
+*/
 type IdxLoc struct {
 	_ structs.HostLayout
 
@@ -276,6 +343,10 @@ type IdxLoc struct {
 	_        [4]byte // padding
 }
 
+//
+/*
+Represents the C struct CXIdxObjCCategoryDeclInfo.
+*/
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
@@ -286,6 +357,10 @@ type IdxObjCCategoryDeclInfo struct {
 	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
 }
 
+//
+/*
+Represents the C struct CXIdxObjCContainerDeclInfo.
+*/
 type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
@@ -294,6 +369,10 @@ type IdxObjCContainerDeclInfo struct {
 	_        [4]byte // padding
 }
 
+//
+/*
+Represents the C struct CXIdxObjCInterfaceDeclInfo.
+*/
 type IdxObjCInterfaceDeclInfo struct {
 	_ structs.HostLayout
 
@@ -302,6 +381,10 @@ type IdxObjCInterfaceDeclInfo struct {
 	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
 }
 
+//
+/*
+Represents the C struct CXIdxObjCPropertyDeclInfo.
+*/
 type IdxObjCPropertyDeclInfo struct {
 	_ structs.HostLayout
 
@@ -310,6 +393,10 @@ type IdxObjCPropertyDeclInfo struct {
 	setter   unsafe.Pointer // const CXIdxEntityInfo *
 }
 
+//
+/*
+Represents the C struct CXIdxObjCProtocolRefInfo.
+*/
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
@@ -318,6 +405,10 @@ type IdxObjCProtocolRefInfo struct {
 	Loc      IdxLoc
 }
 
+//
+/*
+Represents the C struct CXIdxObjCProtocolRefListInfo.
+*/
 type IdxObjCProtocolRefListInfo struct {
 	_ structs.HostLayout
 
@@ -334,6 +425,9 @@ Index initialization options.
 or explicitly initialize the first data member and zero-initialize the rest:
 
 or to prevent the -Wmissing-field-initializers warning for the above version:
+*/
+/*
+Represents the C struct CXIndexOptions.
 */
 type IndexOptions struct {
 	_ structs.HostLayout
@@ -433,11 +527,18 @@ func (s *IndexOptions) SetInvocationEmissionPath(str string) (free func()) {
 	return free
 }
 
+//
+/*
+Represents the C struct CXModuleMapDescriptorImpl.
+*/
 type ModuleMapDescriptorImpl struct {
 	_ structs.HostLayout
 }
 
 // Describes the availability of a given entity on a particular platform, e.g., a particular class might only be available on Mac OS 10.7 or newer.
+/*
+Represents the C struct CXPlatformAvailability.
+*/
 type PlatformAvailability struct {
 	_ structs.HostLayout
 
@@ -478,6 +579,9 @@ Identifies a specific source location within a translation unit.
 
 Use clang_getExpansionLocation() or clang_getSpellingLocation() to map a source location to a particular file, line, and column.
 */
+/*
+Represents the C struct CXSourceLocation.
+*/
 type SourceLocation struct {
 	_ structs.HostLayout
 
@@ -491,6 +595,9 @@ Identifies a half-open character range in the source code.
 
 Use clang_getRangeStart() and clang_getRangeEnd() to retrieve the starting and end locations from a source range, respectively.
 */
+/*
+Represents the C struct CXSourceRange.
+*/
 type SourceRange struct {
 	_ structs.HostLayout
 
@@ -500,6 +607,9 @@ type SourceRange struct {
 }
 
 // Identifies an array of ranges.
+/*
+Represents the C struct CXSourceRangeList.
+*/
 type SourceRangeList struct {
 	_ structs.HostLayout
 
@@ -515,6 +625,9 @@ A character string.
 
 The CXString type is used to return strings from the interface when the ownership of that string might differ from one call to the next. Use clang_getCString() to retrieve the string data and, once finished with the string data, call clang_disposeString() to free the string.
 */
+/*
+Represents the C struct CXString.
+*/
 type String struct {
 	_ structs.HostLayout
 
@@ -523,6 +636,10 @@ type String struct {
 	_             [4]byte // padding
 }
 
+//
+/*
+Represents the C struct CXStringSet.
+*/
 type StringSet struct {
 	_ structs.HostLayout
 
@@ -532,6 +649,9 @@ type StringSet struct {
 }
 
 // The memory usage of a CXTranslationUnit, broken into categories.
+/*
+Represents the C struct CXTUResourceUsage.
+*/
 type TUResourceUsage struct {
 	_ structs.HostLayout
 
@@ -541,6 +661,10 @@ type TUResourceUsage struct {
 	entries    unsafe.Pointer // CXTUResourceUsageEntry *
 }
 
+//
+/*
+Represents the C struct CXTUResourceUsageEntry.
+*/
 type TUResourceUsageEntry struct {
 	_ structs.HostLayout
 
@@ -549,11 +673,18 @@ type TUResourceUsageEntry struct {
 	Amount uint64
 }
 
+//
+/*
+Represents the C struct CXTargetInfoImpl.
+*/
 type TargetInfoImpl struct {
 	_ structs.HostLayout
 }
 
 // Describes a single preprocessing token.
+/*
+Represents the C struct CXToken.
+*/
 type Token struct {
 	_ structs.HostLayout
 
@@ -561,11 +692,18 @@ type Token struct {
 	ptr_data unsafe.Pointer // void *
 }
 
+//
+/*
+Represents the C struct CXTranslationUnitImpl.
+*/
 type TranslationUnitImpl struct {
 	_ structs.HostLayout
 }
 
 // The type of an element in the abstract syntax tree.
+/*
+Represents the C struct CXType.
+*/
 type Type struct {
 	_ structs.HostLayout
 
@@ -578,6 +716,9 @@ type Type struct {
 Provides the contents of a file that has not yet been saved to disk.
 
 Each CXUnsavedFile instance provides the name of a file on the system along with the current contents of that file that have not yet been saved to disk.
+*/
+/*
+Represents the C struct CXUnsavedFile.
 */
 type UnsavedFile struct {
 	_ structs.HostLayout
@@ -637,6 +778,9 @@ func (s *UnsavedFile) SetContents(str string) (free func()) {
 }
 
 // Describes a version number of the form major.minor.subminor.
+/*
+Represents the C struct CXVersion.
+*/
 type Version struct {
 	_ structs.HostLayout
 
@@ -648,11 +792,18 @@ type Version struct {
 	Subminor int32
 }
 
+//
+/*
+Represents the C struct CXVirtualFileOverlayImpl.
+*/
 type VirtualFileOverlayImpl struct {
 	_ structs.HostLayout
 }
 
 // A group of callbacks used by #clang_indexSourceFile and #clang_indexTranslationUnit.
+/*
+Represents the C struct IndexerCallbacks.
+*/
 type IndexerCallbacks struct {
 	_ structs.HostLayout
 

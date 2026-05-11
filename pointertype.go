@@ -5,11 +5,17 @@ package clang
 import "unsafe"
 
 // CXAPISet is an opaque type that represents a data structure containing all the API information for a given translation unit. This can be used for a single symbol symbol graph for a given symbol.
+/*
+Represents the C type CXAPISet.
+*/
 type APISet struct {
 	ptr unsafe.Pointer
 }
 
 // Opaque pointer representing client data that will be passed through to various callbacks and visitors.
+/*
+Represents the C type CXClientData.
+*/
 type ClientData struct {
 	ptr unsafe.Pointer
 }
@@ -19,15 +25,25 @@ A semantic string that describes a code-completion result.
 
 A semantic string that describes the formatting of a code-completion result as a single "template" of text that should be inserted into the source buffer when a particular code-completion result is selected. Each semantic string is made up of some number of "chunks", each of which contains some text along with a description of what that text means, e.g., the name of the entity being referenced, whether the text chunk is part of the template, or whether it is a "placeholder" that the user should replace with actual code,of a specific kind. See CXCompletionChunkKind for a description of the different kinds of chunks.
 */
+/*
+Represents the C type CXCompletionString.
+*/
 type CompletionString struct {
 	ptr unsafe.Pointer
 }
 
+//
+/*
+Represents the C type CXCursorAndRangeVisitorBlock.
+*/
 type CursorAndRangeVisitorBlock struct {
 	ptr unsafe.Pointer
 }
 
 // A fast container representing a set of CXCursors.
+/*
+Represents the C type CXCursorSet.
+*/
 type CursorSet struct {
 	ptr unsafe.Pointer
 }
@@ -39,25 +55,41 @@ This visitor function will be invoked for each cursor found by clang_visitCursor
 
 The visitor should return one of the CXChildVisitResult values to direct clang_visitCursorChildren().
 */
+/*
+Represents the C type CXCursorVisitor.
+*/
 type CursorVisitor struct {
 	ptr unsafe.Pointer
 }
 
+//
+/*
+Represents the C type CXCursorVisitorBlock.
+*/
 type CursorVisitorBlock struct {
 	ptr unsafe.Pointer
 }
 
 // A single diagnostic, containing the diagnostic's severity, location, text, source ranges, and fix-it hints.
+/*
+Represents the C type CXDiagnostic.
+*/
 type Diagnostic struct {
 	ptr unsafe.Pointer
 }
 
 // A group of CXDiagnostics.
+/*
+Represents the C type CXDiagnosticSet.
+*/
 type DiagnosticSet struct {
 	ptr unsafe.Pointer
 }
 
 // Evaluation result of a cursor
+/*
+Represents the C type CXEvalResult.
+*/
 type EvalResult struct {
 	ptr unsafe.Pointer
 }
@@ -69,31 +101,49 @@ This visitor function will be invoked for each field found by clang_Type_visitFi
 
 The visitor should return one of the CXVisitorResult values to direct clang_Type_visitFields.
 */
+/*
+Represents the C type CXFieldVisitor.
+*/
 type FieldVisitor struct {
 	ptr unsafe.Pointer
 }
 
 // A particular source file that is part of a translation unit.
+/*
+Represents the C type CXFile.
+*/
 type File struct {
 	ptr unsafe.Pointer
 }
 
 // The client's data object that is associated with an AST file (PCH or module).
+/*
+Represents the C type CXIdxClientASTFile.
+*/
 type IdxClientASTFile struct {
 	ptr unsafe.Pointer
 }
 
 // The client's data object that is associated with a semantic container of entities.
+/*
+Represents the C type CXIdxClientContainer.
+*/
 type IdxClientContainer struct {
 	ptr unsafe.Pointer
 }
 
 // The client's data object that is associated with a semantic entity.
+/*
+Represents the C type CXIdxClientEntity.
+*/
 type IdxClientEntity struct {
 	ptr unsafe.Pointer
 }
 
 // The client's data object that is associated with a CXFile.
+/*
+Represents the C type CXIdxClientFile.
+*/
 type IdxClientFile struct {
 	ptr unsafe.Pointer
 }
@@ -103,16 +153,25 @@ Visitor invoked for each file in a translation unit        (used with clang_getI
 
 This visitor function will be invoked by clang_getInclusions() for each file included (either at the top-level or by #include directives) within a translation unit.  The first argument is the file being included, and the second and third arguments provide the inclusion stack.  The array is sorted in order of immediate inclusion.  For example, the first element refers to the location that included 'included_file'.
 */
+/*
+Represents the C type CXInclusionVisitor.
+*/
 type InclusionVisitor struct {
 	ptr unsafe.Pointer
 }
 
 // An "index" that consists of a set of translation units that would typically be linked together into an executable or library.
+/*
+Represents the C type CXIndex.
+*/
 type Index struct {
 	ptr unsafe.Pointer
 }
 
 // An indexing action/session, to be applied to one or multiple translation units.
+/*
+Represents the C type CXIndexAction.
+*/
 type IndexAction struct {
 	ptr unsafe.Pointer
 }
@@ -122,36 +181,57 @@ The functions in this group provide access to information about modules.
 
 @{
 */
+/*
+Represents the C type CXModule.
+*/
 type Module struct {
 	ptr unsafe.Pointer
 }
 
 // Object encapsulating information about a module.modulemap file.
+/*
+Represents the C type CXModuleMapDescriptor.
+*/
 type ModuleMapDescriptor struct {
 	ptr unsafe.Pointer
 }
 
 // Opaque pointer representing a policy that controls pretty printing for clang_getCursorPrettyPrinted.
+/*
+Represents the C type CXPrintingPolicy.
+*/
 type PrintingPolicy struct {
 	ptr unsafe.Pointer
 }
 
 // @}
+/*
+Represents the C type CXRemapping.
+*/
 type Remapping struct {
 	ptr unsafe.Pointer
 }
 
 // An opaque type representing target information for a given translation unit.
+/*
+Represents the C type CXTargetInfo.
+*/
 type TargetInfo struct {
 	ptr unsafe.Pointer
 }
 
 // A single translation unit, which resides in an index.
+/*
+Represents the C type CXTranslationUnit.
+*/
 type TranslationUnit struct {
 	ptr unsafe.Pointer
 }
 
 // Object encapsulating information about overlaying virtual file/directories over the real file system.
+/*
+Represents the C type CXVirtualFileOverlay.
+*/
 type VirtualFileOverlay struct {
 	ptr unsafe.Pointer
 }

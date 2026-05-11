@@ -3,6 +3,9 @@
 package clang
 
 // Describes the availability of a particular entity, which indicates whether the use of this entity will result in a warning or error due to it being deprecated or unavailable.
+/*
+Represents the C enum CXAvailabilityKind.
+*/
 type AvailabilityKind uint32
 
 const (
@@ -17,6 +20,9 @@ const (
 )
 
 // Describes the kind of binary operators.
+/*
+Represents the C enum CXBinaryOperatorKind.
+*/
 type BinaryOperatorKind uint32
 
 const (
@@ -93,6 +99,9 @@ const (
 )
 
 // Describes the calling convention of a function type
+/*
+Represents the C enum CXCallingConv.
+*/
 type CallingConv uint32
 
 const (
@@ -140,6 +149,9 @@ Describes how the traversal of the children of a particular cursor should procee
 
 A value of this enumeration type should be returned by each CXCursorVisitor to indicate how clang_visitChildren() proceed.
 */
+/*
+Represents the C enum CXChildVisitResult.
+*/
 type ChildVisitResult uint32
 
 const (
@@ -151,6 +163,10 @@ const (
 	ChildVisit_Recurse ChildVisitResult = 2
 )
 
+//
+/*
+Represents the C enum CXChoice.
+*/
 type Choice uint32
 
 const (
@@ -166,6 +182,9 @@ const (
 Flags that can be passed to clang_codeCompleteAt() to modify its behavior.
 
 The enumerators in this enumeration can be bitwise-OR'd together to provide multiple options to clang_codeCompleteAt().
+*/
+/*
+Represents the C enum CXCodeComplete_Flags.
 */
 type CodeComplete_Flags uint32
 
@@ -183,6 +202,9 @@ const (
 )
 
 // The most appropriate rendering mode for an inline command, chosen on command semantics in Doxygen.
+/*
+Represents the C enum CXCommentInlineCommandRenderKind.
+*/
 type CommentInlineCommandRenderKind uint32
 
 const (
@@ -199,6 +221,9 @@ const (
 )
 
 // Describes the type of the comment AST node (CXComment).  A comment node can be considered block content (e. g., paragraph), inline content (plain text) or neither (the root AST node).
+/*
+Represents the C enum CXCommentKind.
+*/
 type CommentKind uint32
 
 const (
@@ -263,6 +288,9 @@ const (
 )
 
 // Describes parameter passing direction for \param or \arg command.
+/*
+Represents the C enum CXCommentParamPassDirection.
+*/
 type CommentParamPassDirection uint32
 
 const (
@@ -278,6 +306,9 @@ const (
 Describes a single piece of text within a code-completion string.
 
 Each "chunk" within a code-completion string (CXCompletionString) is either a piece of text with a specific "kind" that describes how that text should be interpreted by the client or is another completion string.
+*/
+/*
+Represents the C enum CXCompletionChunkKind.
 */
 type CompletionChunkKind uint32
 
@@ -365,6 +396,9 @@ Bits that represent the context under which completion is occurring.
 
 The enumerators in this enumeration may be bitwise-OR'd together if multiple contexts are occurring simultaneously.
 */
+/*
+Represents the C enum CXCompletionContext.
+*/
 type CompletionContext uint32
 
 const (
@@ -421,6 +455,9 @@ const (
 )
 
 // Describes the kind of entity that a cursor refers to.
+/*
+Represents the C enum CXCursorKind.
+*/
 type CursorKind uint32
 
 const (
@@ -1130,6 +1167,9 @@ Describes the exception specification of a cursor.
 
 A negative value indicates that the cursor is not a function declaration.
 */
+/*
+Represents the C enum CXCursor_ExceptionSpecificationKind.
+*/
 type Cursor_ExceptionSpecificationKind uint32
 
 const (
@@ -1159,6 +1199,9 @@ const (
 Options to control the display of diagnostics.
 
 The values in this enum are meant to be combined to customize the behavior of clang_formatDiagnostic().
+*/
+/*
+Represents the C enum CXDiagnosticDisplayOptions.
 */
 type DiagnosticDisplayOptions uint32
 
@@ -1204,6 +1247,9 @@ const (
 )
 
 // Describes the severity of a particular diagnostic.
+/*
+Represents the C enum CXDiagnosticSeverity.
+*/
 type DiagnosticSeverity uint32
 
 const (
@@ -1224,6 +1270,9 @@ Error codes returned by libclang routines.
 
 Zero (CXError_Success) is the only error code indicating success.  Other error codes, including not yet assigned non-zero values, indicate errors.
 */
+/*
+Represents the C enum CXErrorCode.
+*/
 type ErrorCode uint32
 
 const (
@@ -1243,6 +1292,10 @@ const (
 	Error_ASTReadError ErrorCode = 4
 )
 
+//
+/*
+Represents the C enum CXEvalResultKind.
+*/
 type EvalResultKind uint32
 
 const (
@@ -1255,6 +1308,10 @@ const (
 	Eval_UnExposed      EvalResultKind = 0
 )
 
+//
+/*
+Represents the C enum CXGlobalOptFlags.
+*/
 type GlobalOptFlags uint32
 
 const (
@@ -1276,6 +1333,10 @@ const (
 	GlobalOpt_ThreadBackgroundPriorityForAll GlobalOptFlags = 3
 )
 
+//
+/*
+Represents the C enum CXIdxAttrKind.
+*/
 type IdxAttrKind uint32
 
 const (
@@ -1285,6 +1346,10 @@ const (
 	IdxAttr_IBOutletCollection IdxAttrKind = 3
 )
 
+//
+/*
+Represents the C enum CXIdxDeclInfoFlags.
+*/
 type IdxDeclInfoFlags uint32
 
 const (
@@ -1292,6 +1357,9 @@ const (
 )
 
 // Extra C++ template information for an entity. This can apply to: CXIdxEntity_Function CXIdxEntity_CXXClass CXIdxEntity_CXXStaticMethod CXIdxEntity_CXXInstanceMethod CXIdxEntity_CXXConstructor CXIdxEntity_CXXConversionFunction CXIdxEntity_CXXTypeAlias
+/*
+Represents the C enum CXIdxEntityCXXTemplateKind.
+*/
 type IdxEntityCXXTemplateKind uint32
 
 const (
@@ -1301,6 +1369,10 @@ const (
 	IdxEntity_TemplateSpecialization        IdxEntityCXXTemplateKind = 3
 )
 
+//
+/*
+Represents the C enum CXIdxEntityKind.
+*/
 type IdxEntityKind uint32
 
 const (
@@ -1334,6 +1406,10 @@ const (
 	IdxEntity_CXXConcept            IdxEntityKind = 27
 )
 
+//
+/*
+Represents the C enum CXIdxEntityLanguage.
+*/
 type IdxEntityLanguage uint32
 
 const (
@@ -1349,6 +1425,9 @@ Data for IndexerCallbacks#indexEntityReference.
 
 This may be deprecated in a future version as this duplicates the CXSymbolRole_Implicit bit in CXSymbolRole.
 */
+/*
+Represents the C enum CXIdxEntityRefKind.
+*/
 type IdxEntityRefKind uint32
 
 const (
@@ -1358,6 +1437,10 @@ const (
 	IdxEntityRef_Implicit IdxEntityRefKind = 2
 )
 
+//
+/*
+Represents the C enum CXIdxObjCContainerKind.
+*/
 type IdxObjCContainerKind uint32
 
 const (
@@ -1366,6 +1449,10 @@ const (
 	IdxObjCContainer_Implementation IdxObjCContainerKind = 2
 )
 
+//
+/*
+Represents the C enum CXIndexOptFlags.
+*/
 type IndexOptFlags uint32
 
 const (
@@ -1384,6 +1471,9 @@ const (
 )
 
 // Describe the "language" of the entity referred to by a cursor.
+/*
+Represents the C enum CXLanguageKind.
+*/
 type LanguageKind uint32
 
 const (
@@ -1394,6 +1484,9 @@ const (
 )
 
 // Describe the linkage of the entity referred to by a cursor.
+/*
+Represents the C enum CXLinkageKind.
+*/
 type LinkageKind uint32
 
 const (
@@ -1410,6 +1503,9 @@ const (
 )
 
 // Describes the kind of error that occurred (if any) in a call to clang_loadDiagnostics.
+/*
+Represents the C enum CXLoadDiag_Error.
+*/
 type LoadDiag_Error uint32
 
 const (
@@ -1423,6 +1519,10 @@ const (
 	LoadDiag_InvalidFile LoadDiag_Error = 3
 )
 
+//
+/*
+Represents the C enum CXNameRefFlags.
+*/
 type NameRefFlags uint32
 
 const (
@@ -1439,6 +1539,9 @@ const (
 )
 
 // 'Qualifiers' written next to the return and parameter types in Objective-C method declarations.
+/*
+Represents the C enum CXObjCDeclQualifierKind.
+*/
 type ObjCDeclQualifierKind uint32
 
 const (
@@ -1452,6 +1555,9 @@ const (
 )
 
 // Property attributes for a CXCursor_ObjCPropertyDecl.
+/*
+Represents the C enum CXObjCPropertyAttrKind.
+*/
 type ObjCPropertyAttrKind uint32
 
 const (
@@ -1475,6 +1581,9 @@ const (
 Properties for the printing policy.
 
 See clang::PrintingPolicy for more information.
+*/
+/*
+Represents the C enum CXPrintingPolicyProperty.
 */
 type PrintingPolicyProperty uint32
 
@@ -1508,6 +1617,10 @@ const (
 	PrintingPolicy_LastProperty                          PrintingPolicyProperty = 25
 )
 
+//
+/*
+Represents the C enum CXRefQualifierKind.
+*/
 type RefQualifierKind uint32
 
 const (
@@ -1524,6 +1637,9 @@ Flags that control the reparsing of translation units.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when reparsing the translation unit.
 */
+/*
+Represents the C enum CXReparse_Flags.
+*/
 type Reparse_Flags uint32
 
 const (
@@ -1531,6 +1647,10 @@ const (
 	Reparse_None Reparse_Flags = 0
 )
 
+//
+/*
+Represents the C enum CXResult.
+*/
 type Result uint32
 
 const (
@@ -1543,6 +1663,9 @@ const (
 )
 
 // Describes the kind of error that occurred (if any) in a call to clang_saveTranslationUnit().
+/*
+Represents the C enum CXSaveError.
+*/
 type SaveError uint32
 
 const (
@@ -1569,6 +1692,9 @@ Flags that control how translation units are saved.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when saving the translation unit.
 */
+/*
+Represents the C enum CXSaveTranslationUnit_Flags.
+*/
 type SaveTranslationUnit_Flags uint32
 
 const (
@@ -1580,6 +1706,9 @@ const (
 Roles that are attributed to symbol occurrences.
 
 Internal: this currently mirrors low 9 bits of clang::index::SymbolRole with higher bits zeroed. These high bits may be exposed in the future.
+*/
+/*
+Represents the C enum CXSymbolRole.
 */
 type SymbolRole uint32
 
@@ -1597,6 +1726,9 @@ const (
 )
 
 // Describe the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
+/*
+Represents the C enum CXTLSKind.
+*/
 type TLSKind uint32
 
 const (
@@ -1606,6 +1738,9 @@ const (
 )
 
 // Categorizes how memory is being used by a translation unit.
+/*
+Represents the C enum CXTUResourceUsageKind.
+*/
 type TUResourceUsageKind uint32
 
 const (
@@ -1634,6 +1769,9 @@ Describes the kind of a template argument.
 
 See the definition of llvm::clang::TemplateArgument::ArgKind for full element descriptions.
 */
+/*
+Represents the C enum CXTemplateArgumentKind.
+*/
 type TemplateArgumentKind uint32
 
 const (
@@ -1650,6 +1788,9 @@ const (
 )
 
 // Describes a kind of token.
+/*
+Represents the C enum CXTokenKind.
+*/
 type TokenKind uint32
 
 const (
@@ -1669,6 +1810,9 @@ const (
 Flags that control the creation of translation units.
 
 The enumerators in this enumeration type are meant to be bitwise ORed together to specify which options should be used when constructing the translation unit.
+*/
+/*
+Represents the C enum CXTranslationUnit_Flags.
 */
 type TranslationUnit_Flags uint32
 
@@ -1750,6 +1894,9 @@ const (
 )
 
 // Describes the kind of type
+/*
+Represents the C enum CXTypeKind.
+*/
 type TypeKind uint32
 
 const (
@@ -2286,6 +2433,9 @@ List the possible error codes for clang_Type_getSizeOf,   clang_Type_getAlignOf,
 
 A value of this enumeration type can be returned if the target type is not a valid argument to sizeof, alignof or offsetof.
 */
+/*
+Represents the C enum CXTypeLayoutError.
+*/
 type TypeLayoutError int32
 
 const (
@@ -2303,6 +2453,10 @@ const (
 	TypeLayoutError_Undeduced TypeLayoutError = -6
 )
 
+//
+/*
+Represents the C enum CXTypeNullabilityKind.
+*/
 type TypeNullabilityKind uint32
 
 const (
@@ -2319,6 +2473,9 @@ const (
 )
 
 // Describes the kind of unary operators.
+/*
+Represents the C enum CXUnaryOperatorKind.
+*/
 type UnaryOperatorKind uint32
 
 const (
@@ -2356,6 +2513,10 @@ const (
 	UnaryOperator_Last UnaryOperatorKind = 14
 )
 
+//
+/*
+Represents the C enum CXVisibilityKind.
+*/
 type VisibilityKind uint32
 
 const (
@@ -2370,6 +2531,9 @@ const (
 )
 
 // @{
+/*
+Represents the C enum CXVisitorResult.
+*/
 type VisitorResult uint32
 
 const (
@@ -2378,6 +2542,9 @@ const (
 )
 
 // Represents a specific kind of binary operator which can appear at a cursor.
+/*
+Represents the C enum CX_BinaryOperatorKind.
+*/
 type BinaryOperatorKind_ uint32
 
 const (
@@ -2419,6 +2586,9 @@ const (
 )
 
 // Represents the C++ access control level to a base class for a cursor with kind CX_CXXBaseSpecifier.
+/*
+Represents the C enum CX_CXXAccessSpecifier.
+*/
 type CXXAccessSpecifier uint32
 
 const (
@@ -2429,6 +2599,9 @@ const (
 )
 
 // Represents the storage classes as declared in the source. CX_SC_Invalid was added for the case that the passed cursor in not a declaration.
+/*
+Represents the C enum CX_StorageClass.
+*/
 type StorageClass uint32
 
 const (

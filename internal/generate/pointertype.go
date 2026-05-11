@@ -27,6 +27,8 @@ func (types pointerTypes) generate() {
 
 	for _, typ := range types {
 		file.Comment(typ.comment)
+		file.Commentf("Represents the C type %s.\n", typ.cName)
+
 		file.Type().Id(typ.goName).Struct(
 			jen.Id("ptr").Qual("unsafe", "Pointer"),
 		)

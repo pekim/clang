@@ -123,6 +123,8 @@ func (struct_ struct_) generate(file file) {
 
 func (struct_ struct_) generateStruct(file file) {
 	file.Comment(struct_.comment)
+	file.Commentf("Represents the C struct %s.\n", struct_.cName)
+
 	file.Type().Id(struct_.goName).StructFunc(func(g *jen.Group) {
 		g.Id("_").Qual("structs", "HostLayout")
 		g.Line()

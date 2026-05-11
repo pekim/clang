@@ -113,6 +113,7 @@ func (function function) generateImplementation(file file) {
 	}
 
 	file.Comment(function.comment)
+	file.Commentf("Wraps the C function %s.\n", function.cName)
 
 	file.
 		Func().

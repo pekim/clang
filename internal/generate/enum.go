@@ -64,6 +64,8 @@ func (enums enums) generate() {
 
 	for _, enum := range enums {
 		file.Comment(enum.comment)
+		file.Commentf("Represents the C enum %s.\n", enum.cName)
+
 		file.Type().Id(enum.goName).Add(enum.scalar.code)
 		file.Line()
 
