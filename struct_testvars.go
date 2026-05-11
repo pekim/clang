@@ -37,7 +37,7 @@ var structTestVars = []struct {
 	{"CXSourceLocation", 24, unsafe.Sizeof(*new(SourceLocation))},
 	{"CXSourceRange", 24, unsafe.Sizeof(*new(SourceRange))},
 	{"CXSourceRangeList", 16, unsafe.Sizeof(*new(SourceRangeList))},
-	{"CXString", 16, unsafe.Sizeof(*new(String))},
+	{"CXString", 16, unsafe.Sizeof(*new(string_))},
 	{"CXStringSet", 16, unsafe.Sizeof(*new(StringSet))},
 	{"CXTUResourceUsage", 24, unsafe.Sizeof(*new(TUResourceUsage))},
 	{"CXTUResourceUsageEntry", 16, unsafe.Sizeof(*new(TUResourceUsageEntry))},

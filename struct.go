@@ -547,7 +547,7 @@ type PlatformAvailability struct {
 
 	   Possible values are "ios" or "macos".
 	*/
-	platform String
+	platform string_
 	// The version number in which this entity was introduced.
 	Introduced Version
 	// The version number in which this entity was deprecated (but is still available).
@@ -557,7 +557,7 @@ type PlatformAvailability struct {
 	// Whether the entity is unconditionally unavailable on this platform.
 	Unavailable int32
 	// An optional message to provide to a user of this API, e.g., to suggest replacement APIs.
-	message String
+	message string_
 }
 
 /*
@@ -628,7 +628,7 @@ The CXString type is used to return strings from the interface when the ownershi
 /*
 Represents the C struct CXString.
 */
-type String struct {
+type string_ struct {
 	_ structs.HostLayout
 
 	data          unsafe.Pointer // const void *

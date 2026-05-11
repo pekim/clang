@@ -18,7 +18,7 @@ func (comment Comment) BlockCommandCommentArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_argIdx),
@@ -45,7 +45,7 @@ Wraps the C function clang_BlockCommandComment_getCommandName.
 func (comment Comment) BlockCommandCommentCommandName() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -906,7 +906,7 @@ Wraps the C function clang_Cursor_getBinaryOpcodeStr.
 func (op BinaryOperatorKind_) CursorBinaryOpcodeStr() string {
 	c_op := op
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_op),
 	}
@@ -936,7 +936,7 @@ Wraps the C function clang_Cursor_getBriefCommentText.
 func (c Cursor) BriefCommentText() string {
 	c_c := c
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1019,7 +1019,7 @@ func (cursor Cursor) GCCAssemblyClobber(index uint32) string {
 	c_cursor := cursor
 	c_index := index
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 		unsafe.Pointer(&c_index),
@@ -1050,7 +1050,7 @@ Wraps the C function clang_Cursor_getGCCAssemblyInput.
 func (cursor Cursor) GCCAssemblyInput(index uint32) (string, Cursor, uint32) {
 	c_cursor := cursor
 	c_index := index
-	var constraint String
+	var constraint string_
 	c_constraint := &constraint
 	var expr Cursor
 	c_expr := &expr
@@ -1166,7 +1166,7 @@ Wraps the C function clang_Cursor_getGCCAssemblyOutput.
 func (cursor Cursor) GCCAssemblyOutput(index uint32) (string, Cursor, uint32) {
 	c_cursor := cursor
 	c_index := index
-	var constraint String
+	var constraint string_
 	c_constraint := &constraint
 	var expr Cursor
 	c_expr := &expr
@@ -1206,7 +1206,7 @@ Wraps the C function clang_Cursor_getGCCAssemblyTemplate.
 func (p0 Cursor) GCCAssemblyTemplate() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -1232,7 +1232,7 @@ Wraps the C function clang_Cursor_getMangling.
 func (p0 Cursor) Mangling() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -1430,7 +1430,7 @@ Wraps the C function clang_Cursor_getObjCPropertyGetterName.
 func (c Cursor) ObjCPropertyGetterName() string {
 	c_c := c
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1456,7 +1456,7 @@ Wraps the C function clang_Cursor_getObjCPropertySetterName.
 func (c Cursor) ObjCPropertySetterName() string {
 	c_c := c
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -1568,7 +1568,7 @@ Wraps the C function clang_Cursor_getRawCommentText.
 func (c Cursor) RawCommentText() string {
 	c_c := c
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -2071,9 +2071,9 @@ Wraps the C function clang_Cursor_isExternalSymbol.
 */
 func (c Cursor) IsExternalSymbol() (string, string, uint32, uint32) {
 	c_c := c
-	var language String
+	var language string_
 	c_language := &language
-	var definedIn String
+	var definedIn string_
 	c_definedIn := &definedIn
 	var isGenerated uint32
 	c_isGenerated := &isGenerated
@@ -2603,7 +2603,7 @@ Wraps the C function clang_File_tryGetRealPathName.
 func (file File) TryGetRealPathName() string {
 	c_file := file
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_file.ptr),
 	}
@@ -2641,7 +2641,7 @@ Wraps the C function clang_FullComment_getAsHTML.
 func (comment Comment) FullCommentAsHTML() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2671,7 +2671,7 @@ Wraps the C function clang_FullComment_getAsXML.
 func (comment Comment) FullCommentAsXML() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2724,7 +2724,7 @@ func (comment Comment) HTMLStartTagAttrName(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_attrIdx),
@@ -2752,7 +2752,7 @@ func (comment Comment) HTMLStartTagAttrValue(attrIdx uint32) string {
 	c_comment := comment
 	c_attrIdx := attrIdx
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_attrIdx),
@@ -2805,7 +2805,7 @@ Wraps the C function clang_HTMLTagComment_getAsString.
 func (comment Comment) HTMLTagCommentAsString() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2831,7 +2831,7 @@ Wraps the C function clang_HTMLTagComment_getTagName.
 func (comment Comment) HTMLTagCommentTagName() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -2910,7 +2910,7 @@ func (comment Comment) InlineCommandCommentArgText(argIdx uint32) string {
 	c_comment := comment
 	c_argIdx := argIdx
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 		unsafe.Pointer(&c_argIdx),
@@ -2937,7 +2937,7 @@ Wraps the C function clang_InlineCommandComment_getCommandName.
 func (comment Comment) InlineCommandCommentCommandName() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3229,7 +3229,7 @@ Wraps the C function clang_Module_getFullName.
 func (module Module) FullName() string {
 	c_module := module
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_module.ptr),
 	}
@@ -3255,7 +3255,7 @@ Wraps the C function clang_Module_getName.
 func (module Module) Name() string {
 	c_module := module
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_module.ptr),
 	}
@@ -3443,7 +3443,7 @@ Wraps the C function clang_ParamCommandComment_getParamName.
 func (comment Comment) ParamCommandCommentParamName() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3687,7 +3687,7 @@ Wraps the C function clang_TParamCommandComment_getParamName.
 func (comment Comment) TParamCommandCommentParamName() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -3795,7 +3795,7 @@ Wraps the C function clang_TargetInfo_getTriple.
 func (info TargetInfo) Triple() string {
 	c_info := info
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_info.ptr),
 	}
@@ -3821,7 +3821,7 @@ Wraps the C function clang_TextComment_getText.
 func (comment Comment) TextCommentText() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -4109,7 +4109,7 @@ Wraps the C function clang_Type_getObjCEncoding.
 func (type_ Type) ObjCEncoding() string {
 	c_type_ := type_
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_type_),
 	}
@@ -4418,7 +4418,7 @@ Wraps the C function clang_VerbatimBlockLineComment_getText.
 func (comment Comment) VerbatimBlockLineCommentText() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -4444,7 +4444,7 @@ Wraps the C function clang_VerbatimLineComment_getText.
 func (comment Comment) VerbatimLineCommentText() string {
 	c_comment := comment
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_comment),
 	}
@@ -4696,7 +4696,7 @@ Wraps the C function clang_codeCompleteGetContainerUSR.
 func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() string {
 	c_results := results
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 	}
@@ -4802,7 +4802,7 @@ Wraps the C function clang_codeCompleteGetObjCSelector.
 func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() string {
 	c_results := results
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 	}
@@ -4831,7 +4831,7 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) string {
 	c_category_name, free_c_category_name := libc.CString(category_name)
 	defer free_c_category_name()
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_class_name),
 		unsafe.Pointer(&c_category_name),
@@ -4859,7 +4859,7 @@ func ConstructUSR_ObjCClass(class_name string) string {
 	c_class_name, free_c_class_name := libc.CString(class_name)
 	defer free_c_class_name()
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_class_name),
 	}
@@ -4882,12 +4882,12 @@ func ConstructUSR_ObjCClass(class_name string) string {
 /*
 Wraps the C function clang_constructUSR_ObjCIvar.
 */
-func ConstructUSR_ObjCIvar(name string, classUSR String) string {
+func ConstructUSR_ObjCIvar(name string, classUSR string_) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_classUSR := classUSR
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_name),
 		unsafe.Pointer(&c_classUSR),
@@ -4911,13 +4911,13 @@ func ConstructUSR_ObjCIvar(name string, classUSR String) string {
 /*
 Wraps the C function clang_constructUSR_ObjCMethod.
 */
-func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR String) string {
+func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR string_) string {
 	c_name, free_c_name := libc.CString(name)
 	defer free_c_name()
 	c_isInstanceMethod := isInstanceMethod
 	c_classUSR := classUSR
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_name),
 		unsafe.Pointer(&c_isInstanceMethod),
@@ -4942,12 +4942,12 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR Stri
 /*
 Wraps the C function clang_constructUSR_ObjCProperty.
 */
-func ConstructUSR_ObjCProperty(property string, classUSR String) string {
+func ConstructUSR_ObjCProperty(property string, classUSR string_) string {
 	c_property, free_c_property := libc.CString(property)
 	defer free_c_property()
 	c_classUSR := classUSR
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_property),
 		unsafe.Pointer(&c_classUSR),
@@ -4975,7 +4975,7 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 	c_protocol_name, free_c_protocol_name := libc.CString(protocol_name)
 	defer free_c_protocol_name()
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_protocol_name),
 	}
@@ -5591,7 +5591,7 @@ func (ranges *SourceRangeList) DisposeSourceRangeList() {
 /*
 Wraps the C function clang_disposeString.
 */
-func (string_ String) DisposeString() {
+func (string_ string_) DisposeString() {
 	c_string_ := string_
 
 	args := []unsafe.Pointer{
@@ -5945,7 +5945,7 @@ func (diagnostic Diagnostic) FormatDiagnostic(options uint32) string {
 	c_diagnostic := diagnostic
 	c_options := options
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_options),
@@ -6142,7 +6142,7 @@ Wraps the C function clang_getBinaryOperatorKindSpelling.
 func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() string {
 	c_kind := kind
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -6191,7 +6191,7 @@ The returned data is a reference and not owned by the user. This data is only va
 /*
 Wraps the C function clang_getCString.
 */
-func (string_ String) CString() string {
+func (string_ string_) CString() string {
 	c_string_ := string_
 
 	var retC unsafe.Pointer
@@ -6368,7 +6368,7 @@ func (d Diagnostic) ChildDiagnostics() DiagnosticSet {
 Wraps the C function clang_getClangVersion.
 */
 func GetClangVersion() string {
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{}
 
 	err := ffi.CallFunction(
@@ -6393,7 +6393,7 @@ func (completion_string CompletionString) CompletionAnnotation(annotation_number
 	c_completion_string := completion_string
 	c_annotation_number := annotation_number
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_annotation_number),
@@ -6446,7 +6446,7 @@ Wraps the C function clang_getCompletionBriefComment.
 func (completion_string CompletionString) CompletionBriefComment() string {
 	c_completion_string := completion_string
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
@@ -6529,7 +6529,7 @@ func (completion_string CompletionString) CompletionChunkText(chunk_number uint3
 	c_completion_string := completion_string
 	c_chunk_number := chunk_number
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_chunk_number),
@@ -6570,7 +6570,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 	var replacement_range SourceRange
 	c_replacement_range := &replacement_range
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_results),
 		unsafe.Pointer(&c_completion_index),
@@ -6663,7 +6663,7 @@ func (completion_string CompletionString) CompletionParent() (CursorKind, string
 	var kind CursorKind
 	c_kind := &kind
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_completion_string.ptr),
 		unsafe.Pointer(&c_kind),
@@ -6874,7 +6874,7 @@ Wraps the C function clang_getCursorDisplayName.
 func (p0 Cursor) CursorDisplayName() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -6990,7 +6990,7 @@ Wraps the C function clang_getCursorKindSpelling.
 func (kind CursorKind) CursorKindSpelling() string {
 	c_kind := kind
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -7157,11 +7157,11 @@ func (cursor Cursor) CursorPlatformAvailability(availability_size int32) (int32,
 	c_cursor := cursor
 	var always_deprecated int32
 	c_always_deprecated := &always_deprecated
-	var deprecated_message String
+	var deprecated_message string_
 	c_deprecated_message := &deprecated_message
 	var always_unavailable int32
 	c_always_unavailable := &always_unavailable
-	var unavailable_message String
+	var unavailable_message string_
 	c_unavailable_message := &unavailable_message
 	var availability PlatformAvailability
 	c_availability := &availability
@@ -7200,7 +7200,7 @@ func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) string {
 	c_cursor := cursor
 	c_policy := policy
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 		unsafe.Pointer(&c_policy),
@@ -7385,7 +7385,7 @@ Wraps the C function clang_getCursorSpelling.
 func (p0 Cursor) CursorSpelling() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -7467,7 +7467,7 @@ Wraps the C function clang_getCursorUSR.
 func (p0 Cursor) CursorUSR() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0),
 	}
@@ -7553,7 +7553,7 @@ Wraps the C function clang_getDeclObjCTypeEncoding.
 func (c Cursor) DeclObjCTypeEncoding() string {
 	c_c := c
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_c),
 	}
@@ -7639,7 +7639,7 @@ Wraps the C function clang_getDiagnosticCategoryName.
 func GetDiagnosticCategoryName(category uint32) string {
 	c_category := category
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_category),
 	}
@@ -7665,7 +7665,7 @@ Wraps the C function clang_getDiagnosticCategoryText.
 func (p0 Diagnostic) DiagnosticCategoryText() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 	}
@@ -7698,7 +7698,7 @@ func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32) (SourceRange, string)
 	var replacementRange SourceRange
 	c_replacementRange := &replacementRange
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diagnostic.ptr),
 		unsafe.Pointer(&c_fixIt),
@@ -7835,10 +7835,10 @@ Wraps the C function clang_getDiagnosticOption.
 */
 func (diag Diagnostic) DiagnosticOption() (string, string) {
 	c_diag := diag
-	var disable String
+	var disable string_
 	c_disable := &disable
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_diag.ptr),
 		unsafe.Pointer(&c_disable),
@@ -7949,7 +7949,7 @@ Wraps the C function clang_getDiagnosticSpelling.
 func (p0 Diagnostic) DiagnosticSpelling() string {
 	c_p0 := p0
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 	}
@@ -8266,7 +8266,7 @@ Wraps the C function clang_getFileName.
 func (sFile File) FileName() string {
 	c_sFile := sFile
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_sFile.ptr),
 	}
@@ -8331,7 +8331,7 @@ func (cT Type) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint
 	c_policy := policy
 	c_withGlobalNsPrefix := withGlobalNsPrefix
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 		unsafe.Pointer(&c_policy),
@@ -8959,7 +8959,7 @@ Wraps the C function clang_getPresumedLocation.
 */
 func (location SourceLocation) PresumedLocation() (string, uint32, uint32) {
 	c_location := location
-	var filename String
+	var filename string_
 	c_filename := &filename
 	var line uint32
 	c_line := &line
@@ -9238,7 +9238,7 @@ Wraps the C function clang_getSymbolGraphForCursor.
 func (cursor Cursor) SymbolGraphForCursor() string {
 	c_cursor := cursor
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cursor),
 	}
@@ -9270,7 +9270,7 @@ func GetSymbolGraphForUSR(usr string, api APISet) string {
 	defer free_c_usr()
 	c_api := api
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_usr),
 		unsafe.Pointer(&c_api),
@@ -9468,7 +9468,7 @@ func (p0 TranslationUnit) TokenSpelling(p1 Token) string {
 	c_p0 := p0
 	c_p1 := p1
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_p0.ptr),
 		unsafe.Pointer(&c_p1),
@@ -9525,7 +9525,7 @@ Wraps the C function clang_getTranslationUnitSpelling.
 func (cTUnit TranslationUnit) TranslationUnitSpelling() string {
 	c_cTUnit := cTUnit
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cTUnit.ptr),
 	}
@@ -9607,7 +9607,7 @@ Wraps the C function clang_getTypeKindSpelling.
 func (k TypeKind) TypeKindSpelling() string {
 	c_k := k
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_k),
 	}
@@ -9638,7 +9638,7 @@ func (cT Type) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 		unsafe.Pointer(&c_cxPolicy),
@@ -9669,7 +9669,7 @@ Wraps the C function clang_getTypeSpelling.
 func (cT Type) TypeSpelling() string {
 	c_cT := cT
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -9725,7 +9725,7 @@ Wraps the C function clang_getTypedefName.
 func (cT Type) TypedefName() string {
 	c_cT := cT
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_cT),
 	}
@@ -9751,7 +9751,7 @@ Wraps the C function clang_getUnaryOperatorKindSpelling.
 func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() string {
 	c_kind := kind
 
-	var retC String
+	var retC string_
 	args := []unsafe.Pointer{
 		unsafe.Pointer(&c_kind),
 	}
@@ -10904,7 +10904,7 @@ func LoadDiagnostics(file string) (LoadDiag_Error, string, DiagnosticSet) {
 	defer free_c_file()
 	var error LoadDiag_Error
 	c_error := &error
-	var errorString String
+	var errorString string_
 	c_errorString := &errorString
 
 	var retC DiagnosticSet
@@ -11096,9 +11096,9 @@ Wraps the C function clang_remap_getFilenames.
 func (p0 Remapping) RemapFilenames(p1 uint32) (string, string) {
 	c_p0 := p0
 	c_p1 := p1
-	var p2 String
+	var p2 string_
 	c_p2 := &p2
-	var p3 String
+	var p3 string_
 	c_p3 := &p3
 
 	args := []unsafe.Pointer{

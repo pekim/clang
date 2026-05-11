@@ -43,10 +43,17 @@ func (gen *gen) addStruct(cursor clang.Cursor) {
 		return
 	}
 
+	cName := cursor.CursorSpelling()
+	name := exportedGoName(cName)
+	if cName == "CXString" {
+		// Don't export, as applications shouldn't need direct access to the type.
+		name = "string_"
+	}
+
 	struct_ := struct_{
 		cursor:             cursor,
-		cName:              cursor.CursorSpelling(),
-		goName:             exportedGoName(cursor.CursorSpelling()),
+		cName:              cName,
+		goName:             name,
 		typeDescriptorName: goName(cursor.CursorSpelling()) + "TypeDescriptor",
 		comment:            commentText(cursor.ParsedComment()),
 		alignment:          int(cursor.CursorType().AlignOf()),

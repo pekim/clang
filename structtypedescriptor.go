@@ -386,7 +386,7 @@ var string_TypeDescriptor = &types.TypeDescriptor{
 		types.PointerTypeDescriptor,
 		types.UInt32TypeDescriptor,
 	},
-	Size: unsafe.Sizeof(String{}),
+	Size: unsafe.Sizeof(string_{}),
 }
 
 var stringSetTypeDescriptor = &types.TypeDescriptor{
