@@ -29,7 +29,7 @@ type CodeCompleteResults struct {
 	_ structs.HostLayout
 
 	// The code-completion results.
-	results unsafe.Pointer // CXCompletionResult *
+	Results *CompletionResult
 	// The number of code-completion results stored in the Results array.
 	NumResults uint32
 	_          [4]byte // padding
@@ -131,7 +131,7 @@ Represents the C struct CXIdxBaseClassInfo.
 type IdxBaseClassInfo struct {
 	_ structs.HostLayout
 
-	base   unsafe.Pointer // const CXIdxEntityInfo *
+	Base   *IdxEntityInfo
 	Cursor Cursor
 	Loc    IdxLoc
 }
@@ -143,7 +143,7 @@ Represents the C struct CXIdxCXXClassDeclInfo.
 type IdxCXXClassDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo unsafe.Pointer // const CXIdxDeclInfo *
+	DeclInfo *IdxDeclInfo
 	bases    unsafe.Pointer // const CXIdxBaseClassInfo *const *
 	NumBases uint32
 	_        [4]byte // padding
@@ -166,17 +166,17 @@ Represents the C struct CXIdxDeclInfo.
 type IdxDeclInfo struct {
 	_ structs.HostLayout
 
-	entityInfo        unsafe.Pointer // const CXIdxEntityInfo *
+	EntityInfo        *IdxEntityInfo
 	Cursor            Cursor
 	Loc               IdxLoc
-	semanticContainer unsafe.Pointer // const CXIdxContainerInfo *
+	SemanticContainer *IdxContainerInfo
 	// Generally same as #semanticContainer but can be different in cases like out-of-line C++ member functions.
-	lexicalContainer unsafe.Pointer // const CXIdxContainerInfo *
+	LexicalContainer *IdxContainerInfo
 	IsRedeclaration  int32
 	IsDefinition     int32
 	IsContainer      int32
-	_                [4]byte        // padding
-	declAsContainer  unsafe.Pointer // const CXIdxContainerInfo *
+	_                [4]byte // padding
+	DeclAsContainer  *IdxContainerInfo
 	// Whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties.
 	IsImplicit    int32
 	_             [4]byte        // padding
@@ -249,15 +249,15 @@ type IdxEntityRefInfo struct {
 	Cursor Cursor
 	Loc    IdxLoc
 	// The entity that gets referenced.
-	referencedEntity unsafe.Pointer // const CXIdxEntityInfo *
+	ReferencedEntity *IdxEntityInfo
 	/*
 	   Immediate "parent" of the reference. For example:
 
 	   The parent of reference of type 'Foo' is the variable 'var'. For references inside statement bodies of functions/methods, the parentEntity will be the function/method.
 	*/
-	parentEntity unsafe.Pointer // const CXIdxEntityInfo *
+	ParentEntity *IdxEntityInfo
 	// Lexical container context of the reference.
-	container unsafe.Pointer // const CXIdxContainerInfo *
+	Container *IdxContainerInfo
 	// Sets of symbol roles of the reference.
 	Role SymbolRole
 	_    [4]byte // padding
@@ -270,8 +270,8 @@ Represents the C struct CXIdxIBOutletCollectionAttrInfo.
 type IdxIBOutletCollectionAttrInfo struct {
 	_ structs.HostLayout
 
-	attrInfo    unsafe.Pointer // const CXIdxAttrInfo *
-	objcClass   unsafe.Pointer // const CXIdxEntityInfo *
+	AttrInfo    *IdxAttrInfo
+	ObjcClass   *IdxEntityInfo
 	ClassCursor Cursor
 	ClassLoc    IdxLoc
 }
@@ -350,11 +350,11 @@ Represents the C struct CXIdxObjCCategoryDeclInfo.
 type IdxObjCCategoryDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo unsafe.Pointer // const CXIdxObjCContainerDeclInfo *
-	objcClass     unsafe.Pointer // const CXIdxEntityInfo *
+	ContainerInfo *IdxObjCContainerDeclInfo
+	ObjcClass     *IdxEntityInfo
 	ClassCursor   Cursor
 	ClassLoc      IdxLoc
-	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
+	Protocols     *IdxObjCProtocolRefListInfo
 }
 
 //
@@ -364,7 +364,7 @@ Represents the C struct CXIdxObjCContainerDeclInfo.
 type IdxObjCContainerDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo unsafe.Pointer // const CXIdxDeclInfo *
+	DeclInfo *IdxDeclInfo
 	Kind     IdxObjCContainerKind
 	_        [4]byte // padding
 }
@@ -376,9 +376,9 @@ Represents the C struct CXIdxObjCInterfaceDeclInfo.
 type IdxObjCInterfaceDeclInfo struct {
 	_ structs.HostLayout
 
-	containerInfo unsafe.Pointer // const CXIdxObjCContainerDeclInfo *
-	superInfo     unsafe.Pointer // const CXIdxBaseClassInfo *
-	protocols     unsafe.Pointer // const CXIdxObjCProtocolRefListInfo *
+	ContainerInfo *IdxObjCContainerDeclInfo
+	SuperInfo     *IdxBaseClassInfo
+	Protocols     *IdxObjCProtocolRefListInfo
 }
 
 //
@@ -388,9 +388,9 @@ Represents the C struct CXIdxObjCPropertyDeclInfo.
 type IdxObjCPropertyDeclInfo struct {
 	_ structs.HostLayout
 
-	declInfo unsafe.Pointer // const CXIdxDeclInfo *
-	getter   unsafe.Pointer // const CXIdxEntityInfo *
-	setter   unsafe.Pointer // const CXIdxEntityInfo *
+	DeclInfo *IdxDeclInfo
+	Getter   *IdxEntityInfo
+	Setter   *IdxEntityInfo
 }
 
 //
@@ -400,7 +400,7 @@ Represents the C struct CXIdxObjCProtocolRefInfo.
 type IdxObjCProtocolRefInfo struct {
 	_ structs.HostLayout
 
-	protocol unsafe.Pointer // const CXIdxEntityInfo *
+	Protocol *IdxEntityInfo
 	Cursor   Cursor
 	Loc      IdxLoc
 }
@@ -617,7 +617,7 @@ type SourceRangeList struct {
 	Count uint32
 	_     [4]byte // padding
 	// An array of CXSourceRanges.
-	ranges unsafe.Pointer // CXSourceRange *
+	Ranges *SourceRange
 }
 
 /*
@@ -643,7 +643,7 @@ Represents the C struct CXStringSet.
 type StringSet struct {
 	_ structs.HostLayout
 
-	strings unsafe.Pointer // CXString *
+	Strings *string_
 	Count   uint32
 	_       [4]byte // padding
 }
@@ -657,8 +657,8 @@ type TUResourceUsage struct {
 
 	data       unsafe.Pointer // void *
 	NumEntries uint32
-	_          [4]byte        // padding
-	entries    unsafe.Pointer // CXTUResourceUsageEntry *
+	_          [4]byte // padding
+	Entries    *TUResourceUsageEntry
 }
 
 //

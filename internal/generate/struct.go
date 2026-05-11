@@ -92,7 +92,7 @@ func (struct_ *struct_) enrich(gen *gen) {
 		if typ.isCXString() {
 			name = goName(cursor.CursorSpelling())
 		}
-		if typ.isPointer {
+		if typ.isPointer && !typ.isStructPointer() {
 			name = goName(cursor.CursorSpelling())
 		}
 
@@ -154,11 +154,13 @@ func (struct_ struct_) generateStruct(file file) {
 				g.Comment(field.comment)
 
 				if field.isEnum() {
-					g.Id(field.goName).Id(field.enum.goName)
+					g.Id(field.goName).Add(field.goDecl())
 				} else if field.isScalar() {
-					g.Id(field.goName).Add(field.scalar.code)
+					g.Id(field.goName).Add(field.goDecl())
 				} else if field.isStruct() {
-					g.Id(field.goName).Id(field.struct_.goName)
+					g.Id(field.goName).Add(field.goDecl())
+				} else if field.isStructPointer() {
+					g.Id(field.goName).Add(field.goDecl())
 				} else if field.isPointer {
 					g.Id(field.goName).Qual("unsafe", "Pointer").Comment(field.typeSpelling)
 				} else {
