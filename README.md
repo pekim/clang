@@ -1,7 +1,7 @@
 # clang
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/pekim/clang)](https://pkg.go.dev/github.com/pekim/clang)
-[![golangci-lint](https://github.com/pekim/clang/actions/workflows/verify.yml/badge.svg)](https://github.com/pekim/clang/actions/workflows/verify.yml)
+[![golangci-lint](https://github.com/pekim/clang/actions/workflows/ci.yml/badge.svg)](https://github.com/pekim/clang/actions/workflows/ci.yml)
 
 Generated Go bindings for libclang's
 [C API](https://clang.llvm.org/doxygen/group__CINDEX.html).
