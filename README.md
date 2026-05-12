@@ -37,16 +37,17 @@ Many C functions are provided as Go methods on struct types.
 ## Requirements
 
 The `libclang` library must be available to dynamically load.
+The default library paths are OS-specific.
 
 | OS    | filename         |
 | ----- | ---------------- |
 | linux | `libclang.so`    |
 | macos | `libclang.dylib` |
 
-This may require the use of symbolic linking,
-or environment variables such as
-`LD_LIBRARY_PATH` or
-`DYLD_FALLBACK_LIBRARY_PATH`.
+The default library paths may be overridden with an
+argument to the
+[Init](http://localhost:8080/github.com/pekim/clang#Init)
+function.
 
 ## Platforms
 

@@ -17,12 +17,15 @@ var ptr_free unsafe.Pointer
 var ptr_malloc unsafe.Pointer
 
 func init() {
-	library := lib.LoadLibrary(lib.LibraryPaths{
+	var err error
+
+	library, err := lib.LoadLibrary(lib.LibraryPaths{
 		Darwin: "libSystem.dylib",
 		Linux:  "libc.so.6",
 	})
-
-	var err error
+	if err != nil {
+		panic(err)
+	}
 
 	{
 		ptr_free, err = ffi.GetSymbol(library, "free")

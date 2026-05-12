@@ -22,7 +22,7 @@ type gen struct {
 }
 
 func Generate() {
-	err := clang.Init()
+	err := clang.Init(nil)
 	fatalOnError(err)
 
 	gen := gen{}

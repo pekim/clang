@@ -8,7 +8,6 @@ import (
 
 	ffi "github.com/go-webgpu/goffi/ffi"
 	types "github.com/go-webgpu/goffi/types"
-	lib "github.com/pekim/clang/internal/lib"
 )
 
 var cif_clang_BlockCommandComment_getArgText = &types.CallInterface{}
@@ -804,13 +803,13 @@ var ptr_clang_visitChildrenWithBlock unsafe.Pointer
 /*
 Init initialises the library, and must be called before any other clang function is called.
 */
-func Init() error {
-	library := lib.LoadLibrary(lib.LibraryPaths{
-		Darwin: "libclang.dylib",
-		Linux:  "libclang.so",
-	})
-
+func Init(userPaths *LibraryPaths) error {
 	var err error
+
+	library, err := loadLibrary(userPaths)
+	if err != nil {
+		return err
+	}
 
 	err = initManual(library)
 	if err != nil {

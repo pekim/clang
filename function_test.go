@@ -9,26 +9,26 @@ import (
 )
 
 func TestFunctionNoArgsNoReturn(t *testing.T) {
-	assert.NoError(t, Init())
+	assert.NoError(t, Init(nil))
 
 	EnableStackTraces()
 }
 
 func TestFunctionReturnCXString(t *testing.T) {
-	assert.NoError(t, Init())
+	assert.NoError(t, Init(nil))
 
 	assert.True(t, strings.Contains(GetClangVersion(), "clang version "))
 }
 
 func TestFunctionScalarArgsPointerTypeReturn(t *testing.T) {
-	assert.NoError(t, Init())
+	assert.NoError(t, Init(nil))
 
 	index := CreateIndex(0, 0)
 	assert.NotNil(t, index)
 }
 
 func TestFunctionStringSliceArg(t *testing.T) {
-	assert.NoError(t, Init())
+	assert.NoError(t, Init(nil))
 
 	index := CreateIndex(0, 1)
 	assert.NotNil(t, index)

@@ -13,7 +13,7 @@ type LibraryPaths struct {
 	Linux  string
 }
 
-func LoadLibrary(paths LibraryPaths) unsafe.Pointer {
+func LoadLibrary(paths LibraryPaths) (unsafe.Pointer, error) {
 	var libPath string
 	switch runtime.GOOS {
 	case "darwin":
@@ -21,12 +21,12 @@ func LoadLibrary(paths LibraryPaths) unsafe.Pointer {
 	case "linux":
 		libPath = paths.Linux
 	default:
-		panic(fmt.Errorf("GOOS=%s is not supported", runtime.GOOS))
+		return nil, fmt.Errorf("GOOS=%s is not supported", runtime.GOOS)
 	}
 
 	handle, err := ffi.LoadLibrary(libPath)
 	if err != nil {
-		panic(fmt.Errorf("failed to open library : %w", err))
+		return nil, fmt.Errorf("failed to open library : %w", err)
 	}
-	return handle
+	return handle, nil
 }

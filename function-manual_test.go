@@ -32,7 +32,7 @@ var clangResourceDir = sync.OnceValue(func() string {
 })
 
 func TestVisitChildren(t *testing.T) {
-	assert.NoError(t, Init())
+	assert.NoError(t, Init(nil))
 
 	index := CreateIndex(0, 1)
 	assert.NotNil(t, index)

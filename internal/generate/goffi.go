@@ -42,23 +42,19 @@ Init initialises the library, and must be called before any other clang function
 
 	file.Func().
 		Id("Init").
-		Params().
+		Params(jen.Id("userPaths").Op("*").Id("LibraryPaths")).
 		Error(). // return type
 		BlockFunc(func(g *jen.Group) {
-			g.
-				Id("library").
-				Op(":=").
-				Qual("github.com/pekim/clang/internal/lib", "LoadLibrary").Call(
-				jen.
-					Qual("github.com/pekim/clang/internal/lib", "LibraryPaths").
-					Values(jen.Dict{
-						jen.Id("Darwin"): jen.Lit("libclang.dylib"),
-						jen.Id("Linux"):  jen.Lit("libclang.so"),
-					}),
-			)
+			g.Var().Id("err").Error()
 			g.Line()
 
-			g.Var().Id("err").Error()
+			g.
+				List(jen.Id("library"), jen.Id("err")).
+				Op(":=").
+				Id("loadLibrary").Call(jen.Id("userPaths"))
+			g.If(jen.Id("err").Op("!=").Nil()).Block(
+				jen.Return().Id("err"),
+			)
 			g.Line()
 
 			g.Id("err").Op("=").Id("initManual").Call(jen.Id("library"))
