@@ -38,8 +38,13 @@ The `libclang` library must be available to dynamically load.
 
 ## Platforms
 
-clang is developed and tested on linux/amd64.
-It may work on other OSes and architectures, but is untested.
+The only architecture supported is `amd64`.
+This is because the callback parameter for
+[Cursor.VisitChildren](http://localhost:8080/github.com/pekim/clang#Cursor.VisitChildren)
+has struct parameters,
+and `goffi` currently only supports callback struct arguments on `amd64`.
+
+CI runs tests on `linux/amd64` and `macos/amd64`
 
 ## License
 
