@@ -12,9 +12,11 @@ This is achieved using
 
 ## API
 
-Most, but not all, of the C API is provided.
+Most, but not all, of the C API is supported.
 It's enough to at least be able to parse header files,
 walk the AST, and extract some details.
+This is evidenced by this repository's use of its own bindings
+in its code generation code.
 
 The [documentation](https://pkg.go.dev/github.com/pekim/clang)
 for the Go bindings on pkg.go.dev comes from the Doxygen comments in
@@ -22,19 +24,29 @@ libclang's header files,
 so it reflects the C API.
 Refer to the
 [C API](https://clang.llvm.org/doxygen/group__CINDEX.html)
-document for the definitive word on the C API.
+documentation for the definitive word on the C API.
 
-Most output parameters do not appear as parameters in the Go API,
-but instead are return values.
+Most output parameters do not appear as function parameters in the Go API,
+but instead as return values.
 
 The `CX` prefix is removed from C type names,
 and the `clang_` prefix is removed from function names.
 
-Many functions are provided as struct types' methods.
+Many C functions are provided as Go methods on struct types.
 
 ## Requirements
 
 The `libclang` library must be available to dynamically load.
+
+| OS    | filename         |
+| ----- | ---------------- |
+| linux | `libclang.so`    |
+| macos | `libclang.dylib` |
+
+This may require the use of symbolic linking,
+or environment variables such as
+`LD_LIBRARY_PATH` or
+`DYLD_FALLBACK_LIBRARY_PATH`.
 
 ## Platforms
 
@@ -44,7 +56,7 @@ This is because the callback parameter for
 has struct parameters,
 and `goffi` currently only supports callback struct arguments on `amd64`.
 
-CI runs tests on `linux/amd64` and `macos/amd64`
+The CI worklow runs tests on `linux/amd64` and `macos/amd64`
 
 ## License
 
@@ -57,7 +69,7 @@ No AI was used in the creation of this library.
 ## Development
 
 To regenerate the bindings run `go generate`.
-This generates code & runs tests.
+This generates code and then runs tests.
 
 ### pre-commit hook
 
