@@ -6176,7 +6176,7 @@ func (t Type) ArraySize() int64 {
 /*
 Wraps the C function clang_getBinaryOperatorKindSpelling.
 */
-func (kind BinaryOperatorKind) BinaryOperatorKindSpelling() string {
+func (kind BinaryOperatorKind) Spelling() string {
 	c_kind := kind
 
 	var retC string_
@@ -6793,7 +6793,7 @@ func (p0 TranslationUnit) Cursor(p1 SourceLocation) Cursor {
 /*
 Wraps the C function clang_getCursorAvailability.
 */
-func (cursor Cursor) CursorAvailability() AvailabilityKind {
+func (cursor Cursor) Availability() AvailabilityKind {
 	c_cursor := cursor
 
 	var retC AvailabilityKind
@@ -6823,7 +6823,7 @@ If this cursor is not a binary operator then returns Invalid.
 /*
 Wraps the C function clang_getCursorBinaryOperatorKind.
 */
-func (cursor Cursor) CursorBinaryOperatorKind() BinaryOperatorKind {
+func (cursor Cursor) BinaryOperatorKind() BinaryOperatorKind {
 	c_cursor := cursor
 
 	var retC BinaryOperatorKind
@@ -6849,7 +6849,7 @@ func (cursor Cursor) CursorBinaryOperatorKind() BinaryOperatorKind {
 /*
 Wraps the C function clang_getCursorCompletionString.
 */
-func (cursor Cursor) CursorCompletionString() CompletionString {
+func (cursor Cursor) CompletionString() CompletionString {
 	c_cursor := cursor
 
 	var retC CompletionString
@@ -6885,7 +6885,7 @@ If given a cursor for which there is no corresponding definition,  e.g., because
 /*
 Wraps the C function clang_getCursorDefinition.
 */
-func (p0 Cursor) CursorDefinition() Cursor {
+func (p0 Cursor) Definition() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -6915,7 +6915,7 @@ The display name contains extra information that helps identify the cursor, such
 /*
 Wraps the C function clang_getCursorDisplayName.
 */
-func (p0 Cursor) CursorDisplayName() string {
+func (p0 Cursor) DisplayName() string {
 	c_p0 := p0
 
 	var retC string_
@@ -6946,7 +6946,7 @@ This only returns a valid result if the cursor refers to a function or method.
 /*
 Wraps the C function clang_getCursorExceptionSpecificationType.
 */
-func (c Cursor) CursorExceptionSpecificationType() int32 {
+func (c Cursor) ExceptionSpecificationType() int32 {
 	c_c := c
 
 	var retC int32
@@ -6976,7 +6976,7 @@ The extent of a cursor starts with the file/line/column pointing at the first ch
 /*
 Wraps the C function clang_getCursorExtent.
 */
-func (p0 Cursor) CursorExtent() SourceRange {
+func (p0 Cursor) Extent() SourceRange {
 	c_p0 := p0
 
 	var retC SourceRange
@@ -7032,7 +7032,7 @@ These routines are used for testing and debugging, only, and should not be relie
 /*
 Wraps the C function clang_getCursorKindSpelling.
 */
-func (kind CursorKind) CursorKindSpelling() string {
+func (kind CursorKind) Spelling() string {
 	c_kind := kind
 
 	var retC string_
@@ -7059,7 +7059,7 @@ func (kind CursorKind) CursorKindSpelling() string {
 /*
 Wraps the C function clang_getCursorLanguage.
 */
-func (cursor Cursor) CursorLanguage() LanguageKind {
+func (cursor Cursor) Language() LanguageKind {
 	c_cursor := cursor
 
 	var retC LanguageKind
@@ -7097,7 +7097,7 @@ For declarations written in the global scope, the lexical parent is the translat
 /*
 Wraps the C function clang_getCursorLexicalParent.
 */
-func (cursor Cursor) CursorLexicalParent() Cursor {
+func (cursor Cursor) LexicalParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -7123,7 +7123,7 @@ func (cursor Cursor) CursorLexicalParent() Cursor {
 /*
 Wraps the C function clang_getCursorLinkage.
 */
-func (cursor Cursor) CursorLinkage() LinkageKind {
+func (cursor Cursor) Linkage() LinkageKind {
 	c_cursor := cursor
 
 	var retC LinkageKind
@@ -7153,7 +7153,7 @@ The location of a declaration is typically the location of the name of that decl
 /*
 Wraps the C function clang_getCursorLocation.
 */
-func (p0 Cursor) CursorLocation() SourceLocation {
+func (p0 Cursor) Location() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
@@ -7199,7 +7199,7 @@ Note that the client is responsible for calling clang_disposeCXPlatformAvailabil
 /*
 Wraps the C function clang_getCursorPlatformAvailability.
 */
-func (cursor Cursor) CursorPlatformAvailability(availability_size int32) (int32, string, int32, string, PlatformAvailability, int32) {
+func (cursor Cursor) PlatformAvailability(availability_size int32) (int32, string, int32, string, PlatformAvailability, int32) {
 	c_cursor := cursor
 	var always_deprecated int32
 	c_always_deprecated := &always_deprecated
@@ -7242,7 +7242,7 @@ func (cursor Cursor) CursorPlatformAvailability(availability_size int32) (int32,
 /*
 Wraps the C function clang_getCursorPrettyPrinted.
 */
-func (cursor Cursor) CursorPrettyPrinted(policy PrintingPolicy) string {
+func (cursor Cursor) PrettyPrinted(policy PrintingPolicy) string {
 	c_cursor := cursor
 	c_policy := policy
 
@@ -7275,7 +7275,7 @@ The policy should be released after use with clang_PrintingPolicy_dispose.
 /*
 Wraps the C function clang_getCursorPrintingPolicy.
 */
-func (p0 Cursor) CursorPrintingPolicy() PrintingPolicy {
+func (p0 Cursor) PrintingPolicy() PrintingPolicy {
 	c_p0 := p0
 
 	var retC PrintingPolicy
@@ -7301,7 +7301,7 @@ func (p0 Cursor) CursorPrintingPolicy() PrintingPolicy {
 /*
 Wraps the C function clang_getCursorReferenceNameRange.
 */
-func (c Cursor) CursorReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRange {
+func (c Cursor) ReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRange {
 	c_c := c
 	c_nameFlags := nameFlags
 	c_pieceIndex := pieceIndex
@@ -7335,7 +7335,7 @@ Reference cursors refer to other entities in the AST. For example, an Objective-
 /*
 Wraps the C function clang_getCursorReferenced.
 */
-func (p0 Cursor) CursorReferenced() Cursor {
+func (p0 Cursor) Referenced() Cursor {
 	c_p0 := p0
 
 	var retC Cursor
@@ -7365,7 +7365,7 @@ This only returns a valid type if the cursor refers to a function or method.
 /*
 Wraps the C function clang_getCursorResultType.
 */
-func (c Cursor) CursorResultType() Type {
+func (c Cursor) ResultType() Type {
 	c_c := c
 
 	var retC Type
@@ -7403,7 +7403,7 @@ For global declarations, the semantic parent is the translation unit.
 /*
 Wraps the C function clang_getCursorSemanticParent.
 */
-func (cursor Cursor) CursorSemanticParent() Cursor {
+func (cursor Cursor) SemanticParent() Cursor {
 	c_cursor := cursor
 
 	var retC Cursor
@@ -7429,7 +7429,7 @@ func (cursor Cursor) CursorSemanticParent() Cursor {
 /*
 Wraps the C function clang_getCursorSpelling.
 */
-func (p0 Cursor) CursorSpelling() string {
+func (p0 Cursor) Spelling() string {
 	c_p0 := p0
 
 	var retC string_
@@ -7456,7 +7456,7 @@ func (p0 Cursor) CursorSpelling() string {
 /*
 Wraps the C function clang_getCursorTLSKind.
 */
-func (cursor Cursor) CursorTLSKind() TLSKind {
+func (cursor Cursor) TLSKind() TLSKind {
 	c_cursor := cursor
 
 	var retC TLSKind
@@ -7482,7 +7482,7 @@ func (cursor Cursor) CursorTLSKind() TLSKind {
 /*
 Wraps the C function clang_getCursorType.
 */
-func (c Cursor) CursorType() Type {
+func (c Cursor) Type() Type {
 	c_c := c
 
 	var retC Type
@@ -7512,7 +7512,7 @@ A Unified Symbol Resolution (USR) is a string that identifies a particular entit
 /*
 Wraps the C function clang_getCursorUSR.
 */
-func (p0 Cursor) CursorUSR() string {
+func (p0 Cursor) USR() string {
 	c_p0 := p0
 
 	var retC string_
@@ -7543,7 +7543,7 @@ If this cursor is not a unary operator then returns Invalid.
 /*
 Wraps the C function clang_getCursorUnaryOperatorKind.
 */
-func (cursor Cursor) CursorUnaryOperatorKind() UnaryOperatorKind {
+func (cursor Cursor) UnaryOperatorKind() UnaryOperatorKind {
 	c_cursor := cursor
 
 	var retC UnaryOperatorKind
@@ -7573,7 +7573,7 @@ This returns the default visibility if not explicitly specified by a visibility 
 /*
 Wraps the C function clang_getCursorVisibility.
 */
-func (cursor Cursor) CursorVisibility() VisibilityKind {
+func (cursor Cursor) Visibility() VisibilityKind {
 	c_cursor := cursor
 
 	var retC VisibilityKind
@@ -7660,7 +7660,7 @@ Diagnostics can be categorized into groups along with other, related diagnostics
 /*
 Wraps the C function clang_getDiagnosticCategory.
 */
-func (p0 Diagnostic) DiagnosticCategory() uint32 {
+func (p0 Diagnostic) Category() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -7713,7 +7713,7 @@ func GetDiagnosticCategoryName(category uint32) string {
 /*
 Wraps the C function clang_getDiagnosticCategoryText.
 */
-func (p0 Diagnostic) DiagnosticCategoryText() string {
+func (p0 Diagnostic) CategoryText() string {
 	c_p0 := p0
 
 	var retC string_
@@ -7744,7 +7744,7 @@ Fix-its are described in terms of a source range whose contents should be replac
 /*
 Wraps the C function clang_getDiagnosticFixIt.
 */
-func (diagnostic Diagnostic) DiagnosticFixIt(fixIt uint32) (SourceRange, string) {
+func (diagnostic Diagnostic) FixIt(fixIt uint32) (SourceRange, string) {
 	c_diagnostic := diagnostic
 	c_fixIt := fixIt
 	var replacementRange SourceRange
@@ -7808,7 +7808,7 @@ This location is where Clang would print the caret ('^') when displaying the dia
 /*
 Wraps the C function clang_getDiagnosticLocation.
 */
-func (p0 Diagnostic) DiagnosticLocation() SourceLocation {
+func (p0 Diagnostic) Location() SourceLocation {
 	c_p0 := p0
 
 	var retC SourceLocation
@@ -7834,7 +7834,7 @@ func (p0 Diagnostic) DiagnosticLocation() SourceLocation {
 /*
 Wraps the C function clang_getDiagnosticNumFixIts.
 */
-func (diagnostic Diagnostic) DiagnosticNumFixIts() uint32 {
+func (diagnostic Diagnostic) NumFixIts() uint32 {
 	c_diagnostic := diagnostic
 
 	var retC uint32
@@ -7860,7 +7860,7 @@ func (diagnostic Diagnostic) DiagnosticNumFixIts() uint32 {
 /*
 Wraps the C function clang_getDiagnosticNumRanges.
 */
-func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
+func (p0 Diagnostic) NumRanges() uint32 {
 	c_p0 := p0
 
 	var retC uint32
@@ -7886,7 +7886,7 @@ func (p0 Diagnostic) DiagnosticNumRanges() uint32 {
 /*
 Wraps the C function clang_getDiagnosticOption.
 */
-func (diag Diagnostic) DiagnosticOption() (string, string) {
+func (diag Diagnostic) Option() (string, string) {
 	c_diag := diag
 	var disable string_
 	c_disable := &disable
@@ -7920,7 +7920,7 @@ A diagnostic's source ranges highlight important elements in the source code. On
 /*
 Wraps the C function clang_getDiagnosticRange.
 */
-func (diagnostic Diagnostic) DiagnosticRange(range_ uint32) SourceRange {
+func (diagnostic Diagnostic) Range(range_ uint32) SourceRange {
 	c_diagnostic := diagnostic
 	c_range_ := range_
 
@@ -7974,7 +7974,7 @@ func (unit TranslationUnit) DiagnosticSetFromTU() DiagnosticSet {
 /*
 Wraps the C function clang_getDiagnosticSeverity.
 */
-func (p0 Diagnostic) DiagnosticSeverity() DiagnosticSeverity {
+func (p0 Diagnostic) Severity() DiagnosticSeverity {
 	c_p0 := p0
 
 	var retC DiagnosticSeverity
@@ -8000,7 +8000,7 @@ func (p0 Diagnostic) DiagnosticSeverity() DiagnosticSeverity {
 /*
 Wraps the C function clang_getDiagnosticSpelling.
 */
-func (p0 Diagnostic) DiagnosticSpelling() string {
+func (p0 Diagnostic) Spelling() string {
 	c_p0 := p0
 
 	var retC string_
@@ -8318,7 +8318,7 @@ func (location SourceLocation) FileLocation() (File, uint32, uint32, uint32) {
 /*
 Wraps the C function clang_getFileName.
 */
-func (sFile File) FileName() string {
+func (sFile File) Name() string {
 	c_sFile := sFile
 
 	var retC string_
@@ -8347,7 +8347,7 @@ func (sFile File) FileName() string {
 /*
 Wraps the C function clang_getFileUniqueID.
 */
-func (file File) FileUniqueID() (FileUniqueID, int32) {
+func (file File) UniqueID() (FileUniqueID, int32) {
 	c_file := file
 	var outID FileUniqueID
 	c_outID := &outID
@@ -9465,7 +9465,7 @@ func (p0 TranslationUnit) TokenExtent(p1 Token) SourceRange {
 /*
 Wraps the C function clang_getTokenKind.
 */
-func (p0 Token) TokenKind() TokenKind {
+func (p0 Token) Kind() TokenKind {
 	c_p0 := p0
 
 	var retC TokenKind
@@ -9582,7 +9582,7 @@ func (p0 TranslationUnit) TranslationUnitCursor() Cursor {
 /*
 Wraps the C function clang_getTranslationUnitSpelling.
 */
-func (cTUnit TranslationUnit) TranslationUnitSpelling() string {
+func (cTUnit TranslationUnit) Spelling() string {
 	c_cTUnit := cTUnit
 
 	var retC string_
@@ -9613,7 +9613,7 @@ The CXTargetInfo object cannot outlive the CXTranslationUnit object.
 /*
 Wraps the C function clang_getTranslationUnitTargetInfo.
 */
-func (cTUnit TranslationUnit) TranslationUnitTargetInfo() TargetInfo {
+func (cTUnit TranslationUnit) TargetInfo() TargetInfo {
 	c_cTUnit := cTUnit
 
 	var retC TargetInfo
@@ -9639,7 +9639,7 @@ func (cTUnit TranslationUnit) TranslationUnitTargetInfo() TargetInfo {
 /*
 Wraps the C function clang_getTypeDeclaration.
 */
-func (t Type) TypeDeclaration() Cursor {
+func (t Type) Declaration() Cursor {
 	c_t := t
 
 	var retC Cursor
@@ -9665,7 +9665,7 @@ func (t Type) TypeDeclaration() Cursor {
 /*
 Wraps the C function clang_getTypeKindSpelling.
 */
-func (k TypeKind) TypeKindSpelling() string {
+func (k TypeKind) Spelling() string {
 	c_k := k
 
 	var retC string_
@@ -9696,7 +9696,7 @@ If the type is invalid, an empty string is returned.
 /*
 Wraps the C function clang_getTypePrettyPrinted.
 */
-func (cT Type) TypePrettyPrinted(cxPolicy PrintingPolicy) string {
+func (cT Type) PrettyPrinted(cxPolicy PrintingPolicy) string {
 	c_cT := cT
 	c_cxPolicy := cxPolicy
 
@@ -9729,7 +9729,7 @@ If the type is invalid, an empty string is returned.
 /*
 Wraps the C function clang_getTypeSpelling.
 */
-func (cT Type) TypeSpelling() string {
+func (cT Type) Spelling() string {
 	c_cT := cT
 
 	var retC string_
@@ -9786,7 +9786,7 @@ func (c Cursor) TypedefDeclUnderlyingType() Type {
 /*
 Wraps the C function clang_getTypedefName.
 */
-func (cT Type) TypedefName() string {
+func (cT Type) DefName() string {
 	c_cT := cT
 
 	var retC string_
@@ -9813,7 +9813,7 @@ func (cT Type) TypedefName() string {
 /*
 Wraps the C function clang_getUnaryOperatorKindSpelling.
 */
-func (kind UnaryOperatorKind) UnaryOperatorKindSpelling() string {
+func (kind UnaryOperatorKind) Spelling() string {
 	c_kind := kind
 
 	var retC string_

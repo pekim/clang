@@ -76,21 +76,21 @@ func newTyp(clangType clang.Type, gen *gen) typ {
 	isPointerPointer := isPointer && clangType.PointeeType().Kind == clang.Type_Pointer
 
 	typ := typ{
-		description:      clangType.TypeSpelling(),
+		description:      clangType.Spelling(),
 		size:             int(clangType.SizeOf()),
 		isPointer:        isPointer,
 		isPointerPointer: isPointerPointer,
 		isVoid:           clangType.Kind == clang.Type_Void,
 	}
-	typ.enum = gen.enums.find(strings.TrimPrefix(clangType.TypeSpelling(), "enum "))
-	typ.pointerType = gen.pointerTypes.find(clangType.TypeSpelling())
+	typ.enum = gen.enums.find(strings.TrimPrefix(clangType.Spelling(), "enum "))
+	typ.pointerType = gen.pointerTypes.find(clangType.Spelling())
 	typ.scalar = scalarTypes[clangType.Kind]
-	typ.struct_ = gen.structs.find(clangType.TypeSpelling())
+	typ.struct_ = gen.structs.find(clangType.Spelling())
 	if typ.isPointer {
 		typ.scalar = scalarTypes[clangType.PointeeType().Kind]
 		typ.isVoid = clangType.PointeeType().Kind == clang.Type_Void
 
-		pointeeSpelling := clangType.PointeeType().TypeSpelling()
+		pointeeSpelling := clangType.PointeeType().Spelling()
 		pointeeSpelling = strings.TrimPrefix(pointeeSpelling, "const ")
 		pointeeSpelling = strings.TrimPrefix(pointeeSpelling, "enum ")
 		pointeeSpelling = strings.TrimPrefix(pointeeSpelling, "struct ")

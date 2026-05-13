@@ -39,11 +39,11 @@ type structs []struct_
 func (gen *gen) addStruct(cursor clang.Cursor) {
 	// Structs with a name that start with a "_" do not appear to be referenced
 	// anywhere in the API. So do not generate them.
-	if strings.HasPrefix(cursor.CursorSpelling(), "_") {
+	if strings.HasPrefix(cursor.Spelling(), "_") {
 		return
 	}
 
-	cName := cursor.CursorSpelling()
+	cName := cursor.Spelling()
 	name := exportedGoName(cName)
 	if cName == "CXString" {
 		// Don't export, as applications shouldn't need direct access to the type.
@@ -54,10 +54,10 @@ func (gen *gen) addStruct(cursor clang.Cursor) {
 		cursor:             cursor,
 		cName:              cName,
 		goName:             name,
-		typeDescriptorName: goName(cursor.CursorSpelling()) + "TypeDescriptor",
+		typeDescriptorName: goName(cursor.Spelling()) + "TypeDescriptor",
 		comment:            commentText(cursor.ParsedComment()),
-		alignment:          int(cursor.CursorType().AlignOf()),
-		size:               int(cursor.CursorType().SizeOf()),
+		alignment:          int(cursor.Type().AlignOf()),
+		size:               int(cursor.Type().SizeOf()),
 	}
 	if struct_.alignment < 1 {
 		struct_.alignment = 8
@@ -82,28 +82,28 @@ func (struct_ *struct_) enrich(gen *gen) {
 			return clang.ChildVisit_Continue
 		}
 
-		typ := newTyp(cursor.CursorType(), gen)
+		typ := newTyp(cursor.Type(), gen)
 
-		name := exportedGoName(cursor.CursorSpelling())
+		name := exportedGoName(cursor.Spelling())
 		if name == "" && cursor.IsBitField() == 0 {
 			name = fmt.Sprintf("_%d", nameSuffix)
 			nameSuffix++
 		}
 		if typ.isCXString() {
-			name = goName(cursor.CursorSpelling())
+			name = goName(cursor.Spelling())
 		}
 		if typ.isPointer && !typ.isStructPointer() {
-			name = goName(cursor.CursorSpelling())
+			name = goName(cursor.Spelling())
 		}
 
 		field := structField{
 			typ:          typ,
 			goName:       name,
 			comment:      commentText(cursor.ParsedComment()),
-			alignment:    int(cursor.CursorType().AlignOf()),
+			alignment:    int(cursor.Type().AlignOf()),
 			offset:       int(cursor.OffsetOfField()),
-			size:         int(cursor.CursorType().SizeOf()),
-			typeSpelling: cursor.CursorType().TypeSpelling(),
+			size:         int(cursor.Type().SizeOf()),
+			typeSpelling: cursor.Type().Spelling(),
 		}
 
 		field.isBitfield = cursor.IsBitField() != 0

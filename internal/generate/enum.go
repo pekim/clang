@@ -25,17 +25,17 @@ func (gen *gen) addEnum(cursor clang.Cursor) {
 	kind := cursor.EnumDeclIntegerType().Kind
 	scalar, isScalar := scalarTypes[kind]
 	if !isScalar {
-		fatalf("unsupported integer type for enum : %s", kind.TypeKindSpelling())
+		fatalf("unsupported integer type for enum : %s", kind.Spelling())
 	}
 
-	name := exportedGoName(cursor.CursorSpelling())
-	if cursor.CursorSpelling() == "CX_BinaryOperatorKind" {
+	name := exportedGoName(cursor.Spelling())
+	if cursor.Spelling() == "CX_BinaryOperatorKind" {
 		// avoid a name clash between CXBinaryOperatorKind and CX_BinaryOperatorKind.
 		name = "BinaryOperatorKind_"
 	}
 
 	enum := enum{
-		cName:   cursor.CursorSpelling(),
+		cName:   cursor.Spelling(),
 		goName:  name,
 		scalar:  *scalar,
 		comment: commentText(cursor.ParsedComment()),
@@ -47,7 +47,7 @@ func (gen *gen) addEnum(cursor clang.Cursor) {
 		}
 
 		enum.members = append(enum.members, enumMember{
-			name:    exportedGoName(cursor.CursorSpelling()),
+			name:    exportedGoName(cursor.Spelling()),
 			value:   int(cursor.EnumConstantDeclValue()),
 			comment: commentText(cursor.ParsedComment()),
 		})

@@ -58,7 +58,7 @@ func TestVisitChildren(t *testing.T) {
 
 		kind := cursor.CursorKind()
 		if kind == Cursor_FunctionDecl {
-			assert.Equal(t, "some_function", cursor.CursorSpelling())
+			assert.Equal(t, "some_function", cursor.Spelling())
 		}
 		assert.True(t, kind == Cursor_MacroDefinition || kind == Cursor_FunctionDecl)
 

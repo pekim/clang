@@ -28,7 +28,7 @@ func newParam(cursor clang.Cursor, name string) param {
 		goName:    goName(name),
 		cVar:      "c_" + goName(name),
 		comment:   commentText(cursor.ParsedComment()),
-		clangType: cursor.CursorType(),
+		clangType: cursor.Type(),
 	}
 }
 
@@ -205,7 +205,7 @@ func newParams(cursor clang.Cursor) params {
 	p := 0
 	cursor.VisitChildren(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		if cursor.Kind == clang.Cursor_ParmDecl {
-			name := cursor.CursorSpelling()
+			name := cursor.Spelling()
 			if name == "" {
 				// The parameter has no name, so use a generated name.
 				name = fmt.Sprintf("p%d", p)

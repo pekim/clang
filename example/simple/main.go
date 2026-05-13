@@ -25,7 +25,7 @@ func main() {
 	// Traverse the various declarations within the translation unit.
 	tuCursor := tu.TranslationUnitCursor()
 	tuCursor.VisitChildren(func(cursor clang.Cursor, _parent clang.Cursor) clang.ChildVisitResult {
-		fmt.Println(cursor.CursorKind().CursorKindSpelling(), cursor.CursorSpelling())
+		fmt.Println(cursor.CursorKind().Spelling(), cursor.Spelling())
 		return clang.ChildVisit_Continue
 	})
 }

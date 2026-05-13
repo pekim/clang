@@ -15,8 +15,8 @@ type pointerTypes []pointerType
 
 func (gen *gen) addPointerType(cursor clang.Cursor) {
 	gen.pointerTypes = append(gen.pointerTypes, pointerType{
-		cName:   cursor.CursorSpelling(),
-		goName:  exportedGoName(cursor.CursorSpelling()),
+		cName:   cursor.Spelling(),
+		goName:  exportedGoName(cursor.Spelling()),
 		comment: commentText(cursor.ParsedComment()),
 	})
 }

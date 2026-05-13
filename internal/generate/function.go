@@ -29,10 +29,10 @@ type functions []function
 func (gen *gen) addFunction(cursor clang.Cursor) {
 	function := function{
 		cursor:      cursor,
-		cName:       cursor.CursorSpelling(),
-		goName:      exportedGoName(strings.TrimPrefix(cursor.CursorSpelling(), "clang_")),
+		cName:       cursor.Spelling(),
+		goName:      exportedGoName(strings.TrimPrefix(cursor.Spelling(), "clang_")),
 		comment:     commentText(cursor.ParsedComment()),
-		returnValue: newReturnValue(cursor.CursorResultType()),
+		returnValue: newReturnValue(cursor.ResultType()),
 		params:      newParams(cursor),
 	}
 
@@ -79,6 +79,14 @@ func (function *function) enrich(gen *gen) {
 			function.goName = strings.TrimPrefix(function.goName, "Get")
 			function.goName = strings.TrimPrefix(function.goName, "_")
 			function.goName = strings.Replace(function.goName, "_get", "", 1)
+			if strings.HasPrefix(function.goName, typeName) && len(function.goName) > len(typeName) {
+				if !slices.Contains([]string{
+					"clang_getTranslationUnitCursor", // would result in a clash with clang_getCursor
+					"clang_getCursorKind",            // would result in a clash with the Cursor.Kind field
+				}, function.cName) {
+					function.goName = strings.TrimPrefix(function.goName, typeName)
+				}
+			}
 			function.goName = exportedGoName(function.goName)
 		}
 	}
