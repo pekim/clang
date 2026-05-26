@@ -22,10 +22,12 @@ func main() {
 		panic(fmt.Sprintf("failed to create translation unit : %d", errorCode))
 	}
 
-	// Traverse the various declarations within the translation unit.
-	tuCursor := tu.TranslationUnitCursor()
-	tuCursor.VisitChildren(func(cursor clang.Cursor, _parent clang.Cursor) clang.ChildVisitResult {
+	visitor := clang.MakeChildVisitor(func(cursor clang.Cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		fmt.Println(cursor.CursorKind().Spelling(), cursor.Spelling())
 		return clang.ChildVisit_Continue
 	})
+
+	// Traverse the various declarations within the translation unit.
+	tuCursor := tu.TranslationUnitCursor()
+	tuCursor.VisitChildren(visitor)
 }

@@ -43,7 +43,7 @@ func Generate() {
 }
 
 func (gen *gen) findEntities(tu clang.TranslationUnit, headerFile string) {
-	tu.TranslationUnitCursor().VisitChildren(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
+	visitor := clang.MakeChildVisitor(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		// ignore cursors that are from diffent files
 		file, _, _, _ := cursor.Location().FileLocation()
 
@@ -70,6 +70,7 @@ func (gen *gen) findEntities(tu clang.TranslationUnit, headerFile string) {
 
 		return clang.ChildVisit_Continue
 	})
+	tu.TranslationUnitCursor().VisitChildren(visitor)
 }
 
 func (gen *gen) sortEntities() {

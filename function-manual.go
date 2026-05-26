@@ -15,13 +15,8 @@ invoking the given visitor function with the cursors of each visited child.
 The traversal may be recursive, if the visitor returns CXChildVisit_Recurse.
 The traversal may also be ended prematurely, if the visitor returns CXChildVisit_Break.
 */
-func (parent Cursor) VisitChildren(visitor func(
-	cursor Cursor, parent Cursor,
-) ChildVisitResult) uint32 {
+func (parent Cursor) VisitChildren(c_visitor uintptr) uint32 {
 	c_parent := parent
-	c_visitor := ffi.NewCallback(func(cursor Cursor, parent Cursor, _client_data unsafe.Pointer) ChildVisitResult {
-		return visitor(cursor, parent)
-	})
 	var c_client_data ClientData
 
 	var retC uint32
@@ -43,4 +38,14 @@ func (parent Cursor) VisitChildren(visitor func(
 
 	ret := retC
 	return ret
+}
+
+func MakeChildVisitor(
+	visitor func(
+		cursor Cursor, parent Cursor,
+	) ChildVisitResult,
+) uintptr {
+	return ffi.NewCallback(func(cursor Cursor, parent Cursor, _client_data unsafe.Pointer) ChildVisitResult {
+		return visitor(cursor, parent)
+	})
 }

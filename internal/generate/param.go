@@ -203,7 +203,7 @@ func newParams(cursor clang.Cursor) params {
 	var params params
 
 	p := 0
-	cursor.VisitChildren(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
+	visitor := clang.MakeChildVisitor(func(cursor, _parent clang.Cursor) clang.ChildVisitResult {
 		if cursor.Kind == clang.Cursor_ParmDecl {
 			name := cursor.Spelling()
 			if name == "" {
@@ -216,6 +216,7 @@ func newParams(cursor clang.Cursor) params {
 
 		return clang.ChildVisit_Continue
 	})
+	cursor.VisitChildren(visitor)
 
 	return params
 }

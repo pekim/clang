@@ -77,7 +77,7 @@ func (struct_ *struct_) enrich(gen *gen) {
 	bitfieldOffset := 0
 	var prevField *structField
 
-	struct_.cursor.VisitChildren(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
+	visitor := clang.MakeChildVisitor(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
 		if cursor.Kind != clang.Cursor_FieldDecl {
 			return clang.ChildVisit_Continue
 		}
@@ -121,6 +121,7 @@ func (struct_ *struct_) enrich(gen *gen) {
 
 		return clang.ChildVisit_Continue
 	})
+	struct_.cursor.VisitChildren(visitor)
 }
 
 func (struct_ struct_) generate(file file) {

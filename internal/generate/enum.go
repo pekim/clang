@@ -41,7 +41,7 @@ func (gen *gen) addEnum(cursor clang.Cursor) {
 		comment: commentText(cursor.ParsedComment()),
 	}
 
-	cursor.VisitChildren(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
+	cursor.VisitChildren(clang.MakeChildVisitor(func(cursor, _parent clang.Cursor) (status clang.ChildVisitResult) {
 		if cursor.Kind != clang.Cursor_EnumConstantDecl {
 			return clang.ChildVisit_Continue
 		}
@@ -53,7 +53,7 @@ func (gen *gen) addEnum(cursor clang.Cursor) {
 		})
 
 		return clang.ChildVisit_Continue
-	})
+	}))
 
 	gen.enums = append(gen.enums, enum)
 }
