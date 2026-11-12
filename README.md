@@ -118,7 +118,3 @@ This generates code and then runs tests.
   - https://pre-commit.com/index.html#install
 - install pre-commit hook in this repo's workspace
   - `pre-commit install`
-
-```
-
-```
