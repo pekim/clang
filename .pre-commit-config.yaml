@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -13,6 +13,7 @@ repos:
       - id: go-imports
       - id: go-mod-tidy
       - id: go-test-mod
-        args: [--hook:env:CGO_ENABLED=0]
-      - id: golangci-lint-mod
-        args: [--hook:env:CGO_ENABLED=0]
+        args: [ "--hook:env:CGO_ENABLED=0" ]
+      - id: my-cmd-mod
+        name: golangci-lint
+        args: [ "go", "tool", "-modfile=golangci-lint.mod", "golangci-lint", "run"]
