@@ -11,6 +11,7 @@ import (
 
 // Functions that will be maintained manually, and should not be generated.
 var manualFunctions = []string{
+	"clang_tokenize",
 	"clang_visitChildren",
 }
 
@@ -261,5 +262,6 @@ func (ff functions) stats() (int, int) {
 			supportedCount++
 		}
 	}
+	supportedCount += len(manualFunctions)
 	return supportedCount, len(ff)
 }

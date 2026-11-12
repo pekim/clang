@@ -11364,8 +11364,6 @@ func ToggleCrashRecovery(isEnabled uint32) {
 	}
 }
 
-// not supported : clang_tokenize : param Tokens : CXToken **
-
 /*
 Visit the base classes of a type.
 

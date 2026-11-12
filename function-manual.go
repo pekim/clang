@@ -49,3 +49,36 @@ func MakeChildVisitor(
 		return visitor(cursor, parent)
 	})
 }
+
+/*
+Tokenize the source code described by the given range into raw
+lexical tokens.
+
+range is the source range in which text should be tokenized. All of the
+tokens produced by tokenization will fall within this source range,
+*/
+func (tu TranslationUnit) Tokenize(range_ SourceRange) []Token {
+	var tokens *Token
+	c_tokens := &tokens
+	var numTokens uint32
+	c_numTokens := &numTokens
+
+	args := []unsafe.Pointer{
+		unsafe.Pointer(&tu),
+		unsafe.Pointer(&range_),
+		unsafe.Pointer(&c_tokens),
+		unsafe.Pointer(&c_numTokens),
+	}
+
+	err := ffi.CallFunction(
+		cif_clang_tokenize,
+		ptr_clang_tokenize,
+		nil,
+		args,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("failed to call %s : %s", "clang_visitChildren", err))
+	}
+
+	return unsafe.Slice(tokens, numTokens)
+}
