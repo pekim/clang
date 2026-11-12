@@ -46,7 +46,7 @@ The default library paths are OS-specific.
 
 The default library paths may be overridden with an
 argument to the
-[Init](http://localhost:8080/github.com/pekim/clang#Init)
+[Init](https://pkg.go.dev/github.com/pekim/clang#Init)
 function.
 
 ## Platforms
