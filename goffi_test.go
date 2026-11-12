@@ -9,6 +9,6 @@ import (
 )
 
 func TestCallFunctionThroughGoffi(t *testing.T) {
-	err := ffi.CallFunction(cif_clang_enableStackTraces, ptr_clang_enableStackTraces, nil, []unsafe.Pointer{})
+	_, err := ffi.CallFunction(cif_clang_enableStackTraces, ptr_clang_enableStackTraces, nil, []unsafe.Pointer{})
 	assert.NoError(t, err)
 }

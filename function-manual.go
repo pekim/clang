@@ -26,7 +26,7 @@ func (parent Cursor) VisitChildren(c_visitor uintptr) uint32 {
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_visitChildren,
 		ptr_clang_visitChildren,
 		unsafe.Pointer(&retC),
@@ -70,7 +70,7 @@ func (tu TranslationUnit) Tokenize(range_ SourceRange) []Token {
 		unsafe.Pointer(&c_numTokens),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_tokenize,
 		ptr_clang_tokenize,
 		nil,

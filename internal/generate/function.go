@@ -185,7 +185,10 @@ func (function function) generateImplementation(file file) {
 			g.Line()
 
 			// call C function
-			g.Id("err").Op(":=").Qual(ffiPackage, "CallFunction").
+			g.
+				List(jen.Id("_"), jen.Id("err")).
+				Op(":=").
+				Qual(ffiPackage, "CallFunction").
 				// arguments
 				CallFunc(func(g *jen.Group) {
 					g.Line().Id("cif_" + function.cName)

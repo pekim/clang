@@ -24,7 +24,7 @@ func (comment Comment) BlockCommandCommentArgText(argIdx uint32) string {
 		unsafe.Pointer(&c_argIdx),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_BlockCommandComment_getArgText,
 		ptr_clang_BlockCommandComment_getArgText,
 		unsafe.Pointer(&retC),
@@ -51,7 +51,7 @@ func (comment Comment) BlockCommandCommentCommandName() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_BlockCommandComment_getCommandName,
 		ptr_clang_BlockCommandComment_getCommandName,
 		unsafe.Pointer(&retC),
@@ -78,7 +78,7 @@ func (comment Comment) BlockCommandCommentNumArgs() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_BlockCommandComment_getNumArgs,
 		ptr_clang_BlockCommandComment_getNumArgs,
 		unsafe.Pointer(&retC),
@@ -104,7 +104,7 @@ func (comment Comment) BlockCommandCommentParagraph() Comment {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_BlockCommandComment_getParagraph,
 		ptr_clang_BlockCommandComment_getParagraph,
 		unsafe.Pointer(&retC),
@@ -132,7 +132,7 @@ func (cset CursorSet) Contains(cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXCursorSet_contains,
 		ptr_clang_CXCursorSet_contains,
 		unsafe.Pointer(&retC),
@@ -160,7 +160,7 @@ func (cset CursorSet) Insert(cursor Cursor) uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXCursorSet_insert,
 		ptr_clang_CXCursorSet_insert,
 		unsafe.Pointer(&retC),
@@ -190,7 +190,7 @@ func (p0 Index) GlobalOptions() uint32 {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXIndex_getGlobalOptions,
 		ptr_clang_CXIndex_getGlobalOptions,
 		unsafe.Pointer(&retC),
@@ -223,7 +223,7 @@ func (p0 Index) SetGlobalOptions(options uint32) {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXIndex_setGlobalOptions,
 		ptr_clang_CXIndex_setGlobalOptions,
 		nil,
@@ -254,7 +254,7 @@ func (p0 Index) SetInvocationEmissionPathOption(path string) {
 		unsafe.Pointer(&c_path),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXIndex_setInvocationEmissionPathOption,
 		ptr_clang_CXIndex_setInvocationEmissionPathOption,
 		nil,
@@ -277,7 +277,7 @@ func (c Cursor) XConstructor_isConvertingConstructor() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXConstructor_isConvertingConstructor,
 		ptr_clang_CXXConstructor_isConvertingConstructor,
 		unsafe.Pointer(&retC),
@@ -303,7 +303,7 @@ func (c Cursor) XConstructor_isCopyConstructor() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXConstructor_isCopyConstructor,
 		ptr_clang_CXXConstructor_isCopyConstructor,
 		unsafe.Pointer(&retC),
@@ -329,7 +329,7 @@ func (c Cursor) XConstructor_isDefaultConstructor() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXConstructor_isDefaultConstructor,
 		ptr_clang_CXXConstructor_isDefaultConstructor,
 		unsafe.Pointer(&retC),
@@ -355,7 +355,7 @@ func (c Cursor) XConstructor_isMoveConstructor() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXConstructor_isMoveConstructor,
 		ptr_clang_CXXConstructor_isMoveConstructor,
 		unsafe.Pointer(&retC),
@@ -381,7 +381,7 @@ func (c Cursor) XField_isMutable() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXField_isMutable,
 		ptr_clang_CXXField_isMutable,
 		unsafe.Pointer(&retC),
@@ -407,7 +407,7 @@ func (c Cursor) XMethod_isConst() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isConst,
 		ptr_clang_CXXMethod_isConst,
 		unsafe.Pointer(&retC),
@@ -447,7 +447,7 @@ func (c Cursor) XMethod_isCopyAssignmentOperator() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isCopyAssignmentOperator,
 		ptr_clang_CXXMethod_isCopyAssignmentOperator,
 		unsafe.Pointer(&retC),
@@ -473,7 +473,7 @@ func (c Cursor) XMethod_isDefaulted() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isDefaulted,
 		ptr_clang_CXXMethod_isDefaulted,
 		unsafe.Pointer(&retC),
@@ -499,7 +499,7 @@ func (c Cursor) XMethod_isDeleted() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isDeleted,
 		ptr_clang_CXXMethod_isDeleted,
 		unsafe.Pointer(&retC),
@@ -549,7 +549,7 @@ func (c Cursor) XMethod_isExplicit() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isExplicit,
 		ptr_clang_CXXMethod_isExplicit,
 		unsafe.Pointer(&retC),
@@ -589,7 +589,7 @@ func (c Cursor) XMethod_isMoveAssignmentOperator() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isMoveAssignmentOperator,
 		ptr_clang_CXXMethod_isMoveAssignmentOperator,
 		unsafe.Pointer(&retC),
@@ -615,7 +615,7 @@ func (c Cursor) XMethod_isPureVirtual() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isPureVirtual,
 		ptr_clang_CXXMethod_isPureVirtual,
 		unsafe.Pointer(&retC),
@@ -641,7 +641,7 @@ func (c Cursor) XMethod_isStatic() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isStatic,
 		ptr_clang_CXXMethod_isStatic,
 		unsafe.Pointer(&retC),
@@ -667,7 +667,7 @@ func (c Cursor) XMethod_isVirtual() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXMethod_isVirtual,
 		ptr_clang_CXXMethod_isVirtual,
 		unsafe.Pointer(&retC),
@@ -693,7 +693,7 @@ func (c Cursor) XRecord_isAbstract() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_CXXRecord_isAbstract,
 		ptr_clang_CXXRecord_isAbstract,
 		unsafe.Pointer(&retC),
@@ -721,7 +721,7 @@ func (comment Comment) Child(childIdx uint32) Comment {
 		unsafe.Pointer(&c_childIdx),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Comment_getChild,
 		ptr_clang_Comment_getChild,
 		unsafe.Pointer(&retC),
@@ -747,7 +747,7 @@ func (comment Comment) Kind() CommentKind {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Comment_getKind,
 		ptr_clang_Comment_getKind,
 		unsafe.Pointer(&retC),
@@ -773,7 +773,7 @@ func (comment Comment) NumChildren() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Comment_getNumChildren,
 		ptr_clang_Comment_getNumChildren,
 		unsafe.Pointer(&retC),
@@ -803,7 +803,7 @@ func (comment Comment) IsWhitespace() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Comment_isWhitespace,
 		ptr_clang_Comment_isWhitespace,
 		unsafe.Pointer(&retC),
@@ -829,7 +829,7 @@ func (c Cursor) Evaluate() EvalResult {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_Evaluate,
 		ptr_clang_Cursor_Evaluate,
 		unsafe.Pointer(&retC),
@@ -861,7 +861,7 @@ func (c Cursor) Argument(i uint32) Cursor {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getArgument,
 		ptr_clang_Cursor_getArgument,
 		unsafe.Pointer(&retC),
@@ -887,7 +887,7 @@ func (c Cursor) BinaryOpcode() BinaryOperatorKind_ {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getBinaryOpcode,
 		ptr_clang_Cursor_getBinaryOpcode,
 		unsafe.Pointer(&retC),
@@ -913,7 +913,7 @@ func (op BinaryOperatorKind_) CursorBinaryOpcodeStr() string {
 		unsafe.Pointer(&c_op),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getBinaryOpcodeStr,
 		ptr_clang_Cursor_getBinaryOpcodeStr,
 		unsafe.Pointer(&retC),
@@ -944,7 +944,7 @@ func (c Cursor) BriefCommentText() string {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getBriefCommentText,
 		ptr_clang_Cursor_getBriefCommentText,
 		unsafe.Pointer(&retC),
@@ -971,7 +971,7 @@ func (p0 Cursor) XManglings() *StringSet {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getCXXManglings,
 		ptr_clang_Cursor_getCXXManglings,
 		unsafe.Pointer(&retC),
@@ -997,7 +997,7 @@ func (c Cursor) CommentRange() SourceRange {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getCommentRange,
 		ptr_clang_Cursor_getCommentRange,
 		unsafe.Pointer(&retC),
@@ -1029,7 +1029,7 @@ func (cursor Cursor) GCCAssemblyClobber(index uint32) string {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyClobber,
 		ptr_clang_Cursor_getGCCAssemblyClobber,
 		unsafe.Pointer(&retC),
@@ -1068,7 +1068,7 @@ func (cursor Cursor) GCCAssemblyInput(index uint32) (string, Cursor, uint32) {
 		unsafe.Pointer(&c_expr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyInput,
 		ptr_clang_Cursor_getGCCAssemblyInput,
 		unsafe.Pointer(&retC),
@@ -1094,7 +1094,7 @@ func (cursor Cursor) GCCAssemblyNumClobbers() uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyNumClobbers,
 		ptr_clang_Cursor_getGCCAssemblyNumClobbers,
 		unsafe.Pointer(&retC),
@@ -1120,7 +1120,7 @@ func (p0 Cursor) GCCAssemblyNumInputs() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyNumInputs,
 		ptr_clang_Cursor_getGCCAssemblyNumInputs,
 		unsafe.Pointer(&retC),
@@ -1146,7 +1146,7 @@ func (p0 Cursor) GCCAssemblyNumOutputs() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyNumOutputs,
 		ptr_clang_Cursor_getGCCAssemblyNumOutputs,
 		unsafe.Pointer(&retC),
@@ -1184,7 +1184,7 @@ func (cursor Cursor) GCCAssemblyOutput(index uint32) (string, Cursor, uint32) {
 		unsafe.Pointer(&c_expr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyOutput,
 		ptr_clang_Cursor_getGCCAssemblyOutput,
 		unsafe.Pointer(&retC),
@@ -1216,7 +1216,7 @@ func (p0 Cursor) GCCAssemblyTemplate() string {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getGCCAssemblyTemplate,
 		ptr_clang_Cursor_getGCCAssemblyTemplate,
 		unsafe.Pointer(&retC),
@@ -1243,7 +1243,7 @@ func (p0 Cursor) Mangling() string {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getMangling,
 		ptr_clang_Cursor_getMangling,
 		unsafe.Pointer(&retC),
@@ -1270,7 +1270,7 @@ func (c Cursor) Module() Module {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getModule,
 		ptr_clang_Cursor_getModule,
 		unsafe.Pointer(&retC),
@@ -1300,7 +1300,7 @@ func (c Cursor) NumArguments() int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getNumArguments,
 		ptr_clang_Cursor_getNumArguments,
 		unsafe.Pointer(&retC),
@@ -1336,7 +1336,7 @@ func (c Cursor) NumTemplateArguments() int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getNumTemplateArguments,
 		ptr_clang_Cursor_getNumTemplateArguments,
 		unsafe.Pointer(&retC),
@@ -1362,7 +1362,7 @@ func (c Cursor) ObjCDeclQualifiers() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCDeclQualifiers,
 		ptr_clang_Cursor_getObjCDeclQualifiers,
 		unsafe.Pointer(&retC),
@@ -1388,7 +1388,7 @@ func (p0 Cursor) ObjCManglings() *StringSet {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCManglings,
 		ptr_clang_Cursor_getObjCManglings,
 		unsafe.Pointer(&retC),
@@ -1416,7 +1416,7 @@ func (c Cursor) ObjCPropertyAttributes(reserved uint32) uint32 {
 		unsafe.Pointer(&c_reserved),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCPropertyAttributes,
 		ptr_clang_Cursor_getObjCPropertyAttributes,
 		unsafe.Pointer(&retC),
@@ -1442,7 +1442,7 @@ func (c Cursor) ObjCPropertyGetterName() string {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCPropertyGetterName,
 		ptr_clang_Cursor_getObjCPropertyGetterName,
 		unsafe.Pointer(&retC),
@@ -1469,7 +1469,7 @@ func (c Cursor) ObjCPropertySetterName() string {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCPropertySetterName,
 		ptr_clang_Cursor_getObjCPropertySetterName,
 		unsafe.Pointer(&retC),
@@ -1500,7 +1500,7 @@ func (p0 Cursor) ObjCSelectorIndex() int32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getObjCSelectorIndex,
 		ptr_clang_Cursor_getObjCSelectorIndex,
 		unsafe.Pointer(&retC),
@@ -1530,7 +1530,7 @@ func (c Cursor) OffsetOfField() int64 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getOffsetOfField,
 		ptr_clang_Cursor_getOffsetOfField,
 		unsafe.Pointer(&retC),
@@ -1556,7 +1556,7 @@ func (c Cursor) ParsedComment() Comment {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getParsedComment,
 		ptr_clang_Cursor_getParsedComment,
 		unsafe.Pointer(&retC),
@@ -1582,7 +1582,7 @@ func (c Cursor) RawCommentText() string {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getRawCommentText,
 		ptr_clang_Cursor_getRawCommentText,
 		unsafe.Pointer(&retC),
@@ -1609,7 +1609,7 @@ func (c Cursor) ReceiverType() Type {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getReceiverType,
 		ptr_clang_Cursor_getReceiverType,
 		unsafe.Pointer(&retC),
@@ -1639,7 +1639,7 @@ func (p0 Cursor) SpellingNameRange(pieceIndex uint32, options uint32) SourceRang
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getSpellingNameRange,
 		ptr_clang_Cursor_getSpellingNameRange,
 		unsafe.Pointer(&retC),
@@ -1669,7 +1669,7 @@ func (p0 Cursor) StorageClass() StorageClass {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getStorageClass,
 		ptr_clang_Cursor_getStorageClass,
 		unsafe.Pointer(&retC),
@@ -1707,7 +1707,7 @@ func (c Cursor) TemplateArgumentKind(i uint32) TemplateArgumentKind {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getTemplateArgumentKind,
 		ptr_clang_Cursor_getTemplateArgumentKind,
 		unsafe.Pointer(&retC),
@@ -1745,7 +1745,7 @@ func (c Cursor) TemplateArgumentType(i uint32) Type {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getTemplateArgumentType,
 		ptr_clang_Cursor_getTemplateArgumentType,
 		unsafe.Pointer(&retC),
@@ -1783,7 +1783,7 @@ func (c Cursor) TemplateArgumentUnsignedValue(i uint32) uint64 {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getTemplateArgumentUnsignedValue,
 		ptr_clang_Cursor_getTemplateArgumentUnsignedValue,
 		unsafe.Pointer(&retC),
@@ -1821,7 +1821,7 @@ func (c Cursor) TemplateArgumentValue(i uint32) int64 {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getTemplateArgumentValue,
 		ptr_clang_Cursor_getTemplateArgumentValue,
 		unsafe.Pointer(&retC),
@@ -1847,7 +1847,7 @@ func (p0 Cursor) TranslationUnit() TranslationUnit {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getTranslationUnit,
 		ptr_clang_Cursor_getTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -1873,7 +1873,7 @@ func (cursor Cursor) VarDeclInitializer() Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_getVarDeclInitializer,
 		ptr_clang_Cursor_getVarDeclInitializer,
 		unsafe.Pointer(&retC),
@@ -1899,7 +1899,7 @@ func (c Cursor) HasAttrs() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_hasAttrs,
 		ptr_clang_Cursor_hasAttrs,
 		unsafe.Pointer(&retC),
@@ -1925,7 +1925,7 @@ func (cursor Cursor) HasVarDeclExternalStorage() int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_hasVarDeclExternalStorage,
 		ptr_clang_Cursor_hasVarDeclExternalStorage,
 		unsafe.Pointer(&retC),
@@ -1951,7 +1951,7 @@ func (cursor Cursor) HasVarDeclGlobalStorage() int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_hasVarDeclGlobalStorage,
 		ptr_clang_Cursor_hasVarDeclGlobalStorage,
 		unsafe.Pointer(&retC),
@@ -1977,7 +1977,7 @@ func (c Cursor) IsAnonymous() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isAnonymous,
 		ptr_clang_Cursor_isAnonymous,
 		unsafe.Pointer(&retC),
@@ -2003,7 +2003,7 @@ func (c Cursor) IsAnonymousRecordDecl() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isAnonymousRecordDecl,
 		ptr_clang_Cursor_isAnonymousRecordDecl,
 		unsafe.Pointer(&retC),
@@ -2029,7 +2029,7 @@ func (c Cursor) IsBitField() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isBitField,
 		ptr_clang_Cursor_isBitField,
 		unsafe.Pointer(&retC),
@@ -2061,7 +2061,7 @@ func (c Cursor) IsDynamicCall() int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isDynamicCall,
 		ptr_clang_Cursor_isDynamicCall,
 		unsafe.Pointer(&retC),
@@ -2096,7 +2096,7 @@ func (c Cursor) IsExternalSymbol() (string, string, uint32, uint32) {
 		unsafe.Pointer(&c_isGenerated),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isExternalSymbol,
 		ptr_clang_Cursor_isExternalSymbol,
 		unsafe.Pointer(&retC),
@@ -2122,7 +2122,7 @@ func (c Cursor) IsFunctionInlined() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isFunctionInlined,
 		ptr_clang_Cursor_isFunctionInlined,
 		unsafe.Pointer(&retC),
@@ -2148,7 +2148,7 @@ func (p0 Cursor) IsGCCAssemblyHasGoto() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isGCCAssemblyHasGoto,
 		ptr_clang_Cursor_isGCCAssemblyHasGoto,
 		unsafe.Pointer(&retC),
@@ -2174,7 +2174,7 @@ func (cursor Cursor) IsGCCAssemblyVolatile() uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isGCCAssemblyVolatile,
 		ptr_clang_Cursor_isGCCAssemblyVolatile,
 		unsafe.Pointer(&retC),
@@ -2200,7 +2200,7 @@ func (c Cursor) IsInlineNamespace() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isInlineNamespace,
 		ptr_clang_Cursor_isInlineNamespace,
 		unsafe.Pointer(&retC),
@@ -2226,7 +2226,7 @@ func (c Cursor) IsMacroBuiltin() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isMacroBuiltin,
 		ptr_clang_Cursor_isMacroBuiltin,
 		unsafe.Pointer(&retC),
@@ -2252,7 +2252,7 @@ func (c Cursor) IsMacroFunctionLike() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isMacroFunctionLike,
 		ptr_clang_Cursor_isMacroFunctionLike,
 		unsafe.Pointer(&retC),
@@ -2278,7 +2278,7 @@ func (cursor Cursor) IsNull() int32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isNull,
 		ptr_clang_Cursor_isNull,
 		unsafe.Pointer(&retC),
@@ -2304,7 +2304,7 @@ func (c Cursor) IsObjCOptional() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isObjCOptional,
 		ptr_clang_Cursor_isObjCOptional,
 		unsafe.Pointer(&retC),
@@ -2330,7 +2330,7 @@ func (c Cursor) IsVariadic() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Cursor_isVariadic,
 		ptr_clang_Cursor_isVariadic,
 		unsafe.Pointer(&retC),
@@ -2356,7 +2356,7 @@ func (c Cursor) EnumDecl_isScoped() uint32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EnumDecl_isScoped,
 		ptr_clang_EnumDecl_isScoped,
 		unsafe.Pointer(&retC),
@@ -2381,7 +2381,7 @@ func (e EvalResult) Dispose() {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_dispose,
 		ptr_clang_EvalResult_dispose,
 		nil,
@@ -2404,7 +2404,7 @@ func (e EvalResult) AsDouble() float64 {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getAsDouble,
 		ptr_clang_EvalResult_getAsDouble,
 		unsafe.Pointer(&retC),
@@ -2430,7 +2430,7 @@ func (e EvalResult) AsInt() int32 {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getAsInt,
 		ptr_clang_EvalResult_getAsInt,
 		unsafe.Pointer(&retC),
@@ -2456,7 +2456,7 @@ func (e EvalResult) AsLongLong() int64 {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getAsLongLong,
 		ptr_clang_EvalResult_getAsLongLong,
 		unsafe.Pointer(&retC),
@@ -2482,7 +2482,7 @@ func (e EvalResult) AsStr() string {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getAsStr,
 		ptr_clang_EvalResult_getAsStr,
 		unsafe.Pointer(&retC),
@@ -2508,7 +2508,7 @@ func (e EvalResult) AsUnsigned() uint64 {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getAsUnsigned,
 		ptr_clang_EvalResult_getAsUnsigned,
 		unsafe.Pointer(&retC),
@@ -2534,7 +2534,7 @@ func (e EvalResult) Kind() EvalResultKind {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_getKind,
 		ptr_clang_EvalResult_getKind,
 		unsafe.Pointer(&retC),
@@ -2560,7 +2560,7 @@ func (e EvalResult) IsUnsignedInt() uint32 {
 		unsafe.Pointer(&c_e.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_EvalResult_isUnsignedInt,
 		ptr_clang_EvalResult_isUnsignedInt,
 		unsafe.Pointer(&retC),
@@ -2588,7 +2588,7 @@ func (file1 File) IsEqual(file2 File) int32 {
 		unsafe.Pointer(&c_file2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_File_isEqual,
 		ptr_clang_File_isEqual,
 		unsafe.Pointer(&retC),
@@ -2618,7 +2618,7 @@ func (file File) TryGetRealPathName() string {
 		unsafe.Pointer(&c_file.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_File_tryGetRealPathName,
 		ptr_clang_File_tryGetRealPathName,
 		unsafe.Pointer(&retC),
@@ -2657,7 +2657,7 @@ func (comment Comment) FullCommentAsHTML() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_FullComment_getAsHTML,
 		ptr_clang_FullComment_getAsHTML,
 		unsafe.Pointer(&retC),
@@ -2688,7 +2688,7 @@ func (comment Comment) FullCommentAsXML() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_FullComment_getAsXML,
 		ptr_clang_FullComment_getAsXML,
 		unsafe.Pointer(&retC),
@@ -2715,7 +2715,7 @@ func (comment Comment) HTMLStartTagComment_isSelfClosing() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLStartTagComment_isSelfClosing,
 		ptr_clang_HTMLStartTagComment_isSelfClosing,
 		unsafe.Pointer(&retC),
@@ -2743,7 +2743,7 @@ func (comment Comment) HTMLStartTagAttrName(attrIdx uint32) string {
 		unsafe.Pointer(&c_attrIdx),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLStartTag_getAttrName,
 		ptr_clang_HTMLStartTag_getAttrName,
 		unsafe.Pointer(&retC),
@@ -2772,7 +2772,7 @@ func (comment Comment) HTMLStartTagAttrValue(attrIdx uint32) string {
 		unsafe.Pointer(&c_attrIdx),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLStartTag_getAttrValue,
 		ptr_clang_HTMLStartTag_getAttrValue,
 		unsafe.Pointer(&retC),
@@ -2799,7 +2799,7 @@ func (comment Comment) HTMLStartTagNumAttrs() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLStartTag_getNumAttrs,
 		ptr_clang_HTMLStartTag_getNumAttrs,
 		unsafe.Pointer(&retC),
@@ -2825,7 +2825,7 @@ func (comment Comment) HTMLTagCommentAsString() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLTagComment_getAsString,
 		ptr_clang_HTMLTagComment_getAsString,
 		unsafe.Pointer(&retC),
@@ -2852,7 +2852,7 @@ func (comment Comment) HTMLTagCommentTagName() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_HTMLTagComment_getTagName,
 		ptr_clang_HTMLTagComment_getTagName,
 		unsafe.Pointer(&retC),
@@ -2879,7 +2879,7 @@ func (cIdx Index) Action_create() IndexAction {
 		unsafe.Pointer(&c_cIdx.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_IndexAction_create,
 		ptr_clang_IndexAction_create,
 		unsafe.Pointer(&retC),
@@ -2908,7 +2908,7 @@ func (p0 IndexAction) Dispose() {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_IndexAction_dispose,
 		ptr_clang_IndexAction_dispose,
 		nil,
@@ -2933,7 +2933,7 @@ func (comment Comment) InlineCommandCommentArgText(argIdx uint32) string {
 		unsafe.Pointer(&c_argIdx),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_InlineCommandComment_getArgText,
 		ptr_clang_InlineCommandComment_getArgText,
 		unsafe.Pointer(&retC),
@@ -2960,7 +2960,7 @@ func (comment Comment) InlineCommandCommentCommandName() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_InlineCommandComment_getCommandName,
 		ptr_clang_InlineCommandComment_getCommandName,
 		unsafe.Pointer(&retC),
@@ -2987,7 +2987,7 @@ func (comment Comment) InlineCommandCommentNumArgs() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_InlineCommandComment_getNumArgs,
 		ptr_clang_InlineCommandComment_getNumArgs,
 		unsafe.Pointer(&retC),
@@ -3013,7 +3013,7 @@ func (comment Comment) InlineCommandCommentRenderKind() CommentInlineCommandRend
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_InlineCommandComment_getRenderKind,
 		ptr_clang_InlineCommandComment_getRenderKind,
 		unsafe.Pointer(&retC),
@@ -3039,7 +3039,7 @@ func (comment Comment) InlineContentComment_hasTrailingNewline() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_InlineContentComment_hasTrailingNewline,
 		ptr_clang_InlineContentComment_hasTrailingNewline,
 		unsafe.Pointer(&retC),
@@ -3065,7 +3065,7 @@ func (location SourceLocation) Location_isFromMainFile() int32 {
 		unsafe.Pointer(&c_location),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Location_isFromMainFile,
 		ptr_clang_Location_isFromMainFile,
 		unsafe.Pointer(&retC),
@@ -3091,7 +3091,7 @@ func (location SourceLocation) Location_isInSystemHeader() int32 {
 		unsafe.Pointer(&c_location),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Location_isInSystemHeader,
 		ptr_clang_Location_isInSystemHeader,
 		unsafe.Pointer(&retC),
@@ -3119,7 +3119,7 @@ func ModuleMapDescriptor_create(options uint32) ModuleMapDescriptor {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ModuleMapDescriptor_create,
 		ptr_clang_ModuleMapDescriptor_create,
 		unsafe.Pointer(&retC),
@@ -3144,7 +3144,7 @@ func (p0 ModuleMapDescriptor) Dispose() {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ModuleMapDescriptor_dispose,
 		ptr_clang_ModuleMapDescriptor_dispose,
 		nil,
@@ -3170,7 +3170,7 @@ func (p0 ModuleMapDescriptor) SetFrameworkModuleName(name string) ErrorCode {
 		unsafe.Pointer(&c_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ModuleMapDescriptor_setFrameworkModuleName,
 		ptr_clang_ModuleMapDescriptor_setFrameworkModuleName,
 		unsafe.Pointer(&retC),
@@ -3199,7 +3199,7 @@ func (p0 ModuleMapDescriptor) SetUmbrellaHeader(name string) ErrorCode {
 		unsafe.Pointer(&c_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ModuleMapDescriptor_setUmbrellaHeader,
 		ptr_clang_ModuleMapDescriptor_setUmbrellaHeader,
 		unsafe.Pointer(&retC),
@@ -3227,7 +3227,7 @@ func (module Module) ASTFile() File {
 		unsafe.Pointer(&c_module.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getASTFile,
 		ptr_clang_Module_getASTFile,
 		unsafe.Pointer(&retC),
@@ -3253,7 +3253,7 @@ func (module Module) FullName() string {
 		unsafe.Pointer(&c_module.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getFullName,
 		ptr_clang_Module_getFullName,
 		unsafe.Pointer(&retC),
@@ -3280,7 +3280,7 @@ func (module Module) Name() string {
 		unsafe.Pointer(&c_module.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getName,
 		ptr_clang_Module_getName,
 		unsafe.Pointer(&retC),
@@ -3309,7 +3309,7 @@ func (p0 TranslationUnit) ModuleNumTopLevelHeaders(module Module) uint32 {
 		unsafe.Pointer(&c_module),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getNumTopLevelHeaders,
 		ptr_clang_Module_getNumTopLevelHeaders,
 		unsafe.Pointer(&retC),
@@ -3335,7 +3335,7 @@ func (module Module) Parent() Module {
 		unsafe.Pointer(&c_module.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getParent,
 		ptr_clang_Module_getParent,
 		unsafe.Pointer(&retC),
@@ -3365,7 +3365,7 @@ func (p0 TranslationUnit) ModuleTopLevelHeader(module Module, index uint32) File
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_getTopLevelHeader,
 		ptr_clang_Module_getTopLevelHeader,
 		unsafe.Pointer(&retC),
@@ -3391,7 +3391,7 @@ func (module Module) IsSystem() int32 {
 		unsafe.Pointer(&c_module.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Module_isSystem,
 		ptr_clang_Module_isSystem,
 		unsafe.Pointer(&retC),
@@ -3417,7 +3417,7 @@ func (comment Comment) ParamCommandCommentDirection() CommentParamPassDirection 
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ParamCommandComment_getDirection,
 		ptr_clang_ParamCommandComment_getDirection,
 		unsafe.Pointer(&retC),
@@ -3443,7 +3443,7 @@ func (comment Comment) ParamCommandCommentParamIndex() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ParamCommandComment_getParamIndex,
 		ptr_clang_ParamCommandComment_getParamIndex,
 		unsafe.Pointer(&retC),
@@ -3469,7 +3469,7 @@ func (comment Comment) ParamCommandCommentParamName() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ParamCommandComment_getParamName,
 		ptr_clang_ParamCommandComment_getParamName,
 		unsafe.Pointer(&retC),
@@ -3496,7 +3496,7 @@ func (comment Comment) ParamCommandComment_isDirectionExplicit() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ParamCommandComment_isDirectionExplicit,
 		ptr_clang_ParamCommandComment_isDirectionExplicit,
 		unsafe.Pointer(&retC),
@@ -3522,7 +3522,7 @@ func (comment Comment) ParamCommandComment_isParamIndexValid() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_ParamCommandComment_isParamIndexValid,
 		ptr_clang_ParamCommandComment_isParamIndexValid,
 		unsafe.Pointer(&retC),
@@ -3547,7 +3547,7 @@ func (policy PrintingPolicy) Dispose() {
 		unsafe.Pointer(&c_policy.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_PrintingPolicy_dispose,
 		ptr_clang_PrintingPolicy_dispose,
 		nil,
@@ -3572,7 +3572,7 @@ func (policy PrintingPolicy) Property(property PrintingPolicyProperty) uint32 {
 		unsafe.Pointer(&c_property),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_PrintingPolicy_getProperty,
 		ptr_clang_PrintingPolicy_getProperty,
 		unsafe.Pointer(&retC),
@@ -3601,7 +3601,7 @@ func (policy PrintingPolicy) SetProperty(property PrintingPolicyProperty, value 
 		unsafe.Pointer(&c_value),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_PrintingPolicy_setProperty,
 		ptr_clang_PrintingPolicy_setProperty,
 		nil,
@@ -3624,7 +3624,7 @@ func (range_ SourceRange) Range_isNull() int32 {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Range_isNull,
 		ptr_clang_Range_isNull,
 		unsafe.Pointer(&retC),
@@ -3654,7 +3654,7 @@ func (comment Comment) TParamCommandCommentDepth() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TParamCommandComment_getDepth,
 		ptr_clang_TParamCommandComment_getDepth,
 		unsafe.Pointer(&retC),
@@ -3688,7 +3688,7 @@ func (comment Comment) TParamCommandCommentIndex(depth uint32) uint32 {
 		unsafe.Pointer(&c_depth),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TParamCommandComment_getIndex,
 		ptr_clang_TParamCommandComment_getIndex,
 		unsafe.Pointer(&retC),
@@ -3714,7 +3714,7 @@ func (comment Comment) TParamCommandCommentParamName() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TParamCommandComment_getParamName,
 		ptr_clang_TParamCommandComment_getParamName,
 		unsafe.Pointer(&retC),
@@ -3741,7 +3741,7 @@ func (comment Comment) TParamCommandComment_isParamPositionValid() uint32 {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TParamCommandComment_isParamPositionValid,
 		ptr_clang_TParamCommandComment_isParamPositionValid,
 		unsafe.Pointer(&retC),
@@ -3766,7 +3766,7 @@ func (info TargetInfo) Dispose() {
 		unsafe.Pointer(&c_info.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TargetInfo_dispose,
 		ptr_clang_TargetInfo_dispose,
 		nil,
@@ -3793,7 +3793,7 @@ func (info TargetInfo) PointerWidth() int32 {
 		unsafe.Pointer(&c_info.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TargetInfo_getPointerWidth,
 		ptr_clang_TargetInfo_getPointerWidth,
 		unsafe.Pointer(&retC),
@@ -3823,7 +3823,7 @@ func (info TargetInfo) Triple() string {
 		unsafe.Pointer(&c_info.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TargetInfo_getTriple,
 		ptr_clang_TargetInfo_getTriple,
 		unsafe.Pointer(&retC),
@@ -3850,7 +3850,7 @@ func (comment Comment) TextCommentText() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_TextComment_getText,
 		ptr_clang_TextComment_getText,
 		unsafe.Pointer(&retC),
@@ -3881,7 +3881,7 @@ func (t Type) AlignOf() int64 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getAlignOf,
 		ptr_clang_Type_getAlignOf,
 		unsafe.Pointer(&retC),
@@ -3911,7 +3911,7 @@ func (t Type) XRefQualifier() RefQualifierKind {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getCXXRefQualifier,
 		ptr_clang_Type_getCXXRefQualifier,
 		unsafe.Pointer(&retC),
@@ -3941,7 +3941,7 @@ func (t Type) ClassType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getClassType,
 		ptr_clang_Type_getClassType,
 		unsafe.Pointer(&retC),
@@ -3971,7 +3971,7 @@ func (t Type) ModifiedType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getModifiedType,
 		ptr_clang_Type_getModifiedType,
 		unsafe.Pointer(&retC),
@@ -4001,7 +4001,7 @@ func (t Type) NamedType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getNamedType,
 		ptr_clang_Type_getNamedType,
 		unsafe.Pointer(&retC),
@@ -4027,7 +4027,7 @@ func (t Type) Nullability() TypeNullabilityKind {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getNullability,
 		ptr_clang_Type_getNullability,
 		unsafe.Pointer(&retC),
@@ -4057,7 +4057,7 @@ func (t Type) NumObjCProtocolRefs() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getNumObjCProtocolRefs,
 		ptr_clang_Type_getNumObjCProtocolRefs,
 		unsafe.Pointer(&retC),
@@ -4087,7 +4087,7 @@ func (t Type) NumObjCTypeArgs() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getNumObjCTypeArgs,
 		ptr_clang_Type_getNumObjCTypeArgs,
 		unsafe.Pointer(&retC),
@@ -4113,7 +4113,7 @@ func (t Type) NumTemplateArguments() int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getNumTemplateArguments,
 		ptr_clang_Type_getNumTemplateArguments,
 		unsafe.Pointer(&retC),
@@ -4139,7 +4139,7 @@ func (type_ Type) ObjCEncoding() string {
 		unsafe.Pointer(&c_type_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getObjCEncoding,
 		ptr_clang_Type_getObjCEncoding,
 		unsafe.Pointer(&retC),
@@ -4170,7 +4170,7 @@ func (t Type) ObjCObjectBaseType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getObjCObjectBaseType,
 		ptr_clang_Type_getObjCObjectBaseType,
 		unsafe.Pointer(&retC),
@@ -4202,7 +4202,7 @@ func (t Type) ObjCProtocolDecl(i uint32) Cursor {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getObjCProtocolDecl,
 		ptr_clang_Type_getObjCProtocolDecl,
 		unsafe.Pointer(&retC),
@@ -4234,7 +4234,7 @@ func (t Type) ObjCTypeArg(i uint32) Type {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getObjCTypeArg,
 		ptr_clang_Type_getObjCTypeArg,
 		unsafe.Pointer(&retC),
@@ -4267,7 +4267,7 @@ func (t Type) OffsetOf(s string) int64 {
 		unsafe.Pointer(&c_s),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getOffsetOf,
 		ptr_clang_Type_getOffsetOf,
 		unsafe.Pointer(&retC),
@@ -4297,7 +4297,7 @@ func (t Type) SizeOf() int64 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getSizeOf,
 		ptr_clang_Type_getSizeOf,
 		unsafe.Pointer(&retC),
@@ -4329,7 +4329,7 @@ func (t Type) TemplateArgumentAsType(i uint32) Type {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getTemplateArgumentAsType,
 		ptr_clang_Type_getTemplateArgumentAsType,
 		unsafe.Pointer(&retC),
@@ -4359,7 +4359,7 @@ func (cT Type) ValueType() Type {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_getValueType,
 		ptr_clang_Type_getValueType,
 		unsafe.Pointer(&retC),
@@ -4389,7 +4389,7 @@ func (t Type) IsTransparentTagTypedef() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_isTransparentTagTypedef,
 		ptr_clang_Type_isTransparentTagTypedef,
 		unsafe.Pointer(&retC),
@@ -4423,7 +4423,7 @@ func (t Type) VisitFields(visitor FieldVisitor, client_data ClientData) uint32 {
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_Type_visitFields,
 		ptr_clang_Type_visitFields,
 		unsafe.Pointer(&retC),
@@ -4449,7 +4449,7 @@ func (comment Comment) VerbatimBlockLineCommentText() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VerbatimBlockLineComment_getText,
 		ptr_clang_VerbatimBlockLineComment_getText,
 		unsafe.Pointer(&retC),
@@ -4476,7 +4476,7 @@ func (comment Comment) VerbatimLineCommentText() string {
 		unsafe.Pointer(&c_comment),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VerbatimLineComment_getText,
 		ptr_clang_VerbatimLineComment_getText,
 		unsafe.Pointer(&retC),
@@ -4509,7 +4509,7 @@ func (p0 VirtualFileOverlay) AddFileMapping(virtualPath string, realPath string)
 		unsafe.Pointer(&c_realPath),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VirtualFileOverlay_addFileMapping,
 		ptr_clang_VirtualFileOverlay_addFileMapping,
 		unsafe.Pointer(&retC),
@@ -4535,7 +4535,7 @@ func VirtualFileOverlay_create(options uint32) VirtualFileOverlay {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VirtualFileOverlay_create,
 		ptr_clang_VirtualFileOverlay_create,
 		unsafe.Pointer(&retC),
@@ -4560,7 +4560,7 @@ func (p0 VirtualFileOverlay) Dispose() {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VirtualFileOverlay_dispose,
 		ptr_clang_VirtualFileOverlay_dispose,
 		nil,
@@ -4585,7 +4585,7 @@ func (p0 VirtualFileOverlay) SetCaseSensitivity(caseSensitive int32) ErrorCode {
 		unsafe.Pointer(&c_caseSensitive),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_VirtualFileOverlay_setCaseSensitivity,
 		ptr_clang_VirtualFileOverlay_setCaseSensitivity,
 		unsafe.Pointer(&retC),
@@ -4628,7 +4628,7 @@ func (tU TranslationUnit) AnnotateTokens(numTokens uint32) (Token, Cursor) {
 		unsafe.Pointer(&c_cursors),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_annotateTokens,
 		ptr_clang_annotateTokens,
 		nil,
@@ -4674,7 +4674,7 @@ func (tU TranslationUnit) CodeCompleteAt(complete_filename string, complete_line
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteAt,
 		ptr_clang_codeCompleteAt,
 		unsafe.Pointer(&retC),
@@ -4703,7 +4703,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerKind() (uint32, Curs
 		unsafe.Pointer(&c_isIncomplete),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetContainerKind,
 		ptr_clang_codeCompleteGetContainerKind,
 		unsafe.Pointer(&retC),
@@ -4729,7 +4729,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContainerUSR() string {
 		unsafe.Pointer(&c_results),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetContainerUSR,
 		ptr_clang_codeCompleteGetContainerUSR,
 		unsafe.Pointer(&retC),
@@ -4756,7 +4756,7 @@ func (results *CodeCompleteResults) CodeCompleteGetContexts() uint64 {
 		unsafe.Pointer(&c_results),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetContexts,
 		ptr_clang_codeCompleteGetContexts,
 		unsafe.Pointer(&retC),
@@ -4784,7 +4784,7 @@ func (results *CodeCompleteResults) CodeCompleteGetDiagnostic(index uint32) Diag
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetDiagnostic,
 		ptr_clang_codeCompleteGetDiagnostic,
 		unsafe.Pointer(&retC),
@@ -4810,7 +4810,7 @@ func (results *CodeCompleteResults) CodeCompleteGetNumDiagnostics() uint32 {
 		unsafe.Pointer(&c_results),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetNumDiagnostics,
 		ptr_clang_codeCompleteGetNumDiagnostics,
 		unsafe.Pointer(&retC),
@@ -4836,7 +4836,7 @@ func (results *CodeCompleteResults) CodeCompleteGetObjCSelector() string {
 		unsafe.Pointer(&c_results),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_codeCompleteGetObjCSelector,
 		ptr_clang_codeCompleteGetObjCSelector,
 		unsafe.Pointer(&retC),
@@ -4867,7 +4867,7 @@ func ConstructUSR_ObjCCategory(class_name string, category_name string) string {
 		unsafe.Pointer(&c_category_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCCategory,
 		ptr_clang_constructUSR_ObjCCategory,
 		unsafe.Pointer(&retC),
@@ -4895,7 +4895,7 @@ func ConstructUSR_ObjCClass(class_name string) string {
 		unsafe.Pointer(&c_class_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCClass,
 		ptr_clang_constructUSR_ObjCClass,
 		unsafe.Pointer(&retC),
@@ -4925,7 +4925,7 @@ func ConstructUSR_ObjCIvar(name string, classUSR string_) string {
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCIvar,
 		ptr_clang_constructUSR_ObjCIvar,
 		unsafe.Pointer(&retC),
@@ -4957,7 +4957,7 @@ func ConstructUSR_ObjCMethod(name string, isInstanceMethod uint32, classUSR stri
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCMethod,
 		ptr_clang_constructUSR_ObjCMethod,
 		unsafe.Pointer(&retC),
@@ -4987,7 +4987,7 @@ func ConstructUSR_ObjCProperty(property string, classUSR string_) string {
 		unsafe.Pointer(&c_classUSR),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCProperty,
 		ptr_clang_constructUSR_ObjCProperty,
 		unsafe.Pointer(&retC),
@@ -5015,7 +5015,7 @@ func ConstructUSR_ObjCProtocol(protocol_name string) string {
 		unsafe.Pointer(&c_protocol_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_constructUSR_ObjCProtocol,
 		ptr_clang_constructUSR_ObjCProtocol,
 		unsafe.Pointer(&retC),
@@ -5045,7 +5045,7 @@ func (tu TranslationUnit) CreateAPISet() (APISet, ErrorCode) {
 		unsafe.Pointer(&c_out_api),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createAPISet,
 		ptr_clang_createAPISet,
 		unsafe.Pointer(&retC),
@@ -5067,7 +5067,7 @@ func CreateCXCursorSet() CursorSet {
 	var retC CursorSet
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createCXCursorSet,
 		ptr_clang_createCXCursorSet,
 		unsafe.Pointer(&retC),
@@ -5107,7 +5107,7 @@ func CreateIndex(excludeDeclarationsFromPCH int32, displayDiagnostics int32) Ind
 		unsafe.Pointer(&c_displayDiagnostics),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createIndex,
 		ptr_clang_createIndex,
 		unsafe.Pointer(&retC),
@@ -5141,7 +5141,7 @@ func (options *IndexOptions) CreateIndexWithOptions() Index {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createIndexWithOptions,
 		ptr_clang_createIndexWithOptions,
 		unsafe.Pointer(&retC),
@@ -5170,7 +5170,7 @@ func (cIdx Index) CreateTranslationUnit(ast_filename string) TranslationUnit {
 		unsafe.Pointer(&c_ast_filename),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createTranslationUnit,
 		ptr_clang_createTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -5202,7 +5202,7 @@ func (cIdx Index) CreateTranslationUnit2(ast_filename string) (TranslationUnit, 
 		unsafe.Pointer(&c_out_TU),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createTranslationUnit2,
 		ptr_clang_createTranslationUnit2,
 		unsafe.Pointer(&retC),
@@ -5251,7 +5251,7 @@ func (cIdx Index) CreateTranslationUnitFromSourceFile(source_filename string, cl
 		unsafe.Pointer(&c_unsaved_files),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_createTranslationUnitFromSourceFile,
 		ptr_clang_createTranslationUnitFromSourceFile,
 		unsafe.Pointer(&retC),
@@ -5273,7 +5273,7 @@ func DefaultCodeCompleteOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_defaultCodeCompleteOptions,
 		ptr_clang_defaultCodeCompleteOptions,
 		unsafe.Pointer(&retC),
@@ -5295,7 +5295,7 @@ func DefaultDiagnosticDisplayOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_defaultDiagnosticDisplayOptions,
 		ptr_clang_defaultDiagnosticDisplayOptions,
 		unsafe.Pointer(&retC),
@@ -5321,7 +5321,7 @@ func DefaultEditingTranslationUnitOptions() uint32 {
 	var retC uint32
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_defaultEditingTranslationUnitOptions,
 		ptr_clang_defaultEditingTranslationUnitOptions,
 		unsafe.Pointer(&retC),
@@ -5351,7 +5351,7 @@ func (tU TranslationUnit) DefaultReparseOptions() uint32 {
 		unsafe.Pointer(&c_tU.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_defaultReparseOptions,
 		ptr_clang_defaultReparseOptions,
 		unsafe.Pointer(&retC),
@@ -5381,7 +5381,7 @@ func (tU TranslationUnit) DefaultSaveOptions() uint32 {
 		unsafe.Pointer(&c_tU.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_defaultSaveOptions,
 		ptr_clang_defaultSaveOptions,
 		unsafe.Pointer(&retC),
@@ -5410,7 +5410,7 @@ func (api APISet) DisposeAPISet() {
 		unsafe.Pointer(&c_api.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeAPISet,
 		ptr_clang_disposeAPISet,
 		nil,
@@ -5432,7 +5432,7 @@ func (cset CursorSet) DisposeCXCursorSet() {
 		unsafe.Pointer(&c_cset.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeCXCursorSet,
 		ptr_clang_disposeCXCursorSet,
 		nil,
@@ -5454,7 +5454,7 @@ func (availability *PlatformAvailability) DisposeCXPlatformAvailability() {
 		unsafe.Pointer(&c_availability),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeCXPlatformAvailability,
 		ptr_clang_disposeCXPlatformAvailability,
 		nil,
@@ -5476,7 +5476,7 @@ func (usage TUResourceUsage) DisposeCXTUResourceUsage() {
 		unsafe.Pointer(&c_usage),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeCXTUResourceUsage,
 		ptr_clang_disposeCXTUResourceUsage,
 		nil,
@@ -5498,7 +5498,7 @@ func (results *CodeCompleteResults) DisposeCodeCompleteResults() {
 		unsafe.Pointer(&c_results),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeCodeCompleteResults,
 		ptr_clang_disposeCodeCompleteResults,
 		nil,
@@ -5520,7 +5520,7 @@ func (diagnostic Diagnostic) DisposeDiagnostic() {
 		unsafe.Pointer(&c_diagnostic.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeDiagnostic,
 		ptr_clang_disposeDiagnostic,
 		nil,
@@ -5542,7 +5542,7 @@ func (diags DiagnosticSet) DisposeDiagnosticSet() {
 		unsafe.Pointer(&c_diags.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeDiagnosticSet,
 		ptr_clang_disposeDiagnosticSet,
 		nil,
@@ -5568,7 +5568,7 @@ func (index Index) DisposeIndex() {
 		unsafe.Pointer(&c_index.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeIndex,
 		ptr_clang_disposeIndex,
 		nil,
@@ -5590,7 +5590,7 @@ func (overridden *Cursor) DisposeOverriddenCursors() {
 		unsafe.Pointer(&c_overridden),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeOverriddenCursors,
 		ptr_clang_disposeOverriddenCursors,
 		nil,
@@ -5612,7 +5612,7 @@ func (ranges *SourceRangeList) DisposeSourceRangeList() {
 		unsafe.Pointer(&c_ranges),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeSourceRangeList,
 		ptr_clang_disposeSourceRangeList,
 		nil,
@@ -5634,7 +5634,7 @@ func (string_ string_) DisposeString() {
 		unsafe.Pointer(&c_string_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeString,
 		ptr_clang_disposeString,
 		nil,
@@ -5656,7 +5656,7 @@ func (set *StringSet) DisposeStringSet() {
 		unsafe.Pointer(&c_set),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeStringSet,
 		ptr_clang_disposeStringSet,
 		nil,
@@ -5683,7 +5683,7 @@ func (tU TranslationUnit) DisposeTokens(numTokens uint32) Token {
 		unsafe.Pointer(&c_numTokens),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeTokens,
 		ptr_clang_disposeTokens,
 		nil,
@@ -5706,7 +5706,7 @@ func (p0 TranslationUnit) DisposeTranslationUnit() {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_disposeTranslationUnit,
 		ptr_clang_disposeTranslationUnit,
 		nil,
@@ -5724,7 +5724,7 @@ Wraps the C function clang_enableStackTraces.
 func EnableStackTraces() {
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_enableStackTraces,
 		ptr_clang_enableStackTraces,
 		nil,
@@ -5749,7 +5749,7 @@ func (p0 Cursor) EqualCursors(p1 Cursor) uint32 {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_equalCursors,
 		ptr_clang_equalCursors,
 		unsafe.Pointer(&retC),
@@ -5777,7 +5777,7 @@ func (loc1 SourceLocation) EqualLocations(loc2 SourceLocation) uint32 {
 		unsafe.Pointer(&c_loc2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_equalLocations,
 		ptr_clang_equalLocations,
 		unsafe.Pointer(&retC),
@@ -5805,7 +5805,7 @@ func (range1 SourceRange) EqualRanges(range2 SourceRange) uint32 {
 		unsafe.Pointer(&c_range2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_equalRanges,
 		ptr_clang_equalRanges,
 		unsafe.Pointer(&retC),
@@ -5833,7 +5833,7 @@ func (a Type) EqualTypes(b Type) uint32 {
 		unsafe.Pointer(&c_b),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_equalTypes,
 		ptr_clang_equalTypes,
 		unsafe.Pointer(&retC),
@@ -5865,7 +5865,7 @@ func (tU TranslationUnit) FindIncludesInFile(file File, visitor CursorAndRangeVi
 		unsafe.Pointer(&c_visitor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_findIncludesInFile,
 		ptr_clang_findIncludesInFile,
 		unsafe.Pointer(&retC),
@@ -5895,7 +5895,7 @@ func (p0 TranslationUnit) FindIncludesInFileWithBlock(p1 File, p2 CursorAndRange
 		unsafe.Pointer(&c_p2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_findIncludesInFileWithBlock,
 		ptr_clang_findIncludesInFileWithBlock,
 		unsafe.Pointer(&retC),
@@ -5925,7 +5925,7 @@ func (cursor Cursor) FindReferencesInFile(file File, visitor CursorAndRangeVisit
 		unsafe.Pointer(&c_visitor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_findReferencesInFile,
 		ptr_clang_findReferencesInFile,
 		unsafe.Pointer(&retC),
@@ -5955,7 +5955,7 @@ func (p0 Cursor) FindReferencesInFileWithBlock(p1 File, p2 CursorAndRangeVisitor
 		unsafe.Pointer(&c_p2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_findReferencesInFileWithBlock,
 		ptr_clang_findReferencesInFileWithBlock,
 		unsafe.Pointer(&retC),
@@ -5987,7 +5987,7 @@ func (diagnostic Diagnostic) FormatDiagnostic(options uint32) string {
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_formatDiagnostic,
 		ptr_clang_formatDiagnostic,
 		unsafe.Pointer(&retC),
@@ -6013,7 +6013,7 @@ func Free(buffer unsafe.Pointer) {
 		unsafe.Pointer(&c_buffer),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_free,
 		ptr_clang_free,
 		nil,
@@ -6036,7 +6036,7 @@ func (t Type) AddressSpace() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getAddressSpace,
 		ptr_clang_getAddressSpace,
 		unsafe.Pointer(&retC),
@@ -6066,7 +6066,7 @@ func (tu TranslationUnit) AllSkippedRanges() *SourceRangeList {
 		unsafe.Pointer(&c_tu.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getAllSkippedRanges,
 		ptr_clang_getAllSkippedRanges,
 		unsafe.Pointer(&retC),
@@ -6098,7 +6098,7 @@ func (t Type) ArgType(i uint32) Type {
 		unsafe.Pointer(&c_i),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getArgType,
 		ptr_clang_getArgType,
 		unsafe.Pointer(&retC),
@@ -6128,7 +6128,7 @@ func (t Type) ArrayElementType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getArrayElementType,
 		ptr_clang_getArrayElementType,
 		unsafe.Pointer(&retC),
@@ -6158,7 +6158,7 @@ func (t Type) ArraySize() int64 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getArraySize,
 		ptr_clang_getArraySize,
 		unsafe.Pointer(&retC),
@@ -6184,7 +6184,7 @@ func (kind BinaryOperatorKind) Spelling() string {
 		unsafe.Pointer(&c_kind),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getBinaryOperatorKindSpelling,
 		ptr_clang_getBinaryOperatorKindSpelling,
 		unsafe.Pointer(&retC),
@@ -6207,7 +6207,7 @@ func GetBuildSessionTimestamp() uint64 {
 	var retC uint64
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getBuildSessionTimestamp,
 		ptr_clang_getBuildSessionTimestamp,
 		unsafe.Pointer(&retC),
@@ -6237,7 +6237,7 @@ func (string_ string_) CString() string {
 		unsafe.Pointer(&c_string_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCString,
 		ptr_clang_getCString,
 		unsafe.Pointer(&retC),
@@ -6263,7 +6263,7 @@ func (tU TranslationUnit) TUResourceUsage() TUResourceUsage {
 		unsafe.Pointer(&c_tU.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCXTUResourceUsage,
 		ptr_clang_getCXTUResourceUsage,
 		unsafe.Pointer(&retC),
@@ -6293,7 +6293,7 @@ func (p0 Cursor) XAccessSpecifier() CXXAccessSpecifier {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCXXAccessSpecifier,
 		ptr_clang_getCXXAccessSpecifier,
 		unsafe.Pointer(&retC),
@@ -6327,7 +6327,7 @@ func (p0 Cursor) CanonicalCursor() Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCanonicalCursor,
 		ptr_clang_getCanonicalCursor,
 		unsafe.Pointer(&retC),
@@ -6357,7 +6357,7 @@ func (t Type) CanonicalType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCanonicalType,
 		ptr_clang_getCanonicalType,
 		unsafe.Pointer(&retC),
@@ -6387,7 +6387,7 @@ func (d Diagnostic) ChildDiagnostics() DiagnosticSet {
 		unsafe.Pointer(&c_d.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getChildDiagnostics,
 		ptr_clang_getChildDiagnostics,
 		unsafe.Pointer(&retC),
@@ -6409,7 +6409,7 @@ func GetClangVersion() string {
 	var retC string_
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getClangVersion,
 		ptr_clang_getClangVersion,
 		unsafe.Pointer(&retC),
@@ -6438,7 +6438,7 @@ func (completion_string CompletionString) CompletionAnnotation(annotation_number
 		unsafe.Pointer(&c_annotation_number),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionAnnotation,
 		ptr_clang_getCompletionAnnotation,
 		unsafe.Pointer(&retC),
@@ -6465,7 +6465,7 @@ func (completion_string CompletionString) CompletionAvailability() AvailabilityK
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionAvailability,
 		ptr_clang_getCompletionAvailability,
 		unsafe.Pointer(&retC),
@@ -6491,7 +6491,7 @@ func (completion_string CompletionString) CompletionBriefComment() string {
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionBriefComment,
 		ptr_clang_getCompletionBriefComment,
 		unsafe.Pointer(&retC),
@@ -6520,7 +6520,7 @@ func (completion_string CompletionString) CompletionChunkCompletionString(chunk_
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionChunkCompletionString,
 		ptr_clang_getCompletionChunkCompletionString,
 		unsafe.Pointer(&retC),
@@ -6548,7 +6548,7 @@ func (completion_string CompletionString) CompletionChunkKind(chunk_number uint3
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionChunkKind,
 		ptr_clang_getCompletionChunkKind,
 		unsafe.Pointer(&retC),
@@ -6576,7 +6576,7 @@ func (completion_string CompletionString) CompletionChunkText(chunk_number uint3
 		unsafe.Pointer(&c_chunk_number),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionChunkText,
 		ptr_clang_getCompletionChunkText,
 		unsafe.Pointer(&retC),
@@ -6620,7 +6620,7 @@ func (results *CodeCompleteResults) CompletionFixIt(completion_index uint32, fix
 		unsafe.Pointer(&c_replacement_range),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionFixIt,
 		ptr_clang_getCompletionFixIt,
 		unsafe.Pointer(&retC),
@@ -6647,7 +6647,7 @@ func (completion_string CompletionString) CompletionNumAnnotations() uint32 {
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionNumAnnotations,
 		ptr_clang_getCompletionNumAnnotations,
 		unsafe.Pointer(&retC),
@@ -6679,7 +6679,7 @@ func (results *CodeCompleteResults) CompletionNumFixIts(completion_index uint32)
 		unsafe.Pointer(&c_completion_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionNumFixIts,
 		ptr_clang_getCompletionNumFixIts,
 		unsafe.Pointer(&retC),
@@ -6712,7 +6712,7 @@ func (completion_string CompletionString) CompletionParent() (CursorKind, string
 		unsafe.Pointer(&c_kind),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionParent,
 		ptr_clang_getCompletionParent,
 		unsafe.Pointer(&retC),
@@ -6743,7 +6743,7 @@ func (completion_string CompletionString) CompletionPriority() uint32 {
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCompletionPriority,
 		ptr_clang_getCompletionPriority,
 		unsafe.Pointer(&retC),
@@ -6775,7 +6775,7 @@ func (p0 TranslationUnit) Cursor(p1 SourceLocation) Cursor {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursor,
 		ptr_clang_getCursor,
 		unsafe.Pointer(&retC),
@@ -6801,7 +6801,7 @@ func (cursor Cursor) Availability() AvailabilityKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorAvailability,
 		ptr_clang_getCursorAvailability,
 		unsafe.Pointer(&retC),
@@ -6831,7 +6831,7 @@ func (cursor Cursor) BinaryOperatorKind() BinaryOperatorKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorBinaryOperatorKind,
 		ptr_clang_getCursorBinaryOperatorKind,
 		unsafe.Pointer(&retC),
@@ -6857,7 +6857,7 @@ func (cursor Cursor) CompletionString() CompletionString {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorCompletionString,
 		ptr_clang_getCursorCompletionString,
 		unsafe.Pointer(&retC),
@@ -6893,7 +6893,7 @@ func (p0 Cursor) Definition() Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorDefinition,
 		ptr_clang_getCursorDefinition,
 		unsafe.Pointer(&retC),
@@ -6923,7 +6923,7 @@ func (p0 Cursor) DisplayName() string {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorDisplayName,
 		ptr_clang_getCursorDisplayName,
 		unsafe.Pointer(&retC),
@@ -6954,7 +6954,7 @@ func (c Cursor) ExceptionSpecificationType() int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorExceptionSpecificationType,
 		ptr_clang_getCursorExceptionSpecificationType,
 		unsafe.Pointer(&retC),
@@ -6984,7 +6984,7 @@ func (p0 Cursor) Extent() SourceRange {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorExtent,
 		ptr_clang_getCursorExtent,
 		unsafe.Pointer(&retC),
@@ -7010,7 +7010,7 @@ func (p0 Cursor) CursorKind() CursorKind {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorKind,
 		ptr_clang_getCursorKind,
 		unsafe.Pointer(&retC),
@@ -7040,7 +7040,7 @@ func (kind CursorKind) Spelling() string {
 		unsafe.Pointer(&c_kind),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorKindSpelling,
 		ptr_clang_getCursorKindSpelling,
 		unsafe.Pointer(&retC),
@@ -7067,7 +7067,7 @@ func (cursor Cursor) Language() LanguageKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorLanguage,
 		ptr_clang_getCursorLanguage,
 		unsafe.Pointer(&retC),
@@ -7105,7 +7105,7 @@ func (cursor Cursor) LexicalParent() Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorLexicalParent,
 		ptr_clang_getCursorLexicalParent,
 		unsafe.Pointer(&retC),
@@ -7131,7 +7131,7 @@ func (cursor Cursor) Linkage() LinkageKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorLinkage,
 		ptr_clang_getCursorLinkage,
 		unsafe.Pointer(&retC),
@@ -7161,7 +7161,7 @@ func (p0 Cursor) Location() SourceLocation {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorLocation,
 		ptr_clang_getCursorLocation,
 		unsafe.Pointer(&retC),
@@ -7224,7 +7224,7 @@ func (cursor Cursor) PlatformAvailability(availability_size int32) (int32, strin
 		unsafe.Pointer(&c_availability_size),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorPlatformAvailability,
 		ptr_clang_getCursorPlatformAvailability,
 		unsafe.Pointer(&retC),
@@ -7252,7 +7252,7 @@ func (cursor Cursor) PrettyPrinted(policy PrintingPolicy) string {
 		unsafe.Pointer(&c_policy),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorPrettyPrinted,
 		ptr_clang_getCursorPrettyPrinted,
 		unsafe.Pointer(&retC),
@@ -7283,7 +7283,7 @@ func (p0 Cursor) PrintingPolicy() PrintingPolicy {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorPrintingPolicy,
 		ptr_clang_getCursorPrintingPolicy,
 		unsafe.Pointer(&retC),
@@ -7313,7 +7313,7 @@ func (c Cursor) ReferenceNameRange(nameFlags uint32, pieceIndex uint32) SourceRa
 		unsafe.Pointer(&c_pieceIndex),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorReferenceNameRange,
 		ptr_clang_getCursorReferenceNameRange,
 		unsafe.Pointer(&retC),
@@ -7343,7 +7343,7 @@ func (p0 Cursor) Referenced() Cursor {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorReferenced,
 		ptr_clang_getCursorReferenced,
 		unsafe.Pointer(&retC),
@@ -7373,7 +7373,7 @@ func (c Cursor) ResultType() Type {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorResultType,
 		ptr_clang_getCursorResultType,
 		unsafe.Pointer(&retC),
@@ -7411,7 +7411,7 @@ func (cursor Cursor) SemanticParent() Cursor {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorSemanticParent,
 		ptr_clang_getCursorSemanticParent,
 		unsafe.Pointer(&retC),
@@ -7437,7 +7437,7 @@ func (p0 Cursor) Spelling() string {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorSpelling,
 		ptr_clang_getCursorSpelling,
 		unsafe.Pointer(&retC),
@@ -7464,7 +7464,7 @@ func (cursor Cursor) TLSKind() TLSKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorTLSKind,
 		ptr_clang_getCursorTLSKind,
 		unsafe.Pointer(&retC),
@@ -7490,7 +7490,7 @@ func (c Cursor) Type() Type {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorType,
 		ptr_clang_getCursorType,
 		unsafe.Pointer(&retC),
@@ -7520,7 +7520,7 @@ func (p0 Cursor) USR() string {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorUSR,
 		ptr_clang_getCursorUSR,
 		unsafe.Pointer(&retC),
@@ -7551,7 +7551,7 @@ func (cursor Cursor) UnaryOperatorKind() UnaryOperatorKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorUnaryOperatorKind,
 		ptr_clang_getCursorUnaryOperatorKind,
 		unsafe.Pointer(&retC),
@@ -7581,7 +7581,7 @@ func (cursor Cursor) Visibility() VisibilityKind {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getCursorVisibility,
 		ptr_clang_getCursorVisibility,
 		unsafe.Pointer(&retC),
@@ -7607,7 +7607,7 @@ func (c Cursor) DeclObjCTypeEncoding() string {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDeclObjCTypeEncoding,
 		ptr_clang_getDeclObjCTypeEncoding,
 		unsafe.Pointer(&retC),
@@ -7638,7 +7638,7 @@ func (unit TranslationUnit) Diagnostic(index uint32) Diagnostic {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnostic,
 		ptr_clang_getDiagnostic,
 		unsafe.Pointer(&retC),
@@ -7668,7 +7668,7 @@ func (p0 Diagnostic) Category() uint32 {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticCategory,
 		ptr_clang_getDiagnosticCategory,
 		unsafe.Pointer(&retC),
@@ -7694,7 +7694,7 @@ func GetDiagnosticCategoryName(category uint32) string {
 		unsafe.Pointer(&c_category),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticCategoryName,
 		ptr_clang_getDiagnosticCategoryName,
 		unsafe.Pointer(&retC),
@@ -7721,7 +7721,7 @@ func (p0 Diagnostic) CategoryText() string {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticCategoryText,
 		ptr_clang_getDiagnosticCategoryText,
 		unsafe.Pointer(&retC),
@@ -7757,7 +7757,7 @@ func (diagnostic Diagnostic) FixIt(fixIt uint32) (SourceRange, string) {
 		unsafe.Pointer(&c_replacementRange),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticFixIt,
 		ptr_clang_getDiagnosticFixIt,
 		unsafe.Pointer(&retC),
@@ -7786,7 +7786,7 @@ func (diags DiagnosticSet) DiagnosticInSet(index uint32) Diagnostic {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticInSet,
 		ptr_clang_getDiagnosticInSet,
 		unsafe.Pointer(&retC),
@@ -7816,7 +7816,7 @@ func (p0 Diagnostic) Location() SourceLocation {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticLocation,
 		ptr_clang_getDiagnosticLocation,
 		unsafe.Pointer(&retC),
@@ -7842,7 +7842,7 @@ func (diagnostic Diagnostic) NumFixIts() uint32 {
 		unsafe.Pointer(&c_diagnostic.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticNumFixIts,
 		ptr_clang_getDiagnosticNumFixIts,
 		unsafe.Pointer(&retC),
@@ -7868,7 +7868,7 @@ func (p0 Diagnostic) NumRanges() uint32 {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticNumRanges,
 		ptr_clang_getDiagnosticNumRanges,
 		unsafe.Pointer(&retC),
@@ -7897,7 +7897,7 @@ func (diag Diagnostic) Option() (string, string) {
 		unsafe.Pointer(&c_disable),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticOption,
 		ptr_clang_getDiagnosticOption,
 		unsafe.Pointer(&retC),
@@ -7930,7 +7930,7 @@ func (diagnostic Diagnostic) Range(range_ uint32) SourceRange {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticRange,
 		ptr_clang_getDiagnosticRange,
 		unsafe.Pointer(&retC),
@@ -7956,7 +7956,7 @@ func (unit TranslationUnit) DiagnosticSetFromTU() DiagnosticSet {
 		unsafe.Pointer(&c_unit.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticSetFromTU,
 		ptr_clang_getDiagnosticSetFromTU,
 		unsafe.Pointer(&retC),
@@ -7982,7 +7982,7 @@ func (p0 Diagnostic) Severity() DiagnosticSeverity {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticSeverity,
 		ptr_clang_getDiagnosticSeverity,
 		unsafe.Pointer(&retC),
@@ -8008,7 +8008,7 @@ func (p0 Diagnostic) Spelling() string {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getDiagnosticSpelling,
 		ptr_clang_getDiagnosticSpelling,
 		unsafe.Pointer(&retC),
@@ -8039,7 +8039,7 @@ func (t Type) ElementType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getElementType,
 		ptr_clang_getElementType,
 		unsafe.Pointer(&retC),
@@ -8069,7 +8069,7 @@ func (c Cursor) EnumConstantDeclUnsignedValue() uint64 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getEnumConstantDeclUnsignedValue,
 		ptr_clang_getEnumConstantDeclUnsignedValue,
 		unsafe.Pointer(&retC),
@@ -8099,7 +8099,7 @@ func (c Cursor) EnumConstantDeclValue() int64 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getEnumConstantDeclValue,
 		ptr_clang_getEnumConstantDeclValue,
 		unsafe.Pointer(&retC),
@@ -8129,7 +8129,7 @@ func (c Cursor) EnumDeclIntegerType() Type {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getEnumDeclIntegerType,
 		ptr_clang_getEnumDeclIntegerType,
 		unsafe.Pointer(&retC),
@@ -8159,7 +8159,7 @@ func (t Type) ExceptionSpecificationType() int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getExceptionSpecificationType,
 		ptr_clang_getExceptionSpecificationType,
 		unsafe.Pointer(&retC),
@@ -8200,7 +8200,7 @@ func (location SourceLocation) ExpansionLocation() (File, uint32, uint32, uint32
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getExpansionLocation,
 		ptr_clang_getExpansionLocation,
 		nil,
@@ -8230,7 +8230,7 @@ func (c Cursor) FieldDeclBitWidth() int32 {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFieldDeclBitWidth,
 		ptr_clang_getFieldDeclBitWidth,
 		unsafe.Pointer(&retC),
@@ -8259,7 +8259,7 @@ func (tu TranslationUnit) File(file_name string) File {
 		unsafe.Pointer(&c_file_name),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFile,
 		ptr_clang_getFile,
 		unsafe.Pointer(&retC),
@@ -8302,7 +8302,7 @@ func (location SourceLocation) FileLocation() (File, uint32, uint32, uint32) {
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFileLocation,
 		ptr_clang_getFileLocation,
 		nil,
@@ -8326,7 +8326,7 @@ func (sFile File) Name() string {
 		unsafe.Pointer(&c_sFile.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFileName,
 		ptr_clang_getFileName,
 		unsafe.Pointer(&retC),
@@ -8358,7 +8358,7 @@ func (file File) UniqueID() (FileUniqueID, int32) {
 		unsafe.Pointer(&c_outID),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFileUniqueID,
 		ptr_clang_getFileUniqueID,
 		unsafe.Pointer(&retC),
@@ -8394,7 +8394,7 @@ func (cT Type) FullyQualifiedName(policy PrintingPolicy, withGlobalNsPrefix uint
 		unsafe.Pointer(&c_withGlobalNsPrefix),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFullyQualifiedName,
 		ptr_clang_getFullyQualifiedName,
 		unsafe.Pointer(&retC),
@@ -8425,7 +8425,7 @@ func (t Type) FunctionTypeCallingConv() CallingConv {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getFunctionTypeCallingConv,
 		ptr_clang_getFunctionTypeCallingConv,
 		unsafe.Pointer(&retC),
@@ -8451,7 +8451,7 @@ func (p0 Cursor) IBOutletCollectionType() Type {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getIBOutletCollectionType,
 		ptr_clang_getIBOutletCollectionType,
 		unsafe.Pointer(&retC),
@@ -8477,7 +8477,7 @@ func (cursor Cursor) IncludedFile() File {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getIncludedFile,
 		ptr_clang_getIncludedFile,
 		unsafe.Pointer(&retC),
@@ -8506,7 +8506,7 @@ func (tu TranslationUnit) Inclusions(visitor InclusionVisitor, client_data Clien
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getInclusions,
 		ptr_clang_getInclusions,
 		nil,
@@ -8544,7 +8544,7 @@ func (location SourceLocation) InstantiationLocation() (File, uint32, uint32, ui
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getInstantiationLocation,
 		ptr_clang_getInstantiationLocation,
 		nil,
@@ -8574,7 +8574,7 @@ func (tu TranslationUnit) Location(file File, line uint32, column uint32) Source
 		unsafe.Pointer(&c_column),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getLocation,
 		ptr_clang_getLocation,
 		unsafe.Pointer(&retC),
@@ -8604,7 +8604,7 @@ func (tu TranslationUnit) LocationForOffset(file File, offset uint32) SourceLoca
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getLocationForOffset,
 		ptr_clang_getLocationForOffset,
 		unsafe.Pointer(&retC),
@@ -8632,7 +8632,7 @@ func (p0 TranslationUnit) ModuleForFile(p1 File) Module {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getModuleForFile,
 		ptr_clang_getModuleForFile,
 		unsafe.Pointer(&retC),
@@ -8664,7 +8664,7 @@ func (cT Type) NonReferenceType() Type {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNonReferenceType,
 		ptr_clang_getNonReferenceType,
 		unsafe.Pointer(&retC),
@@ -8686,7 +8686,7 @@ func GetNullCursor() Cursor {
 	var retC Cursor
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNullCursor,
 		ptr_clang_getNullCursor,
 		unsafe.Pointer(&retC),
@@ -8708,7 +8708,7 @@ func GetNullLocation() SourceLocation {
 	var retC SourceLocation
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNullLocation,
 		ptr_clang_getNullLocation,
 		unsafe.Pointer(&retC),
@@ -8730,7 +8730,7 @@ func GetNullRange() SourceRange {
 	var retC SourceRange
 	args := []unsafe.Pointer{}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNullRange,
 		ptr_clang_getNullRange,
 		unsafe.Pointer(&retC),
@@ -8760,7 +8760,7 @@ func (t Type) NumArgTypes() int32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumArgTypes,
 		ptr_clang_getNumArgTypes,
 		unsafe.Pointer(&retC),
@@ -8786,7 +8786,7 @@ func (completion_string CompletionString) NumCompletionChunks() uint32 {
 		unsafe.Pointer(&c_completion_string.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumCompletionChunks,
 		ptr_clang_getNumCompletionChunks,
 		unsafe.Pointer(&retC),
@@ -8812,7 +8812,7 @@ func (unit TranslationUnit) NumDiagnostics() uint32 {
 		unsafe.Pointer(&c_unit.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumDiagnostics,
 		ptr_clang_getNumDiagnostics,
 		unsafe.Pointer(&retC),
@@ -8838,7 +8838,7 @@ func (diags DiagnosticSet) NumDiagnosticsInSet() uint32 {
 		unsafe.Pointer(&c_diags.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumDiagnosticsInSet,
 		ptr_clang_getNumDiagnosticsInSet,
 		unsafe.Pointer(&retC),
@@ -8868,7 +8868,7 @@ func (t Type) NumElements() int64 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumElements,
 		ptr_clang_getNumElements,
 		unsafe.Pointer(&retC),
@@ -8894,7 +8894,7 @@ func (cursor Cursor) NumOverloadedDecls() uint32 {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getNumOverloadedDecls,
 		ptr_clang_getNumOverloadedDecls,
 		unsafe.Pointer(&retC),
@@ -8926,7 +8926,7 @@ func (parent Cursor) OffsetOfBase(base Cursor) int64 {
 		unsafe.Pointer(&c_base),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getOffsetOfBase,
 		ptr_clang_getOffsetOfBase,
 		unsafe.Pointer(&retC),
@@ -8954,7 +8954,7 @@ func (cursor Cursor) OverloadedDecl(index uint32) Cursor {
 		unsafe.Pointer(&c_index),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getOverloadedDecl,
 		ptr_clang_getOverloadedDecl,
 		unsafe.Pointer(&retC),
@@ -8982,7 +8982,7 @@ func (t Type) PointeeType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getPointeeType,
 		ptr_clang_getPointeeType,
 		unsafe.Pointer(&retC),
@@ -9030,7 +9030,7 @@ func (location SourceLocation) PresumedLocation() (string, uint32, uint32) {
 		unsafe.Pointer(&c_column),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getPresumedLocation,
 		ptr_clang_getPresumedLocation,
 		nil,
@@ -9056,7 +9056,7 @@ func (begin SourceLocation) Range(end SourceLocation) SourceRange {
 		unsafe.Pointer(&c_end),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getRange,
 		ptr_clang_getRange,
 		unsafe.Pointer(&retC),
@@ -9082,7 +9082,7 @@ func (range_ SourceRange) RangeEnd() SourceLocation {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getRangeEnd,
 		ptr_clang_getRangeEnd,
 		unsafe.Pointer(&retC),
@@ -9108,7 +9108,7 @@ func (range_ SourceRange) RangeStart() SourceLocation {
 		unsafe.Pointer(&c_range_),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getRangeStart,
 		ptr_clang_getRangeStart,
 		unsafe.Pointer(&retC),
@@ -9135,7 +9135,7 @@ func GetRemappings(p0 string) Remapping {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getRemappings,
 		ptr_clang_getRemappings,
 		unsafe.Pointer(&retC),
@@ -9167,7 +9167,7 @@ func (t Type) ResultType() Type {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getResultType,
 		ptr_clang_getResultType,
 		unsafe.Pointer(&retC),
@@ -9199,7 +9199,7 @@ func (tu TranslationUnit) SkippedRanges(file File) *SourceRangeList {
 		unsafe.Pointer(&c_file),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getSkippedRanges,
 		ptr_clang_getSkippedRanges,
 		unsafe.Pointer(&retC),
@@ -9231,7 +9231,7 @@ func (c Cursor) SpecializedCursorTemplate() Cursor {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getSpecializedCursorTemplate,
 		ptr_clang_getSpecializedCursorTemplate,
 		unsafe.Pointer(&retC),
@@ -9272,7 +9272,7 @@ func (location SourceLocation) SpellingLocation() (File, uint32, uint32, uint32)
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getSpellingLocation,
 		ptr_clang_getSpellingLocation,
 		nil,
@@ -9300,7 +9300,7 @@ func (cursor Cursor) SymbolGraphForCursor() string {
 		unsafe.Pointer(&c_cursor),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getSymbolGraphForCursor,
 		ptr_clang_getSymbolGraphForCursor,
 		unsafe.Pointer(&retC),
@@ -9334,7 +9334,7 @@ func GetSymbolGraphForUSR(usr string, api APISet) string {
 		unsafe.Pointer(&c_api),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getSymbolGraphForUSR,
 		ptr_clang_getSymbolGraphForUSR,
 		unsafe.Pointer(&retC),
@@ -9361,7 +9361,7 @@ func (kind TUResourceUsageKind) TUResourceUsageName() string {
 		unsafe.Pointer(&c_kind),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTUResourceUsageName,
 		ptr_clang_getTUResourceUsageName,
 		unsafe.Pointer(&retC),
@@ -9391,7 +9391,7 @@ func (c Cursor) TemplateCursorKind() CursorKind {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTemplateCursorKind,
 		ptr_clang_getTemplateCursorKind,
 		unsafe.Pointer(&retC),
@@ -9419,7 +9419,7 @@ func (tU TranslationUnit) Token(location SourceLocation) *Token {
 		unsafe.Pointer(&c_location),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getToken,
 		ptr_clang_getToken,
 		unsafe.Pointer(&retC),
@@ -9447,7 +9447,7 @@ func (p0 TranslationUnit) TokenExtent(p1 Token) SourceRange {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTokenExtent,
 		ptr_clang_getTokenExtent,
 		unsafe.Pointer(&retC),
@@ -9473,7 +9473,7 @@ func (p0 Token) Kind() TokenKind {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTokenKind,
 		ptr_clang_getTokenKind,
 		unsafe.Pointer(&retC),
@@ -9501,7 +9501,7 @@ func (p0 TranslationUnit) TokenLocation(p1 Token) SourceLocation {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTokenLocation,
 		ptr_clang_getTokenLocation,
 		unsafe.Pointer(&retC),
@@ -9533,7 +9533,7 @@ func (p0 TranslationUnit) TokenSpelling(p1 Token) string {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTokenSpelling,
 		ptr_clang_getTokenSpelling,
 		unsafe.Pointer(&retC),
@@ -9564,7 +9564,7 @@ func (p0 TranslationUnit) TranslationUnitCursor() Cursor {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTranslationUnitCursor,
 		ptr_clang_getTranslationUnitCursor,
 		unsafe.Pointer(&retC),
@@ -9590,7 +9590,7 @@ func (cTUnit TranslationUnit) Spelling() string {
 		unsafe.Pointer(&c_cTUnit.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTranslationUnitSpelling,
 		ptr_clang_getTranslationUnitSpelling,
 		unsafe.Pointer(&retC),
@@ -9621,7 +9621,7 @@ func (cTUnit TranslationUnit) TargetInfo() TargetInfo {
 		unsafe.Pointer(&c_cTUnit.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTranslationUnitTargetInfo,
 		ptr_clang_getTranslationUnitTargetInfo,
 		unsafe.Pointer(&retC),
@@ -9647,7 +9647,7 @@ func (t Type) Declaration() Cursor {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypeDeclaration,
 		ptr_clang_getTypeDeclaration,
 		unsafe.Pointer(&retC),
@@ -9673,7 +9673,7 @@ func (k TypeKind) Spelling() string {
 		unsafe.Pointer(&c_k),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypeKindSpelling,
 		ptr_clang_getTypeKindSpelling,
 		unsafe.Pointer(&retC),
@@ -9706,7 +9706,7 @@ func (cT Type) PrettyPrinted(cxPolicy PrintingPolicy) string {
 		unsafe.Pointer(&c_cxPolicy),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypePrettyPrinted,
 		ptr_clang_getTypePrettyPrinted,
 		unsafe.Pointer(&retC),
@@ -9737,7 +9737,7 @@ func (cT Type) Spelling() string {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypeSpelling,
 		ptr_clang_getTypeSpelling,
 		unsafe.Pointer(&retC),
@@ -9768,7 +9768,7 @@ func (c Cursor) TypedefDeclUnderlyingType() Type {
 		unsafe.Pointer(&c_c),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypedefDeclUnderlyingType,
 		ptr_clang_getTypedefDeclUnderlyingType,
 		unsafe.Pointer(&retC),
@@ -9794,7 +9794,7 @@ func (cT Type) DefName() string {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getTypedefName,
 		ptr_clang_getTypedefName,
 		unsafe.Pointer(&retC),
@@ -9821,7 +9821,7 @@ func (kind UnaryOperatorKind) Spelling() string {
 		unsafe.Pointer(&c_kind),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getUnaryOperatorKindSpelling,
 		ptr_clang_getUnaryOperatorKindSpelling,
 		unsafe.Pointer(&retC),
@@ -9868,7 +9868,7 @@ func (cT Type) UnqualifiedType() Type {
 		unsafe.Pointer(&c_cT),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_getUnqualifiedType,
 		ptr_clang_getUnqualifiedType,
 		unsafe.Pointer(&retC),
@@ -9894,7 +9894,7 @@ func (p0 Cursor) HashCursor() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_hashCursor,
 		ptr_clang_hashCursor,
 		unsafe.Pointer(&retC),
@@ -9920,7 +9920,7 @@ func (loc IdxLoc) IndexLocCXSourceLocation() SourceLocation {
 		unsafe.Pointer(&c_loc),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_indexLoc_getCXSourceLocation,
 		ptr_clang_indexLoc_getCXSourceLocation,
 		unsafe.Pointer(&retC),
@@ -9964,7 +9964,7 @@ func (loc IdxLoc) IndexLocFileLocation() (IdxClientFile, File, uint32, uint32, u
 		unsafe.Pointer(&c_offset),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_indexLoc_getFileLocation,
 		ptr_clang_indexLoc_getFileLocation,
 		nil,
@@ -10033,7 +10033,7 @@ func (p0 IndexAction) IndexSourceFile(client_data ClientData, index_callbacks_si
 		unsafe.Pointer(&c_tU_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_indexSourceFile,
 		ptr_clang_indexSourceFile,
 		unsafe.Pointer(&retC),
@@ -10088,7 +10088,7 @@ func (p0 IndexAction) IndexSourceFileFullArgv(client_data ClientData, index_call
 		unsafe.Pointer(&c_tU_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_indexSourceFileFullArgv,
 		ptr_clang_indexSourceFileFullArgv,
 		unsafe.Pointer(&retC),
@@ -10133,7 +10133,7 @@ func (p0 IndexAction) IndexTranslationUnit(client_data ClientData, index_callbac
 		unsafe.Pointer(&c_p5),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_indexTranslationUnit,
 		ptr_clang_indexTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -10159,7 +10159,7 @@ func (p0 *IdxDeclInfo) IndexCXXClassDeclInfo() *IdxCXXClassDeclInfo {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getCXXClassDeclInfo,
 		ptr_clang_index_getCXXClassDeclInfo,
 		unsafe.Pointer(&retC),
@@ -10185,7 +10185,7 @@ func (p0 *IdxContainerInfo) IndexClientContainer() IdxClientContainer {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getClientContainer,
 		ptr_clang_index_getClientContainer,
 		unsafe.Pointer(&retC),
@@ -10211,7 +10211,7 @@ func (p0 *IdxEntityInfo) IndexClientEntity() IdxClientEntity {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getClientEntity,
 		ptr_clang_index_getClientEntity,
 		unsafe.Pointer(&retC),
@@ -10237,7 +10237,7 @@ func (p0 *IdxAttrInfo) IndexIBOutletCollectionAttrInfo() *IdxIBOutletCollectionA
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getIBOutletCollectionAttrInfo,
 		ptr_clang_index_getIBOutletCollectionAttrInfo,
 		unsafe.Pointer(&retC),
@@ -10263,7 +10263,7 @@ func (p0 *IdxDeclInfo) IndexObjCCategoryDeclInfo() *IdxObjCCategoryDeclInfo {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getObjCCategoryDeclInfo,
 		ptr_clang_index_getObjCCategoryDeclInfo,
 		unsafe.Pointer(&retC),
@@ -10289,7 +10289,7 @@ func (p0 *IdxDeclInfo) IndexObjCContainerDeclInfo() *IdxObjCContainerDeclInfo {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getObjCContainerDeclInfo,
 		ptr_clang_index_getObjCContainerDeclInfo,
 		unsafe.Pointer(&retC),
@@ -10315,7 +10315,7 @@ func (p0 *IdxDeclInfo) IndexObjCInterfaceDeclInfo() *IdxObjCInterfaceDeclInfo {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getObjCInterfaceDeclInfo,
 		ptr_clang_index_getObjCInterfaceDeclInfo,
 		unsafe.Pointer(&retC),
@@ -10341,7 +10341,7 @@ func (p0 *IdxDeclInfo) IndexObjCPropertyDeclInfo() *IdxObjCPropertyDeclInfo {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getObjCPropertyDeclInfo,
 		ptr_clang_index_getObjCPropertyDeclInfo,
 		unsafe.Pointer(&retC),
@@ -10367,7 +10367,7 @@ func (p0 *IdxDeclInfo) IndexObjCProtocolRefListInfo() *IdxObjCProtocolRefListInf
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_getObjCProtocolRefListInfo,
 		ptr_clang_index_getObjCProtocolRefListInfo,
 		unsafe.Pointer(&retC),
@@ -10393,7 +10393,7 @@ func (p0 IdxEntityKind) Index_isEntityObjCContainerKind() int32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_isEntityObjCContainerKind,
 		ptr_clang_index_isEntityObjCContainerKind,
 		unsafe.Pointer(&retC),
@@ -10420,7 +10420,7 @@ func (p0 *IdxContainerInfo) Index_setClientContainer(p1 IdxClientContainer) {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_setClientContainer,
 		ptr_clang_index_setClientContainer,
 		nil,
@@ -10444,7 +10444,7 @@ func (p0 *IdxEntityInfo) Index_setClientEntity(p1 IdxClientEntity) {
 		unsafe.Pointer(&c_p1),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_index_setClientEntity,
 		ptr_clang_index_setClientEntity,
 		nil,
@@ -10467,7 +10467,7 @@ func (p0 CursorKind) IsAttribute() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isAttribute,
 		ptr_clang_isAttribute,
 		unsafe.Pointer(&retC),
@@ -10495,7 +10495,7 @@ func (loc1 SourceLocation) IsBeforeInTranslationUnit(loc2 SourceLocation) uint32
 		unsafe.Pointer(&c_loc2),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isBeforeInTranslationUnit,
 		ptr_clang_isBeforeInTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -10521,7 +10521,7 @@ func (t Type) IsConstQualifiedType() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isConstQualifiedType,
 		ptr_clang_isConstQualifiedType,
 		unsafe.Pointer(&retC),
@@ -10547,7 +10547,7 @@ func (p0 Cursor) IsCursorDefinition() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isCursorDefinition,
 		ptr_clang_isCursorDefinition,
 		unsafe.Pointer(&retC),
@@ -10573,7 +10573,7 @@ func (p0 CursorKind) IsDeclaration() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isDeclaration,
 		ptr_clang_isDeclaration,
 		unsafe.Pointer(&retC),
@@ -10599,7 +10599,7 @@ func (p0 CursorKind) IsExpression() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isExpression,
 		ptr_clang_isExpression,
 		unsafe.Pointer(&retC),
@@ -10627,7 +10627,7 @@ func (tu TranslationUnit) IsFileMultipleIncludeGuarded(file File) uint32 {
 		unsafe.Pointer(&c_file),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isFileMultipleIncludeGuarded,
 		ptr_clang_isFileMultipleIncludeGuarded,
 		unsafe.Pointer(&retC),
@@ -10653,7 +10653,7 @@ func (t Type) IsFunctionTypeVariadic() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isFunctionTypeVariadic,
 		ptr_clang_isFunctionTypeVariadic,
 		unsafe.Pointer(&retC),
@@ -10679,7 +10679,7 @@ func (p0 CursorKind) IsInvalid() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isInvalid,
 		ptr_clang_isInvalid,
 		unsafe.Pointer(&retC),
@@ -10709,7 +10709,7 @@ func (p0 Cursor) IsInvalidDeclaration() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isInvalidDeclaration,
 		ptr_clang_isInvalidDeclaration,
 		unsafe.Pointer(&retC),
@@ -10735,7 +10735,7 @@ func (t Type) IsPODType() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isPODType,
 		ptr_clang_isPODType,
 		unsafe.Pointer(&retC),
@@ -10761,7 +10761,7 @@ func (p0 CursorKind) IsPreprocessing() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isPreprocessing,
 		ptr_clang_isPreprocessing,
 		unsafe.Pointer(&retC),
@@ -10791,7 +10791,7 @@ func (p0 CursorKind) IsReference() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isReference,
 		ptr_clang_isReference,
 		unsafe.Pointer(&retC),
@@ -10817,7 +10817,7 @@ func (t Type) IsRestrictQualifiedType() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isRestrictQualifiedType,
 		ptr_clang_isRestrictQualifiedType,
 		unsafe.Pointer(&retC),
@@ -10843,7 +10843,7 @@ func (p0 CursorKind) IsStatement() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isStatement,
 		ptr_clang_isStatement,
 		unsafe.Pointer(&retC),
@@ -10869,7 +10869,7 @@ func (p0 CursorKind) IsTranslationUnit() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isTranslationUnit,
 		ptr_clang_isTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -10895,7 +10895,7 @@ func (p0 CursorKind) IsUnexposed() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isUnexposed,
 		ptr_clang_isUnexposed,
 		unsafe.Pointer(&retC),
@@ -10921,7 +10921,7 @@ func (p0 Cursor) IsVirtualBase() uint32 {
 		unsafe.Pointer(&c_p0),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isVirtualBase,
 		ptr_clang_isVirtualBase,
 		unsafe.Pointer(&retC),
@@ -10947,7 +10947,7 @@ func (t Type) IsVolatileQualifiedType() uint32 {
 		unsafe.Pointer(&c_t),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_isVolatileQualifiedType,
 		ptr_clang_isVolatileQualifiedType,
 		unsafe.Pointer(&retC),
@@ -10980,7 +10980,7 @@ func LoadDiagnostics(file string) (LoadDiag_Error, string, DiagnosticSet) {
 		unsafe.Pointer(&c_errorString),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_loadDiagnostics,
 		ptr_clang_loadDiagnostics,
 		unsafe.Pointer(&retC),
@@ -11023,7 +11023,7 @@ func (cIdx Index) ParseTranslationUnit(source_filename string, command_line_args
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_parseTranslationUnit,
 		ptr_clang_parseTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -11073,7 +11073,7 @@ func (cIdx Index) ParseTranslationUnit2(source_filename string, command_line_arg
 		unsafe.Pointer(&c_out_TU),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_parseTranslationUnit2,
 		ptr_clang_parseTranslationUnit2,
 		unsafe.Pointer(&retC),
@@ -11119,7 +11119,7 @@ func (cIdx Index) ParseTranslationUnit2FullArgv(source_filename string, command_
 		unsafe.Pointer(&c_out_TU),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_parseTranslationUnit2FullArgv,
 		ptr_clang_parseTranslationUnit2FullArgv,
 		unsafe.Pointer(&retC),
@@ -11144,7 +11144,7 @@ func (p0 Remapping) Remap_dispose() {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_remap_dispose,
 		ptr_clang_remap_dispose,
 		nil,
@@ -11174,7 +11174,7 @@ func (p0 Remapping) RemapFilenames(p1 uint32) (string, string) {
 		unsafe.Pointer(&c_p3),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_remap_getFilenames,
 		ptr_clang_remap_getFilenames,
 		nil,
@@ -11198,7 +11198,7 @@ func (p0 Remapping) RemapNumFiles() uint32 {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_remap_getNumFiles,
 		ptr_clang_remap_getNumFiles,
 		unsafe.Pointer(&retC),
@@ -11239,7 +11239,7 @@ func (tU TranslationUnit) ReparseTranslationUnit(unsaved_files []UnsavedFile, op
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_reparseTranslationUnit,
 		ptr_clang_reparseTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -11274,7 +11274,7 @@ func (tU TranslationUnit) SaveTranslationUnit(fileName string, options uint32) i
 		unsafe.Pointer(&c_options),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_saveTranslationUnit,
 		ptr_clang_saveTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -11301,7 +11301,7 @@ func (results *CompletionResult) SortCodeCompletionResults(numResults uint32) {
 		unsafe.Pointer(&c_numResults),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_sortCodeCompletionResults,
 		ptr_clang_sortCodeCompletionResults,
 		nil,
@@ -11328,7 +11328,7 @@ func (p0 TranslationUnit) SuspendTranslationUnit() uint32 {
 		unsafe.Pointer(&c_p0.ptr),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_suspendTranslationUnit,
 		ptr_clang_suspendTranslationUnit,
 		unsafe.Pointer(&retC),
@@ -11353,7 +11353,7 @@ func ToggleCrashRecovery(isEnabled uint32) {
 		unsafe.Pointer(&c_isEnabled),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_toggleCrashRecovery,
 		ptr_clang_toggleCrashRecovery,
 		nil,
@@ -11384,7 +11384,7 @@ func (t Type) VisitCXXBaseClasses(visitor FieldVisitor, client_data ClientData) 
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_visitCXXBaseClasses,
 		ptr_clang_visitCXXBaseClasses,
 		unsafe.Pointer(&retC),
@@ -11418,7 +11418,7 @@ func (t Type) VisitCXXMethods(visitor FieldVisitor, client_data ClientData) uint
 		unsafe.Pointer(&c_client_data),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_visitCXXMethods,
 		ptr_clang_visitCXXMethods,
 		unsafe.Pointer(&retC),
@@ -11446,7 +11446,7 @@ func (parent Cursor) VisitChildrenWithBlock(block CursorVisitorBlock) uint32 {
 		unsafe.Pointer(&c_block),
 	}
 
-	err := ffi.CallFunction(
+	_, err := ffi.CallFunction(
 		cif_clang_visitChildrenWithBlock,
 		ptr_clang_visitChildrenWithBlock,
 		unsafe.Pointer(&retC),

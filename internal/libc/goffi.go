@@ -54,7 +54,7 @@ func init() {
 
 func free(ptr *byte) {
 	args := []unsafe.Pointer{unsafe.Pointer(&ptr)}
-	err := ffi.CallFunction(cif_free, ptr_free, nil, args)
+	_, err := ffi.CallFunction(cif_free, ptr_free, nil, args)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call free : %s", err))
 	}
@@ -63,7 +63,7 @@ func free(ptr *byte) {
 func malloc(length int) *byte {
 	var retC unsafe.Pointer
 	args := []unsafe.Pointer{unsafe.Pointer(&length)}
-	err := ffi.CallFunction(cif_malloc, ptr_malloc, unsafe.Pointer(&retC), args)
+	_, err := ffi.CallFunction(cif_malloc, ptr_malloc, unsafe.Pointer(&retC), args)
 	if err != nil {
 		panic(fmt.Sprintf("failed to call malloc : %s", err))
 	}
